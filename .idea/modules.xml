@@ -3,6 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/Praktikums Aufgabe 1/Praktikums Aufgabe 1.iml" filepath="$PROJECT_DIR$/Praktikums Aufgabe 1/Praktikums Aufgabe 1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Praktikums Aufgabe 2/Praktikums Aufgabe 2.iml" filepath="$PROJECT_DIR$/Praktikums Aufgabe 2/Praktikums Aufgabe 2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Praktikums Aufgabe 3/Praktikums Aufgabe 3.iml" filepath="$PROJECT_DIR$/Praktikums Aufgabe 3/Praktikums Aufgabe 3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Praktikums Aufgabe 4/Praktikums Aufgabe 4.iml" filepath="$PROJECT_DIR$/Praktikums Aufgabe 4/Praktikums Aufgabe 4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Praktikums Aufgabe 5/Praktikums Aufgabe 5.iml" filepath="$PROJECT_DIR$/Praktikums Aufgabe 5/Praktikums Aufgabe 5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Praktikums Aufgabe 6/Praktikums Aufgabe 6.iml" filepath="$PROJECT_DIR$/Praktikums Aufgabe 6/Praktikums Aufgabe 6.iml" />
       <module fileurl="file://$PROJECT_DIR$/Programmieren-2-Praktikum.iml" filepath="$PROJECT_DIR$/Programmieren-2-Praktikum.iml" />
     </modules>
   </component>
