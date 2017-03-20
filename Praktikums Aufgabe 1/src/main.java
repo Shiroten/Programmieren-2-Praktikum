@@ -10,7 +10,9 @@ public class main {
         gui.draw(field);
 
         for (int i = 0; i < 49; i++) {
-            field = engine.insert(field, gui.userInteraction(i%2+1), 'x', emptyPlaceholder);
+            field = engine.insert(field, gui.userInteraction(1), 'x', emptyPlaceholder);
+            gui.draw(field);
+            field = engine.insert(field, gui.userInteraction(2), 'o', emptyPlaceholder);
             gui.draw(field);
         }
         //testInsert (field, emptyPlaceholder);
