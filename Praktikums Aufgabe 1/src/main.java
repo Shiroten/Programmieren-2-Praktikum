@@ -3,7 +3,7 @@ import java.io.IOException;
 public class main {
 
     public static void main(String[] args) throws IOException {
-        char emptyPlaceholder = '+';
+        /*char emptyPlaceholder = '+';
 
         char field[][] = engine.createField();
         field = engine.fillField(field, emptyPlaceholder);
@@ -14,7 +14,27 @@ public class main {
             gui.draw(field);
             field = engine.insert(field, gui.userInteraction(2), 'o', emptyPlaceholder);
             gui.draw(field);
-        }
+        }*/
+
+        GameBoard board = new GameBoard(5, 5);
+        int row;
+        board.printBoard();
+
+        board.insertChip('O', 1);
+        board.insertChip('O', 1);
+        board.insertChip('O', 1);
+        row = board.insertChip('X', 1);
+
+        board.insertChip('O', 2);
+        board.insertChip('O', 3);
+        row = board.insertChip('O', 4);
+
+
+
+        board.printBoard();
+        if(board.checkWin(0, row))
+            System.out.println("Gewonnen!" + row);
+
         //testInsert (field, emptyPlaceholder);
 
     }
