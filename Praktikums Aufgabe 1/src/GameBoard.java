@@ -15,6 +15,10 @@ public class GameBoard {
         return heigth;
     }
 
+    public char[][] getBoard(){
+        return board;
+    }
+
     //Konstruktor
     public GameBoard(int width, int heigth){
         this.width = width;
@@ -41,7 +45,7 @@ public class GameBoard {
     }
 
     //Initialisiert das Brett mit leeren Feldern
-    public void setBoard(int width, int heigth) {
+    private void setBoard(int width, int heigth) {
         this.board = new char[width][heigth];
 
         for (int i = 0; i < heigth; i++) {
@@ -61,7 +65,7 @@ public class GameBoard {
     }
 
     //Findet die Zeile raus, in der ein Spielstein landet, wenn er in eine Spalte geworfen wird
-    public int getDrop(int column){
+    private int getDrop(int column){
         if(column > width)
             return -1;
         for (int i = heigth - 1; i >= 0; i--) {
@@ -107,14 +111,14 @@ public class GameBoard {
         //Stößt man aber an die Grenze des Bretts, kann nur ab oder bis zu dieser gesucht werden.
         int columnMin = (column-3 < 0 ? 0 : column-3); //Läuft durch die Höhe
         int rowMin = (row - 3 < 0 ? 0 : row -3); //Läuft durch die Breite
-        int columnMax = (column + 2 > heigth ? heigth -1 : column);
-        int rowMax = (row +2 > width ? width -1 : row);
+        int columnMax = (column + 2 >= heigth ? heigth -1 : column + 2);
+        int rowMax = (row +2 >= width ? width -1 : row + 2);
 
         //Erste Schleife geht von oben links nach unten rechts
         int counter = 0;
         for(int i = columnMin; i < columnMax; i++){
             for(int j = rowMin; j < rowMax; j++){
-                if(board[j][i] == board[j+1][i+1])
+                if(board[j][i] == board[j+1][i+1] && board[j][i] != empty)
                     counter ++;
                 else
                     counter = 0;
@@ -123,10 +127,11 @@ public class GameBoard {
             }
         }
 
+        //Zweite Schleife geht von unten links noch oben rechts
         counter = 0;
         for(int i = columnMax; i > columnMin; i--){
             for(int j = rowMin; j < rowMax; j++){
-                if(board[j][i] == board[j+1][i-1])
+                if(board[j][i] == board[j+1][i-1] && board[j][i] != empty)
                     counter++;
                 else
                     counter = 0;
@@ -139,14 +144,6 @@ public class GameBoard {
     }
 
     public boolean checkWin(int column, int row){
-        if(checkRow(row))
-            return true;
-        else if(checkColumn(column))
-            return true;
-        else if(checkDiagonal(column,row))
-            return true;
-        else
-            return false;
-
+        return (checkColumn(column) || checkRow(row) || checkDiagonal(column, row));
     }
 }
