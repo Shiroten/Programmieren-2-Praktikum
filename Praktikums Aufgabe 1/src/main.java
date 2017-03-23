@@ -76,6 +76,7 @@ public class main {
                         default:
                             System.out.println("Spieler 2, gib die gewünschte Reihe an: ");
                             newColumn = reader.nextInt();
+                            break;
                     }
 
                     int newRow = board.insertChip('X', newColumn);
