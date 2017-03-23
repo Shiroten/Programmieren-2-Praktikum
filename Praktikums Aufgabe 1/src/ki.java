@@ -5,7 +5,7 @@ public class ki {
 
     public static int zug(GameBoard board, int kiStrength) {
 
-        int returnValue = 0;
+        int returnValue = 1;
 
         switch (kiStrength) {
 
@@ -26,7 +26,7 @@ public class ki {
 
                     gewinnAnzahl = 0;
                     //Berechnung von Wie oft wurde gewonnen
-                    for (int j = 0; j < 1000; j++) {
+                    for (int j = 0; j < 100; j++) {
                         if (spielLogik(kiBoard, i) == 1)
                             gewinnAnzahl++;
                     }
@@ -59,8 +59,7 @@ public class ki {
             if (spieler) {
                 int newColumn = (int) (Math.random() * kiBoard.getWidth());
                 int newRow = kiBoard.insertChip('O', newColumn);
-                if (newRow == -1) break;
-                else {
+                if (newRow != -1){
                     spieler = !spieler;
                     row = newRow;
                     column = newColumn - 1;
@@ -72,12 +71,11 @@ public class ki {
                 int newColumn;
                 if (counter == 0) {
                     newColumn = anfangsReihe;
-                }else{
+                } else {
                     newColumn = (int) (Math.random() * kiBoard.getWidth());
                 }
                 int newRow = kiBoard.insertChip('X', newColumn);
-                if (newRow == -1) break;
-                else {
+                if (newRow != -1){
                     spieler = !spieler;
                     row = newRow;
                     column = newColumn - 1;
