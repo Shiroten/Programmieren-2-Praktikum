@@ -29,19 +29,22 @@ public class GameBoard {
     //Gibt das aktuelle Spielbrett auf der Konsole aus
     //Über und unter dem Brett werden die Spaltenzahlen gedruckt, sowie Trennlinien zur besseren Übersicht
     public void printBoard() {
+
+        System.out.println();
         for (int i = 0; i < heigth +4; i++) {
             for (int j = 0; j < width; j++) {
                 if(i == 0 || i == heigth +3)
-                    System.out.print(j+1);
+                    System.out.printf("%03d|",j+1);
                 else if(i == 1)
-                    System.out.print('v');
+                    System.out.print("vvv|");
                 else if(i == heigth +2)
-                    System.out.print('-');
+                    System.out.print("---|");
                 else
-                    System.out.print(board[j][i-2]);
+                    System.out.printf(" %c |", board[j][i-2]);
             }
             System.out.println();
         }
+        System.out.println();
     }
 
     //Initialisiert das Brett mit leeren Feldern
