@@ -127,10 +127,24 @@ public class GameBoard {
         int columnMax = (column + 2 >= heigth ? heigth - 1 : column + 2);
         int rowMax = (row + 2 >= width ? width - 1 : row + 2);
 
+        int leftMin = (columnMin < rowMin ? columnMin : rowMin);
+        int rightMin = (columnMax < rowMax ? columnMax : rowMax);
+
         //Erste Schleife geht von oben links nach unten rechts
         int counter = 0;
+        for(int i = 0; i <= rowMin + (width - columnMax); i++){
+            System.out.println("Field One:" + board[columnMin + i][rowMin +i] + "Field Two:" + board[columnMin + i + 1][rowMin + i + 1]);
+            if(board[columnMin + i][rowMin +i] == board[columnMin + i + 1][rowMin + i + 1] && board[columnMin + i][rowMin +i] != empty)
+                counter++;
+            else
+                counter = 0;
+            if (counter == 3)
+                return true;
+        }
+        /*
         for (int i = columnMin; i < columnMax; i++) {
             for (int j = rowMin; j < rowMax; j++) {
+                System.out.println("Current Field: " + board[j][i] + " Next Field: " + board[j+1][i+1]);
                 if (board[j][i] == board[j + 1][i + 1] && board[j][i] != empty)
                     counter++;
                 else
@@ -151,7 +165,7 @@ public class GameBoard {
                 if (counter == 3)
                     return true;
             }
-        }
+        }*/
 
         return false;
     }

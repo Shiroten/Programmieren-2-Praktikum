@@ -34,7 +34,22 @@ public class main {
 
         GameBoard board = new GameBoard(width, heigth);
 
-        int row = 0, column = 0;
+        board.insertChip('O', 1);
+        board.insertChip('X', 1);
+        board.insertChip('X', 2);
+        board.insertChip('O', 2);
+        board.insertChip('O', 3);
+        board.insertChip('X', 3);
+        board.insertChip('X', 4);
+        board.insertChip('O', 4);
+        board.insertChip('O', 5);
+        board.insertChip('X', 6);
+        board.insertChip('O', 7);
+        board.insertChip('X', 5);
+
+        board.printBoard();
+
+        int row = 5, column = 4;
         boolean spieler = true;
         while (!board.checkWin(column, row)) {
             board.printBoard();
@@ -42,6 +57,7 @@ public class main {
                 try {
                     System.out.println("Spieler 1, gib die gewünschte Reihe an: ");
                     int newColumn = reader.nextInt();
+                    //reader.nextLine();
                     int newRow = board.insertChip('O', newColumn);
                     if (newRow == -1)
                         System.out.println("Bitte richtige Reihe angeben.");
@@ -56,20 +72,22 @@ public class main {
                     }
                 } catch (Exception e) {
                     reader.nextLine();
-                    System.out.println("Bitte nur Zahlen eingeben!");
+                    System.out.println("Bitte nur Zahlen eingeben, Spieler 1!");
                 }
             } else {
                 try {
                     int newColumn;
 
                     //Überprüfung auf KI Stufe 0,1,2.....
-                    switch (args[0]) {
+                    switch ("3") {
 
                         case "0":
+                            System.out.println("KI 1:");
                             newColumn = ki.zug(board, 0);
                             break;
 
                         case "1":
+                            System.out.println("KI 2:");
                             newColumn = ki.zug(board, 1);
                             break;
 
@@ -93,7 +111,7 @@ public class main {
                     }
                 } catch (Exception e) {
                     reader.nextLine();
-                    System.out.println("Bitte nur Zahlen eingeben!");
+                    System.out.println("Bitte nur Zahlen eingeben, Spieler 2!");
                 }
             }
         }
