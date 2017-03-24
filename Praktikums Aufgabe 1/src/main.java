@@ -39,14 +39,14 @@ public class main {
         GameBoard board = new GameBoard(width, heigth);
 
         int row = 0, column = 0;
-        boolean spieler = true;
-        while (!board.checkWin(column, row)) {
+        boolean spieler = board.getSpieler();
+        while (!board.checkWin(board.getColumn(), board.getRow())) {
             board.printBoard();
             if (spieler) {
                 //Zug von Spieler 1
-                spieler = spielZüge(aufrufParameter, board, spieler, row, column);
+                spieler = spielZüge(aufrufParameter, board).getSpieler();
             } else {
-                spieler = spielZüge(aufrufParameter, board, spieler, row, column);
+                spieler = spielZüge(aufrufParameter, board).getSpieler();
             }
         }
     }
@@ -61,6 +61,7 @@ public class main {
             System.out.printf("Spieler %d, gib die gewünschte Reihe an: ", Spieler);
             try {
                 returnValue = userReader.nextInt();
+
                 input = true;
             } catch (Exception e) {
                 userReader.nextLine();
@@ -86,19 +87,19 @@ public class main {
                 break;
 
             default:
-                newColumn = userInteraction(1);
+                newColumn = userInteraction(2);
                 break;
         }
         return newColumn;
     }
 
-    private static boolean spielZüge(String aufrufParameter, GameBoard board, boolean spieler, int row, int column) {
+    private static GameBoard spielZüge(String aufrufParameter, GameBoard board) {
 
         int newColumn;
         char chip;
         String winMessage;
 
-        if (spieler) {
+        if (board.getSpieler()) {
             newColumn = userInteraction(1);
             chip = 'O';
             winMessage = "Sieg für Spieler 1";
@@ -112,15 +113,15 @@ public class main {
         if (newRow == -1)
             System.out.println("Bitte richtige Reihe angeben.");
         else {
-            spieler = !spieler;
-            row = newRow;
-            column = newColumn - 1;
-            if (board.checkWin(column, row)) {
+            board.setSpieler(!board.getSpieler());
+            board.setRow(newRow);
+            board.setColumn(newColumn - 1);
+            if (board.checkWin(board.getColumn(), board.getRow())) {
                 board.printBoard();
                 System.out.println(winMessage);
             }
         }
-        return spieler;
+        return board;
     }
 
     private static void test() {

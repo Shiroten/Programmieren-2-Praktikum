@@ -4,8 +4,11 @@
 public class GameBoard {
     private int width, heigth;
     private char[][] board;
-
+    private boolean spieler = true;
+    private int row = 0, column = 0;
+    private boolean anfang = true;
     private char empty = '.', player1 = 'X', player2 = 'O';
+
 
     public int getWidth() {
         return width;
@@ -18,6 +21,39 @@ public class GameBoard {
     public char[][] getBoard() {
         return board;
     }
+
+    public boolean getSpieler() {
+        return spieler;
+    }
+
+    public void setSpieler(boolean spieler) {
+        this.spieler = spieler;
+    }
+
+    public boolean getAnfang() {
+        return anfang;
+    }
+
+    public void setAnfang(boolean anfang) {
+        this.anfang = anfang;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public int getColumn() {
+        return column;
+    }
+
+    public void setColumn(int column) {
+        this.row = column;
+    }
+
 
     public GameBoard copyBoard() {
         GameBoard copyBoard = new GameBoard(this.width, this.heigth);
