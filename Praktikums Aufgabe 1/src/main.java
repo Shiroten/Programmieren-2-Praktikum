@@ -10,7 +10,6 @@ public class main {
         }
         Scanner reader = new Scanner(System.in);  // Reading from System.in
 
-
         boolean input = false;
         int width = 0, heigth = 0;
         while (!input) {
@@ -42,6 +41,7 @@ public class main {
         while (!board.checkWin(column, row)) {
             board.printBoard();
             if (spieler) {
+                //Zug von Spieler 1
                 int newColumn = userInteraction(1);
                 int newRow = board.insertChip('O', newColumn);
                 if (newRow == -1)
@@ -56,6 +56,7 @@ public class main {
                     }
                 }
             } else {
+                //Zug von Spieler 2
                 int newColumn;
                 newColumn = kiSwitch(aufrufParameter, board);
                 int newRow = board.insertChip('X', newColumn);

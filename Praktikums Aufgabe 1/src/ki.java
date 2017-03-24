@@ -28,7 +28,7 @@ public class ki {
 
                     //Berechnung von Wie oft wurde gewonnen
                     for (int j = 0; j < 10; j++) {
-                        if (spielLogik(kiBoard, i + 1) == 1) {
+                        if (simulation(kiBoard, i + 1) == 1) {
                             gewinnAnzahl++;
                         }
                     }
@@ -54,49 +54,42 @@ public class ki {
         return returnValue;
     }
 
+    private static int simulation(GameBoard kiBoard, int anfangsReihe) {
 
-    private static int spielLogik(GameBoard kiBoard, int anfangsReihe) {
-        int returnValue = 0;
-        int row = 0, column = 0;
-        boolean spieler = true;
-        int counter = 0;
-
+        int row = 0, column = 0, returnValue = 0;
+        boolean spieler = false, anfang = true;
         while (!kiBoard.checkWin(column, row)) {
+
             if (spieler) {
+                //Simulation Spieler Zug
                 int newColumn = (int) ((Math.random() * kiBoard.getWidth()) + 1);
-                //System.out.println("newColumn: " + newColumn);
                 int newRow = kiBoard.insertChip('O', newColumn);
-                if (newRow != -1) {
-                    newColumn = (int) ((Math.random() * kiBoard.getWidth()) + 1);
-                } else {
-                    spieler = !spieler;
-                    row = newRow;
-                    column = newColumn - 1;
-                    if (kiBoard.checkWin(column, row)) {
-                        returnValue = -1;
-                    }
+                spieler = !spieler;
+                row = newRow;
+                column = newColumn - 1;
+                if (kiBoard.checkWin(column, row)) {
+                    returnValue = -1;
                 }
+
             } else {
+                //Simulation KI Zug
                 int newColumn;
-                if (counter == 0) {
+                if (anfang == true) { //Erster Zug bestimmt durch die Anfangs Reihe
                     newColumn = anfangsReihe;
+                    anfang = false;
                 } else {
                     newColumn = (int) ((Math.random() * kiBoard.getWidth()) + 1);
                 }
                 int newRow = kiBoard.insertChip('X', newColumn);
-                if (newRow == -1)
-                    newColumn = (int) ((Math.random() * kiBoard.getWidth()) + 1);
-                else {
-                    spieler = !spieler;
-                    row = newRow;
-                    column = newColumn - 1;
-                    if (kiBoard.checkWin(column, row)) {
-                        returnValue = 1;
-                    }
+                spieler = !spieler;
+                row = newRow;
+                column = newColumn - 1;
+                if (kiBoard.checkWin(column, row)) {
+                    returnValue = 1;
                 }
             }
-            counter++;
         }
+        //Übergibt 1 beim gewinnen, -1 beim verlieren und 0 bei unentschieden
         return returnValue;
     }
 }
