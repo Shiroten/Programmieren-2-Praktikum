@@ -4,7 +4,6 @@ import java.util.Scanner;
 public class main {
 
     public static void main(String[] args) throws IOException {
-
         String aufrufParameter = "";
         if (args.length > 0) {
             aufrufParameter = args[0];
@@ -43,63 +42,33 @@ public class main {
         while (!board.checkWin(column, row)) {
             board.printBoard();
             if (spieler) {
-                try {
-                    System.out.println("Spieler 1, gib die gewünschte Reihe an: ");
-                    int newColumn = reader.nextInt();
-                    int newRow = board.insertChip('O', newColumn);
-                    if (newRow == -1)
-                        System.out.println("Bitte richtige Reihe angeben.");
-                    else {
-                        spieler = !spieler;
-                        row = newRow;
-                        column = newColumn - 1;
-                        if (board.checkWin(column, row)) {
-                            board.printBoard();
-                            System.out.println("Sieg für Spieler 1!");
-                        }
+                int newColumn = userInteraction(1);
+                int newRow = board.insertChip('O', newColumn);
+                if (newRow == -1)
+                    System.out.println("Bitte richtige Reihe angeben.");
+                else {
+                    spieler = !spieler;
+                    row = newRow;
+                    column = newColumn - 1;
+                    if (board.checkWin(column, row)) {
+                        board.printBoard();
+                        System.out.println("Sieg für Spieler 1!");
                     }
-                } catch (Exception e) {
-                    reader.nextLine();
-                    System.out.println("Bitte nur Zahlen eingeben!");
                 }
             } else {
-                try {
-                    int newColumn;
-
-                    //newColumn = kiSwitch (aufrufParameter, board);
-
-                    //Überprüfung auf KI Stufe 0,1,2.....
-                    switch (aufrufParameter) {
-
-                        case "0":
-                            newColumn = ki.zug(board, 0);
-                            break;
-
-                        case "1":
-                            newColumn = ki.zug(board, 1);
-                            break;
-
-                        default:
-                            System.out.println("Spieler 2, gib die gewünschte Reihe an: ");
-                            newColumn = reader.nextInt();
-                            break;
+                int newColumn;
+                newColumn = kiSwitch(aufrufParameter, board);
+                int newRow = board.insertChip('X', newColumn);
+                if (newRow == -1)
+                    System.out.println("Bitte richtige Reihe angeben.");
+                else {
+                    spieler = !spieler;
+                    row = newRow;
+                    column = newColumn - 1;
+                    if (board.checkWin(column, row)) {
+                        board.printBoard();
+                        System.out.println("Sieg für Spieler 2!");
                     }
-
-                    int newRow = board.insertChip('X', newColumn);
-                    if (newRow == -1)
-                        System.out.println("Bitte richtige Reihe angeben.");
-                    else {
-                        spieler = !spieler;
-                        row = newRow;
-                        column = newColumn - 1;
-                        if (board.checkWin(column, row)) {
-                            board.printBoard();
-                            System.out.println("Sieg für Spieler 2!");
-                        }
-                    }
-                } catch (Exception e) {
-                    reader.nextLine();
-                    System.out.println("Bitte nur Zahlen eingeben!");
                 }
             }
         }
@@ -121,7 +90,7 @@ public class main {
                 System.out.println("Bitte nur Zahlen eingeben");
             }
         }
-        userReader.close();
+        //userReader.close();
         return returnValue;
     }
 
