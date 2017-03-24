@@ -11,24 +11,26 @@ public class ki {
 
             case 0:
                 //Random Number KI
-                returnValue = (int) (Math.random() * board.getWidth());
+                returnValue = (int) ((Math.random() * board.getWidth()) + 1);
                 break;
 
             case 1:
                 //Monte Carlo
                 int gewinnAnzahl;
-                GameBoard kiBoard = board.copyBoard();
-
-                int Reihen = kiBoard.getWidth();
+                int Reihen = board.getWidth();
                 int[] zugMoeglichkeiten = new int[Reihen];
 
                 for (int i = 0; i < Reihen; i++) {
 
+                    //Versuche resetten
                     gewinnAnzahl = 0;
+                    GameBoard kiBoard = board.copyBoard();
+
                     //Berechnung von Wie oft wurde gewonnen
-                    for (int j = 0; j < 100; j++) {
-                        if (spielLogik(kiBoard, i) == 1)
+                    for (int j = 0; j < 10000; j++) {
+                        if (spielLogik(kiBoard, i) == 1) {
                             gewinnAnzahl++;
+                        }
                     }
                     zugMoeglichkeiten[i] = gewinnAnzahl;
                 }
@@ -43,7 +45,8 @@ public class ki {
                         besterZug = i;
                     }
                 }
-                returnValue = besterZug;
+                System.out.println("besterzug: " + (besterZug + 1));
+                returnValue = besterZug + 1;
         }
         return returnValue;
     }
@@ -57,9 +60,10 @@ public class ki {
 
         while (!kiBoard.checkWin(column, row)) {
             if (spieler) {
-                int newColumn = (int) (Math.random() * kiBoard.getWidth());
+                int newColumn = (int) ((Math.random() * kiBoard.getWidth()) + 1);
+                //System.out.println("newColumn: " + newColumn);
                 int newRow = kiBoard.insertChip('O', newColumn);
-                if (newRow != -1){
+                if (newRow != -1) {
                     spieler = !spieler;
                     row = newRow;
                     column = newColumn - 1;
@@ -72,10 +76,10 @@ public class ki {
                 if (counter == 0) {
                     newColumn = anfangsReihe;
                 } else {
-                    newColumn = (int) (Math.random() * kiBoard.getWidth());
+                    newColumn = (int) ((Math.random() * kiBoard.getWidth()) + 1);
                 }
                 int newRow = kiBoard.insertChip('X', newColumn);
-                if (newRow != -1){
+                if (newRow != -1) {
                     spieler = !spieler;
                     row = newRow;
                     column = newColumn - 1;
