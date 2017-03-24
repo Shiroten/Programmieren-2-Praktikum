@@ -27,12 +27,14 @@ public class ki {
                     GameBoard kiBoard = board.copyBoard();
 
                     //Berechnung von Wie oft wurde gewonnen
-                    for (int j = 0; j < 10000; j++) {
-                        if (spielLogik(kiBoard, i) == 1) {
+                    for (int j = 0; j < 100000; j++) {
+                        if (spielLogik(kiBoard, i+1) == 1) {
                             gewinnAnzahl++;
                         }
                     }
                     zugMoeglichkeiten[i] = gewinnAnzahl;
+                    System.out.println(i + ". gewinnAnzahl: " + gewinnAnzahl);
+
                 }
 
                 //Bestimmen des Besten Zugs
@@ -44,6 +46,7 @@ public class ki {
                         besterZugWahrscheinlichkeit = zugMoeglichkeiten[i];
                         besterZug = i;
                     }
+                    System.out.println(zugMoeglichkeiten[i]);
                 }
                 System.out.println("besterzug: " + (besterZug + 1));
                 returnValue = besterZug + 1;
