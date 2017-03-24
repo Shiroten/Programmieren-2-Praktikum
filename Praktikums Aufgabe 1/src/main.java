@@ -4,7 +4,11 @@ import java.util.Scanner;
 public class main {
 
     public static void main(String[] args) throws IOException {
-        String aufrufParameter = args[0];
+
+        String aufrufParameter = "";
+        if (args.length > 0) {
+            aufrufParameter = args[0];
+        }
         Scanner reader = new Scanner(System.in);  // Reading from System.in
 
 
@@ -101,7 +105,7 @@ public class main {
         }
     }
 
-    private static int userInteraction(int Spieler, int width){
+    private static int userInteraction(int Spieler, int width) {
 
         Scanner userReader = new Scanner(System.in);
         int returnValue = 0;
@@ -121,7 +125,7 @@ public class main {
         return returnValue;
     }
 
-    private static int kiSwitch(String aufrufParameter, int width, GameBoard board){
+    private static int kiSwitch(String aufrufParameter, int width, GameBoard board) {
 
         int newColumn;
         //Überprüfung auf KI Stufe 0,1,2.....
