@@ -5,50 +5,53 @@ public class simulation {
 
     public static int doIt(GameBoard kiBoard, int anfangsReihe) {
 
-        kiBoard.setRow(0);
-        kiBoard.setColumn(0);
+        GameBoard simuBoard = kiBoard.copyBoard();
+        simuBoard.setSpieler(false);
+        simuBoard.setRow(0);
+        simuBoard.setColumn(0);
         int returnValue = 0;
 
-        boolean spieler = kiBoard.getSpieler();
-        kiBoard.setAnfang(true);
+        boolean spieler = simuBoard.getSpieler();
+        simuBoard.setAnfang(true);
 
-        while (!kiBoard.checkWin(kiBoard.getColumn(), kiBoard.getRow())) {
-            kiBoard.printBoard();
+        while (simuBoard.checkWin2(simuBoard.getColumn(), simuBoard.getRow())==0) {
             if (spieler) {
-                spieler = Züge(anfangsReihe, kiBoard).getSpieler();
-                returnValue = kiBoard.checkWin2(kiBoard.getColumn(), kiBoard.getRow());
+                simuBoard = Züge(anfangsReihe, simuBoard);
+                spieler = simuBoard.getSpieler();
+                returnValue = simuBoard.checkWin2(simuBoard.getColumn(), simuBoard.getRow());
             } else {
-                spieler = Züge(anfangsReihe, kiBoard).getSpieler();
-                returnValue = kiBoard.checkWin2(kiBoard.getColumn(), kiBoard.getRow());
+                simuBoard = Züge(anfangsReihe, simuBoard);
+                spieler = simuBoard.getSpieler();
+                returnValue = simuBoard.checkWin2(simuBoard.getColumn(), simuBoard.getRow());
             }
         }
         return returnValue;
     }
 
-    private static GameBoard Züge(int anfangsReihe, GameBoard kiBoard) {
+    private static GameBoard Züge(int anfangsReihe, GameBoard simuBoard) {
 
         int returnValue = 0;
         int newColumn;
         char chip;
 
-        if (kiBoard.getSpieler()) {
+        if (simuBoard.getSpieler()) {
             chip = 'O';
-            newColumn = (int) ((Math.random() * kiBoard.getWidth()) + 1);
+            newColumn = (int) ((Math.random() * simuBoard.getWidth()) + 1);
         } else {
             chip = 'X';
-            if (kiBoard.getAnfang()) { //Erster Zug bestimmt durch die Anfangs Reihe
+            if (simuBoard.getAnfang()) { //Erster Zug bestimmt durch die Anfangs Reihe
                 newColumn = anfangsReihe;
-                kiBoard.setAnfang(false);
+                simuBoard.setAnfang(false);
             } else {
-                newColumn = (int) ((Math.random() * kiBoard.getWidth()) + 1);
+                newColumn = (int) ((Math.random() * simuBoard.getWidth()) + 1);
             }
         }
-        int newRow = kiBoard.insertChip(chip, newColumn);
+        int newRow = simuBoard.insertChip(chip, newColumn);
         if (newRow != -1) {
-            kiBoard.setSpieler(!kiBoard.getSpieler());
-            kiBoard.setRow(newRow);
-            kiBoard.setColumn(newColumn - 1);
+            simuBoard.setSpieler(!simuBoard.getSpieler());
+            simuBoard.setRow(newRow);
+            simuBoard.setColumn(newColumn - 1);
         }
-        return kiBoard;
+        return simuBoard;
     }
 }

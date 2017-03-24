@@ -62,6 +62,11 @@ public class GameBoard {
                 copyBoard.board[j][i] = this.board[j][i];
             }
         }
+        copyBoard.setSpieler(this.spieler);
+        copyBoard.setRow(this.row);
+        copyBoard.setColumn(this.column);
+        copyBoard.setAnfang(this.anfang);
+
         return copyBoard;
     }
 
