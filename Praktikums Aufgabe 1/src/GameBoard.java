@@ -115,7 +115,7 @@ public class GameBoard {
 
     //Findet die Zeile raus, in der ein Spielstein landet, wenn er in eine Spalte geworfen wird
     private int getDrop(int column) {
-        if (column > width)
+        if (column >= width)
             return -1;
         for (int i = heigth - 1; i >= 0; i--) {
             if (board[column][i] == empty)

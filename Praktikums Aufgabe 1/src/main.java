@@ -38,15 +38,18 @@ public class main {
 
         GameBoard board = new GameBoard(width, heigth);
 
-        int row = 0, column = 0;
         boolean spieler = board.getSpieler();
         while (!board.checkWin(board.getColumn(), board.getRow())) {
             board.printBoard();
             if (spieler) {
                 //Zug von Spieler 1
-                spieler = spielZüge(aufrufParameter, board).getSpieler();
+                board = spielZüge(aufrufParameter, board);
+                spieler = board.getSpieler();
+
             } else {
-                spieler = spielZüge(aufrufParameter, board).getSpieler();
+                //Zug von Spieler 2
+                board = spielZüge(aufrufParameter, board);
+                spieler = board.getSpieler();
             }
         }
     }
@@ -61,7 +64,6 @@ public class main {
             System.out.printf("Spieler %d, gib die gewünschte Reihe an: ", Spieler);
             try {
                 returnValue = userReader.nextInt();
-
                 input = true;
             } catch (Exception e) {
                 userReader.nextLine();
