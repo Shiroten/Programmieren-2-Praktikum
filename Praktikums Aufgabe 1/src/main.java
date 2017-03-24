@@ -66,7 +66,7 @@ public class main {
                 try {
                     int newColumn;
 
-                    //newColumn = kiSwitch (aufrufParameter, width, board);
+                    //newColumn = kiSwitch (aufrufParameter, board);
 
                     //Überprüfung auf KI Stufe 0,1,2.....
                     switch (aufrufParameter) {
@@ -105,7 +105,7 @@ public class main {
         }
     }
 
-    private static int userInteraction(int Spieler, int width) {
+    private static int userInteraction(int Spieler) {
 
         Scanner userReader = new Scanner(System.in);
         int returnValue = 0;
@@ -125,7 +125,7 @@ public class main {
         return returnValue;
     }
 
-    private static int kiSwitch(String aufrufParameter, int width, GameBoard board) {
+    private static int kiSwitch(String aufrufParameter, GameBoard board) {
 
         int newColumn;
         //Überprüfung auf KI Stufe 0,1,2.....
@@ -140,7 +140,7 @@ public class main {
                 break;
 
             default:
-                newColumn = userInteraction(1, width);
+                newColumn = userInteraction(1);
                 break;
         }
         return newColumn;
