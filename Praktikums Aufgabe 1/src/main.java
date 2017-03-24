@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class main {
 
     public static void main(String[] args) throws IOException {
-
+        String aufrufParameter = args[0];
         Scanner reader = new Scanner(System.in);  // Reading from System.in
 
 
@@ -63,7 +63,7 @@ public class main {
                     int newColumn;
 
                     //Überprüfung auf KI Stufe 0,1,2.....
-                    switch (args[0]) {
+                    switch (aufrufParameter) {
 
                         case "0":
                             newColumn = ki.zug(board, 0);

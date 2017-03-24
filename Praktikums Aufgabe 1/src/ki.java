@@ -27,8 +27,8 @@ public class ki {
                     GameBoard kiBoard = board.copyBoard();
 
                     //Berechnung von Wie oft wurde gewonnen
-                    for (int j = 0; j < 100000; j++) {
-                        if (spielLogik(kiBoard, i+1) == 1) {
+                    for (int j = 0; j < 10; j++) {
+                        if (spielLogik(kiBoard, i + 1) == 1) {
                             gewinnAnzahl++;
                         }
                     }
@@ -67,6 +67,8 @@ public class ki {
                 //System.out.println("newColumn: " + newColumn);
                 int newRow = kiBoard.insertChip('O', newColumn);
                 if (newRow != -1) {
+                    newColumn = (int) ((Math.random() * kiBoard.getWidth()) + 1);
+                } else {
                     spieler = !spieler;
                     row = newRow;
                     column = newColumn - 1;
@@ -82,7 +84,9 @@ public class ki {
                     newColumn = (int) ((Math.random() * kiBoard.getWidth()) + 1);
                 }
                 int newRow = kiBoard.insertChip('X', newColumn);
-                if (newRow != -1) {
+                if (newRow == -1)
+                    newColumn = (int) ((Math.random() * kiBoard.getWidth()) + 1);
+                else {
                     spieler = !spieler;
                     row = newRow;
                     column = newColumn - 1;
