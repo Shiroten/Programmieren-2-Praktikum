@@ -62,6 +62,8 @@ public class main {
                 try {
                     int newColumn;
 
+                    //newColumn = kiSwitch (aufrufParameter, width, board);
+
                     //Überprüfung auf KI Stufe 0,1,2.....
                     switch (aufrufParameter) {
 
@@ -97,6 +99,47 @@ public class main {
                 }
             }
         }
+    }
+
+    private static int userInteraction(int Spieler, int width){
+
+        Scanner userReader = new Scanner(System.in);
+        int returnValue = 0;
+
+        boolean input = false;
+        while (!input) {
+            System.out.printf("Spieler %d, gib die gewünschte Reihe an: ", Spieler);
+            try {
+                returnValue = userReader.nextInt();
+                input = true;
+            } catch (Exception e) {
+                userReader.nextLine();
+                System.out.println("Bitte nur Zahlen eingeben");
+            }
+        }
+        userReader.close();
+        return returnValue;
+    }
+
+    private static int kiSwitch(String aufrufParameter, int width, GameBoard board){
+
+        int newColumn;
+        //Überprüfung auf KI Stufe 0,1,2.....
+        switch (aufrufParameter) {
+
+            case "0":
+                newColumn = ki.zug(board, 0);
+                break;
+
+            case "1":
+                newColumn = ki.zug(board, 1);
+                break;
+
+            default:
+                newColumn = userInteraction(1, width);
+                break;
+        }
+        return newColumn;
     }
 
 }
