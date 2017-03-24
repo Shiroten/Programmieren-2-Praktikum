@@ -159,4 +159,50 @@ public class GameBoard {
     public boolean checkWin(int column, int row) {
         return (checkColumn(column) || checkRow(row) || checkDiagonal(column, row));
     }
+
+    public int checkWin2(int column, int row) {
+
+        int returnValue = 0;
+        char startChar = this.board[row][column];
+        boolean win = false;
+
+        win = checkWinVector(startChar, column, row, -1, 1) //diagonale Oben links
+                || checkWinVector(startChar, column, row, -1, 0) //links
+                || checkWinVector(startChar, column, row, -1, -1) //diagonal links unten
+                || checkWinVector(startChar, column, row, 0, -1) //unten
+                || checkWinVector(startChar, column, row, 1, -1) //unten rechts
+                || checkWinVector(startChar, column, row, 1, 0) //rechts
+                || checkWinVector(startChar, column, row, 1, 1) //rechts oben
+                || checkWinVector(startChar, column, row, 0, 1); //oben
+
+        if (startChar == 'X' && win)
+            returnValue = -1;
+
+        if (startChar == 'O' && win)
+            returnValue = 1;
+
+        return returnValue;
+    }
+
+    public boolean checkWinVector(char startChar, int column, int row, int offsetX, int offsetY) {
+
+        for (int i = 0; i < 3; i++) {
+
+            int x = row + offsetX * i;
+            if (x <= 0) x = 0;
+            if (x >= width) x = width - 1;
+
+            int y = column + offsetY * i;
+            if (y <= 0) y = 0;
+            if (y >= heigth) y = heigth - 1;
+
+            char nextChar = this.board[x][y];
+            if (startChar != nextChar) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 }

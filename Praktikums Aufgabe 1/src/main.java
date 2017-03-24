@@ -10,6 +10,8 @@ public class main {
         }
         Scanner reader = new Scanner(System.in);  // Reading from System.in
 
+        test();
+
         boolean input = false;
         int width = 0, heigth = 0;
         while (!input) {
@@ -42,35 +44,9 @@ public class main {
             board.printBoard();
             if (spieler) {
                 //Zug von Spieler 1
-                int newColumn = userInteraction(1);
-                int newRow = board.insertChip('O', newColumn);
-                if (newRow == -1)
-                    System.out.println("Bitte richtige Reihe angeben.");
-                else {
-                    spieler = !spieler;
-                    row = newRow;
-                    column = newColumn - 1;
-                    if (board.checkWin(column, row)) {
-                        board.printBoard();
-                        System.out.println("Sieg für Spieler 1!");
-                    }
-                }
+                spieler = spielZüge(aufrufParameter, board, spieler, row, column);
             } else {
-                //Zug von Spieler 2
-                int newColumn;
-                newColumn = kiSwitch(aufrufParameter, board);
-                int newRow = board.insertChip('X', newColumn);
-                if (newRow == -1)
-                    System.out.println("Bitte richtige Reihe angeben.");
-                else {
-                    spieler = !spieler;
-                    row = newRow;
-                    column = newColumn - 1;
-                    if (board.checkWin(column, row)) {
-                        board.printBoard();
-                        System.out.println("Sieg für Spieler 2!");
-                    }
-                }
+                spieler = spielZüge(aufrufParameter, board, spieler, row, column);
             }
         }
     }
@@ -114,6 +90,41 @@ public class main {
                 break;
         }
         return newColumn;
+    }
+
+    private static boolean spielZüge(String aufrufParameter, GameBoard board, boolean spieler, int row, int column) {
+
+        int newColumn;
+        char chip;
+        String winMessage;
+
+        if (spieler) {
+            newColumn = userInteraction(1);
+            chip = 'O';
+            winMessage = "Sieg für Spieler 1";
+        } else {
+            newColumn = kiSwitch(aufrufParameter, board);
+            chip = 'X';
+            winMessage = "Sieg für Spieler 2";
+        }
+
+        int newRow = board.insertChip(chip, newColumn);
+        if (newRow == -1)
+            System.out.println("Bitte richtige Reihe angeben.");
+        else {
+            spieler = !spieler;
+            row = newRow;
+            column = newColumn - 1;
+            if (board.checkWin(column, row)) {
+                board.printBoard();
+                System.out.println(winMessage);
+            }
+        }
+        return spieler;
+    }
+
+    private static void test() {
+
     }
 
 }
