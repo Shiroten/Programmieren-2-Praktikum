@@ -14,16 +14,16 @@ public class simulation {
 
         boolean spieler = simuBoard.getSpieler();
         //Simulation des Spielablaufs
-        while (simuBoard.checkWin2() == 0) {
+        while (simuBoard.checkStatus() == 0) {
             if (spieler) {
                 simuBoard = Züge(anfangsReihe, simuBoard);
                 spieler = simuBoard.getSpieler(); //Wechseln des Spielers über boolean spieler
-                returnValue = simuBoard.checkWin2();
+                returnValue = simuBoard.checkStatus();
 
             } else {
                 simuBoard = Züge(anfangsReihe, simuBoard);
                 spieler = simuBoard.getSpieler();
-                returnValue = simuBoard.checkWin2();
+                returnValue = simuBoard.checkStatus();
             }
         }
         return returnValue;

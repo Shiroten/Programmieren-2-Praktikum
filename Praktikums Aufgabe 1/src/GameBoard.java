@@ -169,6 +169,23 @@ public class GameBoard {
 
     private boolean checkDiagonal(int column, int row) {
 
+        /*
+         |012345
+         0------
+         1--0---
+         2-0-0--
+         3----0-
+         4-----0
+
+        Funktionsweise: Angenommen, der Prüfpunkt ist (3,2).
+        Zunächst muss der Punkt (1,0) als linke obere Grenze bestimmt werden, mit der Länge 1 als Entfernung zum Prüfpunkt
+        Dann wird der Punkt (5,4) als rechte untere Grenze bestimmt werden, mit der Länge 3 als Entfernung zum Prüfpunkt
+        Punkt (1,0) wird als Startpunkt der ersten Diagonale hergezogen.
+
+        Analog für die zweite Diagonale
+
+         */
+
         //Hier werden die oberen und unteren Limits berechnet. Grundsätzlich muss man nur bis zu Abstand drei zu einem
         //spezifizierten Stein suchen, da man dann vier in einer Reihe hat (mit dem Stein, ab dem man sucht)
         //Stößt man aber an die Grenze des Bretts, kann nur ab oder bis zu dieser gesucht werden.
@@ -177,22 +194,18 @@ public class GameBoard {
         int columnMax = (column + 3 > heigth - 1 ? heigth -1  : column + 3);
         int rowMax = (row + 3 > width -1 ? width - 1 : row + 3);
 
-        int leftXOffset = row - rowMin;
-        int leftYOffset = column - columnMin;
-
-        int leftMin = (leftYOffset < leftXOffset ? leftYOffset : leftXOffset);
+        //Wie viele Felder weit links oben vom Prüfpunkt aus geprüft werden müssen
+        int leftMin = (column - columnMin < row - rowMin ? column - columnMin : row - rowMin);
+        //Wie viele Felder weit rechts unten vom Prüfpunkt aus etc.
         int rightMin = (columnMax - column < rowMax - row ? columnMax - column : rowMax -row);
 
+        //Der Startpunkt der Prüfung
         int leftRow = row - leftMin;
         int leftColumn =column - leftMin;
-
-        System.out.println("Column: " + column + " Row: " + row);
 
         //Erste Schleife geht von oben links nach unten rechts
         int counter = 0;
         for(int i = 0; i < leftMin + rightMin; i++){
-            //System.out.println("Field One:" + board[leftColumn + i][leftRow +i] + " Field Two:" + board[leftColumn + i + 1][leftRow + i + 1]);
-            //System.out.println("X: " + (leftColumn+i) + " Y " + (leftRow+i));
             if(board[leftColumn + i][leftRow +i] == board[leftColumn + i + 1][leftRow + i + 1] && board[leftColumn + i][leftRow +i] != empty)
                 counter++;
             else
@@ -201,14 +214,14 @@ public class GameBoard {
                 return true;
         }
 
+        //Startpunkt für die zweite Diagonale
+        //Die zweite Diagonale geht von unten links nach oben rechts
         leftMin = (columnMax - column < row - rowMin ? columnMax - column : row - rowMin);
         rightMin = (rowMax - row < column - columnMin ? rowMax - row : column - columnMin);
 
         leftRow = row - leftMin;
         leftColumn = column + leftMin;
         for(int i = 0; i < leftMin + rightMin; i++){
-            //System.out.println("Field One:" + board[leftColumn - i][leftRow +i] + " Field Two:" + board[leftColumn - i - 1][leftRow + i + 1]);
-            //System.out.println("X: " + (leftColumn+i) + " Y " + (leftRow+i));
             if(board[leftColumn - i][leftRow +i] == board[leftColumn - i - 1][leftRow + i + 1] && board[leftColumn - i][leftRow +i] != empty)
                 counter++;
             else
