@@ -4,16 +4,19 @@ import java.util.Scanner;
 public class main {
 
     public static void main(String[] args) throws IOException {
+
+        //Abspeichern des Übergabeparameter
         String aufrufParameter = "";
         if (args.length > 0) {
             aufrufParameter = args[0];
         }
-        Scanner reader = new Scanner(System.in);  // Reading from System.in
 
-        test();
+        Scanner reader = new Scanner(System.in);  // Reading from System.in
 
         boolean input = false;
         int width = 0, heigth = 0;
+
+        //Ermittlung der Breites des Spielfelds
         while (!input) {
             System.out.println("Bitte die Breite des Spielfelds eingeben:");
             try {
@@ -24,6 +27,8 @@ public class main {
                 System.out.println("Bitte nur Zahlen eingeben");
             }
         }
+
+        //Ermittlung der Höhe des Spielfelds
         input = false;
         while (!input) {
             System.out.println("Bitte die Höhe des Spielfelds eingeben:");
@@ -38,6 +43,7 @@ public class main {
 
         GameBoard board = new GameBoard(width, heigth);
 
+        //Beginn des Spiels
         boolean spieler = board.getSpieler();
         while (!board.checkWin(board.getColumn(), board.getRow())) {
             board.printBoard();
@@ -89,7 +95,7 @@ public class main {
                 break;
 
             default:
-                newColumn = userInteraction(2);
+                newColumn = userInteraction(2); //Aufruf für Spieler 2
                 break;
         }
         return newColumn;
@@ -102,7 +108,7 @@ public class main {
         String winMessage;
 
         if (board.getSpieler()) {
-            newColumn = userInteraction(1);
+            newColumn = userInteraction(1); //Aufruf für Spieler 1
             chip = 'O';
             winMessage = "Sieg für Spieler 1";
         } else {
@@ -112,12 +118,13 @@ public class main {
         }
 
         int newRow = board.insertChip(chip, newColumn);
-        if (newRow == -1)
+        if (newRow == -1) //Überprüfung auf Fehlerfall Zuhoch oder falsche Reihe
             System.out.println("Bitte richtige Reihe angeben.");
         else {
-            board.setSpieler(!board.getSpieler());
-            board.setRow(newRow);
+            board.setSpieler(!board.getSpieler()); //boolean Spieler wechseln
+            board.setRow(newRow); //Übergabe der Parameter des letzten Spielsteins
             board.setColumn(newColumn - 1);
+            //Überprüfung auf Spielende
             if (board.checkWin(board.getColumn(), board.getRow())) {
                 board.printBoard();
                 System.out.println(winMessage);
@@ -125,9 +132,4 @@ public class main {
         }
         return board;
     }
-
-    private static void test() {
-
-    }
-
 }
