@@ -27,7 +27,7 @@ public class ki {
                     GameBoard kiBoard = board.copyBoard();
 
                     //Berechnung, wie oft gewonnen wurde
-                    int durchläufe = 2000;
+                    int durchläufe = 50000;
                     for (int j = 0; j < durchläufe; j++) {
                         if (simulation.doIt(kiBoard, i + 1) == -1) {
                             gewinnAnzahl++;
