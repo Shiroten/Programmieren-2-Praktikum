@@ -11,19 +11,26 @@ public class simulation {
         simuBoard.setAnfang(true);
 
         int returnValue = 0;
-
+        int winStatus;
         boolean spieler = simuBoard.getSpieler();
+
         //Simulation des Spielablaufs
-        while (simuBoard.checkStatus() == 0) {
+        while (!(simuBoard.checkStatus() == 1 ||simuBoard.checkStatus() == 2)) {
             if (spieler) {
                 simuBoard = Züge(anfangsReihe, simuBoard);
                 spieler = simuBoard.getSpieler(); //Wechseln des Spielers über boolean spieler
-                returnValue = simuBoard.checkStatus();
+                winStatus = simuBoard.checkStatus();
+                if(winStatus == 1 && simuBoard.getSpieler()){
+                    returnValue = 1;
+                }
 
             } else {
                 simuBoard = Züge(anfangsReihe, simuBoard);
                 spieler = simuBoard.getSpieler();
-                returnValue = simuBoard.checkStatus();
+                winStatus = simuBoard.checkStatus();
+                if(winStatus == 1 && simuBoard.getSpieler()){
+                    returnValue = -1;
+                }
             }
         }
         return returnValue;
@@ -37,21 +44,26 @@ public class simulation {
 
         if (simuBoard.getSpieler()) { //Spieler 1 ersetzt durch zufälige KI
             chip = 'O';
-            newColumn = (int) ((Math.random() * simuBoard.getWidth()) + 1);
+            newColumn = (int) ((Math.random() * simuBoard.getWidth()));
         } else {
             chip = 'X';
             if (simuBoard.getAnfang()) { //Erster Zug bestimmt durch die Anfangs Reihe
                 newColumn = anfangsReihe;
                 simuBoard.setAnfang(false);
             } else { //Rest der Ki Züge bestimmt durch Zufall
-                newColumn = (int) ((Math.random() * simuBoard.getWidth()) + 1);
+                newColumn = (int) ((Math.random() * simuBoard.getWidth()));
             }
         }
-        int newRow = simuBoard.insertChip(chip, newColumn);
+        int newRow; //Überprüfung auf richtige Zahlen für Column
+        if (newColumn >= simuBoard.getWidth() || newColumn < 0) {
+            newRow = -1;
+        } else {
+            newRow = simuBoard.insertChip(chip, newColumn);
+        }
         if (newRow != -1) {
             simuBoard.setSpieler(!simuBoard.getSpieler());
             simuBoard.setRow(newRow);
-            simuBoard.setColumn(newColumn - 1);
+            simuBoard.setColumn(newColumn);
         }
         return simuBoard;
     }

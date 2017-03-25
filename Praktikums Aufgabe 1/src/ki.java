@@ -11,7 +11,7 @@ public class ki {
 
             case 0:
                 //Random Number KI
-                returnValue = (int) ((Math.random() * board.getWidth()) + 1);
+                returnValue = (int) ((Math.random() * board.getWidth()));
                 break;
 
             case 1:
@@ -32,6 +32,7 @@ public class ki {
                         if (simulation.doIt(kiBoard, i + 1) == -1) {
                             gewinnAnzahl++;
                         }
+
                     }
                     zugMoeglichkeiten[i] = gewinnAnzahl; //Abspeichern der einzelnen "Gewinnchancen"
 

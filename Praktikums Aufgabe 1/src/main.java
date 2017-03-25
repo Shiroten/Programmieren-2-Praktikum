@@ -42,13 +42,12 @@ public class main {
         }
 
         GameBoard board = new GameBoard(width, heigth);
-
-        board.fillBoard1();
-        board.printBoard();
+        //board.fillBoard1();
+        //board.printBoard();
 
         //Beginn des Spiels
         boolean spieler = board.getSpieler();
-        while (board.checkStatus()==0) {
+        while (board.checkStatus() == 0) {
             board.printBoard();
             if (spieler) {
                 //Zug von Spieler 1
@@ -121,16 +120,22 @@ public class main {
             winMessage = "Sieg für Spieler 2";
         }
 
-        int newRow = board.insertChip(chip, newColumn);
+        int newRow; //Überprüfung auf richtige Zahlen für Column
+        if (newColumn >= board.getWidth() || newColumn < 0) {
+            newRow = -1;
+        } else {
+            newRow = board.insertChip(chip, newColumn);
+        }
+
         if (newRow == -1) //Überprüfung auf Fehlerfall Zuhoch oder falsche Reihe
             System.out.println("Bitte richtige Reihe angeben.");
         else {
             board.setSpieler(!board.getSpieler()); //boolean Spieler wechseln
             board.setRow(newRow); //Übergabe der Parameter des letzten Spielsteins
             board.setColumn(newColumn);
+
             //Überprüfung auf Spielende
-            //if (board.checkWin(board.getColumn(), board.getRow())) {
-            if (board.checkStatus()!=0) {
+            if (board.checkStatus() == 1) {
                 board.printBoard();
                 System.out.println(winMessage);
             }
