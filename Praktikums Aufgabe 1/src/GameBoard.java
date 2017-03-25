@@ -191,8 +191,8 @@ public class GameBoard {
         //Erste Schleife geht von oben links nach unten rechts
         int counter = 0;
         for(int i = 0; i < leftMin + rightMin; i++){
-            System.out.println("Field One:" + board[leftColumn + i][leftRow +i] + " Field Two:" + board[leftColumn + i + 1][leftRow + i + 1]);
-            System.out.println("X: " + (leftColumn+i) + " Y " + (leftRow+i));
+            //System.out.println("Field One:" + board[leftColumn + i][leftRow +i] + " Field Two:" + board[leftColumn + i + 1][leftRow + i + 1]);
+            //System.out.println("X: " + (leftColumn+i) + " Y " + (leftRow+i));
             if(board[leftColumn + i][leftRow +i] == board[leftColumn + i + 1][leftRow + i + 1] && board[leftColumn + i][leftRow +i] != empty)
                 counter++;
             else
@@ -207,8 +207,8 @@ public class GameBoard {
         leftRow = row - leftMin;
         leftColumn = column + leftMin;
         for(int i = 0; i < leftMin + rightMin; i++){
-            System.out.println("Field One:" + board[leftColumn - i][leftRow +i] + " Field Two:" + board[leftColumn - i - 1][leftRow + i + 1]);
-            System.out.println("X: " + (leftColumn+i) + " Y " + (leftRow+i));
+            //System.out.println("Field One:" + board[leftColumn - i][leftRow +i] + " Field Two:" + board[leftColumn - i - 1][leftRow + i + 1]);
+            //System.out.println("X: " + (leftColumn+i) + " Y " + (leftRow+i));
             if(board[leftColumn - i][leftRow +i] == board[leftColumn - i - 1][leftRow + i + 1] && board[leftColumn - i][leftRow +i] != empty)
                 counter++;
             else
