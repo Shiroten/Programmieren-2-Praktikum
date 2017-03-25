@@ -43,6 +43,9 @@ public class main {
 
         GameBoard board = new GameBoard(width, heigth);
 
+        board.fillBoard1();
+        board.printBoard();
+
         //Beginn des Spiels
         boolean spieler = board.getSpieler();
         while (board.checkWin2()==0) {
@@ -96,7 +99,7 @@ public class main {
                 break;
 
             default:
-                newColumn = userInteraction(2); //Aufruf für Spieler 2
+                newColumn = userInteraction(2) -1; //Aufruf für Spieler 2
                 break;
         }
         return newColumn;
@@ -109,7 +112,7 @@ public class main {
         String winMessage;
 
         if (board.getSpieler()) {
-            newColumn = userInteraction(1); //Aufruf für Spieler 1
+            newColumn = userInteraction(1) -1; //Aufruf für Spieler 1
             chip = 'O';
             winMessage = "Sieg für Spieler 1";
         } else {
@@ -124,7 +127,7 @@ public class main {
         else {
             board.setSpieler(!board.getSpieler()); //boolean Spieler wechseln
             board.setRow(newRow); //Übergabe der Parameter des letzten Spielsteins
-            board.setColumn(newColumn - 1);
+            board.setColumn(newColumn);
             //Überprüfung auf Spielende
             //if (board.checkWin(board.getColumn(), board.getRow())) {
             if (board.checkWin2()!=0) {
