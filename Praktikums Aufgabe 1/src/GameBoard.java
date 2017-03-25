@@ -121,9 +121,9 @@ public class GameBoard {
     //Ein Spielstein wird in das Brett eingeworfen und an der richtigen Stelle eingefügt
     //Achtung: Column ist eins- und nicht nullbasiert
     public int insertChip(char playerChip, int column) {
-        int i = getDrop(column - 1);
+        int i = getDrop(column);
         if (i != -1)
-            board[column - 1][i] = playerChip;
+            board[column][i] = playerChip;
         return i;
     }
 
@@ -174,23 +174,49 @@ public class GameBoard {
         //Stößt man aber an die Grenze des Bretts, kann nur ab oder bis zu dieser gesucht werden.
         int columnMin = (column - 3 < 0 ? 0 : column - 3); //Läuft durch die Höhe
         int rowMin = (row - 3 < 0 ? 0 : row - 3); //Läuft durch die Breite
-        int columnMax = (column + 2 >= heigth ? heigth - 1 : column + 2);
-        int rowMax = (row + 2 >= width ? width - 1 : row + 2);
+        int columnMax = (column + 2 >= heigth ? heigth  : column + 2);
+        int rowMax = (row + 2 >= width ? width : row + 2);
 
-        int leftMin = (columnMin < rowMin ? columnMin : rowMin);
-        int rightMin = (columnMax < rowMax ? columnMax : rowMax);
+        int leftXOffset = row - rowMin;
+        int leftYOffset = column - columnMin;
+
+        int leftMin = (leftYOffset < leftXOffset ? leftYOffset : leftXOffset);
+        int rightMin = (columnMax - column < rowMax - row ? columnMax - column : rowMax -row);
+
+        int leftRow = row - leftMin;
+        int leftColumn =column - leftMin;
+
+        System.out.println("Column: " + column + " Row: " + row);
 
         //Erste Schleife geht von oben links nach unten rechts
         int counter = 0;
-        for(int i = 0; i <= rowMin + (width - columnMax); i++){
-            System.out.println("Field One:" + board[columnMin + i][rowMin +i] + "Field Two:" + board[columnMin + i + 1][rowMin + i + 1]);
-            if(board[columnMin + i][rowMin +i] == board[columnMin + i + 1][rowMin + i + 1] && board[columnMin + i][rowMin +i] != empty)
+        for(int i = 0; i < leftMin + rightMin; i++){
+            System.out.println("Field One:" + board[leftColumn + i][leftRow +i] + " Field Two:" + board[leftColumn + i + 1][leftRow + i + 1]);
+            System.out.println("X: " + (leftColumn+i) + " Y " + (leftRow+i));
+            if(board[leftColumn + i][leftRow +i] == board[leftColumn + i + 1][leftRow + i + 1] && board[leftColumn + i][leftRow +i] != empty)
                 counter++;
             else
                 counter = 0;
             if (counter == 3)
                 return true;
         }
+
+        leftMin = (columnMax - column < row - rowMin ? columnMax - column : row - rowMin);
+        rightMin = (rowMax - row < column - columnMin ? rowMax - row : column - columnMin);
+
+        leftRow = row - leftMin;
+        leftColumn = column + leftMin;
+        for(int i = 0; i <= leftMin + rightMin; i++){
+            System.out.println("Field One:" + board[leftColumn + i][leftRow +i] + " Field Two:" + board[leftColumn + i + 1][leftRow + i + 1]);
+            System.out.println("X: " + (leftColumn+i) + " Y " + (leftRow+i));
+            if(board[leftColumn + i][leftRow +i] == board[leftColumn + i + 1][leftRow + i + 1] && board[leftColumn + i][leftRow +i] != empty)
+                counter++;
+            else
+                counter = 0;
+            if (counter == 3)
+                return true;
+        }
+
         /*
         for (int i = columnMin; i < columnMax; i++) {
             for (int j = rowMin; j < rowMax; j++) {
@@ -269,5 +295,28 @@ public class GameBoard {
         return true;
     }
 
-
+    //Für ein 7x7-Feld, erzeugt Diagonal-Muster
+    public void fillBoard1(){
+        insertChip(player1, 0);
+        insertChip(player2, 1);
+        insertChip(player1, 2);
+        insertChip(player2, 3);
+        insertChip(player1, 4);
+        insertChip(player2, 5);
+        insertChip(player1, 6);
+        insertChip(player2, 0);
+        insertChip(player1, 1);
+        insertChip(player2, 2);
+        insertChip(player1, 3);
+        insertChip(player2, 4);
+        insertChip(player1, 5);
+        insertChip(player2, 6);
+        insertChip(player1, 0);
+        insertChip(player2, 1);
+        insertChip(player1, 2);
+        insertChip(player2, 3);
+        insertChip(player1, 4);
+        insertChip(player2, 5);
+        insertChip(player1, 6);
+    }
 }
