@@ -17,22 +17,24 @@ public class ki {
             case 1:
                 //Monte Carlo
                 int gewinnAnzahl;
-                int Reihen = board.getWidth();
-                int[] zugMoeglichkeiten = new int[Reihen];
+                int spalten = board.getWidth();
+                int[] zugMoeglichkeiten = new int[spalten]; //Ermittlung der Anzahl der Zugmöglichkeiten
 
-                for (int i = 0; i < Reihen; i++) {
+                for (int i = 0; i < spalten; i++) {
 
-                    //Versuche resetten
+                    //Versuche resetten und neues GameBoard erstellen
                     gewinnAnzahl = 0;
                     GameBoard kiBoard = board.copyBoard();
 
-                    //Berechnung von Wie oft wurde gewonnen
-                    for (int j = 0; j < 100000; j++) {
-                        if (spielLogik(kiBoard, i+1) == 1) {
+                    //Berechnung, wie oft gewonnen wurde
+                    for (int j = 0; j < 2000000; j++) {
+                        if (simulation.doIt(kiBoard, i + 1) == 1) {
                             gewinnAnzahl++;
                         }
                     }
-                    zugMoeglichkeiten[i] = gewinnAnzahl;
+                    zugMoeglichkeiten[i] = gewinnAnzahl; //Abspeichern der einzelnen "Gewinnchancen"
+
+                    //Ausgabe in der Konsole zum debugen
                     System.out.println(i + ". gewinnAnzahl: " + gewinnAnzahl);
 
                 }
@@ -41,58 +43,19 @@ public class ki {
                 int besterZug = 0;
                 int besterZugWahrscheinlichkeit = 0;
 
-                for (int i = 0; i < Reihen; i++) {
+                for (int i = 0; i < spalten; i++) { //Durchgehen des ganzen Array und finden des Maximum
                     if (besterZugWahrscheinlichkeit < zugMoeglichkeiten[i]) {
                         besterZugWahrscheinlichkeit = zugMoeglichkeiten[i];
                         besterZug = i;
                     }
-                    System.out.println(zugMoeglichkeiten[i]);
+                    System.out.println(zugMoeglichkeiten[i]); //Debug Ausgabe
                 }
                 System.out.println("besterzug: " + (besterZug + 1));
                 returnValue = besterZug + 1;
         }
         return returnValue;
     }
-
-
-    private static int spielLogik(GameBoard kiBoard, int anfangsReihe) {
-        int returnValue = 0;
-        int row = 0, column = 0;
-        boolean spieler = true;
-        int counter = 0;
-
-        while (!kiBoard.checkWin(column, row)) {
-            if (spieler) {
-                int newColumn = (int) ((Math.random() * kiBoard.getWidth()) + 1);
-                //System.out.println("newColumn: " + newColumn);
-                int newRow = kiBoard.insertChip('O', newColumn);
-                if (newRow != -1) {
-                    spieler = !spieler;
-                    row = newRow;
-                    column = newColumn - 1;
-                    if (kiBoard.checkWin(column, row)) {
-                        returnValue = -1;
-                    }
-                }
-            } else {
-                int newColumn;
-                if (counter == 0) {
-                    newColumn = anfangsReihe;
-                } else {
-                    newColumn = (int) ((Math.random() * kiBoard.getWidth()) + 1);
-                }
-                int newRow = kiBoard.insertChip('X', newColumn);
-                if (newRow != -1) {
-                    spieler = !spieler;
-                    row = newRow;
-                    column = newColumn - 1;
-                    if (kiBoard.checkWin(column, row)) {
-                        returnValue = 1;
-                    }
-                }
-            }
-            counter++;
-        }
-        return returnValue;
-    }
 }
+
+
+

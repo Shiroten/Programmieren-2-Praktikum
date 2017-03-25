@@ -2,10 +2,22 @@
  * Created by tillm on 21.03.2017.
  */
 public class GameBoard {
-    private int width, heigth;
-    private char[][] board;
 
+    //Column = Spalte, X
+    //Row    = Zeile,  y
+
+    private int width, heigth; //Größe des Boards
+    private char[][] board;
+    //Raster XY beginnt links Oben mit 00 und geht nach rechts unten mit MaxMax
+    //Zeile 0 Reihe 0, Zeile 0 Reihe 1, Zeile 0 Reihe 2
+    //Zeile 1 Reihe 0, Zeile 1 Reihe 1, Zeile 1 Reihe 2
+    //Zeile 2 Reihe 0, Zeile 2 Reihe 1, Zeile 2 Reihe 2
+
+    private boolean spieler = true; //Aktueller Spieler, true = spieler 1, false = spieler 2
+    private int row = 0, column = 0; //Position des letzten Steins
+    private boolean anfang = true; //Boolen für Simulation, zur unterscheidung zwischen Anfang und rest des Spiels
     private char empty = '.', player1 = 'X', player2 = 'O';
+
 
     public int getWidth() {
         return width;
@@ -19,6 +31,39 @@ public class GameBoard {
         return board;
     }
 
+    public boolean getSpieler() {
+        return spieler;
+    }
+
+    public void setSpieler(boolean spieler) {
+        this.spieler = spieler;
+    }
+
+    public boolean getAnfang() {
+        return anfang;
+    }
+
+    public void setAnfang(boolean anfang) {
+        this.anfang = anfang;
+    }
+
+    public int getRow() {
+        return row;
+    }
+
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    public int getColumn() {
+        return column;
+    }
+
+    public void setColumn(int column) {
+        this.column = column;
+    }
+
+
     public GameBoard copyBoard() {
         GameBoard copyBoard = new GameBoard(this.width, this.heigth);
         for (int i = 0; i < heigth; i++) {
@@ -26,6 +71,11 @@ public class GameBoard {
                 copyBoard.board[j][i] = this.board[j][i];
             }
         }
+        copyBoard.setSpieler(this.spieler);
+        copyBoard.setRow(this.row);
+        copyBoard.setColumn(this.column);
+        copyBoard.setAnfang(this.anfang);
+
         return copyBoard;
     }
 
@@ -80,7 +130,7 @@ public class GameBoard {
     //Findet die Zeile raus, in der ein Spielstein landet, wenn er in eine Spalte geworfen wird
     private int getDrop(int column) {
         if (column > width)
-            return -1;
+            return -1; //Übergabe von -1 beim Fehlerfall Zeilenhöhe größer oder Reihe nicht vorhanden
         for (int i = heigth - 1; i >= 0; i--) {
             if (board[column][i] == empty)
                 return i;
@@ -173,4 +223,51 @@ public class GameBoard {
     public boolean checkWin(int column, int row) {
         return (checkColumn(column) || checkRow(row) || checkDiagonal(column, row));
     }
+
+    public int checkWin2() {
+
+        int returnValue = 0;
+        char startChar = this.board[column][row];
+        boolean win = false;
+
+        win = checkWinVector(-1, -1) //diagonale Oben links
+                || checkWinVector(-1, 0) //links
+                || checkWinVector(-1, 1) //diagonal links unten
+                || checkWinVector(0, 1) //unten
+                || checkWinVector(1, 1) //unten rechts
+                || checkWinVector(1, 0) //rechts
+                || checkWinVector(1, -1); //rechts oben
+        //|| checkWinVector(0, -1); //oben
+
+        if (startChar == 'X' && win)
+            returnValue = -1;
+
+        if (startChar == 'O' && win)
+            returnValue = 1;
+
+        return returnValue;
+    }
+
+    public boolean checkWinVector(int offsetX, int offsetY) {
+
+        char startChar = this.board[column][row];
+        for (int i = 1; i < 4; i++) {
+
+            int x = row + offsetX * i;
+            if (x <= 0) x = 0; //Überprüfung auf unterlauf
+            if (x >= width) x = width - 1; //Überprüfung auf überlauf
+
+            int y = column + offsetY * i;
+            if (y <= 0) y = 0; //Überprüfung auf unterlauf
+            if (y >= heigth) y = heigth - 1; //Überprüfung auf überlauf
+
+            char nextChar = this.board[x][y];
+            if (startChar != nextChar) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 }
