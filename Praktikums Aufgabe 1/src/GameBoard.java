@@ -2,8 +2,17 @@
  * Created by tillm on 21.03.2017.
  */
 public class GameBoard {
+
+    //Column = Spalte, X
+    //Row    = Zeile,  y
+
     private int width, heigth; //Größe des Boards
     private char[][] board;
+    //Raster XY beginnt links Oben mit 00 und geht nach rechts unten mit MaxMax
+    //Zeile 0 Reihe 0, Zeile 0 Reihe 1, Zeile 0 Reihe 2
+    //Zeile 1 Reihe 0, Zeile 1 Reihe 1, Zeile 1 Reihe 2
+    //Zeile 2 Reihe 0, Zeile 2 Reihe 1, Zeile 2 Reihe 2
+
     private boolean spieler = true; //Aktueller Spieler, true = spieler 1, false = spieler 2
     private int row = 0, column = 0; //Position des letzten Steins
     private boolean anfang = true; //Boolen für Simulation, zur unterscheidung zwischen Anfang und rest des Spiels
@@ -51,7 +60,7 @@ public class GameBoard {
     }
 
     public void setColumn(int column) {
-        this.row = column;
+        this.column = column;
     }
 
 
@@ -120,8 +129,8 @@ public class GameBoard {
 
     //Findet die Zeile raus, in der ein Spielstein landet, wenn er in eine Spalte geworfen wird
     private int getDrop(int column) {
-        if (column >= heigth)
-            return -1; //Übergabe von -1 beim Fehlerfall Zeilenhöhe größer oder gleich heigh
+        if (column > width)
+            return -1; //Übergabe von -1 beim Fehlerfall Zeilenhöhe größer oder Reihe nicht vorhanden
         for (int i = heigth - 1; i >= 0; i--) {
             if (board[column][i] == empty)
                 return i;
@@ -207,14 +216,14 @@ public class GameBoard {
         char startChar = this.board[row][column];
         boolean win = false;
 
-        win = checkWinVector(startChar, -1, 1) //diagonale Oben links
-                || checkWinVector(startChar, -1, 0) //links
-                || checkWinVector(startChar, -1, -1) //diagonal links unten
-                || checkWinVector(startChar, 0, -1) //unten
-                || checkWinVector(startChar, 1, -1) //unten rechts
-                || checkWinVector(startChar, 1, 0) //rechts
-                || checkWinVector(startChar, 1, 1) //rechts oben
-                || checkWinVector(startChar, 0, 1); //oben
+        win = checkWinVector(-1, -1) //diagonale Oben links
+                || checkWinVector(-1, 0) //links
+                || checkWinVector(-1, 1) //diagonal links unten
+                || checkWinVector(0, 1) //unten
+                || checkWinVector(1, 1) //unten rechts
+                || checkWinVector(1, 0) //rechts
+                || checkWinVector(1, -1); //rechts oben
+        //|| checkWinVector(0, -1); //oben
 
         if (startChar == 'X' && win)
             returnValue = -1;
@@ -225,8 +234,9 @@ public class GameBoard {
         return returnValue;
     }
 
-    public boolean checkWinVector(char startChar, int offsetX, int offsetY) {
+    public boolean checkWinVector(int offsetX, int offsetY) {
 
+        char startChar = this.board[row][column];
         for (int i = 0; i < 3; i++) {
 
             int x = row + offsetX * i;

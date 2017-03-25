@@ -8,8 +8,6 @@ public class simulation {
         //Erzeugen eines separaten GameBoards für die Simulation
         GameBoard simuBoard = kiBoard.copyBoard();
         simuBoard.setSpieler(false);
-        simuBoard.setRow(0);
-        simuBoard.setColumn(0);
         simuBoard.setAnfang(true);
 
         int returnValue = 0;
@@ -33,7 +31,7 @@ public class simulation {
     private static GameBoard Züge(int anfangsReihe, GameBoard simuBoard) {
 
         int returnValue = 0;
-        int newColumn;
+        int newColumn; //Werte von 1-Max und nicht 0-Max-1
         char chip;
 
         if (simuBoard.getSpieler()) { //Spieler 1 ersetzt durch zufälige KI

@@ -17,17 +17,17 @@ public class ki {
             case 1:
                 //Monte Carlo
                 int gewinnAnzahl;
-                int Reihen = board.getWidth();
-                int[] zugMoeglichkeiten = new int[Reihen]; //Ermittlung der Anzahl der Zugmöglichkeiten
+                int spalten = board.getWidth();
+                int[] zugMoeglichkeiten = new int[spalten]; //Ermittlung der Anzahl der Zugmöglichkeiten
 
-                for (int i = 0; i < Reihen; i++) {
+                for (int i = 0; i < spalten; i++) {
 
                     //Versuche resetten und neues GameBoard erstellen
                     gewinnAnzahl = 0;
                     GameBoard kiBoard = board.copyBoard();
 
                     //Berechnung, wie oft gewonnen wurde
-                    for (int j = 0; j < 1000000; j++) {
+                    for (int j = 0; j < 2000000; j++) {
                         if (simulation.doIt(kiBoard, i + 1) == 1) {
                             gewinnAnzahl++;
                         }
@@ -43,7 +43,7 @@ public class ki {
                 int besterZug = 0;
                 int besterZugWahrscheinlichkeit = 0;
 
-                for (int i = 0; i < Reihen; i++) { //Durchgehen des ganzen Array und finden des Maximum
+                for (int i = 0; i < spalten; i++) { //Durchgehen des ganzen Array und finden des Maximum
                     if (besterZugWahrscheinlichkeit < zugMoeglichkeiten[i]) {
                         besterZugWahrscheinlichkeit = zugMoeglichkeiten[i];
                         besterZug = i;

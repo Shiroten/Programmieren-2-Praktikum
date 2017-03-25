@@ -62,6 +62,7 @@ public class main {
 
     private static int userInteraction(int Spieler) {
 
+        //Ermittlung der Column/Reihe/Spalte des Spielsteins
         Scanner userReader = new Scanner(System.in);
         int returnValue = 0;
 
