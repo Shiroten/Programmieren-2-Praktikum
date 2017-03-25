@@ -48,7 +48,7 @@ public class main {
 
         //Beginn des Spiels
         boolean spieler = board.getSpieler();
-        while (board.checkWin2()==0) {
+        while (board.checkStatus()==0) {
             board.printBoard();
             if (spieler) {
                 //Zug von Spieler 1
@@ -81,7 +81,7 @@ public class main {
             }
         }
         //userReader.close();
-        return returnValue;
+        return returnValue - 1;
     }
 
     private static int kiSwitch(String aufrufParameter, GameBoard board) {
@@ -99,7 +99,7 @@ public class main {
                 break;
 
             default:
-                newColumn = userInteraction(2) -1; //Aufruf für Spieler 2
+                newColumn = userInteraction(2); //Aufruf für Spieler 2
                 break;
         }
         return newColumn;
@@ -112,7 +112,7 @@ public class main {
         String winMessage;
 
         if (board.getSpieler()) {
-            newColumn = userInteraction(1) -1; //Aufruf für Spieler 1
+            newColumn = userInteraction(1); //Aufruf für Spieler 1
             chip = 'O';
             winMessage = "Sieg für Spieler 1";
         } else {
@@ -130,7 +130,7 @@ public class main {
             board.setColumn(newColumn);
             //Überprüfung auf Spielende
             //if (board.checkWin(board.getColumn(), board.getRow())) {
-            if (board.checkWin2()!=0) {
+            if (board.checkStatus()!=0) {
                 board.printBoard();
                 System.out.println(winMessage);
             }

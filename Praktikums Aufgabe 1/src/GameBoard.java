@@ -217,102 +217,27 @@ public class GameBoard {
                 return true;
         }
 
-        /*
-        for (int i = columnMin; i < columnMax; i++) {
-            for (int j = rowMin; j < rowMax; j++) {
-                System.out.println("Current Field: " + board[j][i] + " Next Field: " + board[j+1][i+1]);
-                if (board[j][i] == board[j + 1][i + 1] && board[j][i] != empty)
-                    counter++;
-                else
-                    counter = 0;
-                if (counter == 3)
-                    return true;
-            }
-        }
-
-        //Zweite Schleife geht von unten links noch oben rechts
-        counter = 0;
-        for (int i = columnMax; i > columnMin; i--) {
-            for (int j = rowMin; j < rowMax; j++) {
-                if (board[j][i] == board[j + 1][i - 1] && board[j][i] != empty)
-                    counter++;
-                else
-                    counter = 0;
-                if (counter == 3)
-                    return true;
-            }
-        }*/
-
         return false;
     }
 
-    public boolean checkWin(int column, int row) {
-        return (checkColumn(column) || checkRow(row) || checkDiagonal(column, row));
-    }
-
-    public int checkWin2() {
-
-        int returnValue = 0;
-        char startChar = this.board[column][row];
-        boolean win = false;
-
-        win = checkWinVector(-1, -1) //diagonale Oben links
-                || checkWinVector(-1, 0) //links
-                || checkWinVector(-1, 1) //diagonal links unten
-                || checkWinVector(0, 1) //unten
-                || checkWinVector(1, 1) //unten rechts
-                || checkWinVector(1, 0) //rechts
-                || checkWinVector(1, -1); //rechts oben
-        //|| checkWinVector(0, -1); //oben
-
-        if (startChar == 'X' && win)
-            returnValue = -1;
-
-        if (startChar == 'O' && win)
-            returnValue = 1;
-
-        boolean fieldfull = true;
-        for (int i = 0; i < width; i++) {
-            if (board[i][0] == '.') {
-                fieldfull = false;
+    private boolean checkFull(){
+        for (int i = 0; i < heigth; i++) {
+            for (int j = 0; j < width; j++) {
+                if(board[j][i] == empty)
+                    return false;
             }
         }
-        if (fieldfull) {
-            returnValue = -2;
-        }
-
-        return returnValue;
+        return true;
     }
 
-    public boolean checkWinVector(int offsetX, int offsetY) {
-
-        int lastX = -1, lastY = -1, counter = 0;
-        char startChar = this.board[column][row];
-
-        for (int i = -3; i < 4; i++) {
-
-            int x = column + offsetX * i;
-            if (x <= 0) x = 0; //Überprüfung auf unterlauf
-            if (x >= width) x = width - 1; //Überprüfung auf überlauf
-
-            int y = row + offsetY * i;
-            if (y <= 0) y = 0; //Überprüfung auf unterlauf
-            if (y >= heigth) y = heigth - 1; //Überprüfung auf überlauf
-
-            if (this.board[column][row] == this.board[x][y]) {
-                if (!(x == lastX && y == lastY)) {
-                    counter++;
-                    if (counter == 4) { //Wenn 4 Steine mit sich selber gefunden sind
-                        return true;
-                    }
-                }
-            } else {
-                return false;
-            }
-            lastX = x;
-            lastY = y;
-        }
-        return false;
+    //Gibt 1 zurück, wenn der aktuelle Spieler gewonnen hat, 2 wenn das Feld voll ist und 0, falls
+    public int checkStatus() {
+        if( (checkColumn(column) || checkRow(row) || checkDiagonal(column, row)))
+            return 1;
+        else if (checkFull())
+            return 2;
+        else
+            return 0;
     }
 
     //Für ein 7x7-Feld, erzeugt Diagonal-Muster
