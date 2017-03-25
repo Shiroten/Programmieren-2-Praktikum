@@ -174,8 +174,8 @@ public class GameBoard {
         //Stößt man aber an die Grenze des Bretts, kann nur ab oder bis zu dieser gesucht werden.
         int columnMin = (column - 3 < 0 ? 0 : column - 3); //Läuft durch die Höhe
         int rowMin = (row - 3 < 0 ? 0 : row - 3); //Läuft durch die Breite
-        int columnMax = (column + 2 >= heigth ? heigth  : column + 2);
-        int rowMax = (row + 2 >= width ? width : row + 2);
+        int columnMax = (column + 3 > heigth - 1 ? heigth -1  : column + 3);
+        int rowMax = (row + 3 > width -1 ? width - 1 : row + 3);
 
         int leftXOffset = row - rowMin;
         int leftYOffset = column - columnMin;
@@ -206,10 +206,10 @@ public class GameBoard {
 
         leftRow = row - leftMin;
         leftColumn = column + leftMin;
-        for(int i = 0; i <= leftMin + rightMin; i++){
-            System.out.println("Field One:" + board[leftColumn + i][leftRow +i] + " Field Two:" + board[leftColumn + i + 1][leftRow + i + 1]);
+        for(int i = 0; i < leftMin + rightMin; i++){
+            System.out.println("Field One:" + board[leftColumn - i][leftRow +i] + " Field Two:" + board[leftColumn - i - 1][leftRow + i + 1]);
             System.out.println("X: " + (leftColumn+i) + " Y " + (leftRow+i));
-            if(board[leftColumn + i][leftRow +i] == board[leftColumn + i + 1][leftRow + i + 1] && board[leftColumn + i][leftRow +i] != empty)
+            if(board[leftColumn - i][leftRow +i] == board[leftColumn - i - 1][leftRow + i + 1] && board[leftColumn - i][leftRow +i] != empty)
                 counter++;
             else
                 counter = 0;
