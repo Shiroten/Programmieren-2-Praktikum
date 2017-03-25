@@ -213,7 +213,7 @@ public class GameBoard {
     public int checkWin2() {
 
         int returnValue = 0;
-        char startChar = this.board[row][column];
+        char startChar = this.board[column][row];
         boolean win = false;
 
         win = checkWinVector(-1, -1) //diagonale Oben links
@@ -236,16 +236,16 @@ public class GameBoard {
 
     public boolean checkWinVector(int offsetX, int offsetY) {
 
-        char startChar = this.board[row][column];
-        for (int i = 0; i < 3; i++) {
+        char startChar = this.board[column][row];
+        for (int i = 1; i < 4; i++) {
 
             int x = row + offsetX * i;
-            if (x <= 0) x = 0;
-            if (x >= width) x = width - 1;
+            if (x <= 0) x = 0; //Überprüfung auf unterlauf
+            if (x >= width) x = width - 1; //Überprüfung auf überlauf
 
             int y = column + offsetY * i;
-            if (y <= 0) y = 0;
-            if (y >= heigth) y = heigth - 1;
+            if (y <= 0) y = 0; //Überprüfung auf unterlauf
+            if (y >= heigth) y = heigth - 1; //Überprüfung auf überlauf
 
             char nextChar = this.board[x][y];
             if (startChar != nextChar) {
