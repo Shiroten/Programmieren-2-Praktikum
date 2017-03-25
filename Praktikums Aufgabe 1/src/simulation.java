@@ -19,6 +19,7 @@ public class simulation {
                 simuBoard = Züge(anfangsReihe, simuBoard);
                 spieler = simuBoard.getSpieler(); //Wechseln des Spielers über boolean spieler
                 returnValue = simuBoard.checkWin2();
+
             } else {
                 simuBoard = Züge(anfangsReihe, simuBoard);
                 spieler = simuBoard.getSpieler();

@@ -27,15 +27,17 @@ public class ki {
                     GameBoard kiBoard = board.copyBoard();
 
                     //Berechnung, wie oft gewonnen wurde
-                    for (int j = 0; j < 2000000; j++) {
-                        if (simulation.doIt(kiBoard, i + 1) == 1) {
+                    int durchläufe = 50000;
+                    for (int j = 0; j < durchläufe; j++) {
+                        if (simulation.doIt(kiBoard, i + 1) == -1) {
                             gewinnAnzahl++;
                         }
                     }
                     zugMoeglichkeiten[i] = gewinnAnzahl; //Abspeichern der einzelnen "Gewinnchancen"
 
                     //Ausgabe in der Konsole zum debugen
-                    System.out.println(i + ". gewinnAnzahl: " + gewinnAnzahl);
+                    float gewinnchance = (float)gewinnAnzahl/durchläufe*100;
+                    System.out.printf("Gewinnchance für die %d. Reihe %2.2f%%%n",(i+1), gewinnchance);
 
                 }
 
@@ -48,9 +50,8 @@ public class ki {
                         besterZugWahrscheinlichkeit = zugMoeglichkeiten[i];
                         besterZug = i;
                     }
-                    System.out.println(zugMoeglichkeiten[i]); //Debug Ausgabe
                 }
-                System.out.println("besterzug: " + (besterZug + 1));
+                System.out.println("Besterzug: " + (besterZug + 1));
                 returnValue = besterZug + 1;
         }
         return returnValue;

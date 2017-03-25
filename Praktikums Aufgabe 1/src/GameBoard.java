@@ -271,28 +271,48 @@ public class GameBoard {
         if (startChar == 'O' && win)
             returnValue = 1;
 
+        boolean fieldfull = true;
+        for (int i = 0; i < width; i++) {
+            if (board[i][0] == '.') {
+                fieldfull = false;
+            }
+        }
+        if (fieldfull) {
+            returnValue = -2;
+        }
+
         return returnValue;
     }
 
     public boolean checkWinVector(int offsetX, int offsetY) {
 
+        int lastX = -1, lastY = -1, counter = 0;
         char startChar = this.board[column][row];
-        for (int i = 1; i < 4; i++) {
 
-            int x = row + offsetX * i;
+        for (int i = -3; i < 4; i++) {
+
+            int x = column + offsetX * i;
             if (x <= 0) x = 0; //Überprüfung auf unterlauf
             if (x >= width) x = width - 1; //Überprüfung auf überlauf
 
-            int y = column + offsetY * i;
+            int y = row + offsetY * i;
             if (y <= 0) y = 0; //Überprüfung auf unterlauf
             if (y >= heigth) y = heigth - 1; //Überprüfung auf überlauf
 
-            char nextChar = this.board[x][y];
-            if (startChar != nextChar) {
+            if (this.board[column][row] == this.board[x][y]) {
+                if (!(x == lastX && y == lastY)) {
+                    counter++;
+                    if (counter == 4) { //Wenn 4 Steine mit sich selber gefunden sind
+                        return true;
+                    }
+                }
+            } else {
                 return false;
             }
+            lastX = x;
+            lastY = y;
         }
-        return true;
+        return false;
     }
 
     //Für ein 7x7-Feld, erzeugt Diagonal-Muster

@@ -48,7 +48,7 @@ public class main {
 
         //Beginn des Spiels
         boolean spieler = board.getSpieler();
-        while (!board.checkWin(board.getColumn(), board.getRow())) {
+        while (board.checkWin2()==0) {
             board.printBoard();
             if (spieler) {
                 //Zug von Spieler 1
@@ -129,7 +129,8 @@ public class main {
             board.setRow(newRow); //Übergabe der Parameter des letzten Spielsteins
             board.setColumn(newColumn);
             //Überprüfung auf Spielende
-            if (board.checkWin(board.getColumn(), board.getRow())) {
+            //if (board.checkWin(board.getColumn(), board.getRow())) {
+            if (board.checkWin2()!=0) {
                 board.printBoard();
                 System.out.println(winMessage);
             }
