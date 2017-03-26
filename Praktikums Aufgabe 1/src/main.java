@@ -97,6 +97,14 @@ public class main {
                 newColumn = ki.zug(board, 1);
                 break;
 
+            case "2":
+                newColumn = ki.zug(board, 2);
+                break;
+
+            case "3":
+                newColumn = ki.zug(board, 3);
+                break;
+
             default:
                 newColumn = userInteraction(2); //Aufruf für Spieler 2
                 break;

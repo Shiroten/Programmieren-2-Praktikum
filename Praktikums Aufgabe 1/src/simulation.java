@@ -15,7 +15,7 @@ public class simulation {
         boolean spieler = simuBoard.getSpieler();
 
         //Simulation des Spielablaufs
-        while (!(simuBoard.checkStatus() == 1 ||simuBoard.checkStatus() == 2)) {
+        while (!(simuBoard.checkStatus() == 1 || simuBoard.checkStatus() == 2)) {
             if (spieler) {
                 simuBoard = Züge(anfangsReihe, simuBoard);
                 spieler = simuBoard.getSpieler(); //Wechseln des Spielers über boolean spieler
