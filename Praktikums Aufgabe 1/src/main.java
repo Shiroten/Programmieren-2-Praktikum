@@ -118,12 +118,12 @@ public class main {
         char chip;
         String winMessage;
 
-        if (board.getSpieler()) {
+        if (board.getSpieler()) {//Bei true = Spieler 1, bei false = Spieler 2
             newColumn = userInteraction(1); //Aufruf für Spieler 1
             chip = 'O';
             winMessage = "Sieg für Spieler 1";
         } else {
-            newColumn = kiSwitch(aufrufParameter, board);
+            newColumn = kiSwitch(aufrufParameter, board);//Überprüfung auf Spieler oder KI
             chip = 'X';
             winMessage = "Sieg für Spieler 2";
         }

@@ -191,22 +191,22 @@ public class GameBoard {
         //Stößt man aber an die Grenze des Bretts, kann nur ab oder bis zu dieser gesucht werden.
         int columnMin = (column - 3 < 0 ? 0 : column - 3); //Läuft durch die Höhe
         int rowMin = (row - 3 < 0 ? 0 : row - 3); //Läuft durch die Breite
-        int columnMax = (column + 3 > heigth - 1 ? heigth -1  : column + 3);
-        int rowMax = (row + 3 > width -1 ? width - 1 : row + 3);
+        int columnMax = (column + 3 > heigth - 1 ? heigth - 1 : column + 3);
+        int rowMax = (row + 3 > width - 1 ? width - 1 : row + 3);
 
         //Wie viele Felder weit links oben vom Prüfpunkt aus geprüft werden müssen
         int leftMin = (column - columnMin < row - rowMin ? column - columnMin : row - rowMin);
         //Wie viele Felder weit rechts unten vom Prüfpunkt aus etc.
-        int rightMin = (columnMax - column < rowMax - row ? columnMax - column : rowMax -row);
+        int rightMin = (columnMax - column < rowMax - row ? columnMax - column : rowMax - row);
 
         //Der Startpunkt der Prüfung
         int leftRow = row - leftMin;
-        int leftColumn =column - leftMin;
+        int leftColumn = column - leftMin;
 
         //Erste Schleife geht von oben links nach unten rechts
         int counter = 0;
-        for(int i = 0; i < leftMin + rightMin; i++){
-            if(board[leftColumn + i][leftRow +i] == board[leftColumn + i + 1][leftRow + i + 1] && board[leftColumn + i][leftRow +i] != empty)
+        for (int i = 0; i < leftMin + rightMin; i++) {
+            if (board[leftColumn + i][leftRow + i] == board[leftColumn + i + 1][leftRow + i + 1] && board[leftColumn + i][leftRow + i] != empty)
                 counter++;
             else
                 counter = 0;
@@ -221,8 +221,8 @@ public class GameBoard {
 
         leftRow = row - leftMin;
         leftColumn = column + leftMin;
-        for(int i = 0; i < leftMin + rightMin; i++){
-            if(board[leftColumn - i][leftRow +i] == board[leftColumn - i - 1][leftRow + i + 1] && board[leftColumn - i][leftRow +i] != empty)
+        for (int i = 0; i < leftMin + rightMin; i++) {
+            if (board[leftColumn - i][leftRow + i] == board[leftColumn - i - 1][leftRow + i + 1] && board[leftColumn - i][leftRow + i] != empty)
                 counter++;
             else
                 counter = 0;
@@ -233,10 +233,10 @@ public class GameBoard {
         return false;
     }
 
-    private boolean checkFull(){
+    private boolean checkFull() {
         for (int i = 0; i < heigth; i++) {
             for (int j = 0; j < width; j++) {
-                if(board[j][i] == empty)
+                if (board[j][i] == empty)
                     return false;
             }
         }
@@ -245,7 +245,7 @@ public class GameBoard {
 
     //Gibt 1 zurück, wenn der aktuelle Spieler gewonnen hat, 2 wenn das Feld voll ist und 0, falls
     public int checkStatus() {
-        if( (checkColumn(column) || checkRow(row) || checkDiagonal(column, row)))
+        if ((checkColumn(column) || checkRow(row) || checkDiagonal(column, row)))
             return 1;
         else if (checkFull())
             return 2;
@@ -254,7 +254,7 @@ public class GameBoard {
     }
 
     //Für ein 7x7-Feld, erzeugt Diagonal-Muster
-    public void fillBoard1(){
+    public void fillBoard1() {
         insertChip(player1, 0);
         insertChip(player2, 1);
         insertChip(player1, 2);

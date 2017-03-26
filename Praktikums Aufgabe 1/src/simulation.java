@@ -20,15 +20,15 @@ public class simulation {
                 simuBoard = Züge(anfangsReihe, simuBoard);
                 spieler = simuBoard.getSpieler(); //Wechseln des Spielers über boolean spieler
                 winStatus = simuBoard.checkStatus();
-                if(winStatus == 1 && simuBoard.getSpieler()){
+                if (winStatus == 1 && simuBoard.getSpieler()) {
                     returnValue = 1;
                 }
 
-            } else {
+            } else {//Analog zu if(spieler) nur mit returnValue -1 für Gewinn des 2. Spielers
                 simuBoard = Züge(anfangsReihe, simuBoard);
                 spieler = simuBoard.getSpieler();
                 winStatus = simuBoard.checkStatus();
-                if(winStatus == 1 && simuBoard.getSpieler()){
+                if (winStatus == 1 && simuBoard.getSpieler()) {
                     returnValue = -1;
                 }
             }
@@ -39,7 +39,7 @@ public class simulation {
     private static GameBoard Züge(int anfangsReihe, GameBoard simuBoard) {
 
         int returnValue = 0;
-        int newColumn; //Werte von 1-Max und nicht 0-Max-1
+        int newColumn; //Werte von 0-Max-1
         char chip;
 
         if (simuBoard.getSpieler()) { //Spieler 1 ersetzt durch zufälige KI
