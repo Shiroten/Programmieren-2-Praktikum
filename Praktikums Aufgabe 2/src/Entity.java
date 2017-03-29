@@ -2,10 +2,10 @@
  * Created by tillm on 28.03.2017.
  */
 public abstract class Entity {
-    final int id;
-    final int startEnergy;
-    int energy;
-    XY coordinate;
+    private final int id;
+    private final int startEnergy;
+    private int energy;
+    private XY coordinate;
 
     public Entity(int startEnergy, int id, XY coordinate){
         this.id = id;
@@ -41,5 +41,15 @@ public abstract class Entity {
 
     public void setCoordinate(XY coordinate) {
         this.coordinate = coordinate;
+    }
+
+    public void nextStep(){
+        coordinate.randomMove();
+    }
+
+    public String toString(){
+        return ("ID: " + id + " StartEnergy: "
+                + startEnergy + " Energy: " + energy
+                + " Coordinate: X: " + coordinate.getX() + " Y: " + coordinate.getY());
     }
 }

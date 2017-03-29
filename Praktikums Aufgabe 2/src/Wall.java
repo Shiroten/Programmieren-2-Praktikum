@@ -6,4 +6,6 @@ public class Wall extends Entity {
     public Wall(int id, XY coordinate){
         super(-10, id, coordinate);
     }
+
+    public void nextStep(){}
 }

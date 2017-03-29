@@ -5,4 +5,6 @@ public class GoodPlant extends Entity {
     public GoodPlant(int id, XY coordinate){
         super(100, id, coordinate);
     }
+
+    public void nextStep(){}
 }
