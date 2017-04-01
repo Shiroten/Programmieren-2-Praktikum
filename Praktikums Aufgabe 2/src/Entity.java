@@ -44,12 +44,12 @@ public abstract class Entity {
     }
 
     public void nextStep(){
-        coordinate.randomMove();
+        this.coordinate = coordinate.randomMove();
     }
 
     public String toString(){
-        return ("ID: " + id + " StartEnergy: "
-                + startEnergy + " Energy: " + energy
-                + " Coordinate: X: " + coordinate.getX() + " Y: " + coordinate.getY());
+        return ("[ID: " + id + ", StartEnergy: "
+                + startEnergy + ", Energy: " + energy
+                + ", Coordinate: (X: " + coordinate.getX() + ", Y: " + coordinate.getY()+ ")]");
     }
 }

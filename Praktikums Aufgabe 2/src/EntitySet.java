@@ -32,7 +32,7 @@ public class EntitySet {
         String returnString = "";
         for (int i = 0; i < nummberOfEntitys; i++) {
             if (entitiyList[i] != null) {
-                returnString += entitiyList[i].toString();
+                returnString += entitiyList[i].toString() + '\n';
             }
         }
         return returnString;
