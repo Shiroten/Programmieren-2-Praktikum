@@ -14,6 +14,8 @@ public class Test {
         entitySet.add(new BadBeast(4, new XY(0, 0)));
 
         entitySet.add(new MasterSquirrel(100, new XY(100, 100)));
+        Entity manuelSquirrel = new HandOperatedMasterSquirrel(101, new XY(100, 100));
+        entitySet.add(manuelSquirrel);
 
         MiniSquirrel testSquirrel1 = new MiniSquirrel(101, new XY(100, 101), 100);
         MiniSquirrel testSquirrel2 = new MiniSquirrel(102, new XY(100, 102), 100);
@@ -31,12 +33,14 @@ public class Test {
         entitySet.add(testSquirrel2);
         System.out.println(entitySet.toString());
 
-        /*
+        //entitySet.delete(manuelSquirrel);
+
         for (int i = 0; i < 9; i++) {
             entitySet.nextStep();
             System.out.println();
+            System.out.printf("%d. nextStep: %n%n", (i + 1));
             System.out.println(entitySet.toString());
         }
-        */
+
     }
 }

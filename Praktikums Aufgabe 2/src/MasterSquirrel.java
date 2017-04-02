@@ -1,3 +1,4 @@
+import javax.print.attribute.HashDocAttributeSet;
 import java.util.ArrayList;
 
 /**
@@ -28,6 +29,7 @@ public class MasterSquirrel extends Entity {
     }
 
     public void nextStep() {
+
     }
 
     public String toString() {
