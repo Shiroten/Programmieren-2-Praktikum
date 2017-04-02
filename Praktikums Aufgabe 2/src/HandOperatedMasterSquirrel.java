@@ -9,31 +9,38 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel {
     }
 
     public void nextStep() {
-        move();
+
+        XY destination = move();
+        setCoordinate(destination);
+
     }
 
-    public void move() {
-        Scanner scanner = new Scanner(System.in);
+    public XY move() {
+
+        XY destination = new XY(0, 0);
+        //Scanner scanner = new Scanner(System.in);
         System.out.println("Bitte geben Sie eine Richtung für ihr Squirrel in WASD an: ");
+
         try {
             char c = (char) System.in.read();
             c = Character.toUpperCase(c);
             switch (c) {
                 case 'W':
-                    setCoordinate(new XY(getCoordinate().getX(), getCoordinate().getY() + 1));
+                    destination = (new XY(getCoordinate().getX(), getCoordinate().getY() + 1));
                     break;
                 case 'A':
-                    setCoordinate(new XY(getCoordinate().getX() - 1, getCoordinate().getY()));
+                    destination = (new XY(getCoordinate().getX() - 1, getCoordinate().getY()));
                     break;
                 case 'S':
-                    setCoordinate(new XY(getCoordinate().getX(), getCoordinate().getY() - 1));
+                    destination = (new XY(getCoordinate().getX(), getCoordinate().getY() - 1));
                     break;
                 case 'D':
-                    setCoordinate(new XY(getCoordinate().getX() + 1, getCoordinate().getY()));
+                    destination = (new XY(getCoordinate().getX() + 1, getCoordinate().getY()));
                     break;
             }
         } catch (Exception e) {
             System.out.println("Bitte nur W A S D benutzen!");
         }
+        return destination;
     }
 }

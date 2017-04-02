@@ -36,5 +36,4 @@ public class MasterSquirrel extends Entity {
         return ("MasterSquirrel: " + super.toString());
     }
 
-
 }

@@ -4,7 +4,15 @@
 public class EntitySet {
 
     private int nummberOfEntitys = 100;
-    Entity[] entitiyList = new Entity[nummberOfEntitys];
+    private Entity[] entitiyList = new Entity[nummberOfEntitys];
+
+    public int getNumberofEntitys() {
+        return nummberOfEntitys;
+    }
+
+    public Entity[] getEntitiList() {
+        return entitiyList;
+    }
 
     public void add(Entity toAdd) {
 
@@ -44,6 +52,25 @@ public class EntitySet {
                 entitiyList[i].nextStep();
             }
         }
+    }
+
+    public XY collision(Entity entityToCheck, XY destination) {
+
+        for (int i = 0; i < nummberOfEntitys; i++) {
+            Entity toCheck = entitiyList[i];
+            if (toCheck != null) {
+                if (toCheck.getCoordinate().getX() == destination.getX()
+                        && toCheck.getCoordinate().getY() == destination.getY()) {
+                    if (toCheck instanceof GoodPlant) {
+                        entityToCheck.updateEnergy(toCheck.getEnergy());
+                        this.delete(toCheck);
+                        return destination;
+                    }
+                }
+            }
+        }
+        return destination;
+
     }
 
 }

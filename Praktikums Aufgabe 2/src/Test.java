@@ -16,6 +16,7 @@ public class Test {
         entitySet.add(new MasterSquirrel(100, new XY(100, 100)));
         Entity manuelSquirrel = new HandOperatedMasterSquirrel(101, new XY(100, 100));
         entitySet.add(manuelSquirrel);
+        entitySet.add(new GoodPlant(1000, new XY(100, 101)));
 
         MiniSquirrel testSquirrel1 = new MiniSquirrel(101, new XY(100, 101), 100);
         MiniSquirrel testSquirrel2 = new MiniSquirrel(102, new XY(100, 102), 100);
