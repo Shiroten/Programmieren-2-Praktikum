@@ -18,11 +18,13 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel {
     public XY move() {
 
         XY destination = new XY(0, 0);
-        //Scanner scanner = new Scanner(System.in);
+        Scanner scanner = new Scanner(System.in);
         System.out.println("Bitte geben Sie eine Richtung für ihr Squirrel in WASD an: ");
 
         try {
-            char c = (char) System.in.read();
+            //char c = (char) System.in.read();
+            char c = scanner.next().charAt(0);
+
             c = Character.toUpperCase(c);
             switch (c) {
                 case 'W':
