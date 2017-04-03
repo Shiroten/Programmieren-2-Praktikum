@@ -37,7 +37,9 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel {
                 case 'D':
                     destination = (new XY(getCoordinate().getX() + 1, getCoordinate().getY()));
                     break;
+                default: destination = (new XY(getCoordinate().getX(), getCoordinate().getY()));
             }
+
         } catch (Exception e) {
             System.out.println("Bitte nur W A S D benutzen!");
         }
