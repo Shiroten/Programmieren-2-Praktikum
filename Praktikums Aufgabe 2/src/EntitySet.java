@@ -3,22 +3,22 @@
  */
 public class EntitySet {
 
-    private int nummberOfEntitys = 100;
-    private Entity[] entitiyList = new Entity[nummberOfEntitys];
+    private int numberOfEntities = 100;
+    private Entity[] entityList = new Entity[numberOfEntities];
 
-    public int getNumberofEntitys() {
-        return nummberOfEntitys;
+    public int getNumberOfEntities() {
+        return numberOfEntities;
     }
 
-    public Entity[] getEntitiList() {
-        return entitiyList;
+    public Entity[] getEntityList() {
+        return entityList;
     }
 
     public void add(Entity toAdd) {
 
-        for (int i = 0; i < nummberOfEntitys; i++) {
-            if (entitiyList[i] == null) {
-                entitiyList[i] = toAdd;
+        for (int i = 0; i < numberOfEntities; i++) {
+            if (entityList[i] == null) {
+                entityList[i] = toAdd;
                 return;
             }
         }
@@ -26,9 +26,9 @@ public class EntitySet {
 
     public void delete(Entity toDelete) {
 
-        for (int i = 0; i < nummberOfEntitys; i++) {
-            if (entitiyList[i] == toDelete) {
-                entitiyList[i] = null;
+        for (int i = 0; i < numberOfEntities; i++) {
+            if (entityList[i] == toDelete) {
+                entityList[i] = null;
                 return;
             }
         }
@@ -38,26 +38,26 @@ public class EntitySet {
     public String toString() {
 
         String returnString = "";
-        for (int i = 0; i < nummberOfEntitys; i++) {
-            if (entitiyList[i] != null) {
-                returnString += entitiyList[i].toString() + '\n';
+        for (int i = 0; i < numberOfEntities; i++) {
+            if (entityList[i] != null) {
+                returnString += entityList[i].toString() + '\n';
             }
         }
         return returnString;
     }
 
     public void nextStep() {
-        for (int i = 0; i < nummberOfEntitys; i++) {
-            if (entitiyList[i] != null) {
-                entitiyList[i].nextStep();
+        for (int i = 0; i < numberOfEntities; i++) {
+            if (entityList[i] != null) {
+                entityList[i].nextStep();
             }
         }
     }
 
     public XY collision(Entity entityToCheck, XY destination) {
 
-        for (int i = 0; i < nummberOfEntitys; i++) {
-            Entity toCheck = entitiyList[i];
+        for (int i = 0; i < numberOfEntities; i++) {
+            Entity toCheck = entityList[i];
             if (toCheck != null) {
                 if (toCheck.getCoordinate().getX() == destination.getX()
                         && toCheck.getCoordinate().getY() == destination.getY()) {
