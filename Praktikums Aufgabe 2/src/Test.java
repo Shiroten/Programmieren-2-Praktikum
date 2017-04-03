@@ -1,6 +1,8 @@
 /**
  * Created by Shiroten on 01.04.2017.
  */
+
+import java.io.PrintStream;
 public class Test {
     public static void main(String[] args) {
 
@@ -39,7 +41,7 @@ public class Test {
         for (int i = 0; i < 9; i++) {
             entitySet.nextStep();
             System.out.println();
-            System.out.printf("%d. nextStep: %n%n", (i + 1));
+            System.out.println("%d. nextStep: %n%n" + (i + 1));
             System.out.println(entitySet.toString());
         }
 

@@ -28,13 +28,13 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel {
             c = Character.toUpperCase(c);
             switch (c) {
                 case 'W':
-                    destination = (new XY(getCoordinate().getX(), getCoordinate().getY() + 1));
+                    destination = (new XY(getCoordinate().getX(), getCoordinate().getY() - 1));
                     break;
                 case 'A':
                     destination = (new XY(getCoordinate().getX() - 1, getCoordinate().getY()));
                     break;
                 case 'S':
-                    destination = (new XY(getCoordinate().getX(), getCoordinate().getY() - 1));
+                    destination = (new XY(getCoordinate().getX(), getCoordinate().getY() + 1));
                     break;
                 case 'D':
                     destination = (new XY(getCoordinate().getX() + 1, getCoordinate().getY()));
