@@ -79,4 +79,5 @@ public class EntitySet {
     }
 
     //TODO: check equals für entities
+    //Keine Ahnung was damit nochmal gemeint ist. S
 }

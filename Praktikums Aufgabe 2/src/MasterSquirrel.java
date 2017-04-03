@@ -21,9 +21,11 @@ public class MasterSquirrel extends Entity {
     public void nextStep() {
     }
 
-    //For the lulz
-    public void newMinion(){
-        MiniSquirrel child = new MiniSquirrel(10, this.getCoordinate(), getEnergy()-50, this);
+    public boolean mySquirrel(MiniSquirrel squirrelToCheck) {
+        if (this == squirrelToCheck.getDaddy()) {
+            return true;
+        }
+        return false;
     }
 
     public String toString() {

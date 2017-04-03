@@ -9,6 +9,10 @@ public class MiniSquirrel extends MasterSquirrel {
         this.daddy = daddy;
     }
 
+    public MasterSquirrel getDaddy(){
+        return daddy;
+    }
+
     public String toString() {
         return ("MiniSquirrel: " + super.toString() + "Luke, wer ist dein Vater? ParentID:" + daddy.getId());
     }
