@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 /**
  * Created by Shiroten on 01.04.2017.
  */
@@ -5,6 +7,8 @@ public class EntitySet {
 
     private int numberOfEntities = 100;
     private Entity[] entityList = new Entity[numberOfEntities];
+    //private ArrayList<Entity> entityList = new ArrayList<Entity>();
+
 
     public int getNumberOfEntities() {
         return numberOfEntities;
@@ -15,7 +19,6 @@ public class EntitySet {
     }
 
     public void add(Entity toAdd) {
-
         for (int i = 0; i < numberOfEntities; i++) {
             if (entityList[i] == null) {
                 entityList[i] = toAdd;
@@ -52,6 +55,8 @@ public class EntitySet {
                 entityList[i].nextStep();
             }
         }
+
+
     }
 
     public XY collision(Entity entityToCheck, XY destination) {
@@ -73,4 +78,5 @@ public class EntitySet {
 
     }
 
+    //TODO: check equals für entities
 }

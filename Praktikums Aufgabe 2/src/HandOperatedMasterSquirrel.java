@@ -26,6 +26,7 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel {
             char c = scanner.next().charAt(0);
 
             c = Character.toUpperCase(c);
+            //TODO: Ändern in Vektoren / ändern in XY
             switch (c) {
                 case 'W':
                     destination = (new XY(getCoordinate().getX(), getCoordinate().getY() - 1));

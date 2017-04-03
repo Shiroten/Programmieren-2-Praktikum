@@ -3,28 +3,21 @@
  */
 public abstract class Entity {
     private final int id;
-    private final int startEnergy;
     private int energy;
     private XY coordinate;
 
     public Entity(int startEnergy, int id, XY coordinate){
         this.id = id;
-        this.startEnergy = startEnergy;
         this.energy = startEnergy;
         this.coordinate = coordinate;
     }
 
     public Entity(){
         this.id = 0;
-        this.startEnergy = 0;
     }
 
     public int getId() {
         return id;
-    }
-
-    public int getStartEnergy() {
-        return startEnergy;
     }
 
     public int getEnergy() {
@@ -43,13 +36,10 @@ public abstract class Entity {
         this.coordinate = coordinate;
     }
 
-    public void nextStep(){
-        this.coordinate = coordinate.randomMove();
-    }
+    public abstract void nextStep();
 
     public String toString(){
-        return ("[ID: " + id + ", StartEnergy: "
-                + startEnergy + ", Energy: " + energy
+        return ("[ID: " + id + ", Energy: " + energy
                 + ", Coordinate: (X: " + coordinate.getX() + ", Y: " + coordinate.getY()+ ")]");
     }
 }
