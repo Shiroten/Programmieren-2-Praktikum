@@ -10,14 +10,17 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel {
 
     public void nextStep() {
 
-        XY destination = move();
-        setCoordinate(destination);
+        int thisX = this.getCoordinate().getX();
+        int thisY = this.getCoordinate().getY();
+
+        XY destination = new XY(thisX, thisY);
+        setCoordinate(destination.addVector(move()));
 
     }
 
-    public XY move() {
+    public Vector move() {
 
-        XY destination = new XY(0, 0);
+        Vector destination = new Vector(0, 0);
         Scanner scanner = new Scanner(System.in);
         System.out.println("Bitte geben Sie eine Richtung für ihr Squirrel in WASD an: ");
 
@@ -26,21 +29,21 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel {
             char c = scanner.next().charAt(0);
 
             c = Character.toUpperCase(c);
-            //TODO: Ändern in Vektoren / ändern in XY
             switch (c) {
                 case 'W':
-                    destination = (new XY(getCoordinate().getX(), getCoordinate().getY() - 1));
+                    destination = (new Vector(0, -1));
                     break;
                 case 'A':
-                    destination = (new XY(getCoordinate().getX() - 1, getCoordinate().getY()));
+                    destination = (new Vector(-1, 0));
                     break;
                 case 'S':
-                    destination = (new XY(getCoordinate().getX(), getCoordinate().getY() + 1));
+                    destination = (new Vector(0, +1));
                     break;
                 case 'D':
-                    destination = (new XY(getCoordinate().getX() + 1, getCoordinate().getY()));
+                    destination = (new Vector(1, 0));
                     break;
-                default: destination = (new XY(getCoordinate().getX(), getCoordinate().getY()));
+                default:
+                    destination = (new Vector(0, 0));
             }
 
         } catch (Exception e) {

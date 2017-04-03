@@ -3,6 +3,7 @@
  */
 
 import java.io.PrintStream;
+
 public class Test {
     public static void main(String[] args) {
 
@@ -21,7 +22,7 @@ public class Test {
         entitySet.add(manuelSquirrel);
         entitySet.add(new GoodPlant(1000, new XY(100, 101)));
 
-        MiniSquirrel testSquirrel1 = new MiniSquirrel(101, new XY(100, 101), 100,ms);
+        MiniSquirrel testSquirrel1 = new MiniSquirrel(101, new XY(100, 101), 100, ms);
         MiniSquirrel testSquirrel2 = new MiniSquirrel(102, new XY(100, 102), 100, ms);
         MiniSquirrel testSquirrel3 = new MiniSquirrel(103, new XY(100, 103), 100, ms);
 
@@ -42,7 +43,7 @@ public class Test {
         for (int i = 0; i < 9; i++) {
             entitySet.nextStep();
             System.out.println();
-            System.out.printf("%d. nextStep: %n%n" + (i + 1));
+            System.out.printf("%d. nextStep: %n%n", (i + 1));
             System.out.println(entitySet.toString());
         }
 
