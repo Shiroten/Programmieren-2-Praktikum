@@ -1,5 +1,6 @@
-import javax.print.attribute.HashDocAttributeSet;
-import java.util.ArrayList;
+package de.hsa.games.fatsquirrel.core;
+
+import de.hsa.games.fatsquirrel.XY;
 
 /**
  * Created by tillm on 29.03.2017.
@@ -29,7 +30,7 @@ public class MasterSquirrel extends Entity {
     }
 
     public String toString() {
-        return ("MasterSquirrel: " + super.toString());
+        return ("de.hsa.games.fatsquirrel.core.MasterSquirrel: " + super.toString());
     }
 
 }

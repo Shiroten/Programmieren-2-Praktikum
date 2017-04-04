@@ -1,4 +1,4 @@
-import java.util.concurrent.ThreadLocalRandom;
+package de.hsa.games.fatsquirrel;
 
 /**
  * Created by tillm on 28.03.2017.

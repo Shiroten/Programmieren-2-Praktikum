@@ -1,10 +1,10 @@
-/**
+package de.hsa.games.fatsquirrel; /**
  * Created by Shiroten on 01.04.2017.
  */
 
-import java.io.PrintStream;
+import de.hsa.games.fatsquirrel.core.*;
 
-public class Test {
+public class Launcher {
     public static void main(String[] args) {
 
         EntitySet entitySet = new EntitySet();

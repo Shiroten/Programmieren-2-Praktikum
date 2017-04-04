@@ -1,3 +1,7 @@
+package de.hsa.games.fatsquirrel.core;
+
+import de.hsa.games.fatsquirrel.XY;
+
 /**
  * Created by tillm on 29.03.2017.
  */
@@ -14,7 +18,7 @@ public class MiniSquirrel extends MasterSquirrel {
     }
 
     public String toString() {
-        return ("MiniSquirrel: " + super.toString() + "Luke, wer ist dein Vater? ParentID:" + daddy.getId());
+        return ("de.hsa.games.fatsquirrel.core.MiniSquirrel: " + super.toString() + "Luke, wer ist dein Vater? ParentID:" + daddy.getId());
     }
 
     public void nextStep(){

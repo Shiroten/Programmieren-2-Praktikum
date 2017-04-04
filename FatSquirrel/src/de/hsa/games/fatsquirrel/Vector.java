@@ -1,3 +1,5 @@
+package de.hsa.games.fatsquirrel;
+
 /**
  * Created by Shiroten on 03.04.2017.
  */

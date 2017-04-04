@@ -1,3 +1,7 @@
+package de.hsa.games.fatsquirrel.core;
+
+import de.hsa.games.fatsquirrel.XY;
+
 /**
  * Created by tillm on 29.03.2017.
  */
@@ -11,6 +15,6 @@ public class GoodPlant extends Entity {
     }
 
     public String toString() {
-        return ("GoodPlant: " + super.toString());
+        return ("de.hsa.games.fatsquirrel.core.GoodPlant: " + super.toString());
     }
 }

@@ -1,3 +1,8 @@
+package de.hsa.games.fatsquirrel.core;
+
+import de.hsa.games.fatsquirrel.Vector;
+import de.hsa.games.fatsquirrel.XY;
+
 import java.util.Scanner;
 
 /**

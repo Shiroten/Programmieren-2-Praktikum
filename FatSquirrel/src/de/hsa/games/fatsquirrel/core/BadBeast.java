@@ -1,3 +1,7 @@
+package de.hsa.games.fatsquirrel.core;
+
+import de.hsa.games.fatsquirrel.XY;
+
 /**
  * Created by tillm on 29.03.2017.
  */
@@ -12,6 +16,6 @@ public class BadBeast extends Entity {
     }
 
     public String toString() {
-        return ("BadBeast: " + super.toString());
+        return ("de.hsa.games.fatsquirrel.core.BadBeast: " + super.toString());
     }
 }

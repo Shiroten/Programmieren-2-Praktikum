@@ -1,3 +1,7 @@
+package de.hsa.games.fatsquirrel.core;
+
+import de.hsa.games.fatsquirrel.XY;
+
 /**
  * Created by tillm on 29.03.2017.
  */
@@ -12,6 +16,6 @@ public class Wall extends Entity {
     }
 
     public String toString() {
-        return ("Wall: " + super.toString());
+        return ("de.hsa.games.fatsquirrel.core.Wall: " + super.toString());
     }
 }

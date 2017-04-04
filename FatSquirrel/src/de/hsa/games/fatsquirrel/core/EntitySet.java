@@ -1,4 +1,6 @@
-import java.util.ArrayList;
+package de.hsa.games.fatsquirrel.core;
+
+import de.hsa.games.fatsquirrel.XY;
 
 /**
  * Created by Shiroten on 01.04.2017.
@@ -7,7 +9,7 @@ public class EntitySet {
 
     private int numberOfEntities = 100;
     private Entity[] entityList = new Entity[numberOfEntities];
-    //private ArrayList<Entity> entityList = new ArrayList<Entity>();
+    //private ArrayList<de.hsa.games.fatsquirrel.core.Entity> entityList = new ArrayList<de.hsa.games.fatsquirrel.core.Entity>();
 
 
     public int getNumberOfEntities() {

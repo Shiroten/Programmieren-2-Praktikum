@@ -1,3 +1,7 @@
+package de.hsa.games.fatsquirrel.core;
+
+import de.hsa.games.fatsquirrel.XY;
+
 /**
  * Created by tillm on 28.03.2017.
  */
@@ -43,7 +47,7 @@ public abstract class Entity {
                 + ", Coordinate: (X: " + coordinate.getX() + ", Y: " + coordinate.getY() + ")]");
     }
 
-    //ToDo: Check if "Ebenso soll es möglich sein, auf Standardweise zu entscheiden, ob zwei Objekte dieselbe Entity repräsentieren."
+    //ToDo: Check if "Ebenso soll es möglich sein, auf Standardweise zu entscheiden, ob zwei Objekte dieselbe de.hsa.games.fatsquirrel.core.Entity repräsentieren."
     //ToDo: Means to compare the ID of the Entities.
 
     public int equals(Entity e) {
