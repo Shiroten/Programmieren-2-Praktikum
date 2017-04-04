@@ -6,6 +6,7 @@ import de.hsa.games.fatsquirrel.XY;
  * Created by tillm on 29.03.2017.
  */
 public class MiniSquirrel extends MasterSquirrel {
+    public static final EntityType type = EntityType.MINISQUIRREL;
     private MasterSquirrel daddy;
 
     public MiniSquirrel(int id, XY coordinate, int startEnergy, MasterSquirrel daddy) {

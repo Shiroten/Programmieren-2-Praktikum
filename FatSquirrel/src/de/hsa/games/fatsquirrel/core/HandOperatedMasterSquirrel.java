@@ -9,6 +9,7 @@ import java.util.Scanner;
  * Created by tillm on 29.03.2017.
  */
 public class HandOperatedMasterSquirrel extends MasterSquirrel {
+    public static final EntityType type = EntityType.HANDOPERATEDMASTERSQUIRREL;
     public HandOperatedMasterSquirrel(int id, XY coordinate) {
         super(id, coordinate);
     }

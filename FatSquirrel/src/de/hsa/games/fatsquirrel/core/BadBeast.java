@@ -7,6 +7,7 @@ import de.hsa.games.fatsquirrel.XY;
  */
 public class BadBeast extends Entity {
     public static final int START_ENERGY = -150;
+    public static final EntityType type = EntityType.BADBEAST;
     public BadBeast(int id, XY coordinate){
         super(START_ENERGY, id, coordinate);
     }

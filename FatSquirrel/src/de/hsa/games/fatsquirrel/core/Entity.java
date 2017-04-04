@@ -47,9 +47,8 @@ public abstract class Entity {
                 + ", Coordinate: (X: " + coordinate.getX() + ", Y: " + coordinate.getY() + ")]");
     }
 
-    //ToDo: Check if "Ebenso soll es möglich sein, auf Standardweise zu entscheiden, ob zwei Objekte dieselbe de.hsa.games.fatsquirrel.core.Entity repräsentieren."
-    //ToDo: Means to compare the ID of the Entities.
-
+    //Check if "Ebenso soll es möglich sein, auf Standardweise zu entscheiden, ob zwei Objekte dieselbe de.hsa.games.fatsquirrel.core.Entity repräsentieren."
+    //Means to compare the ID of the Entities.
     public int equals(Entity e) {
 
         int returnValue = 0;
