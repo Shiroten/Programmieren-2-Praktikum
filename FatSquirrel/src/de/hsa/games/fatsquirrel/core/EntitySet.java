@@ -20,6 +20,8 @@ public class EntitySet {
         return entityList;
     }
 
+    public Entity getEntity(int index) {return entityList[index]; }
+
     public void add(Entity toAdd) {
         for (int i = 0; i < numberOfEntities; i++) {
             if (entityList[i] == null) {
@@ -37,7 +39,6 @@ public class EntitySet {
                 return;
             }
         }
-
     }
 
     public String toString() {
@@ -57,8 +58,6 @@ public class EntitySet {
                 entityList[i].nextStep();
             }
         }
-
-
     }
 
     public XY collision(Entity entityToCheck, XY destination) {
@@ -77,7 +76,5 @@ public class EntitySet {
             }
         }
         return destination;
-
     }
-
 }

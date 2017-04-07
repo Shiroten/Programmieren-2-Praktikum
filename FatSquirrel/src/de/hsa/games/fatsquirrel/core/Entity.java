@@ -40,6 +40,8 @@ public abstract class Entity {
         this.coordinate = coordinate;
     }
 
+    public abstract EntityType getEntityType();
+
     public abstract void nextStep();
 
     public String toString() {

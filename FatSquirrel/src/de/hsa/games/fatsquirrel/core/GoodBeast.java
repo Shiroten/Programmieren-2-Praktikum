@@ -12,6 +12,10 @@ public class GoodBeast extends Entity {
         super(START_ENERGY, id, coordinate);
     }
 
+    public EntityType getEntityType() {
+        return type;
+    }
+
     public void nextStep(){
         setCoordinate(getCoordinate().randomMove());
     }

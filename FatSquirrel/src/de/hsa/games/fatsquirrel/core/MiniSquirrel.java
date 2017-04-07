@@ -9,6 +9,10 @@ public class MiniSquirrel extends MasterSquirrel {
     public static final EntityType type = EntityType.MINISQUIRREL;
     private MasterSquirrel daddy;
 
+    public EntityType getEntityType() {
+        return type;
+    }
+
     public MiniSquirrel(int id, XY coordinate, int startEnergy, MasterSquirrel daddy) {
         super(id, coordinate, startEnergy);
         this.daddy = daddy;

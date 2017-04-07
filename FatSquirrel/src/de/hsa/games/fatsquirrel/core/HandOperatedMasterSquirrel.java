@@ -14,6 +14,10 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel {
         super(id, coordinate);
     }
 
+    public EntityType getEntityType() {
+        return type;
+    }
+
     public void nextStep() {
 
         int thisX = this.getCoordinate().getX();

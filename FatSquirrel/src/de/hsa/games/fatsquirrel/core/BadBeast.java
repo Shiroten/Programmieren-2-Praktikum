@@ -12,6 +12,11 @@ public class BadBeast extends Entity {
         super(START_ENERGY, id, coordinate);
     }
 
+    @Override
+    public EntityType getEntityType() {
+        return type;
+    }
+
     public void nextStep(){
         setCoordinate(getCoordinate().randomMove());
     }
