@@ -49,19 +49,20 @@ public abstract class Entity {
                 + ", Coordinate: (X: " + coordinate.getX() + ", Y: " + coordinate.getY() + ")]");
     }
 
-    //Check if "Ebenso soll es möglich sein, auf Standardweise zu entscheiden, ob zwei Objekte dieselbe de.hsa.games.fatsquirrel.core.Entity repräsentieren."
-    //Means to compare the ID of the Entities.
-    public int equals(Entity e) {
+    @Override
+    public boolean equals(Object o) {
 
-        int returnValue = 0;
-
-        if (this.id < e.getId()) {
-            returnValue = -1;
-        } else if (this.id > e.getId()) {
-            returnValue = 1;
-        } else if (this.id == e.getId()) {
-            returnValue = 0;
+        if (o instanceof Entity) {
+            Entity e = (Entity) o;
+            boolean returnValue = false;
+            if (this.id == e.getId()) {
+                returnValue = true;
+            } else {
+                returnValue = false;
+            }
+            return returnValue;
         }
-        return returnValue;
+        return false;
+
     }
 }
