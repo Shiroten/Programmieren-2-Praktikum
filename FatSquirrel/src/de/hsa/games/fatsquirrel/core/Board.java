@@ -40,4 +40,13 @@ public class Board {
     }
 
     //TODO: Landschaftsgenerator
+    public EntitySet initBoard(XY size){
+        EntitySet ret = new EntitySet();
+
+
+
+        return ret;
+    }
+
+    //TODO: toString
 }
