@@ -32,10 +32,12 @@ public class FlattenedBoard implements BoardView, EntityContext {
         return size;
     }
 
+    //Zuerst wird geschaut, auf welchem Feld die Entity landen wird
+    //Dann wird geschaut, ob und wenn ja welche Entity sich auf dem Feld befindet
+    //In Abhängkeit der E wird die Energie abgezogen
     //TODO: tryMove-Methoden implentieren
     @Override
     public void tryMove(MiniSquirrel miniSquirrel, Vector vector) {
-
     }
 
     @Override
@@ -53,6 +55,9 @@ public class FlattenedBoard implements BoardView, EntityContext {
 
     }
 
+    //Aus dem Board alle Player-E's ziehen
+    //Abstand von pos zu PEs berechnen
+    //nächste PE zurückgeben
     //TODO: nearestPlayerEntity ordentlich implementieren
     @Override
     public HandOperatedMasterSquirrel nearestPlayerEntity(XY pos) {

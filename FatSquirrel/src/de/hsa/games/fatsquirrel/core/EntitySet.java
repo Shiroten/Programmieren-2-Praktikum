@@ -67,7 +67,6 @@ public class EntitySet {
             if (toCheck != null) {
                 if (toCheck.getCoordinate().getX() == destination.getX()
                         && toCheck.getCoordinate().getY() == destination.getY()) {
-                    //TODO: Kollision der unterschiedlichen Entities abhandeln, eventuell an anderer Stelle besser
                     if (toCheck instanceof GoodPlant) {
                         entityToCheck.updateEnergy(toCheck.getEnergy());
                         this.delete(toCheck);

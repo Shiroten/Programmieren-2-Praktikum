@@ -66,6 +66,7 @@ public class Board {
 
     public int setID(EntityType type) {
 
+        //Globaler Counter, nächste Entity bekommt counter +1
         //todo: IDs in abhängigkeit von irgedtwas vergeben.
         return -1;
     }
