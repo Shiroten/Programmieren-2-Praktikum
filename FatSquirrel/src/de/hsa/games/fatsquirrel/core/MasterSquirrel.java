@@ -5,9 +5,8 @@ import de.hsa.games.fatsquirrel.XY;
 /**
  * Created by tillm on 29.03.2017.
  */
-public class MasterSquirrel extends Entity {
+public class MasterSquirrel extends PlayerEntity {
 
-    //TODO: PlayerEntity als Basisklasse implementieren, auch für HandOperatedMasterSquirrel
     public static final int START_ENERGY = 1000;
     public static final EntityType type = EntityType.MASTERSQUIRREL;
 
@@ -16,11 +15,8 @@ public class MasterSquirrel extends Entity {
     }
 
     public MasterSquirrel(int id, XY coordinate) {
-        super(START_ENERGY, id, coordinate);
-    }
-
-    public MasterSquirrel(int id, XY coordinate, int startEnergy) {
-        super(startEnergy, id, coordinate);
+        super(id, coordinate);
+        this.energy = START_ENERGY;
     }
 
     public MasterSquirrel() {}

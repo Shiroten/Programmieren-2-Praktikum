@@ -19,7 +19,6 @@ public class State {
         return highscore;
     }
 
-    //TODO: Füllen
     public void update(){
 
     }

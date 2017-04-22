@@ -21,6 +21,11 @@ public class Vector {
         this.yDifference = y;
     }
 
+    public Vector(XY xy1, XY xy2){
+        this.xDifference = xy1.getX() - xy2.getY();
+        this.yDifference = xy1.getY() - xy2.getY();
+    }
+
     public Vector(){
         this.xDifference = 0;
         this.yDifference = 0;
@@ -59,5 +64,12 @@ public class Vector {
                 newPosition = new Vector(0, 0);
         }
         return newPosition;
+    }
+
+    //Gibt die Länge in Schritten aus
+    public int getLength(){
+        if(Math.abs(this.xDifference) > Math.abs(this.yDifference))
+            return Math.abs(this.xDifference);
+        return Math.abs(this.yDifference);
     }
 }

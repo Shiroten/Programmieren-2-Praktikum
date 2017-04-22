@@ -5,7 +5,7 @@ import de.hsa.games.fatsquirrel.XY;
 /**
  * Created by tillm on 29.03.2017.
  */
-public class MiniSquirrel extends MasterSquirrel {
+public class MiniSquirrel extends PlayerEntity {
     public static final EntityType type = EntityType.MINISQUIRREL;
     private MasterSquirrel daddy;
 
@@ -14,8 +14,9 @@ public class MiniSquirrel extends MasterSquirrel {
     }
 
     public MiniSquirrel(int id, XY coordinate, int startEnergy, MasterSquirrel daddy) {
-        super(id, coordinate, startEnergy);
+        super(id, coordinate);
         this.daddy = daddy;
+        this.energy = startEnergy;
     }
 
     public MasterSquirrel getDaddy(){

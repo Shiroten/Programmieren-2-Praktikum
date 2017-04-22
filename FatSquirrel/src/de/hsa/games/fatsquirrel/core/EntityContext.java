@@ -12,7 +12,7 @@ public interface EntityContext {
     void tryMove(GoodBeast goodBeast, Vector vector);
     void tryMove(BadBeast badBeast, Vector vector);
     void tryMove(MasterSquirrel masterSquirrel, Vector vector);
-    HandOperatedMasterSquirrel nearestPlayerEntity(XY pos);
+    PlayerEntity nearestPlayerEntity(XY pos);
 
     void killEntity(Entity entity);
     void killAndReplace(Entity entity);

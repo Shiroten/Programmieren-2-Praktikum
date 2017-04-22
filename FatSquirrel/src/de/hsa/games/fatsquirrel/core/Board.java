@@ -8,6 +8,7 @@ import de.hsa.games.fatsquirrel.XY;
 public class Board {
     private EntitySet set;
     private BoardConfig config;
+    private int idCounter = 0;
 
     public Board() {
         set = new EntitySet();
@@ -43,7 +44,7 @@ public class Board {
         EntitySet ret = new EntitySet();
 
         //Äußere Mauern
-        int WallIDs = setID(EntityType.WALL);
+        int WallIDs = setID();
         int x = config.getSize().getX(), y = config.getSize().getY();
         for (int i = 0; i < x; i++) {
             ret.add(new Wall(WallIDs, new XY(i, 0)));
@@ -55,44 +56,42 @@ public class Board {
         }
 
         //Random Entitys auf der Map verteilt
-        randomAddEntity(ret, EntityType.WALL, config.getNumberOfWalls());
-        randomAddEntity(ret, EntityType.BADBEAST, config.getNumberOfBadBeast());
-        randomAddEntity(ret, EntityType.BADPLANT, config.getNumberOfBadPlant());
-        randomAddEntity(ret, EntityType.GOODBEAST, config.getNumberOfGoodBeast());
-        randomAddEntity(ret, EntityType.GOODPLANT, config.getNumberOfGoodPlant());
+        randomAddEntity(EntityType.WALL, config.getNumberOfWalls());
+        randomAddEntity(EntityType.BADBEAST, config.getNumberOfBadBeast());
+        randomAddEntity(EntityType.BADPLANT, config.getNumberOfBadPlant());
+        randomAddEntity(EntityType.GOODBEAST, config.getNumberOfGoodBeast());
+        randomAddEntity(EntityType.GOODPLANT, config.getNumberOfGoodPlant());
 
         return ret;
     }
 
-    public int setID(EntityType type) {
+    public int setID() {
 
-        //Globaler Counter, nächste Entity bekommt counter +1
-        //todo: IDs in abhängigkeit von irgedtwas vergeben.
-        return -1;
+        return idCounter++;
     }
 
-    public void randomAddEntity(EntitySet set, EntityType type, int ammount) {
+    public void randomAddEntity(EntityType type, int ammount) {
 
-        XY position = randomPosition(config.getSize(), set);
+        XY position = randomPosition(config.getSize());
         int randomX = position.getX(), randomY = position.getY();
 
         Entity addEntity = null;
         for (int i = 0; i < ammount; i++) {
             switch (type) {
                 case WALL:
-                    addEntity = new Wall(setID(EntityType.WALL), new XY(randomX, randomY));
+                    addEntity = new Wall(setID(), new XY(randomX, randomY));
                     break;
                 case BADBEAST:
-                    addEntity = new BadBeast(setID(EntityType.BADBEAST), new XY(randomX, randomY));
+                    addEntity = new BadBeast(setID(), new XY(randomX, randomY));
                     break;
                 case BADPLANT:
-                    addEntity = new BadPlant(setID(EntityType.BADPLANT), new XY(randomX, randomY));
+                    addEntity = new BadPlant(setID(), new XY(randomX, randomY));
                     break;
                 case GOODBEAST:
-                    addEntity = new GoodBeast(setID(EntityType.GOODBEAST), new XY(randomX, randomY));
+                    addEntity = new GoodBeast(setID(), new XY(randomX, randomY));
                     break;
                 case GOODPLANT:
-                    addEntity = new GoodPlant(setID(EntityType.GOODPLANT), new XY(randomX, randomY));
+                    addEntity = new GoodPlant(setID(), new XY(randomX, randomY));
                     break;
             }
             set.add(addEntity);
@@ -100,12 +99,39 @@ public class Board {
 
     }
 
-    public XY randomPosition(XY size, EntitySet set) {
+    public Entity randomAddEntity(EntityType type, XY position) {
+
+        Entity addEntity = null;
+
+        switch (type) {
+            case WALL:
+                addEntity = new Wall(setID(), position);
+                break;
+            case BADBEAST:
+                addEntity = new BadBeast(setID(), position);
+                break;
+            case BADPLANT:
+                addEntity = new BadPlant(setID(), position);
+                break;
+            case GOODBEAST:
+                addEntity = new GoodBeast(setID(), position);
+                break;
+            case GOODPLANT:
+                addEntity = new GoodPlant(setID(), position);
+                break;
+        }
+        set.add(addEntity);
+
+        return addEntity;
+    }
+
+
+    public XY randomPosition(XY size) {
 
         boolean collision;
         int newX = 0, newY = 0;
 
-        do{
+        do {
             collision = false;
             newX = (int) ((Math.random() * size.getX()));
             newY = (int) ((Math.random() * size.getY()));
@@ -118,7 +144,7 @@ public class Board {
                 }
             }
 
-        }while(collision);
+        } while (collision);
         return new XY(newX, newY);
     }
 

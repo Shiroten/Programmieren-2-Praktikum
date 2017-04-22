@@ -69,10 +69,26 @@ public class FlattenedBoard implements BoardView, EntityContext {
     //Aus dem Board alle Player-E's ziehen
     //Abstand von pos zu PEs berechnen
     //nächste PE zurückgeben
-    //TODO: nearestPlayerEntity ordentlich implementieren
+
     @Override
-    public HandOperatedMasterSquirrel nearestPlayerEntity(XY pos) {
-        return null;
+    public PlayerEntity nearestPlayerEntity(XY pos) {
+        PlayerEntity nPE = null;
+        for(Entity e : board.getSet().getEntityList()){
+            if(e instanceof PlayerEntity){
+                if(nPE == null)
+                    nPE = (PlayerEntity)e;
+                else{
+                    Vector v = new Vector(nPE.getCoordinate(), pos);
+                    double distance = v.getLength();
+                    Vector v2 = new Vector(e.getCoordinate(), pos);
+                    if(distance > v2.getLength())
+                        nPE = (PlayerEntity)e;
+                }
+
+            }
+        }
+
+        return nPE;
     }
 
     @Override
@@ -91,8 +107,8 @@ public class FlattenedBoard implements BoardView, EntityContext {
     @Override
     public void killAndReplace(Entity entity) {
         killEntity(entity);
-        //TODO: Neue Entity muss erstellt werden
-        entity.setCoordinate(randomFreePosition());
+        Entity newE = board.randomAddEntity(entity.getEntityType(), randomFreePosition());
+        flattenedBoard[newE.getCoordinate().getY()][newE.getCoordinate().getX()] = newE;
     }
 
     @Override

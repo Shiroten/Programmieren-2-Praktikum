@@ -7,12 +7,11 @@ import de.hsa.games.fatsquirrel.XY;
  */
 public abstract class Entity {
     private final int id;
-    private int energy;
+    protected int energy;
     private XY coordinate;
 
-    public Entity(int startEnergy, int id, XY coordinate) {
+    public Entity(int id, XY coordinate) {
         this.id = id;
-        this.energy = startEnergy;
         this.coordinate = coordinate;
     }
 

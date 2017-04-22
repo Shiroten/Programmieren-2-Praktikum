@@ -13,6 +13,8 @@ public class Game {
         this.state = state;
     }
 
+    public Game(){};
+
     public void run(){
 
     }
