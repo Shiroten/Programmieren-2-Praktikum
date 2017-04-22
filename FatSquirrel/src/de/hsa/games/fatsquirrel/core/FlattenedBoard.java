@@ -20,7 +20,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
     //Das heißt der erste Wert ist die y-Koordinate (Höhe), der zweite Wert ist die x-Koordinate (Breite)
     private Entity[][] flattenedBoard;
 
-    public FlattenedBoard(XY size, Board board, Entity[][] flat){
+    public FlattenedBoard(XY size, Board board, Entity[][] flat) {
         this.size = size;
         flattenedBoard = new Entity[size.getY()][size.getX()];
         this.board = board;
@@ -29,7 +29,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
 
     //Hier wird die Koordinate etwas missbraucht: man speichert in einer Koordinate die x-Höhe
     //und die y-Höhe. Felder sind wohl nicht immer quadratisch...
-    public XY getSize(){
+    public XY getSize() {
         return size;
     }
 
@@ -41,23 +41,92 @@ public class FlattenedBoard implements BoardView, EntityContext {
     public void tryMove(MiniSquirrel miniSquirrel, Vector vector) {
         XY newField = miniSquirrel.getCoordinate().addVector(vector);
 
-        switch(getEntityType(newField)){
+        switch (getEntityType(newField)) {
             case WALL:
                 miniSquirrel.updateEnergy(Wall.START_ENERGY);
-                //blubb
+                //Todo: Betäuben
                 break;
+
+            case BADBEAST:
+                miniSquirrel.updateEnergy(BadBeast.START_ENERGY);
+                if(miniSquirrel.getEnergy() <=0){
+                    killEntity(miniSquirrel);
+                }
+                //Todo: Badbeast Counter reduzieren
+                break;
+
+            case BADPLANT:
+                miniSquirrel.updateEnergy(BadPlant.START_ENERGY);
+                killAndReplace(flattenedBoard[newField.getX()][newField.getY()]);
+                miniSquirrel.setCoordinate(newField);
+                break;
+
+            case GOODBEAST:
+                miniSquirrel.updateEnergy(GoodBeast.START_ENERGY);
+                killAndReplace(flattenedBoard[newField.getX()][newField.getY()]);
+                miniSquirrel.setCoordinate(newField);
+                break;
+
+            case GOODPLANT:
+                miniSquirrel.updateEnergy(GoodPlant.START_ENERGY);
+                killAndReplace(flattenedBoard[newField.getX()][newField.getY()]);
+                miniSquirrel.setCoordinate(newField);
+                break;
+
+            case MINISQUIRREL:
+                if (miniSquirrel.getDaddy() ==
+                        ((MiniSquirrel) flattenedBoard[newField.getX()][newField.getY()]).getDaddy()) {
+                    //Mach nichts
+                } else {
+                    killEntity(miniSquirrel);
+                    killEntity(flattenedBoard[newField.getX()][newField.getY()]);
+                }
+                break;
+
+            case MASTERSQUIRREL:
+                if (((MasterSquirrel) flattenedBoard[newField.getX()][newField.getY()]).mySquirrel(miniSquirrel)) {
+                    (flattenedBoard[newField.getX()][newField.getY()]).updateEnergy(miniSquirrel.getEnergy());
+                    killEntity(miniSquirrel);
+                } else {
+                    killEntity(miniSquirrel);
+                }
+                break;
+
             default:
                 miniSquirrel.setCoordinate(newField);
         }
+
+
     }
 
     @Override
     public void tryMove(GoodBeast goodBeast, Vector vector) {
 
+        XY newField = goodBeast.getCoordinate().addVector(vector);
+
+        switch (getEntityType(newField)) {
+            case WALL:
+                break;
+            case BADBEAST:
+                break;
+            case BADPLANT:
+                break;
+            case GOODBEAST:
+                break;
+            case GOODPLANT:
+                break;
+            case MINISQUIRREL:
+                break;
+            case MASTERSQUIRREL:
+
+            default:
+        }
+
     }
 
     @Override
     public void tryMove(BadBeast badBeast, Vector vector) {
+
 
     }
 
@@ -77,9 +146,9 @@ public class FlattenedBoard implements BoardView, EntityContext {
 
     @Override
     public void killEntity(Entity entity) {
-        for(int i = 0; i < size.getY(); i++){
-            for(int j = 0; j < size.getX(); j++){
-                if(flattenedBoard[i][j] == entity){
+        for (int i = 0; i < size.getY(); i++) {
+            for (int j = 0; j < size.getX(); j++) {
+                if (flattenedBoard[i][j] == entity) {
                     flattenedBoard[i][j] = null;
                     board.getSet().delete(entity);
                     return;
@@ -97,21 +166,21 @@ public class FlattenedBoard implements BoardView, EntityContext {
 
     @Override
     public EntityType getEntityType(XY xy) {
-        try{
+        try {
             return flattenedBoard[xy.getY()][xy.getX()].getEntityType();
-        }catch (Exception e){
+        } catch (Exception e) {
             //TODO: Printstacktrace nach debuggen entfernen
             e.printStackTrace();
             return null;
         }
     }
 
-    private XY randomFreePosition(){
+    private XY randomFreePosition() {
         XY xy;
         do {
             xy = new XY((int) Math.round(Math.random() * size.getX()), (int) Math.round(Math.random() * size.getY()));
         }
-        while(flattenedBoard[xy.getY()][xy.getX()] != null);
+        while (flattenedBoard[xy.getY()][xy.getX()] != null);
 
         return xy;
     }
