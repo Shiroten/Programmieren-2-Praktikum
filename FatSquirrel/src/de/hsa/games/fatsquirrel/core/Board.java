@@ -102,29 +102,24 @@ public class Board {
 
     public XY randomPosition(XY size, EntitySet set) {
 
-        boolean notDone = true;
+        boolean collision;
         int newX = 0, newY = 0;
 
-        while (notDone) {
-            boolean noCollision = true;
+        do{
+            collision = false;
             newX = (int) ((Math.random() * size.getX()));
             newY = (int) ((Math.random() * size.getY()));
 
             //Durchsuchen des Entityset nach möglichen Konflikten
             for (int i = 0; i < set.getNumberOfEntities(); i++) {
-                int tempX = set.getEntity(i).getCoordinate().getX();
-                int tempY = set.getEntity(i).getCoordinate().getY();
-
-                if (newX == tempX && newY == tempY) {
-                    noCollision = false;
+                if (newX == set.getEntity(i).getCoordinate().getX() && newY == set.getEntity(i).getCoordinate().getY()) {
+                    collision = true;
+                    break;
                 }
             }
-            if (noCollision) {
-                notDone = false;
-            }
-        }
+
+        }while(collision);
         return new XY(newX, newY);
     }
 
-    //TODO: toString
 }

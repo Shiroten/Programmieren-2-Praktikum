@@ -16,6 +16,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
     //a[0][0] a[0][1] a[0][2]
     //a[1][0] ...
     //...
+    //a[y][x]
     //Das heißt der erste Wert ist die y-Koordinate (Höhe), der zweite Wert ist die x-Koordinate (Breite)
     private Entity[][] flattenedBoard;
 
@@ -38,6 +39,16 @@ public class FlattenedBoard implements BoardView, EntityContext {
     //TODO: tryMove-Methoden implentieren
     @Override
     public void tryMove(MiniSquirrel miniSquirrel, Vector vector) {
+        XY newField = miniSquirrel.getCoordinate().addVector(vector);
+
+        switch(getEntityType(newField)){
+            case WALL:
+                miniSquirrel.updateEnergy(Wall.START_ENERGY);
+                //blubb
+                break;
+            default:
+                miniSquirrel.setCoordinate(newField);
+        }
     }
 
     @Override
@@ -80,6 +91,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
     @Override
     public void killAndReplace(Entity entity) {
         killEntity(entity);
+        //TODO: Neue Entity muss erstellt werden
         entity.setCoordinate(randomFreePosition());
     }
 
@@ -87,8 +99,9 @@ public class FlattenedBoard implements BoardView, EntityContext {
     public EntityType getEntityType(XY xy) {
         try{
             return flattenedBoard[xy.getY()][xy.getX()].getEntityType();
-        }catch (IndexOutOfBoundsException e){
-            System.out.println("IOOE in getEntityType");
+        }catch (Exception e){
+            //TODO: Printstacktrace nach debuggen entfernen
+            e.printStackTrace();
             return null;
         }
     }
