@@ -45,20 +45,18 @@ public class FlattenedBoard implements BoardView, EntityContext {
             case WALL:
                 miniSquirrel.updateEnergy(Wall.START_ENERGY);
                 //Todo: Betäuben
+                moveOrKill(miniSquirrel, miniSquirrel.getCoordinate());
                 break;
 
             case BADBEAST:
                 miniSquirrel.updateEnergy(BadBeast.START_ENERGY);
-                if(miniSquirrel.getEnergy() <=0){
-                    killEntity(miniSquirrel);
-                }
+                moveOrKill(miniSquirrel, miniSquirrel.getCoordinate());
                 //Todo: Badbeast Counter reduzieren
                 break;
 
             case BADPLANT:
                 miniSquirrel.updateEnergy(BadPlant.START_ENERGY);
-                killAndReplace(flattenedBoard[newField.getX()][newField.getY()]);
-                miniSquirrel.setCoordinate(newField);
+                moveOrKill(miniSquirrel, newField);
                 break;
 
             case GOODBEAST:
@@ -116,10 +114,15 @@ public class FlattenedBoard implements BoardView, EntityContext {
             case GOODPLANT:
                 break;
             case MINISQUIRREL:
+                flattenedBoard[newField.getX()][newField.getY()].updateEnergy(GoodBeast.START_ENERGY);
+                killAndReplace(goodBeast);
                 break;
             case MASTERSQUIRREL:
-
+                flattenedBoard[newField.getX()][newField.getY()].updateEnergy(GoodBeast.START_ENERGY);
+                killAndReplace(goodBeast);
+                break;
             default:
+                goodBeast.setCoordinate(newField);
         }
 
     }
@@ -127,7 +130,34 @@ public class FlattenedBoard implements BoardView, EntityContext {
     @Override
     public void tryMove(BadBeast badBeast, Vector vector) {
 
+        XY newField = badBeast.getCoordinate().addVector(vector);
 
+        switch (getEntityType(newField)) {
+            case WALL:
+                break;
+            case BADBEAST:
+                break;
+            case BADPLANT:
+                break;
+            case GOODBEAST:
+                break;
+            case GOODPLANT:
+                break;
+            case MINISQUIRREL:
+                flattenedBoard[newField.getX()][newField.getY()].updateEnergy(BadBeast.START_ENERGY);
+                moveOrKill((MiniSquirrel) flattenedBoard[newField.getX()][newField.getY()],
+                        flattenedBoard[newField.getX()][newField.getY()].getCoordinate());
+
+                //Todo: BadBeast Counter
+                break;
+            case MASTERSQUIRREL:
+                flattenedBoard[newField.getX()][newField.getY()].updateEnergy(BadBeast.START_ENERGY);
+
+                //Todo: BadBeast Counter
+                break;
+            default:
+                badBeast.setCoordinate(newField);
+        }
     }
 
     @Override
@@ -142,6 +172,14 @@ public class FlattenedBoard implements BoardView, EntityContext {
     @Override
     public HandOperatedMasterSquirrel nearestPlayerEntity(XY pos) {
         return null;
+    }
+
+    public void moveOrKill(MiniSquirrel miniSquirrel, XY newPosition) {
+        if (miniSquirrel.getEnergy() <= 0) {
+            killEntity(miniSquirrel);
+        } else {
+            miniSquirrel.setCoordinate(newPosition);
+        }
     }
 
     @Override
