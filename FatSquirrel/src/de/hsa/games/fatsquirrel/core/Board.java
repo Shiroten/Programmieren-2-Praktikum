@@ -144,9 +144,6 @@ public class Board {
             newX = (int) ((Math.random() * size.getX()));
             newY = (int) ((Math.random() * size.getY()));
 
-            //Todo: Für Debug
-            System.out.printf("%d, %d%n", newX, newY);
-
             //Durchsuchen des Entityset nach möglichen Konflikten
             for (int i = 0; i < set.getNumberOfMaxEntities(); i++) {
 
