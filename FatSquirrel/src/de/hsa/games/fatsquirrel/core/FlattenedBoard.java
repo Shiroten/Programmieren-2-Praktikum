@@ -37,7 +37,6 @@ public class FlattenedBoard implements BoardView, EntityContext {
     //Zuerst wird geschaut, auf welchem Feld die Entity landen wird
     //Dann wird geschaut, ob und wenn ja welche Entity sich auf dem Feld befindet
     //In Abhängkeit der E wird die Energie abgezogen
-    //TODO: tryMove-Methoden implentieren
 
     public void move(Entity en, XY newPosition) {
 
