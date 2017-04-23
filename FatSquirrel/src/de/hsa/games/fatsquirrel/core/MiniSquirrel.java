@@ -1,5 +1,6 @@
 package de.hsa.games.fatsquirrel.core;
 
+import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
 
 /**
@@ -27,6 +28,8 @@ public class MiniSquirrel extends PlayerEntity {
         return ("de.hsa.games.fatsquirrel.core.MiniSquirrel: " + super.toString() + "Luke, wer ist dein Vater? ParentID:" + daddy.getId());
     }
 
-    public void nextStep(){
+    public void nextStep(EntityContext context){
+        Vector distance = new Vector(getCoordinate(), getCoordinate().randomMove());
+        context.tryMove(this, distance.normalizedVector());
     }
 }

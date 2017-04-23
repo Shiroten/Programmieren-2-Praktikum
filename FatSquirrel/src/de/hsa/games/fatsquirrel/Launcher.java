@@ -3,12 +3,14 @@ package de.hsa.games.fatsquirrel; /**
  */
 
 import de.hsa.games.fatsquirrel.console.ConsoleUI;
+import de.hsa.games.fatsquirrel.console.GameImpl;
 import de.hsa.games.fatsquirrel.core.*;
 
 public class Launcher {
     public static void main(String[] args) {
 
-        uiTest();
+        Game game = new GameImpl();
+        game.run();
 
     }
 
@@ -48,7 +50,7 @@ public class Launcher {
         //entitySet.delete(manuelSquirrel);
 
         for (int i = 0; i < 9; i++) {
-            entitySet.nextStep();
+            //entitySet.nextStep();
             System.out.println();
             System.out.printf("%d. nextStep: %n%n", (i + 1));
             System.out.println(entitySet.toString());

@@ -28,6 +28,8 @@ public class Board {
                 config.getNumberOfGoodPlant(),
                 config.getNumberOfBadPlant(),
                 config.getNumberOfWalls());
+
+        initBoard();
     }
 
 
@@ -44,7 +46,13 @@ public class Board {
         for (int i = 0; i < set.getNumberOfMaxEntities(); i++) {
             if (set.getEntity(i) != null) {
                 Entity dummy = set.getEntity(i);
-                list[dummy.getCoordinate().getY()][dummy.getCoordinate().getX()] = dummy;
+                try {
+                    list[dummy.getCoordinate().getY()][dummy.getCoordinate().getX()] = dummy;
+                }
+                catch(Exception e){
+                    e.printStackTrace();
+                    System.out.println(dummy.toString());
+                }
             }
         }
 
@@ -72,6 +80,8 @@ public class Board {
         randomAddEntity(EntityType.BADPLANT, config.getNumberOfBadPlant());
         randomAddEntity(EntityType.GOODBEAST, config.getNumberOfGoodBeast());
         randomAddEntity(EntityType.GOODPLANT, config.getNumberOfGoodPlant());
+
+        randomAddEntity(EntityType.HANDOPERATEDMASTERSQUIRREL, 1);
 
     }
 
@@ -103,6 +113,12 @@ public class Board {
                     break;
                 case GOODPLANT:
                     addEntity = new GoodPlant(setID(), new XY(randomX, randomY));
+                    break;
+                case HANDOPERATEDMASTERSQUIRREL:
+                    addEntity = new HandOperatedMasterSquirrel(setID(), new XY(randomX, randomY));
+                    break;
+                case MASTERSQUIRREL:
+                    addEntity = new MasterSquirrel(setID(), new XY(randomX, randomY));
                     break;
             }
             set.add(addEntity);

@@ -26,6 +26,7 @@ public class ConsoleUI implements UI {
             char c = scanner.next().charAt(0);
 
             c = Character.toUpperCase(c);
+            //TODO: Board wird vermutlich falsch rum gedruckt (oben ist unten), temporär habe ich North und South vertauscht
             switch (c) {
                 case 'W':
                     destination = MoveCommand.NORTH;

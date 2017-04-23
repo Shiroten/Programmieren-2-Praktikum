@@ -41,13 +41,14 @@ public class FlattenedBoard implements BoardView, EntityContext {
     private void move(Entity en, XY newPosition) {
 
         //Alte Position Löschen im Array
-        flattenedBoard[en.getCoordinate().getX()][en.getCoordinate().getY()] = null;
+        flattenedBoard[en.getCoordinate().getY()][en.getCoordinate().getX()] = null;
 
         //Neue Position im EntitySet setzen
         en.setCoordinate(newPosition);
 
         //Neue Position im Array ablegen
-        flattenedBoard[en.getCoordinate().getX()][en.getCoordinate().getY()] = en;
+        System.out.println(en.toString());
+        flattenedBoard[en.getCoordinate().getY()][en.getCoordinate().getX()] = en;
 
     }
 
@@ -147,11 +148,11 @@ public class FlattenedBoard implements BoardView, EntityContext {
             case GOODPLANT:
                 break;
             case MINISQUIRREL:
-                flattenedBoard[newField.getX()][newField.getY()].updateEnergy(GoodBeast.START_ENERGY);
+                flattenedBoard[newField.getY()][newField.getY()].updateEnergy(GoodBeast.START_ENERGY);
                 killAndReplace(goodBeast);
                 break;
             case MASTERSQUIRREL:
-                flattenedBoard[newField.getX()][newField.getY()].updateEnergy(GoodBeast.START_ENERGY);
+                flattenedBoard[newField.getY()][newField.getX()].updateEnergy(GoodBeast.START_ENERGY);
                 killAndReplace(goodBeast);
                 break;
             default:
@@ -165,8 +166,11 @@ public class FlattenedBoard implements BoardView, EntityContext {
 
         XY newField = badBeast.getCoordinate().addVector(vector);
 
+        //System.out.println(badBeast.toString() + vector.toString());
+
         switch (getEntityType(newField)) {
             case WALL:
+                System.out.println("Running into wall");
                 break;
             case BADBEAST:
                 break;
@@ -199,7 +203,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
 
     public void moveAndKill(Entity en, int startEnergy, XY newField) {
         en.updateEnergy(startEnergy);
-        killAndReplace(flattenedBoard[newField.getX()][newField.getY()]);
+        killAndReplace(flattenedBoard[newField.getY()][newField.getX()]);
         move(en, newField);
     }
 
@@ -208,6 +212,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
     public void tryMove(MasterSquirrel masterSquirrel, Vector vector) {
 
         XY newField = masterSquirrel.getCoordinate().addVector(vector);
+        //System.out.println(masterSquirrel.toString());
 
         switch (getEntityType(newField)) {
             case WALL:
@@ -297,8 +302,8 @@ public class FlattenedBoard implements BoardView, EntityContext {
 
     @Override
     public void killAndReplace(Entity entity) {
-        killEntity(entity);
         Entity newE = board.randomAddEntity(entity.getEntityType(), randomFreePosition());
+        killEntity(entity);
         flattenedBoard[newE.getCoordinate().getY()][newE.getCoordinate().getX()] = newE;
     }
 
@@ -309,14 +314,14 @@ public class FlattenedBoard implements BoardView, EntityContext {
         } catch (Exception e) {
             //TODO: Printstacktrace nach debuggen entfernen
             //e.printStackTrace();
-            return null;
+            return EntityType.EMPTY;
         }
     }
 
     private XY randomFreePosition() {
         XY xy;
         do {
-            xy = new XY((int) Math.round(Math.random() * size.getX()), (int) Math.round(Math.random() * size.getY()));
+            xy = new XY((int) Math.round(Math.random() * size.getX() -1), (int) Math.round(Math.random() * size.getY()-1));
         }
         while (flattenedBoard[xy.getY()][xy.getX()] != null);
 

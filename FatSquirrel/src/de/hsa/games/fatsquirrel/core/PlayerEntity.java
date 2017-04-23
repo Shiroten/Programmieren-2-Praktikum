@@ -5,7 +5,7 @@ import de.hsa.games.fatsquirrel.XY;
 /**
  * Created by tillm on 22.04.2017.
  */
-public abstract class PlayerEntity extends Entity {
+public abstract class PlayerEntity extends MovableEntity {
     protected int stunTime = 0;
 
     public PlayerEntity(){

@@ -8,20 +8,21 @@ import de.hsa.games.fatsquirrel.core.State;
 public class Game {
     private UI ui;
     private State state;
+    protected MoveCommand command;
 
     public UI getUi() {
         return ui;
     }
 
-    public void setUi(UI ui) {
+    protected void setUi(UI ui) {
         this.ui = ui;
     }
 
-    public State getState() {
+    protected State getState() {
         return state;
     }
 
-    public void setState(State state) {
+    protected void setState(State state) {
         this.state = state;
     }
 
@@ -33,8 +34,8 @@ public class Game {
 
     public void run(){
         while(true){
-            processInput();
             render();
+            processInput();
             update();
         }
     }

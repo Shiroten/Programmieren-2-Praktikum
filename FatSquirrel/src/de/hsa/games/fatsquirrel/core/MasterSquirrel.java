@@ -1,5 +1,6 @@
 package de.hsa.games.fatsquirrel.core;
 
+import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
 
 /**
@@ -21,7 +22,9 @@ public class MasterSquirrel extends PlayerEntity {
 
     public MasterSquirrel() {}
 
-    public void nextStep() {
+    public void nextStep(EntityContext context) {
+        Vector distance = new Vector(getCoordinate(), getCoordinate().randomMove());
+        context.tryMove(this, distance.normalizedVector());
     }
 
     public boolean mySquirrel(MiniSquirrel squirrelToCheck) {
@@ -29,10 +32,6 @@ public class MasterSquirrel extends PlayerEntity {
             return true;
         }
         return false;
-    }
-
-    public String toString() {
-        return ("de.hsa.games.fatsquirrel.core.MasterSquirrel: " + super.toString());
     }
 
 }

@@ -46,9 +46,9 @@ public abstract class Entity {
         this.coordinate = coordinate;
     }
 
-    public abstract EntityType getEntityType();
-
-    public abstract void nextStep();
+    public EntityType getEntityType(){
+        return EntityType.EMPTY;
+    };
 
     public String toString() {
         return ("[ID: " + id + ", Energy: " + energy

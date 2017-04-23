@@ -1,5 +1,6 @@
 package de.hsa.games.fatsquirrel.core;
 
+import de.hsa.games.fatsquirrel.MoveCommand;
 import de.hsa.games.fatsquirrel.XY;
 
 /**
@@ -7,8 +8,8 @@ import de.hsa.games.fatsquirrel.XY;
  */
 public class EntitySet {
 
-    private int numberOfMaxEntities;
-    private Entity[] entityList = new Entity[numberOfMaxEntities];
+    private final int numberOfMaxEntities;
+    private Entity[] entityList;
     //private ArrayList<de.hsa.games.fatsquirrel.core.Entity> entityList = new ArrayList<de.hsa.games.fatsquirrel.core.Entity>();
 
     public EntitySet (XY size){
@@ -46,7 +47,7 @@ public class EntitySet {
         }
     }
 
-    public String toString() {
+    /*public String toString() {
 
         String returnString = "";
         for (int i = 0; i < numberOfMaxEntities; i++) {
@@ -55,12 +56,18 @@ public class EntitySet {
             }
         }
         return returnString;
-    }
+    }*/
 
-    public void nextStep() {
+    public void nextStep(EntityContext flat, MoveCommand command) {
         for (int i = 0; i < numberOfMaxEntities; i++) {
             if (entityList[i] != null) {
-                entityList[i].nextStep();
+                switch (entityList[i].getEntityType()){
+                    case BADBEAST: ((BadBeast) entityList[i]).nextStep(flat); break;
+                    case GOODBEAST: ((GoodBeast) entityList[i]).nextStep(flat); break;
+                    case MINISQUIRREL: ((MiniSquirrel) entityList[i]).nextStep(flat); break;
+                    case MASTERSQUIRREL: ((MasterSquirrel) entityList[i]).nextStep(flat);
+                    case HANDOPERATEDMASTERSQUIRREL: ((HandOperatedMasterSquirrel) entityList[i]).nextStep(command, flat);
+                }
             }
         }
     }

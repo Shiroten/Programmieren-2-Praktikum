@@ -106,4 +106,43 @@ public class Vector {
             return Math.abs(this.xDifference);
         return Math.abs(this.yDifference);
     }
+
+    public Vector normalizedVector(){
+        int newX , newY;
+        if(xDifference ==  0) {
+            if(yDifference  == 0)
+                return new Vector(0,0);
+            else if(yDifference < 0){
+                return  new Vector(0, -1);
+            }
+            else{
+                return new Vector(0, 1);
+            }
+        }
+        else if(yDifference == 0) {
+            if(xDifference < 0){
+                return  new Vector(-1, 0);
+            }
+            else{
+                return new Vector(1, 0);
+            }
+        }
+        else{
+            if(xDifference < 0)
+                newX = -1* (Math.abs(xDifference) / Math.abs(yDifference));
+            else
+                newX = (Math.abs(xDifference) / Math.abs(yDifference));
+
+            if(yDifference < 0)
+                newY = (Math.abs(yDifference) / Math.abs(xDifference));
+            else
+                newY = (Math.abs(yDifference) / Math.abs(xDifference));
+        }
+
+        return new Vector(newX, newY);
+    }
+
+    public Vector oppositeVector(){
+        return new Vector(-xDifference, -yDifference);
+    }
 }
