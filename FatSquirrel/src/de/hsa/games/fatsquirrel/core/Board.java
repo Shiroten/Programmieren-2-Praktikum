@@ -12,13 +12,18 @@ public class Board {
 
     public Board() {
         set = new EntitySet();
-        config = new BoardConfig(new XY(100, 100), 400);
+        config = new BoardConfig(new XY(100, 100));
     }
 
     public Board(XY size) {
         set = new EntitySet();
-        config = new BoardConfig(new XY(100, 100), 400);
+        config = new BoardConfig(new XY(size.getX(), size.getY()));
     }
+    public Board(XY size, BoardConfig config) {
+        this.set = new EntitySet();
+        this.config = config;
+    }
+
 
     public EntitySet getSet() {
         return set;
@@ -30,9 +35,11 @@ public class Board {
 
     public FlattenedBoard flatten() {
         Entity[][] list = new Entity[config.getSize().getY()][config.getSize().getX()];
-        for (int i = 0; i < set.getNumberOfEntities(); i++) {
-            Entity dummy = set.getEntity(i);
-            list[dummy.getCoordinate().getY()][dummy.getCoordinate().getX()] = dummy;
+        for (int i = 0; i < set.getNumberOfMaxEntities(); i++) {
+            if (set.getEntity(i) != null) {
+                Entity dummy = set.getEntity(i);
+                list[dummy.getCoordinate().getY()][dummy.getCoordinate().getX()] = dummy;
+            }
         }
 
         FlattenedBoard fb = new FlattenedBoard(config.getSize(), this, list);
@@ -40,19 +47,19 @@ public class Board {
         return fb;
     }
 
-    public EntitySet initBoard() {
+    public void initBoard() {
         EntitySet ret = new EntitySet();
 
         //Äußere Mauern
         int WallIDs = setID();
         int x = config.getSize().getX(), y = config.getSize().getY();
         for (int i = 0; i < x; i++) {
-            ret.add(new Wall(WallIDs, new XY(i, 0)));
-            ret.add(new Wall(WallIDs, new XY(i, y)));
+            set.add(new Wall(WallIDs, new XY(i, 0)));
+            set.add(new Wall(WallIDs, new XY(i, y - 1)));
         }
         for (int i = 1; i < y - 1; i++) {
-            ret.add(new Wall(WallIDs, new XY(0, i)));
-            ret.add(new Wall(WallIDs, new XY(x, i)));
+            set.add(new Wall(WallIDs, new XY(0, i)));
+            set.add(new Wall(WallIDs, new XY(x - 1, i)));
         }
 
         //Random Entitys auf der Map verteilt
@@ -62,7 +69,6 @@ public class Board {
         randomAddEntity(EntityType.GOODBEAST, config.getNumberOfGoodBeast());
         randomAddEntity(EntityType.GOODPLANT, config.getNumberOfGoodPlant());
 
-        return ret;
     }
 
     public int setID() {
@@ -72,11 +78,12 @@ public class Board {
 
     public void randomAddEntity(EntityType type, int ammount) {
 
-        XY position = randomPosition(config.getSize());
-        int randomX = position.getX(), randomY = position.getY();
-
         Entity addEntity = null;
         for (int i = 0; i < ammount; i++) {
+
+            XY position = randomPosition(config.getSize());
+            int randomX = position.getX(), randomY = position.getY();
+
             switch (type) {
                 case WALL:
                     addEntity = new Wall(setID(), new XY(randomX, randomY));
@@ -95,6 +102,7 @@ public class Board {
                     break;
             }
             set.add(addEntity);
+
         }
 
     }
@@ -129,16 +137,22 @@ public class Board {
     public XY randomPosition(XY size) {
 
         boolean collision;
-        int newX = 0, newY = 0;
+        int newX, newY;
 
         do {
             collision = false;
             newX = (int) ((Math.random() * size.getX()));
             newY = (int) ((Math.random() * size.getY()));
 
+            //Todo: Für Debug
+            System.out.printf("%d, %d%n", newX, newY);
+
             //Durchsuchen des Entityset nach möglichen Konflikten
-            for (int i = 0; i < set.getNumberOfEntities(); i++) {
-                if (newX == set.getEntity(i).getCoordinate().getX() && newY == set.getEntity(i).getCoordinate().getY()) {
+            for (int i = 0; i < set.getNumberOfMaxEntities(); i++) {
+
+                if (set.getEntity(i) == null) {
+                    return new XY(newX, newY);
+                } else if (newX == set.getEntity(i).getCoordinate().getX() && newY == set.getEntity(i).getCoordinate().getY()) {
                     collision = true;
                     break;
                 }

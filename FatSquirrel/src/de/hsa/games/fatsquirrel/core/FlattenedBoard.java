@@ -304,7 +304,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
             return flattenedBoard[xy.getY()][xy.getX()].getEntityType();
         } catch (Exception e) {
             //TODO: Printstacktrace nach debuggen entfernen
-            e.printStackTrace();
+            //e.printStackTrace();
             return null;
         }
     }

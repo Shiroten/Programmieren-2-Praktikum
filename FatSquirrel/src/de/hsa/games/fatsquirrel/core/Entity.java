@@ -15,6 +15,13 @@ public abstract class Entity {
         this.coordinate = coordinate;
     }
 
+    public Entity(int energy, int id, XY coordinate) {
+        this.energy = energy;
+        this.id = id;
+        this.coordinate = coordinate;
+
+    }
+
     public Entity() {
         this.id = 0;
     }
@@ -53,12 +60,8 @@ public abstract class Entity {
 
         if (o instanceof Entity) {
             Entity e = (Entity) o;
-            boolean returnValue = false;
-            if (this.id == e.getId()) {
-                returnValue = true;
-            } else {
-                returnValue = false;
-            }
+            boolean returnValue;
+            returnValue = this.id == e.getId();
             return returnValue;
         }
         return false;

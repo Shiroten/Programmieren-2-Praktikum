@@ -2,10 +2,17 @@ package de.hsa.games.fatsquirrel; /**
  * Created by Shiroten on 01.04.2017.
  */
 
+import de.hsa.games.fatsquirrel.console.ConsoleUI;
 import de.hsa.games.fatsquirrel.core.*;
 
 public class Launcher {
     public static void main(String[] args) {
+
+        uiTest();
+
+    }
+
+    private static void oldTest() {
 
         EntitySet entitySet = new EntitySet();
 
@@ -46,6 +53,25 @@ public class Launcher {
             System.out.printf("%d. nextStep: %n%n", (i + 1));
             System.out.println(entitySet.toString());
         }
+    }
+
+    private static void uiTest() {
+        BoardConfig config = new BoardConfig(new XY(10, 10), 2, 2, 2, 2, 2);
+        Board board = new Board(new XY(10, 10), config);
+        board.initBoard();
+
+        FlattenedBoard flatBoard = board.flatten();
+
+        ConsoleUI ui = new ConsoleUI();
+        ui.render(flatBoard);
+
+        Entity manuelSquirrel = new HandOperatedMasterSquirrel(101, new XY(5, 5));
+        board.getSet().add(manuelSquirrel);
+
+        flatBoard = board.flatten();
+        ui.render(flatBoard);
+
+
 
     }
 }
