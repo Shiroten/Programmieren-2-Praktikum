@@ -21,6 +21,13 @@ public class State {
 
     public void update(){
 
+        //TODO: Update sinnvoll implementieren
+        FlattenedBoard flat = board.flatten();
+        for(Entity e : board.getSet().getEntityList()){
+            switch (e.getEntityType()){
+
+            }
+        }
     }
 
     public FlattenedBoard flattenBoard(){
