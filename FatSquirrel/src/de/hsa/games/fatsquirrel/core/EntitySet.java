@@ -7,7 +7,7 @@ import de.hsa.games.fatsquirrel.XY;
  */
 public class EntitySet {
 
-    private int numberOfMaxEntities = 100;
+    private int numberOfMaxEntities = 500;
     private Entity[] entityList = new Entity[numberOfMaxEntities];
     //private ArrayList<de.hsa.games.fatsquirrel.core.Entity> entityList = new ArrayList<de.hsa.games.fatsquirrel.core.Entity>();
 

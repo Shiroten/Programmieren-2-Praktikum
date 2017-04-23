@@ -11,17 +11,23 @@ public class Board {
     private int idCounter = 0;
 
     public Board() {
-        set = new EntitySet();
-        config = new BoardConfig(new XY(100, 100));
+        this.set = new EntitySet();
+        this.config = new BoardConfig(new XY(100, 100));
     }
 
     public Board(XY size) {
-        set = new EntitySet();
-        config = new BoardConfig(new XY(size.getX(), size.getY()));
+        this.set = new EntitySet();
+        this.config = new BoardConfig(new XY(size.getX(), size.getY()));
     }
+
     public Board(BoardConfig config) {
         this.set = new EntitySet();
-        this.config = config;
+        this.config = new BoardConfig(config.getSize(),
+                config.getNumberOfGoodBeast(),
+                config.getNumberOfBadBeast(),
+                config.getNumberOfGoodPlant(),
+                config.getNumberOfBadPlant(),
+                config.getNumberOfWalls());
     }
 
 

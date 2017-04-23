@@ -56,8 +56,11 @@ public class Launcher {
     }
 
     private static void uiTest() {
-        BoardConfig config = new BoardConfig(new XY(7, 7), 2, 2, 2, 2, 2);
+        BoardConfig config = new BoardConfig(new XY(21, 21), 50, 7, 7, 7, 7);
+        //config = new BoardConfig(new XY(10,10));
         Board board = new Board(config);
+
+
         board.initBoard();
 
         FlattenedBoard flatBoard = board.flatten();
@@ -65,7 +68,7 @@ public class Launcher {
         ConsoleUI ui = new ConsoleUI();
         ui.render(flatBoard);
 
-        Entity manuelSquirrel = new HandOperatedMasterSquirrel(101, new XY(2, 2));
+        Entity manuelSquirrel = new HandOperatedMasterSquirrel(101, new XY(3, 3));
         board.getSet().add(manuelSquirrel);
 
         //MoveCommand Vector Test
