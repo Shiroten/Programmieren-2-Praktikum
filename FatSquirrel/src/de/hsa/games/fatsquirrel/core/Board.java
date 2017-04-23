@@ -19,7 +19,7 @@ public class Board {
         set = new EntitySet();
         config = new BoardConfig(new XY(size.getX(), size.getY()));
     }
-    public Board(XY size, BoardConfig config) {
+    public Board(BoardConfig config) {
         this.set = new EntitySet();
         this.config = config;
     }

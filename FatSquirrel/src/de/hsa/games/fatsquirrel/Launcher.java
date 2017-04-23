@@ -56,8 +56,8 @@ public class Launcher {
     }
 
     private static void uiTest() {
-        BoardConfig config = new BoardConfig(new XY(10, 10), 2, 2, 2, 2, 2);
-        Board board = new Board(new XY(10, 10), config);
+        BoardConfig config = new BoardConfig(new XY(7, 7), 2, 2, 2, 2, 2);
+        Board board = new Board(config);
         board.initBoard();
 
         FlattenedBoard flatBoard = board.flatten();
