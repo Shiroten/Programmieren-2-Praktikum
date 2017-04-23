@@ -88,8 +88,8 @@ public class ConsoleUI implements UI {
     private String printField(BoardView view, int x, int y) {
 
         EntityType onField;
-        if (view.getEntityType(new XY(y, x)) !=null){
-            onField = view.getEntityType(new XY(y, x));
+        if (view.getEntityType(new XY(x, y)) !=null){
+            onField = view.getEntityType(new XY(x, y));
         }else{
             onField = EntityType.EMPTY;
         }

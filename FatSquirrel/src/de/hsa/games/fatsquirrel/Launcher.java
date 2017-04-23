@@ -65,8 +65,14 @@ public class Launcher {
         ConsoleUI ui = new ConsoleUI();
         ui.render(flatBoard);
 
-        Entity manuelSquirrel = new HandOperatedMasterSquirrel(101, new XY(5, 5));
+        Entity manuelSquirrel = new HandOperatedMasterSquirrel(101, new XY(2, 2));
         board.getSet().add(manuelSquirrel);
+
+
+        int newX = manuelSquirrel.getCoordinate().getX() - 0;
+        int newY = manuelSquirrel.getCoordinate().getY() + 1;
+        Entity manuelSquirrel2 = new HandOperatedMasterSquirrel(101, new XY(newX, newY));
+        board.getSet().add(manuelSquirrel2);
 
         flatBoard = board.flatten();
         ui.render(flatBoard);

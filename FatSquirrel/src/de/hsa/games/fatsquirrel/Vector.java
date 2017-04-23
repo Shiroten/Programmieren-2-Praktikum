@@ -36,25 +36,29 @@ public class Vector {
     public Vector MoveCommandToVector(MoveCommand move) {
 
         switch (move) {
-            //Todo: Zahlenwerte anpassen
-            case EAST:
-                return new Vector(+1, +1);
+            //WASD
             case NORTH:
-                return new Vector(+1, +1);
+                return new Vector(+0, -1);
             case WEST:
-                return new Vector(+1, +1);
+                return new Vector(-1, +0);
             case SOUTH:
-                return new Vector(+1, +1);
-            case NOWHERE:
-                return new Vector(+0, +0);
+                return new Vector(+0, +1);
+            case EAST:
+                return new Vector(+1, +0);
+
+            //Diagonal
             case NORTHEAST:
-                return new Vector(+1, +1);
+                return new Vector(+1, -1);
             case NORTHWEST:
-                return new Vector(+1, +1);
+                return new Vector(-1, -1);
             case SOUTHEAST:
                 return new Vector(+1, +1);
             case SOUTHWEST:
-                return new Vector(+1, +1);
+                return new Vector(-1, +1);
+
+            //SpecialCase
+            case NOWHERE:
+                return new Vector(+0, +0);
             default:
                 return new Vector(+0, +0);
         }
