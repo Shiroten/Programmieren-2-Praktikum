@@ -1,5 +1,7 @@
 package de.hsa.games.fatsquirrel;
 
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
+
 /**
  * Created by Shiroten on 03.04.2017.
  */
@@ -21,14 +23,42 @@ public class Vector {
         this.yDifference = y;
     }
 
-    public Vector(XY xy1, XY xy2){
+    public Vector(XY xy1, XY xy2) {
         this.xDifference = xy1.getX() - xy2.getY();
         this.yDifference = xy1.getY() - xy2.getY();
     }
 
-    public Vector(){
+    public Vector() {
         this.xDifference = 0;
         this.yDifference = 0;
+    }
+
+    public Vector MoveCommandToVector(MoveCommand move) {
+
+        switch (move) {
+            //Todo: Zahlenwerte anpassen
+            case EAST:
+                return new Vector(+1, +1);
+            case NORTH:
+                return new Vector(+1, +1);
+            case WEST:
+                return new Vector(+1, +1);
+            case SOUTH:
+                return new Vector(+1, +1);
+            case NOWHERE:
+                return new Vector(+0, +0);
+            case NORTHEAST:
+                return new Vector(+1, +1);
+            case NORTHWEST:
+                return new Vector(+1, +1);
+            case SOUTHEAST:
+                return new Vector(+1, +1);
+            case SOUTHWEST:
+                return new Vector(+1, +1);
+            default:
+                return new Vector(+0, +0);
+        }
+
     }
 
     public Vector randomDirection() {
@@ -67,8 +97,8 @@ public class Vector {
     }
 
     //Gibt die Länge in Schritten aus
-    public int getLength(){
-        if(Math.abs(this.xDifference) > Math.abs(this.yDifference))
+    public int getLength() {
+        if (Math.abs(this.xDifference) > Math.abs(this.yDifference))
             return Math.abs(this.xDifference);
         return Math.abs(this.yDifference);
     }
