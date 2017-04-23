@@ -13,8 +13,6 @@ import java.util.Scanner;
  * Created by tillm on 22.04.2017.
  */
 public class ConsoleUI implements UI {
-    //TODO: Implementierungen
-
 
     @Override
     public MoveCommand getDirection() {
