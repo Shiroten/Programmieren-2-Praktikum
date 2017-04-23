@@ -11,17 +11,17 @@ public class Board {
     private int idCounter = 0;
 
     public Board() {
-        this.set = new EntitySet();
+        this.set = new EntitySet(new XY(100,100));
         this.config = new BoardConfig(new XY(100, 100));
     }
 
     public Board(XY size) {
-        this.set = new EntitySet();
+        this.set = new EntitySet(new XY(size.getX(), size.getY()));
         this.config = new BoardConfig(new XY(size.getX(), size.getY()));
     }
 
     public Board(BoardConfig config) {
-        this.set = new EntitySet();
+        this.set = new EntitySet(config.getSize());
         this.config = new BoardConfig(config.getSize(),
                 config.getNumberOfGoodBeast(),
                 config.getNumberOfBadBeast(),
@@ -54,8 +54,6 @@ public class Board {
     }
 
     public void initBoard() {
-        EntitySet ret = new EntitySet();
-
         //Äußere Mauern
         int WallIDs = setID();
         int x = config.getSize().getX(), y = config.getSize().getY();

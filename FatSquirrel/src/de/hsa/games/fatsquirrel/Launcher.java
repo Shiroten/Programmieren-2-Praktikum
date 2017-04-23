@@ -14,7 +14,7 @@ public class Launcher {
 
     private static void oldTest() {
 
-        EntitySet entitySet = new EntitySet();
+        EntitySet entitySet = new EntitySet(new XY(100, 100));
 
         entitySet.add(new Wall(0, new XY(50, 50)));
         entitySet.add(new GoodPlant(1, new XY(10, 20)));
