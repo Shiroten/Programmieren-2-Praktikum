@@ -33,7 +33,7 @@ public class Vector {
         this.yDifference = 0;
     }
 
-    public Vector MoveCommandToVector(MoveCommand move) {
+    public static Vector MoveCommandToVector(MoveCommand move) {
 
         switch (move) {
             //WASD

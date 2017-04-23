@@ -68,10 +68,11 @@ public class Launcher {
         Entity manuelSquirrel = new HandOperatedMasterSquirrel(101, new XY(2, 2));
         board.getSet().add(manuelSquirrel);
 
+        //MoveCommand Vector Test
+        Vector  newVector = Vector.MoveCommandToVector(MoveCommand.NORTHWEST);
+        XY newField = manuelSquirrel.getCoordinate().addVector(newVector);
 
-        int newX = manuelSquirrel.getCoordinate().getX() - 0;
-        int newY = manuelSquirrel.getCoordinate().getY() + 1;
-        Entity manuelSquirrel2 = new HandOperatedMasterSquirrel(101, new XY(newX, newY));
+        Entity manuelSquirrel2 = new HandOperatedMasterSquirrel(101, newField);
         board.getSet().add(manuelSquirrel2);
 
         flatBoard = board.flatten();
