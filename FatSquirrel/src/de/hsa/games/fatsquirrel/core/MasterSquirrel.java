@@ -23,8 +23,12 @@ public class MasterSquirrel extends PlayerEntity {
     public MasterSquirrel() {}
 
     public void nextStep(EntityContext context) {
-        Vector distance = new Vector(getCoordinate(), getCoordinate().randomMove());
-        context.tryMove(this, distance.normalizedVector());
+        if(getStunTime() > 0)
+            stunTime--;
+        else {
+            Vector distance = new Vector(getCoordinate(), getCoordinate().randomMove());
+            context.tryMove(this, distance.normalizedVector());
+        }
     }
 
     public boolean mySquirrel(MiniSquirrel squirrelToCheck) {

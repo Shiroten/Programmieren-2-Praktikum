@@ -47,7 +47,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
         en.setCoordinate(newPosition);
 
         //Neue Position im Array ablegen
-        System.out.println(en.toString());
+        //System.out.println(en.toString());
         flattenedBoard[en.getCoordinate().getY()][en.getCoordinate().getX()] = en;
 
     }
@@ -136,8 +136,11 @@ public class FlattenedBoard implements BoardView, EntityContext {
 
         XY newField = goodBeast.getCoordinate().addVector(vector);
 
+        System.out.println(goodBeast.toString() + vector.toString());
+
         switch (getEntityType(newField)) {
             case WALL:
+                //System.out.println("Wallbump");
                 break;
             case BADBEAST:
                 break;
@@ -166,11 +169,11 @@ public class FlattenedBoard implements BoardView, EntityContext {
 
         XY newField = badBeast.getCoordinate().addVector(vector);
 
-        //System.out.println(badBeast.toString() + vector.toString());
+        System.out.println(badBeast.toString() + vector.toString());
 
         switch (getEntityType(newField)) {
             case WALL:
-                System.out.println("Running into wall");
+                //System.out.println("Running into wall");
                 break;
             case BADBEAST:
                 break;
@@ -279,13 +282,10 @@ public class FlattenedBoard implements BoardView, EntityContext {
                     if (distance > v2.getLength())
                         nPE = (PlayerEntity) e;
                 }
-
             }
         }
-
         return nPE;
     }
-
 
     @Override
     public void killEntity(Entity entity) {
@@ -319,10 +319,16 @@ public class FlattenedBoard implements BoardView, EntityContext {
     private XY randomFreePosition() {
         XY xy;
         do {
-            xy = new XY((int) Math.round(Math.random() * size.getX() -1), (int) Math.round(Math.random() * size.getY()-1));
+            xy = new XY(randomWithRange(1, size.getX() -1), randomWithRange(1, size.getY() -1));
         }
         while (flattenedBoard[xy.getY()][xy.getX()] != null);
 
         return xy;
+    }
+
+    private int randomWithRange(int min, int max)
+    {
+        int range = (max - min) + 1;
+        return (int)(Math.random() * range) + min;
     }
 }

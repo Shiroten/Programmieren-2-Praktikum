@@ -29,7 +29,11 @@ public class MiniSquirrel extends PlayerEntity {
     }
 
     public void nextStep(EntityContext context){
-        Vector distance = new Vector(getCoordinate(), getCoordinate().randomMove());
-        context.tryMove(this, distance.normalizedVector());
+        if(stunTime > 0)
+            stunTime--;
+        else {
+            Vector distance = new Vector(getCoordinate(), getCoordinate().randomMove());
+            context.tryMove(this, distance.normalizedVector());
+        }
     }
 }

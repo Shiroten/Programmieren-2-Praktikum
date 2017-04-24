@@ -6,9 +6,10 @@ import de.hsa.games.fatsquirrel.XY;
 /**
  * Created by tillm on 29.03.2017.
  */
-public class GoodBeast extends MovableEntity {
+public class GoodBeast extends Character {
     public static final int START_ENERGY = 200;
     public static final EntityType type = EntityType.GOODBEAST;
+    private int moveCounter = 0;
     public GoodBeast(int id, XY coordinate) {
         super(START_ENERGY, id, coordinate);
     }
@@ -18,12 +19,20 @@ public class GoodBeast extends MovableEntity {
     }
 
     public void nextStep(EntityContext context){
-        PlayerEntity pe = context.nearestPlayerEntity(this.getCoordinate());
-        Vector distance = new Vector(pe.getCoordinate(), this.getCoordinate());
-        if(distance.getLength() < 6)
-            context.tryMove(this, distance.normalizedVector().oppositeVector());
+        if(moveCounter == 0) {
+            PlayerEntity pe = context.nearestPlayerEntity(this.getCoordinate());
+            System.out.println(pe.getCoordinate().toString() + " The GB: " + this.getCoordinate().toString());
+            Vector distance = new Vector(pe.getCoordinate(), this.getCoordinate());
+            System.out.println("GoodBeast to Player: " + distance.toString() + " Dis.: " + distance.getLength());
+            if (distance.getLength() < 6)
+                context.tryMove(this, distance.normalizedVector().oppositeVector());
+            else
+                context.tryMove(this, distance.randomDirection());
+        }
+        else if(moveCounter == 3)
+            moveCounter = 0;
         else
-            this.setCoordinate(this.getCoordinate().randomMove());
+            moveCounter++;
     }
 
     public String toString() {

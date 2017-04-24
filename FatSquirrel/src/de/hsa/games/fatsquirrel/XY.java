@@ -29,9 +29,12 @@ public class XY {
     }
 
     public XY randomMove() {
-
         Vector offset = new Vector();
         return addVector(offset.randomDirection());
+    }
+
+    public String toString(){
+        return new String("x: " + x + " y: "+ y);
     }
 
 }

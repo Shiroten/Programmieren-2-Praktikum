@@ -23,17 +23,7 @@ public class State {
 
     public void update(MoveCommand command){
 
-        //TODO: Update sinnvoll implementieren
         FlattenedBoard flat = board.flatten();
-        /*for(Entity e : board.getSet().getEntityList()){
-            switch (e.getEntityType()){
-                case BADBEAST: ((BadBeast) e).nextStep(flat); break;
-                case GOODBEAST: ((GoodBeast) e).nextStep(flat); break;
-                case MINISQUIRREL: ((MiniSquirrel) e).nextStep(flat); break;
-                case MASTERSQUIRREL: ((MasterSquirrel) e).nextStep(flat);
-                case HANDOPERATEDMASTERSQUIRREL: ((HandOperatedMasterSquirrel) e).nextStep(command, flat);
-            }
-        }*/
         board.getSet().nextStep(flat, command);
     }
 

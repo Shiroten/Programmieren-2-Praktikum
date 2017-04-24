@@ -24,7 +24,7 @@ public class Vector {
     }
 
     public Vector(XY xy1, XY xy2) {
-        this.xDifference = xy1.getX() - xy2.getY();
+        this.xDifference = xy1.getX() - xy2.getX();
         this.yDifference = xy1.getY() - xy2.getY();
     }
 
@@ -129,20 +129,32 @@ public class Vector {
         }
         else{
             if(xDifference < 0)
-                newX = -1* (Math.abs(xDifference) / Math.abs(yDifference));
+                newX = Math.round(-1* (Math.abs(xDifference) / Math.abs(yDifference)));
             else
-                newX = (Math.abs(xDifference) / Math.abs(yDifference));
+                newX = Math.round(Math.abs(xDifference) / Math.abs(yDifference));
 
             if(yDifference < 0)
-                newY = (Math.abs(yDifference) / Math.abs(xDifference));
+                newY = Math.round(-1* (Math.abs(yDifference) / Math.abs(xDifference)));
             else
-                newY = (Math.abs(yDifference) / Math.abs(xDifference));
+                newY = Math.round(Math.abs(yDifference) / Math.abs(xDifference));
         }
+        if(newX < 1)
+            newX = 0;
+        else
+            newX = 1;
+        if(newY < 1)
+            newY = 0;
+        else
+            newY = 1;
 
         return new Vector(newX, newY);
     }
 
     public Vector oppositeVector(){
         return new Vector(-xDifference, -yDifference);
+    }
+
+    public String toString(){
+        return new String("x: "+  xDifference + " y: " + yDifference);
     }
 }

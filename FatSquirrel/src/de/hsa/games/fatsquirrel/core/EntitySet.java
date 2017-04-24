@@ -61,13 +61,10 @@ public class EntitySet {
     public void nextStep(EntityContext flat, MoveCommand command) {
         for (int i = 0; i < numberOfMaxEntities; i++) {
             if (entityList[i] != null) {
-                switch (entityList[i].getEntityType()){
-                    case BADBEAST: ((BadBeast) entityList[i]).nextStep(flat); break;
-                    case GOODBEAST: ((GoodBeast) entityList[i]).nextStep(flat); break;
-                    case MINISQUIRREL: ((MiniSquirrel) entityList[i]).nextStep(flat); break;
-                    case MASTERSQUIRREL: ((MasterSquirrel) entityList[i]).nextStep(flat);
-                    case HANDOPERATEDMASTERSQUIRREL: ((HandOperatedMasterSquirrel) entityList[i]).nextStep(command, flat);
-                }
+                if(entityList[i] instanceof HandOperatedMasterSquirrel)
+                    ((HandOperatedMasterSquirrel) entityList[i]).nextStep(command, flat);
+                else if(entityList[i] instanceof Character)
+                    ((Character) entityList[i]).nextStep(flat);
             }
         }
     }
