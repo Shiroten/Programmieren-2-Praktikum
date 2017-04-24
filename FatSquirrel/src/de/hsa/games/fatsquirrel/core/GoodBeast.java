@@ -28,6 +28,7 @@ public class GoodBeast extends Character {
                 context.tryMove(this, distance.normalizedVector().oppositeVector());
             else
                 context.tryMove(this, distance.randomDirection());
+            moveCounter++;
         }
         else if(moveCounter == 3)
             moveCounter = 0;

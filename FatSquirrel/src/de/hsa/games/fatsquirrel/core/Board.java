@@ -22,12 +22,7 @@ public class Board {
 
     public Board(BoardConfig config) {
         this.set = new EntitySet(config.getSize());
-        this.config = new BoardConfig(config.getSize(),
-                config.getNumberOfGoodBeast(),
-                config.getNumberOfBadBeast(),
-                config.getNumberOfGoodPlant(),
-                config.getNumberOfBadPlant(),
-                config.getNumberOfWalls());
+        this.config = config;
 
         initBoard();
     }
@@ -75,13 +70,13 @@ public class Board {
         }
 
         //Random Entitys auf der Map verteilt
-        randomAddEntity(EntityType.WALL, config.getNumberOfWalls());
-        randomAddEntity(EntityType.BADBEAST, config.getNumberOfBadBeast());
-        randomAddEntity(EntityType.BADPLANT, config.getNumberOfBadPlant());
-        randomAddEntity(EntityType.GOODBEAST, config.getNumberOfGoodBeast());
-        randomAddEntity(EntityType.GOODPLANT, config.getNumberOfGoodPlant());
+        addEntity(EntityType.WALL, config.getNumberOfWalls());
+        addEntity(EntityType.BADBEAST, config.getNumberOfBadBeast());
+        addEntity(EntityType.BADPLANT, config.getNumberOfBadPlant());
+        addEntity(EntityType.GOODBEAST, config.getNumberOfGoodBeast());
+        addEntity(EntityType.GOODPLANT, config.getNumberOfGoodPlant());
 
-        randomAddEntity(EntityType.HANDOPERATEDMASTERSQUIRREL, 1);
+        addEntity(EntityType.HANDOPERATEDMASTERSQUIRREL, 1);
 
     }
 
@@ -90,7 +85,7 @@ public class Board {
         return idCounter++;
     }
 
-    public void randomAddEntity(EntityType type, int ammount) {
+    public void addEntity(EntityType type, int ammount) {
 
         Entity addEntity = null;
         for (int i = 0; i < ammount; i++) {
@@ -127,7 +122,7 @@ public class Board {
 
     }
 
-    public Entity randomAddEntity(EntityType type, XY position) {
+    public Entity addEntity(EntityType type, XY position) {
 
         Entity addEntity = null;
 

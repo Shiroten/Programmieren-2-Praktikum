@@ -14,9 +14,9 @@ public class GameImpl extends Game {
     public GameImpl(){
         this.setUi(new ConsoleUI());
 
+        //Todo: Board in State kapseln
         BoardConfig config = new BoardConfig(new XY(12, 12), 1, 1, 4, 3, 3);
         Board board = new Board(config);
-        //board.initBoard();
         this.setState(new State(board));
     }
 

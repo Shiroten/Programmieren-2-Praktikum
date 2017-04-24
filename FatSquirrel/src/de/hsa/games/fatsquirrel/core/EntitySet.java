@@ -47,17 +47,6 @@ public class EntitySet {
         }
     }
 
-    /*public String toString() {
-
-        String returnString = "";
-        for (int i = 0; i < numberOfMaxEntities; i++) {
-            if (entityList[i] != null) {
-                returnString += entityList[i].toString() + '\n';
-            }
-        }
-        return returnString;
-    }*/
-
     public void nextStep(EntityContext flat, MoveCommand command) {
         for (int i = 0; i < numberOfMaxEntities; i++) {
             if (entityList[i] != null) {

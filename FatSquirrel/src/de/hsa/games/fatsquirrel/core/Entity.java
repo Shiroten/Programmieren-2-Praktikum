@@ -50,6 +50,7 @@ public abstract class Entity {
         return EntityType.EMPTY;
     };
 
+    @Override
     public String toString() {
         return ("[ID: " + id + ", Energy: " + energy
                 + ", Coordinate: (X: " + coordinate.getX() + ", Y: " + coordinate.getY() + ")]");

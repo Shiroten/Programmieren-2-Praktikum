@@ -74,7 +74,7 @@ public class Launcher {
         board.getSet().add(manuelSquirrel);
 
         //MoveCommand Vector Test
-        Vector  newVector = Vector.MoveCommandToVector(MoveCommand.NORTHWEST);
+        Vector  newVector = Vector.moveCommandToVector(MoveCommand.NORTHWEST);
         XY newField = manuelSquirrel.getCoordinate().addVector(newVector);
 
         Entity manuelSquirrel2 = new HandOperatedMasterSquirrel(101, newField);

@@ -293,6 +293,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
             for (int j = 0; j < size.getX(); j++) {
                 if (flattenedBoard[i][j] == entity) {
                     flattenedBoard[i][j] = null;
+                    //TODO: Ins Board kapseln
                     board.getSet().delete(entity);
                     return;
                 }
@@ -302,7 +303,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
 
     @Override
     public void killAndReplace(Entity entity) {
-        Entity newE = board.randomAddEntity(entity.getEntityType(), randomFreePosition());
+        Entity newE = board.addEntity(entity.getEntityType(), randomFreePosition());
         killEntity(entity);
         flattenedBoard[newE.getCoordinate().getY()][newE.getCoordinate().getX()] = newE;
     }

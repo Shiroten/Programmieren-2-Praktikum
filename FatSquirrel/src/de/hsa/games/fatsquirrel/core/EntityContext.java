@@ -7,6 +7,7 @@ import de.hsa.games.fatsquirrel.XY;
  * Created by tillm on 04.04.2017.
  */
 public interface EntityContext {
+    //TODO: Modifier
     XY getSize();
     void tryMove(MiniSquirrel miniSquirrel, Vector vector);
     void tryMove(GoodBeast goodBeast, Vector vector);
