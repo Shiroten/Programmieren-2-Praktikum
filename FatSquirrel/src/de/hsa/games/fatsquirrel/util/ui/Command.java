@@ -17,7 +17,4 @@ public class Command{
         return params;
     }
 
-    public CommandTypeInfo getCommandType (){
-        return this.getCommandTypeInfo();
-    }
 }

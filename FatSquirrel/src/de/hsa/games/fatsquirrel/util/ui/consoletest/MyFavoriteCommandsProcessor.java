@@ -24,7 +24,7 @@ public class MyFavoriteCommandsProcessor {
             command = commandScanner.next();
 
             Object[] params = command.getParams();
-            MyFavoriteCommandType commandType = (MyFavoriteCommandType) command.getCommandType();
+            MyFavoriteCommandType commandType = (MyFavoriteCommandType) command.getCommandTypeInfo();
 
             switch (commandType) {
                 case EXIT:
