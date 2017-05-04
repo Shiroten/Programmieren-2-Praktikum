@@ -1,7 +1,8 @@
-package de.hsa.games.fatsquirrel; /**
- * Created by Shiroten on 01.04.2017.
- */
+package de.hsa.games.fatsquirrel;
 
+import de.hsa.games.fatsquirrel.util.ui.CommandScanner;
+import de.hsa.games.fatsquirrel.util.ui.consoletest.MyFavoriteCommandType;
+import de.hsa.games.fatsquirrel.util.ui.consoletest.MyFavoriteCommandsProcessor;
 import de.hsa.games.fatsquirrel.console.ConsoleUI;
 import de.hsa.games.fatsquirrel.console.GameImpl;
 import de.hsa.games.fatsquirrel.core.*;
@@ -9,8 +10,7 @@ import de.hsa.games.fatsquirrel.core.*;
 public class Launcher {
     public static void main(String[] args) {
 
-        Game game = new GameImpl();
-        game.run();
+        commandTest();
 
     }
 
@@ -74,7 +74,7 @@ public class Launcher {
         board.getSet().add(manuelSquirrel);
 
         //MoveCommand Vector Test
-        Vector  newVector = Vector.moveCommandToVector(MoveCommand.NORTHWEST);
+        Vector newVector = Vector.moveCommandToVector(MoveCommand.NORTHWEST);
         XY newField = manuelSquirrel.getCoordinate().addVector(newVector);
 
         Entity manuelSquirrel2 = new HandOperatedMasterSquirrel(101, newField);
@@ -84,6 +84,18 @@ public class Launcher {
         ui.render(flatBoard);
 
 
+    }
 
+    private static void gameTest() {
+
+        Game game = new GameImpl();
+        game.run();
+
+    }
+
+    private static void commandTest() {
+
+        MyFavoriteCommandsProcessor myFavoriteCommandsProcessor = new MyFavoriteCommandsProcessor();
+        myFavoriteCommandsProcessor.process();
     }
 }

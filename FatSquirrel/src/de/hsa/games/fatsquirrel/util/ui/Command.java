@@ -1,8 +1,5 @@
 package de.hsa.games.fatsquirrel.util.ui;
 
-/**
- * Created by tillm on 28.04.2017.
- */
 public class Command{
     private CommandTypeInfo commandTypeInfo;
     private Object[] params;
@@ -18,5 +15,9 @@ public class Command{
 
     public Object[] getParams() {
         return params;
+    }
+
+    public CommandTypeInfo getCommandType (){
+        return this.getCommandTypeInfo();
     }
 }

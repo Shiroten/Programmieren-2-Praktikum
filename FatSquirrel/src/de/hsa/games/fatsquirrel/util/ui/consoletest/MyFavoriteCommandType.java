@@ -33,7 +33,7 @@ public enum MyFavoriteCommandType implements CommandTypeInfo {
         return helpText;
     }
 
-    public Class[] getParamTypes(){
+    public Class<?>[] getParamTypes(){
         return params;
     }
 }
