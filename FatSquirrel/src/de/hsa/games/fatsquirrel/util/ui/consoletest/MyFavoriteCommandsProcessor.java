@@ -62,7 +62,7 @@ public class MyFavoriteCommandsProcessor {
 
     private void help(){
         for(CommandTypeInfo i : MyFavoriteCommandType.values()){
-            System.out.println(i.getName() + " " + i.getHelpText());
+            outputStream.println(i.getName() + " " + i.getHelpText());
         }
     }
 
