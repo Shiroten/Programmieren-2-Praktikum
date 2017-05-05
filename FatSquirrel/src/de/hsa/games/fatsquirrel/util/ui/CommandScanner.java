@@ -17,7 +17,7 @@ public class CommandScanner {
         this.inputReader = inputReader;
     }
 
-    public Command next() {
+    public Command next() throws ScanException {
         CommandTypeInfo commandType = null;
         Object[] params = null;
         System.out.println("Geben Sie Ihren Befehl ein: ");
@@ -27,28 +27,32 @@ public class CommandScanner {
             for (CommandTypeInfo i : commandTypeInfos) {
                 if (i.getName().equals(inputSplit[0])) {
                     commandType = i;
-                    params = new Object[i.getParamTypes().length];
+                    if(i.getParamTypes() != null)
+                        params = new Object[i.getParamTypes().length];
                 }
             }
             //TODO: ScanException
             if (commandType == null)
-                return new Command(null, null);
-            for (int i = 0; i < params.length; i++) {
-                try {
-                    //TODO: Object den entsprechenden Teil des String zuweisen
-                    switch (commandType.getParamTypes()[i].getCanonicalName()) {
-                        case "int":
-                            params[i] = Integer.parseInt(inputSplit[i]);
-                            break;
-                        case "String":
-                            params[i] = inputSplit[i];
-                            break;
-                        case "float":
-                            params[i] = Float.parseFloat(inputSplit[i]);
-                            break;
+                throw new ScanException("Befehl nicht erkannt");
+            if(commandType.getParamTypes() != null) {
+                for (int i = 0; i < params.length; i++) {
+                    try {
+                        switch (commandType.getParamTypes()[i].getCanonicalName()) {
+                            case "int":
+                                params[i] = Integer.parseInt(inputSplit[i+1]);
+                                break;
+                            case "java.lang.String":
+                                params[i] = inputSplit[i+1];
+                                break;
+                            case "float":
+                                params[i] = Float.parseFloat(inputSplit[i+1]);
+                                break;
+                            default:
+                                throw new ScanException("Parameter falsch zugewiesen");
+                        }
+                    } catch (Exception e) {
+                        throw new ScanException("Parameter nicht richtig zugewiesen");
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
             }
 
