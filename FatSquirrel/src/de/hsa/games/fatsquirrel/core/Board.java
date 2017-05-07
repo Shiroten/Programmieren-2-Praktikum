@@ -148,7 +148,6 @@ public class Board {
         return addEntity;
     }
 
-
     public XY randomPosition(XY size) {
 
         boolean collision;
@@ -172,6 +171,10 @@ public class Board {
 
         } while (collision);
         return new XY(newX, newY);
+    }
+
+    public void add(Entity toAdd){
+        this.set.add(toAdd);
     }
 
 }

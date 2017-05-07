@@ -6,7 +6,15 @@ import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.core.BoardView;
 import de.hsa.games.fatsquirrel.core.Entity;
 import de.hsa.games.fatsquirrel.core.EntityType;
+import de.hsa.games.fatsquirrel.util.ui.Command;
+import de.hsa.games.fatsquirrel.util.ui.CommandScanner;
+import de.hsa.games.fatsquirrel.util.ui.CommandTypeInfo;
+import de.hsa.games.fatsquirrel.util.ui.ScanException;
+import de.hsa.games.fatsquirrel.console.GameCommandType;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintStream;
 import java.util.Scanner;
 
 /**
@@ -14,39 +22,27 @@ import java.util.Scanner;
  */
 public class ConsoleUI implements UI {
 
-    @Override
-    public MoveCommand getDirection() {
+    PrintStream outputStream = new PrintStream(System.out);
+    private BufferedReader inputReader = new BufferedReader(new InputStreamReader(System.in));
+    private CommandScanner commandScanner = new CommandScanner(GameCommandType.values(), inputReader);
 
-        MoveCommand destination = null;
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Bitte geben Sie eine Richtung für ihr Squirrel in WASD an: ");
+    @Override
+    public Command getCommand() {
 
         try {
-            //char c = (char) System.in.read();
-            char c = scanner.next().charAt(0);
-
-            c = Character.toUpperCase(c);
-            switch (c) {
-                case 'W':
-                    destination = MoveCommand.NORTH;
-                    break;
-                case 'A':
-                    destination = MoveCommand.WEST;
-                    break;
-                case 'S':
-                    destination = MoveCommand.SOUTH;
-                    break;
-                case 'D':
-                    destination = MoveCommand.EAST;
-                    break;
-                default:
-                    destination = MoveCommand.NOWHERE;
-            }
-
-        } catch (Exception e) {
-            System.out.println("Bitte nur W A S D benutzen!");
+           return commandScanner.next();
         }
-        return destination;
+        catch (ScanException e) {
+            System.out.println(e.getMessage());
+            help();
+        }
+        return null;
+    }
+
+    public void help() {
+        for (CommandTypeInfo i : GameCommandType.values()) {
+            outputStream.println(i.getName() + " " + i.getHelpText());
+        }
     }
 
     @Override
@@ -86,9 +82,9 @@ public class ConsoleUI implements UI {
     private String printField(BoardView view, int x, int y) {
 
         EntityType onField;
-        if (view.getEntityType(new XY(x, y)) !=null){
+        if (view.getEntityType(new XY(x, y)) != null) {
             onField = view.getEntityType(new XY(x, y));
-        }else{
+        } else {
             onField = EntityType.EMPTY;
         }
 

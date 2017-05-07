@@ -82,7 +82,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
                 miniSquirrel.updateEnergy(BadBeast.START_ENERGY);
                 moveOrKillMiniSquirrel(miniSquirrel, miniSquirrel.getCoordinate());
                 ((BadBeast) flattenedBoard[newField.getY()][newField.getX()]).bites();
-                if(((BadBeast) flattenedBoard[newField.getY()][newField.getX()]).getLives() == 0)
+                if (((BadBeast) flattenedBoard[newField.getY()][newField.getX()]).getLives() == 0)
                     killAndReplace(flattenedBoard[newField.getY()][newField.getX()]);
                 break;
 
@@ -189,19 +189,24 @@ public class FlattenedBoard implements BoardView, EntityContext {
                         flattenedBoard[newField.getX()][newField.getY()].getCoordinate());
 
                 badBeast.bites();
-                if(badBeast.getLives() == 0)
+                if (badBeast.getLives() == 0)
                     killAndReplace(badBeast);
                 break;
             case MASTERSQUIRREL:
                 flattenedBoard[newField.getX()][newField.getY()].updateEnergy(BadBeast.START_ENERGY);
 
                 badBeast.bites();
-                if(badBeast.getLives() == 0)
+                if (badBeast.getLives() == 0)
                     killAndReplace(badBeast);
                 break;
             default:
                 move(badBeast, newField);
         }
+    }
+
+    @Override
+    public void tryMove(StandardMiniSquirrel standardMiniSquirrel) {
+        //Todo: tryMove StandardSquirrel implementieren
     }
 
     public void moveAndKill(Entity en, int startEnergy, XY newField) {
@@ -225,7 +230,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
             case BADBEAST:
                 masterSquirrel.updateEnergy(BadBeast.START_ENERGY);
                 ((BadBeast) flattenedBoard[newField.getY()][newField.getX()]).bites();
-                if(((BadBeast) flattenedBoard[newField.getY()][newField.getX()]).getLives() == 0)
+                if (((BadBeast) flattenedBoard[newField.getY()][newField.getX()]).getLives() == 0)
                     killAndReplace(flattenedBoard[newField.getY()][newField.getX()]);
                 break;
             case BADPLANT:
@@ -320,16 +325,15 @@ public class FlattenedBoard implements BoardView, EntityContext {
     private XY randomFreePosition() {
         XY xy;
         do {
-            xy = new XY(randomWithRange(1, size.getX() -1), randomWithRange(1, size.getY() -1));
+            xy = new XY(randomWithRange(1, size.getX() - 1), randomWithRange(1, size.getY() - 1));
         }
         while (flattenedBoard[xy.getY()][xy.getX()] != null);
 
         return xy;
     }
 
-    private int randomWithRange(int min, int max)
-    {
+    private int randomWithRange(int min, int max) {
         int range = (max - min) + 1;
-        return (int)(Math.random() * range) + min;
+        return (int) (Math.random() * range) + min;
     }
 }

@@ -26,8 +26,9 @@ public class Game {
         this.state = state;
     }
 
-    public Game(State state){
+    public Game(State state, UI ui){
         this.state = state;
+        this.ui = ui;
     }
 
     public Game(){};

@@ -8,7 +8,7 @@ import de.hsa.games.fatsquirrel.XY;
  */
 public class MiniSquirrel extends PlayerEntity {
     public static final EntityType type = EntityType.MINISQUIRREL;
-    private MasterSquirrel daddy;
+    protected MasterSquirrel daddy;
 
     public EntityType getEntityType() {
         return type;

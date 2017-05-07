@@ -51,9 +51,9 @@ public class MyFavoriteCommandsProcessor {
                         echo((String) params[0], (int) params[1]);
                         break;
                 }
+
             } catch (ScanException e){
                 System.out.println(e.getMessage());
-
                 help();
             }
 
@@ -67,16 +67,16 @@ public class MyFavoriteCommandsProcessor {
     }
 
     private void addi(int i, int j){
-        System.out.println(i + " + " + j + " = " + (i+j));
+        outputStream.println(i + " + " + j + " = " + (i+j));
     }
 
     private void addf(float i, float j){
-        System.out.println(i + " + " + j + " = " + (i+j));
+        outputStream.println(i + " + " + j + " = " + (i+j));
     }
 
     private void echo(String string, int times){
         for(int i = 0; i < times; i++){
-            System.out.println(string);
+            outputStream.println(string);
         }
     }
 }
