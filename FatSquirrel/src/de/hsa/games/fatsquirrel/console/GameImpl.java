@@ -25,7 +25,7 @@ public class GameImpl extends Game {
         this.setState(new State());
 
         for (Entity i : getState().getEntitySet()) {
-            if(i != null) {
+            if (i != null) {
                 if (i.getEntityType() == EntityType.HANDOPERATEDMASTERSQUIRREL) {
                     masterSquirrel = (HandOperatedMasterSquirrel) i;
                 }
@@ -35,66 +35,52 @@ public class GameImpl extends Game {
 
     protected void processInput() {
 
-        boolean wasActionMade = false;
+        Command command = this.getUi().getCommand();
 
-        while(!wasActionMade) {
-            Command command = this.getUi().getCommand();
-            while(command == null){
-                command = this.getUi().getCommand();
-            }
-            GameCommandType commandType = (GameCommandType) command.getCommandTypeInfo();
-
-            if(commandType == GameCommandType.DOWN || commandType == GameCommandType.LEFT ||
-                    commandType == GameCommandType.RIGHT || commandType == GameCommandType.UP ||
-                    commandType == GameCommandType.SPAWN_MINI){
-                wasActionMade = true;
-            }
-
-            try {
-                Method method = this.getClass().getDeclaredMethod(((GameCommandType) command.getCommandTypeInfo()).getMethodName(), command.getCommandTypeInfo().getParamTypes());
-                method.invoke(this, command.getParams());
-            } catch (IllegalAccessException iae){
-                iae.printStackTrace();
-            }catch (NoSuchMethodException nsme){
-                System.out.println("Methode nicht gefunden");
-            }catch (InvocationTargetException ite){
-                ite.printStackTrace();
-            }
-
+        try {
+            Method method = this.getClass().getDeclaredMethod(((GameCommandType) command.getCommandTypeInfo()).getMethodName(), command.getCommandTypeInfo().getParamTypes());
+            method.invoke(this, command.getParams());
+        } catch (IllegalAccessException iae) {
+            iae.printStackTrace();
+        } catch (NoSuchMethodException nsme) {
+            System.out.println("Methode nicht gefunden");
+        } catch (InvocationTargetException ite) {
+            ite.printStackTrace();
         }
+
     }
 
-    private void exit(){
+    private void exit() {
         System.exit(0);
     }
 
-    private void help(){
+    private void help() {
         for (CommandTypeInfo i : GameCommandType.values()) {
             System.out.println(i.getName() + " " + i.getHelpText());
         }
     }
 
-    private void all(){
+    private void all() {
         //Todo: ALL Befehl definieren
     }
 
-    private void moveUp(){
+    private void moveUp() {
         masterSquirrel.setCommand(MoveCommand.NORTH);
     }
 
-    private void moveDown(){
+    private void moveDown() {
         masterSquirrel.setCommand(MoveCommand.SOUTH);
     }
 
-    private void moveLeft(){
+    private void moveLeft() {
         masterSquirrel.setCommand(MoveCommand.WEST);
     }
 
-    private void moveRight(){
+    private void moveRight() {
         masterSquirrel.setCommand(MoveCommand.EAST);
     }
 
-    private void masterEnergy(){
+    private void masterEnergy() {
         System.out.println("Energy vom MasterSquirrel: " + masterSquirrel.getEnergy());
     }
 
@@ -119,6 +105,10 @@ public class GameImpl extends Game {
                 throw new NotEnoughEnergyException();
             }
         }
+
+    }
+
+    private void doNothing(){
 
     }
 

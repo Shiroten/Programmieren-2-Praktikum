@@ -33,8 +33,6 @@ public class ConsoleUI implements UI {
            return commandScanner.next();
         }
         catch (ScanException e) {
-            System.out.println("Befehl nicht erkannt, bitte erneut eingeben");
-            help();
         }
         return null;
     }

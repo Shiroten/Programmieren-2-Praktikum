@@ -51,6 +51,6 @@ public class Launcher {
 
     private static void consoleTest(){
         Game game = new GameImpl();
-        game.run();
+        game.startGame();
     }
 }
