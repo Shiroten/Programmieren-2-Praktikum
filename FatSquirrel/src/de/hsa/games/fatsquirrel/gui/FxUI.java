@@ -49,9 +49,6 @@ public class FxUI extends Scene implements UI {
         fxUI.setOnKeyPressed(
                 keyEvent -> {
 
-                    //Todo: Entfernen sobald unnötig.
-                    //System.out.println("Es wurde folgende Taste gedrückt: " + keyEvent.getCode() + " bitte behandeln!");
-
                     switch (keyEvent.getCode()) {
                         case W:
                             movecmd = MoveCommand.NORTH;
