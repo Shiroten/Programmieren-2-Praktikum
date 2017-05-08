@@ -26,7 +26,7 @@ public class FxUI extends Scene implements UI {
     private Label msgLabel;
     private static MoveCommand movecmd = MoveCommand.NOWHERE;
 
-    final static int CELL_SIZE = 50;
+    final static int CELL_SIZE = 30;
 
     public FxUI(Parent parent, Canvas boardCanvas, Label msgLabel) {
         super(parent);
@@ -64,6 +64,19 @@ public class FxUI extends Scene implements UI {
                         case D:
                             movecmd = MoveCommand.EAST;
                             break;
+                        case UP:
+                            movecmd = MoveCommand.NORTH;
+                            break;
+                        case LEFT:
+                            movecmd = MoveCommand.WEST;
+                            break;
+                        case DOWN:
+                            movecmd = MoveCommand.SOUTH;
+                            break;
+                        case RIGHT:
+                            movecmd = MoveCommand.EAST;
+                            break;
+
                         default:
                             movecmd = MoveCommand.NOWHERE;
                     }
@@ -101,10 +114,10 @@ public class FxUI extends Scene implements UI {
             case WALL:
                 gc.fillRect(xy.getX() * CELL_SIZE, xy.getY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
                 break;
+            case EMPTY: return;
             default:
                 gc.fillOval(xy.getX() * CELL_SIZE, xy.getY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
         }
-
         gc.setFill(Color.BLACK);
         gc.fillText(entityTypeToString(et), (xy.getX() + 0.5) * CELL_SIZE, (xy.getY() + 0.5) * CELL_SIZE);
 

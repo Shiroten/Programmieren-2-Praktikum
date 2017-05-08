@@ -72,14 +72,14 @@ public class Launcher extends Application {
             public void run() {
                 game.run();
             }
-        }, 100, 1000 / FRAMERATE);
+        }, 5000, 1000 / FRAMERATE);
 
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 game.processInput();
             }
-        }, 1000, 100);
+        }, 100, 1000 / FRAMERATE);
 
     }
 
@@ -87,7 +87,7 @@ public class Launcher extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        BoardConfig config = new BoardConfig(new XY(7, 7), 1, 1, 1, 1, 1);
+        BoardConfig config = new BoardConfig(new XY(20, 20), 1, 1, 1, 1, 1);
         Board board = new Board(config);
         State state = new State(board);
 
