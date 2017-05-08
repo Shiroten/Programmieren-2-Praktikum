@@ -10,6 +10,7 @@ import de.hsa.games.fatsquirrel.util.ui.Command;
 import de.hsa.games.fatsquirrel.util.ui.CommandTypeInfo;
 import javafx.application.Platform;
 
+import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -18,6 +19,7 @@ import javafx.scene.control.Label;
 
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.TextAlignment;
 
 
 public class FxUI extends Scene implements UI {
@@ -108,6 +110,9 @@ public class FxUI extends Scene implements UI {
     }
 
     private void printEntity(GraphicsContext gc, EntityType et, XY xy) {
+
+        gc.setTextAlign(TextAlignment.CENTER);
+        gc.setTextBaseline(VPos.CENTER);
 
         gc.setFill(entityTypeToColor(et));
         switch (et) {
