@@ -6,9 +6,11 @@ import de.hsa.games.fatsquirrel.XY;
  * Created by tillm on 07.04.2017.
  */
 public class Board {
+
     private EntitySet set;
     private BoardConfig config;
     private int idCounter = 0;
+    private HandOperatedMasterSquirrel masterSquirrel;
 
     public Board() {
         this.set = new EntitySet(new XY(100,100));
@@ -111,6 +113,7 @@ public class Board {
                     break;
                 case HANDOPERATEDMASTERSQUIRREL:
                     addEntity = new HandOperatedMasterSquirrel(setID(), new XY(randomX, randomY));
+                    masterSquirrel = (HandOperatedMasterSquirrel)addEntity;
                     break;
                 case MASTERSQUIRREL:
                     addEntity = new MasterSquirrel(setID(), new XY(randomX, randomY));
@@ -181,4 +184,7 @@ public class Board {
         this.set.add(toAdd);
     }
 
+    public HandOperatedMasterSquirrel getMasterSquirrel() {
+        return masterSquirrel;
+    }
 }

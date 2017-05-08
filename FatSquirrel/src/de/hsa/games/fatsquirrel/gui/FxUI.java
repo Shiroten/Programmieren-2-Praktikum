@@ -1,9 +1,13 @@
 package de.hsa.games.fatsquirrel.gui;
 
+import de.hsa.games.fatsquirrel.MoveCommand;
 import de.hsa.games.fatsquirrel.UI;
 import de.hsa.games.fatsquirrel.XY;
+import de.hsa.games.fatsquirrel.console.GameCommandType;
 import de.hsa.games.fatsquirrel.core.BoardView;
+import de.hsa.games.fatsquirrel.core.EntityType;
 import de.hsa.games.fatsquirrel.util.ui.Command;
+import de.hsa.games.fatsquirrel.util.ui.CommandTypeInfo;
 import javafx.application.Platform;
 
 import javafx.scene.Parent;
@@ -15,19 +19,20 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 
+
 public class FxUI extends Scene implements UI {
 
     private Canvas boardCanvas;
     private Label msgLabel;
-    private Command cmd;
+    private static MoveCommand movecmd = MoveCommand.NOWHERE;
 
     final static int CELL_SIZE = 50;
 
-        public FxUI(Parent parent, Canvas boardCanvas, Label msgLabel) {
-            super(parent);
-            this.boardCanvas = boardCanvas;
-            this.msgLabel = msgLabel;
-        }
+    public FxUI(Parent parent, Canvas boardCanvas, Label msgLabel) {
+        super(parent);
+        this.boardCanvas = boardCanvas;
+        this.msgLabel = msgLabel;
+    }
 
     public static FxUI createInstance(XY boardSize) {
         Canvas boardCanvas = new Canvas(boardSize.getX() * CELL_SIZE, boardSize.getY() * CELL_SIZE);
@@ -36,20 +41,34 @@ public class FxUI extends Scene implements UI {
         top.getChildren().add(boardCanvas);
         top.getChildren().add(statusLabel);
 
-        //Todo: Entfernen wenn befehl nicht mehr zur Referenz benötigt wird
-        //statusLabel.setText("Hallo Welt");
+        //Todo: statusLabel nach eigenen Bedürfnissen anpassen
+        statusLabel.setText("Hallo Welt");
         final FxUI fxUI = new FxUI(top, boardCanvas, statusLabel);
 
         fxUI.setOnKeyPressed(
                 keyEvent -> {
-                    System.out.println("Es wurde folgende Taste gedrückt: " + keyEvent.getCode() + " bitte behandeln!");
 
-                    // Command mit richtigen Richtungsangaben überschreiben
-                    // TODO handle event
+                    //Todo: Entfernen sobald unnötig.
+                    //System.out.println("Es wurde folgende Taste gedrückt: " + keyEvent.getCode() + " bitte behandeln!");
+
+                    switch (keyEvent.getCode()) {
+                        case W:
+                            movecmd = MoveCommand.NORTH;
+                            break;
+                        case A:
+                            movecmd = MoveCommand.WEST;
+                            break;
+                        case S:
+                            movecmd = MoveCommand.SOUTH;
+                            break;
+                        case D:
+                            movecmd = MoveCommand.EAST;
+                            break;
+                        default:
+                            movecmd = MoveCommand.NOWHERE;
+                    }
                 }
         );
-
-
         return fxUI;
     }
 
@@ -60,21 +79,105 @@ public class FxUI extends Scene implements UI {
     }
 
 
-
     private void repaintBoardCanvas(BoardView view) {
         GraphicsContext gc = boardCanvas.getGraphicsContext2D();
         gc.clearRect(0, 0, boardCanvas.getWidth(), boardCanvas.getHeight());
         XY viewSize = view.getSize();
 
-        gc.setStroke(Color.BLUE);
-        gc.setLineWidth(50);
-        gc.strokeLine(40, 10, 100, 400);
+        for (int x = 0; x < boardCanvas.getWidth(); x++) {
+            for (int y = 0; y < boardCanvas.getHeight(); y++) {
 
-        gc.fillText("Where are the beasts?", 100, 100);
-        gc.setFill(Color.RED);
-        gc.fillOval(150, 150, 50, 50);
-        gc.fillOval(0, 0, boardCanvas.getWidth(), boardCanvas.getHeight());
+                printEntity(gc, view.getEntityType(new XY(x, y)), new XY(x, y));
+            }
+        }
 
+
+    }
+
+    private void printEntity(GraphicsContext gc, EntityType et, XY xy) {
+
+        gc.setFill(entityTypeToColor(et));
+        switch (et) {
+            case WALL:
+                gc.fillRect(xy.getX() * CELL_SIZE, xy.getY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+                break;
+            default:
+                gc.fillOval(xy.getX() * CELL_SIZE, xy.getY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
+        }
+
+        gc.setFill(Color.BLACK);
+        gc.fillText(entityTypeToString(et), (xy.getX() + 0.5) * CELL_SIZE, (xy.getY() + 0.5) * CELL_SIZE);
+
+    }
+
+    private Color entityTypeToColor(EntityType et) {
+
+        Color returnColor;
+        switch (et) {
+            case GOODPLANT:
+                returnColor = Color.color(0, 1, 0);
+                break;
+            case GOODBEAST:
+                returnColor = Color.color(1, 0.9765, 0);
+                break;
+            case BADPLANT:
+                returnColor = Color.color(0, 0.2353, 0);
+                break;
+            case BADBEAST:
+                returnColor = Color.color(1, 0.0392, 0);
+                break;
+            case WALL:
+                returnColor = Color.color(0.3804, 0.3804, 0.3765);
+                break;
+            case MINISQUIRREL:
+                returnColor = Color.color(1, 0.5412, 0);
+                break;
+            case MASTERSQUIRREL:
+                returnColor = Color.color(0, 0.0588, 1);
+                break;
+            case HANDOPERATEDMASTERSQUIRREL:
+                returnColor = Color.color(0.2314, 0.7843, 1);
+                break;
+            default:
+                returnColor = Color.gray(0, 0);
+                ;
+        }
+        return returnColor;
+
+    }
+
+    private String entityTypeToString(EntityType et) {
+
+        String stringToPrint;
+        switch (et) {
+            case GOODPLANT:
+                stringToPrint = "GP";
+                break;
+            case GOODBEAST:
+                stringToPrint = "GB";
+                break;
+            case BADPLANT:
+                stringToPrint = "BP";
+                break;
+            case BADBEAST:
+                stringToPrint = "BB";
+                break;
+            case WALL:
+                stringToPrint = "WA";
+                break;
+            case MINISQUIRREL:
+                stringToPrint = "mS";
+                break;
+            case MASTERSQUIRREL:
+                stringToPrint = "MS";
+                break;
+            case HANDOPERATEDMASTERSQUIRREL:
+                stringToPrint = "HS";
+                break;
+            default:
+                stringToPrint = "";
+        }
+        return stringToPrint;
     }
 
 
@@ -91,6 +194,28 @@ public class FxUI extends Scene implements UI {
 
     @Override
     public Command getCommand() {
+        Command cmd;
+        switch (movecmd) {
+            case NORTH:
+                cmd = new Command(GameCommandType.UP, new Object[0]);
+                break;
+            case WEST:
+                cmd = new Command(GameCommandType.LEFT, new Object[0]);
+                break;
+            case EAST:
+                cmd = new Command(GameCommandType.RIGHT, new Object[0]);
+                break;
+            case SOUTH:
+                cmd = new Command(GameCommandType.DOWN, new Object[0]);
+                break;
+            case NOWHERE:
+                cmd = new Command(GameCommandType.NOTHING, new Object[0]);
+            default:
+                cmd = new Command(GameCommandType.NOTHING, new Object[0]);
+        }
+        movecmd = MoveCommand.NOWHERE;
         return cmd;
     }
+
+
 }

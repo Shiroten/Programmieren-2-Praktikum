@@ -1,33 +1,48 @@
 package de.hsa.games.fatsquirrel.gui;
+
 import de.hsa.games.fatsquirrel.Game;
+import de.hsa.games.fatsquirrel.MoveCommand;
+import de.hsa.games.fatsquirrel.console.GameCommandType;
 import de.hsa.games.fatsquirrel.core.*;
-import javafx.scene.Parent;
-
-import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Label;
-
-
+import de.hsa.games.fatsquirrel.util.ui.Command;
 
 public class FxGameImpl extends Game {
 
     private HandOperatedMasterSquirrel masterSquirrel;
 
 
-    public FxGameImpl(FxUI fxUI) {
+    public FxGameImpl(FxUI fxUI, State state) {
 
         this.setUi(fxUI);
-        this.setState(new State());
+        this.setState(state);
+        this.masterSquirrel = this.getState().getBoard().getMasterSquirrel();
 
-        for (Entity i : getState().getEntitySet()) {
-            if (i != null) {
-                if (i.getEntityType() == EntityType.HANDOPERATEDMASTERSQUIRREL) {
-                    masterSquirrel = (HandOperatedMasterSquirrel) i;
-                }
-            }
-        }
     }
 
     protected void processInput() {
+
+        Command cmd = this.getUi().getCommand();
+
+        switch (cmd.getCommandTypeInfo().getName()) {
+
+            case "w":
+                masterSquirrel.setCommand(MoveCommand.NORTH);
+                break;
+            case "a":
+                masterSquirrel.setCommand(MoveCommand.WEST);
+                break;
+            case "d":
+                masterSquirrel.setCommand(MoveCommand.EAST);
+                break;
+            case "s":
+                masterSquirrel.setCommand(MoveCommand.SOUTH);
+                break;
+            case "":
+                masterSquirrel.setCommand(MoveCommand.NOWHERE);
+                break;
+            default:
+                masterSquirrel.setCommand(MoveCommand.NOWHERE);
+        }
 
     }
 

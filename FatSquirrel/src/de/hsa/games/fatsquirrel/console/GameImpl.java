@@ -23,14 +23,7 @@ public class GameImpl extends Game {
     public GameImpl() {
         this.setUi(new ConsoleUI());
         this.setState(new State());
-
-        for (Entity i : getState().getEntitySet()) {
-            if (i != null) {
-                if (i.getEntityType() == EntityType.HANDOPERATEDMASTERSQUIRREL) {
-                    masterSquirrel = (HandOperatedMasterSquirrel) i;
-                }
-            }
-        }
+        this.masterSquirrel = this.getState().getBoard().getMasterSquirrel();
     }
 
     protected void processInput() {

@@ -87,9 +87,12 @@ public class Launcher extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        State state = new State();
+        BoardConfig config = new BoardConfig(new XY(7, 7), 1, 1, 1, 1, 1);
+        Board board = new Board(config);
+        State state = new State(board);
+
         FxUI fxUI = FxUI.createInstance(state.getBoard().getConfig().getSize());
-        final Game game = new FxGameImpl(fxUI);
+        final Game game = new FxGameImpl(fxUI, state);
 
         primaryStage.setScene(fxUI);
         primaryStage.setTitle("Diligent Squirrel");
@@ -97,6 +100,7 @@ public class Launcher extends Application {
         fxUI.getWindow().setOnCloseRequest(evt -> System.exit(-1));
 
         primaryStage.show();
-        //startGame(game);
+        game.render();
+        startGame(game);
     }
 }
