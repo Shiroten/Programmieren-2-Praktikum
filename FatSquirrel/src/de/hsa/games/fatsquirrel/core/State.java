@@ -36,4 +36,8 @@ public class State {
     public FlattenedBoard flattenBoard(){
         return board.flatten();
     }
+
+    public Entity[] getEntitySet(){
+        return board.getSet().getEntityList();
+    }
 }
