@@ -7,12 +7,7 @@ import de.hsa.games.fatsquirrel.console.ConsoleUI;
 import de.hsa.games.fatsquirrel.console.GameImpl;
 import de.hsa.games.fatsquirrel.core.*;
 import javafx.application.Application;
-import javafx.event.EventHandler;
-import javafx.scene.Parent;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.util.Timer;
 import java.util.TimerTask;

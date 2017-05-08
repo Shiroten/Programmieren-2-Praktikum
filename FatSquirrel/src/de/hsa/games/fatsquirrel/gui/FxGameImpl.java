@@ -2,7 +2,6 @@ package de.hsa.games.fatsquirrel.gui;
 
 import de.hsa.games.fatsquirrel.Game;
 import de.hsa.games.fatsquirrel.MoveCommand;
-import de.hsa.games.fatsquirrel.console.GameCommandType;
 import de.hsa.games.fatsquirrel.core.*;
 import de.hsa.games.fatsquirrel.util.ui.Command;
 
@@ -10,21 +9,17 @@ public class FxGameImpl extends Game {
 
     private HandOperatedMasterSquirrel masterSquirrel;
 
-
     public FxGameImpl(FxUI fxUI, State state) {
 
         this.setUi(fxUI);
         this.setState(state);
         this.masterSquirrel = this.getState().getBoard().getMasterSquirrel();
-
     }
 
     protected void processInput() {
 
         Command cmd = this.getUi().getCommand();
-
         switch (cmd.getCommandTypeInfo().getName()) {
-
             case "w":
                 masterSquirrel.setCommand(MoveCommand.NORTH);
                 break;
@@ -43,7 +38,6 @@ public class FxGameImpl extends Game {
             default:
                 masterSquirrel.setCommand(MoveCommand.NOWHERE);
         }
-
     }
 
     protected void render() {

@@ -7,7 +7,7 @@ import de.hsa.games.fatsquirrel.console.GameCommandType;
 import de.hsa.games.fatsquirrel.core.BoardView;
 import de.hsa.games.fatsquirrel.core.EntityType;
 import de.hsa.games.fatsquirrel.util.ui.Command;
-import de.hsa.games.fatsquirrel.util.ui.CommandTypeInfo;
+
 import javafx.application.Platform;
 
 import javafx.geometry.VPos;
@@ -96,22 +96,16 @@ public class FxUI extends Scene implements UI {
     private void repaintBoardCanvas(BoardView view) {
         GraphicsContext gc = boardCanvas.getGraphicsContext2D();
         gc.clearRect(0, 0, boardCanvas.getWidth(), boardCanvas.getHeight());
-        XY viewSize = view.getSize();
-
         for (int x = 0; x < boardCanvas.getWidth(); x++) {
             for (int y = 0; y < boardCanvas.getHeight(); y++) {
                 printEntity(gc, view.getEntityType(new XY(x, y)), new XY(x, y));
             }
         }
-
-
     }
 
     private void printEntity(GraphicsContext gc, EntityType et, XY xy) {
 
-        gc.setTextAlign(TextAlignment.CENTER);
-        gc.setTextBaseline(VPos.CENTER);
-
+        //Kästchen für die Entity setzen
         gc.setFill(entityTypeToColor(et));
         switch (et) {
             case WALL:
@@ -122,7 +116,11 @@ public class FxUI extends Scene implements UI {
             default:
                 gc.fillOval(xy.getX() * CELL_SIZE, xy.getY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
         }
+
+        //Text Schreiben
         gc.setFill(Color.BLACK);
+        gc.setTextAlign(TextAlignment.CENTER);
+        gc.setTextBaseline(VPos.CENTER);
         gc.fillText(entityTypeToString(et), (xy.getX() + 0.5) * CELL_SIZE, (xy.getY() + 0.5) * CELL_SIZE);
     }
 
@@ -156,10 +154,8 @@ public class FxUI extends Scene implements UI {
                 break;
             default:
                 returnColor = Color.gray(0, 0);
-                ;
         }
         return returnColor;
-
     }
 
     private String entityTypeToString(EntityType et) {
@@ -197,12 +193,7 @@ public class FxUI extends Scene implements UI {
     }
 
     public void message(final String msg) {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                msgLabel.setText(msg);
-            }
-        });
+        Platform.runLater(() -> msgLabel.setText(msg));
     }
 
     @Override

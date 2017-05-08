@@ -39,14 +39,11 @@ public class Game {
     }
 
     public void run() {
-
         render();
         update();
-
     }
 
     public void startSingleThreadGame() {
-
         while (true) {
             render();
             processInput();
