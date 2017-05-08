@@ -31,7 +31,6 @@ public class CommandScanner {
                         params = new Object[i.getParamTypes().length];
                 }
             }
-            //TODO: ScanException
             if (commandType == null)
                 throw new ScanException("Befehl nicht erkannt");
             if(commandType.getParamTypes() != null) {

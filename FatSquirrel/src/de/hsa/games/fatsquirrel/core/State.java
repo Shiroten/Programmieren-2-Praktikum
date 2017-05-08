@@ -27,10 +27,10 @@ public class State {
         return highscore;
     }
 
-    public void update(MoveCommand command){
+    public void update(){
 
         FlattenedBoard flat = board.flatten();
-        board.getSet().nextStep(flat, command);
+        board.getSet().nextStep(flat);
     }
 
     public FlattenedBoard flattenBoard(){

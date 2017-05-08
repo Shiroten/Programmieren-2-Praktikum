@@ -14,12 +14,17 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel {
     public HandOperatedMasterSquirrel(int id, XY coordinate) {
         super(id, coordinate);
     }
+    private MoveCommand command;
+
+    public void setCommand(MoveCommand command) {
+        this.command = command;
+    }
 
     public EntityType getEntityType() {
         return type;
     }
 
-    public void nextStep(MoveCommand command, EntityContext context){
+    public void nextStep(EntityContext context){
         if(stunTime > 0)
             stunTime--;
         else {

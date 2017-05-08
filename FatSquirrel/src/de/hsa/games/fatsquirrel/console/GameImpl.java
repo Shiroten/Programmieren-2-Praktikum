@@ -17,10 +17,20 @@ import java.lang.reflect.Method;
  */
 public class GameImpl extends Game {
 
+    private HandOperatedMasterSquirrel masterSquirrel;
+
 
     public GameImpl() {
         this.setUi(new ConsoleUI());
         this.setState(new State());
+
+        for (Entity i : getState().getEntitySet()) {
+            if(i != null) {
+                if (i.getEntityType() == EntityType.HANDOPERATEDMASTERSQUIRREL) {
+                    masterSquirrel = (HandOperatedMasterSquirrel) i;
+                }
+            }
+        }
     }
 
     protected void processInput() {
@@ -41,13 +51,9 @@ public class GameImpl extends Game {
             }
 
             try {
-                Class cl = Class.forName("de.hsa.games.fatsquirrel.console.GameImpl");
-                Method method = cl.getDeclaredMethod(((GameCommandType) command.getCommandTypeInfo()).getMethodName(), command.getCommandTypeInfo().getParamTypes());
+                Method method = this.getClass().getDeclaredMethod(((GameCommandType) command.getCommandTypeInfo()).getMethodName(), command.getCommandTypeInfo().getParamTypes());
                 method.invoke(this, command.getParams());
-            }catch (ClassNotFoundException cfe) {
-                System.out.println("Klasse nicht gefunden");
-                cfe.printStackTrace();
-            }catch (IllegalAccessException iae){
+            } catch (IllegalAccessException iae){
                 iae.printStackTrace();
             }catch (NoSuchMethodException nsme){
                 System.out.println("Methode nicht gefunden");
@@ -73,47 +79,26 @@ public class GameImpl extends Game {
     }
 
     private void moveUp(){
-        this.command = MoveCommand.NORTH;
+        masterSquirrel.setCommand(MoveCommand.NORTH);
     }
 
     private void moveDown(){
-        this.command = MoveCommand.SOUTH;
+        masterSquirrel.setCommand(MoveCommand.SOUTH);
     }
 
     private void moveLeft(){
-        this.command = MoveCommand.WEST;
+        masterSquirrel.setCommand(MoveCommand.WEST);
     }
 
     private void moveRight(){
-        this.command = MoveCommand.EAST;
+        masterSquirrel.setCommand(MoveCommand.EAST);
     }
 
     private void masterEnergy(){
-        for (Entity i : getState().getEntitySet()) {
-            if(i != null) {
-                if (i.getEntityType() == EntityType.HANDOPERATEDMASTERSQUIRREL) {
-                    System.out.println("Energy vom MasterSquirrel: " + i.getEnergy());
-                }
-            }
-        }
+        System.out.println("Energy vom MasterSquirrel: " + masterSquirrel.getEnergy());
     }
 
     private void spawnMini(int energy) throws NotEnoughEnergyException {
-
-        MasterSquirrel masterSquirrel = null;
-        this.command = MoveCommand.NOWHERE;
-
-        for (Entity i : getState().getEntitySet()) {
-            if(i != null) {
-                if (i.getEntityType() == EntityType.HANDOPERATEDMASTERSQUIRREL) {
-                    masterSquirrel = (HandOperatedMasterSquirrel) i;
-                }
-            }
-        }
-
-        if(masterSquirrel == null){
-            return;
-        }
 
         XY locationOfMaster = masterSquirrel.getCoordinate();
         for (MoveCommand offset : MoveCommand.values()) {
@@ -142,7 +127,6 @@ public class GameImpl extends Game {
     }
 
     protected void update() {
-        //Todo; MiniSquirrel spawn in die Update Methode verlegen.
-        getState().update(command);
+        getState().update();
     }
 }

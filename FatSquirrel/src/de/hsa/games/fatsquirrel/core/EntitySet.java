@@ -47,11 +47,11 @@ public class EntitySet {
         }
     }
 
-    public void nextStep(EntityContext flat, MoveCommand command) {
+    public void nextStep(EntityContext flat) {
         for (int i = 0; i < numberOfMaxEntities; i++) {
             if (entityList[i] != null) {
                 if(entityList[i] instanceof HandOperatedMasterSquirrel)
-                    ((HandOperatedMasterSquirrel) entityList[i]).nextStep(command, flat);
+                    ((HandOperatedMasterSquirrel) entityList[i]).nextStep(flat);
                 else if(entityList[i] instanceof Character)
                     ((Character) entityList[i]).nextStep(flat);
             }

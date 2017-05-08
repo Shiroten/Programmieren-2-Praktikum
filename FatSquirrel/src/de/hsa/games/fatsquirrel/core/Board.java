@@ -173,6 +173,10 @@ public class Board {
         return new XY(newX, newY);
     }
 
+    public void killEntity(Entity e){
+        this.set.delete(e);
+    }
+
     public void add(Entity toAdd){
         this.set.add(toAdd);
     }

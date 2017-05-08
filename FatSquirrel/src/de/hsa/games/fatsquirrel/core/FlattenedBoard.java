@@ -11,7 +11,6 @@ public class FlattenedBoard implements BoardView, EntityContext {
     private Board board;
     private final int PointsForMiniSquirrel = 150;
 
-    //TODO: Kein wirkliches todo, sondern nur für Sichtbarkeit ;-)
     //Ganz, ganz wichtig für Konsistenz:
     //Ein Mehrdimensionales Array zählt folgendermaßen:
     //a[0][0] a[0][1] a[0][2]
@@ -298,8 +297,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
             for (int j = 0; j < size.getX(); j++) {
                 if (flattenedBoard[i][j] == entity) {
                     flattenedBoard[i][j] = null;
-                    //TODO: Ins Board kapseln
-                    board.getSet().delete(entity);
+                    board.killEntity(entity);
                     return;
                 }
             }
