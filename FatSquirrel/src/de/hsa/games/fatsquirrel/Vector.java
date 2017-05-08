@@ -1,10 +1,5 @@
 package de.hsa.games.fatsquirrel;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
-
-/**
- * Created by Shiroten on 03.04.2017.
- */
 public class Vector {
 
     private final int xDifference;
@@ -155,6 +150,6 @@ public class Vector {
     }
 
     public String toString(){
-        return new String("x: "+  xDifference + " y: " + yDifference);
+        return "x: "+  xDifference + " y: " + yDifference;
     }
 }

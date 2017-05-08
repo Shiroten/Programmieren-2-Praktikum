@@ -7,14 +7,10 @@ import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.core.*;
 import de.hsa.games.fatsquirrel.util.ui.Command;
 import de.hsa.games.fatsquirrel.util.ui.CommandTypeInfo;
-import de.hsa.games.fatsquirrel.util.ui.ScanException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-/**
- * Created by tillm on 22.04.2017.
- */
 public class GameImpl extends Game {
 
     private HandOperatedMasterSquirrel masterSquirrel;

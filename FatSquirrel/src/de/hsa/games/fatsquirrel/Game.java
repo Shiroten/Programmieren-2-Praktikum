@@ -2,12 +2,6 @@ package de.hsa.games.fatsquirrel;
 
 import de.hsa.games.fatsquirrel.core.State;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
-/**
- * Created by tillm on 07.04.2017.
- */
 public class Game {
     private UI ui;
     private State state;

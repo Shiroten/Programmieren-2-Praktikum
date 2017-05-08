@@ -1,25 +1,18 @@
 package de.hsa.games.fatsquirrel.console;
 
-import de.hsa.games.fatsquirrel.MoveCommand;
 import de.hsa.games.fatsquirrel.UI;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.core.BoardView;
-import de.hsa.games.fatsquirrel.core.Entity;
 import de.hsa.games.fatsquirrel.core.EntityType;
 import de.hsa.games.fatsquirrel.util.ui.Command;
 import de.hsa.games.fatsquirrel.util.ui.CommandScanner;
 import de.hsa.games.fatsquirrel.util.ui.CommandTypeInfo;
 import de.hsa.games.fatsquirrel.util.ui.ScanException;
-import de.hsa.games.fatsquirrel.console.GameCommandType;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
-import java.util.Scanner;
 
-/**
- * Created by tillm on 22.04.2017.
- */
 public class ConsoleUI implements UI {
 
     PrintStream outputStream = new PrintStream(System.out);
@@ -30,9 +23,8 @@ public class ConsoleUI implements UI {
     public Command getCommand() {
 
         try {
-           return commandScanner.next();
-        }
-        catch (ScanException e) {
+            return commandScanner.next();
+        } catch (ScanException e) {
         }
         return null;
     }
