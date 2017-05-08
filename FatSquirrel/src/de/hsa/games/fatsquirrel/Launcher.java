@@ -1,17 +1,28 @@
 package de.hsa.games.fatsquirrel;
 
-import de.hsa.games.fatsquirrel.util.ui.CommandScanner;
-import de.hsa.games.fatsquirrel.util.ui.consoletest.MyFavoriteCommandType;
+import de.hsa.games.fatsquirrel.gui.FxGameImpl;
+import de.hsa.games.fatsquirrel.gui.FxUI;
 import de.hsa.games.fatsquirrel.util.ui.consoletest.MyFavoriteCommandsProcessor;
 import de.hsa.games.fatsquirrel.console.ConsoleUI;
 import de.hsa.games.fatsquirrel.console.GameImpl;
 import de.hsa.games.fatsquirrel.core.*;
+import javafx.application.Application;
+import javafx.event.EventHandler;
+import javafx.scene.Parent;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
-public class Launcher {
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class Launcher extends Application {
+    private static final int FRAMERATE = 10;
+
     public static void main(String[] args) {
 
-        consoleTest();
-
+        Application.launch(args);
     }
 
     private static void uiTest() {
@@ -49,8 +60,43 @@ public class Launcher {
         myFavoriteCommandsProcessor.process();
     }
 
-    private static void consoleTest(){
+    private static void consoleTest() {
         Game game = new GameImpl();
-        game.startGame();
+        startGame(game);
+    }
+
+    private static void startGame(Game game) {
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                game.run();
+            }
+        }, 100, 1000 / FRAMERATE);
+
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                game.processInput();
+            }
+        }, 1000, 100);
+
+    }
+
+
+    @Override
+    public void start(Stage primaryStage) {
+
+        State state = new State();
+        FxUI fxUI = FxUI.createInstance(state.getBoard().getConfig().getSize());
+        final Game game = new FxGameImpl(fxUI);
+
+        primaryStage.setScene(fxUI);
+        primaryStage.setTitle("Diligent Squirrel");
+
+        fxUI.getWindow().setOnCloseRequest(evt -> System.exit(-1));
+
+        primaryStage.show();
+        //startGame(game);
     }
 }

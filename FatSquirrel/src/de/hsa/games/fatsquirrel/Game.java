@@ -12,7 +12,6 @@ public class Game {
     private UI ui;
     private State state;
     protected MoveCommand command;
-    private int framerate = 1;
 
 
     public UI getUi() {
@@ -39,37 +38,16 @@ public class Game {
     public Game() {
     }
 
-    ;
-
-    public void startGame() {
-
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                runGame();
-            }
-        }, 100, 1000 / framerate);
-
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                processInput();
-            }
-        },1000,100);
-
-    }
-
-    public void runGame() {
+    public void run() {
 
         render();
         update();
 
     }
 
-    public void startSingleThreadGame(){
+    public void startSingleThreadGame() {
 
-        while(true){
+        while (true) {
             render();
             processInput();
             update();
