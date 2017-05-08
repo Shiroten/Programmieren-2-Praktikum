@@ -52,5 +52,7 @@ public class FxGameImpl extends Game {
 
     protected void update() {
         getState().update();
+        FxUI fxUI = (FxUI) this.getUi();
+        fxUI.message("MasterSquirrel Energy: " + Integer.toString(masterSquirrel.getEnergy()));
     }
 }

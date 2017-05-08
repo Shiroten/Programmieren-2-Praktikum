@@ -43,8 +43,7 @@ public class FxUI extends Scene implements UI {
         top.getChildren().add(boardCanvas);
         top.getChildren().add(statusLabel);
 
-        //Todo: statusLabel nach eigenen Bedürfnissen anpassen
-        statusLabel.setText("Hallo Welt");
+        statusLabel.setText("Fange Squirrel ein");
         final FxUI fxUI = new FxUI(top, boardCanvas, statusLabel);
 
         fxUI.setOnKeyPressed(
@@ -101,7 +100,6 @@ public class FxUI extends Scene implements UI {
 
         for (int x = 0; x < boardCanvas.getWidth(); x++) {
             for (int y = 0; y < boardCanvas.getHeight(); y++) {
-
                 printEntity(gc, view.getEntityType(new XY(x, y)), new XY(x, y));
             }
         }
@@ -119,13 +117,13 @@ public class FxUI extends Scene implements UI {
             case WALL:
                 gc.fillRect(xy.getX() * CELL_SIZE, xy.getY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
                 break;
-            case EMPTY: return;
+            case EMPTY:
+                return;
             default:
                 gc.fillOval(xy.getX() * CELL_SIZE, xy.getY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
         }
         gc.setFill(Color.BLACK);
         gc.fillText(entityTypeToString(et), (xy.getX() + 0.5) * CELL_SIZE, (xy.getY() + 0.5) * CELL_SIZE);
-
     }
 
     private Color entityTypeToColor(EntityType et) {
@@ -198,9 +196,6 @@ public class FxUI extends Scene implements UI {
         return stringToPrint;
     }
 
-
-    //Todo: @Override von FxUI/message() fixen
-    //@Override
     public void message(final String msg) {
         Platform.runLater(new Runnable() {
             @Override
