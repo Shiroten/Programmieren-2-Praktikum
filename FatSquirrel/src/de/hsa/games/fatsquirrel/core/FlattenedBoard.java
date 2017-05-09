@@ -110,6 +110,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
                 break;
 
             case MASTERSQUIRREL:
+            case HANDOPERATEDMASTERSQUIRREL:
 
                 if (((MasterSquirrel) flattenedBoard[newField.getX()][newField.getY()]).mySquirrel(miniSquirrel)) {
 
@@ -155,6 +156,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
                 killAndReplace(goodBeast);
                 break;
             case MASTERSQUIRREL:
+            case HANDOPERATEDMASTERSQUIRREL:
                 flattenedBoard[newField.getY()][newField.getX()].updateEnergy(GoodBeast.START_ENERGY);
                 killAndReplace(goodBeast);
                 break;
@@ -194,8 +196,8 @@ public class FlattenedBoard implements BoardView, EntityContext {
                 break;
             case MASTERSQUIRREL:
             case HANDOPERATEDMASTERSQUIRREL:
+                System.out.printf("Squirrel wurde gebissen.%n");
                 flattenedBoard[newField.getY()][newField.getX()].updateEnergy(BadBeast.START_ENERGY);
-
                 badBeast.bites();
                 if (badBeast.getLives() == 0)
                     killAndReplace(badBeast);
@@ -262,6 +264,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
                 break;
 
             case MASTERSQUIRREL:
+            case HANDOPERATEDMASTERSQUIRREL:
                 //Stößen nur mit den Köpfen Zusammen
                 break;
             default:
