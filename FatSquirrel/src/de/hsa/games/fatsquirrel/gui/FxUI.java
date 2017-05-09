@@ -26,7 +26,7 @@ public class FxUI extends Scene implements UI {
 
     private Canvas boardCanvas;
     private Label msgLabel;
-    private static MoveCommand movecmd = MoveCommand.NOWHERE;
+    private static Command cmd = new Command(GameCommandType.NOTHING, new Object[0]);
 
     final static int CELL_SIZE = 30;
 
@@ -52,23 +52,27 @@ public class FxUI extends Scene implements UI {
                     switch (keyEvent.getCode()) {
                         case W:
                         case UP:
-                            movecmd = MoveCommand.NORTH;
+                            cmd = new Command(GameCommandType.UP, new Object[0]);
                             break;
                         case A:
                         case LEFT:
-                            movecmd = MoveCommand.WEST;
+                            cmd = new Command(GameCommandType.LEFT, new Object[0]);
                             break;
                         case S:
                         case DOWN:
-                            movecmd = MoveCommand.SOUTH;
+                            cmd = new Command(GameCommandType.DOWN, new Object[0]);
                             break;
                         case D:
                         case RIGHT:
-                            movecmd = MoveCommand.EAST;
+                            cmd = new Command(GameCommandType.RIGHT, new Object[0]);
                             break;
-
+                        case F:
+                            System.out.println("Taste F gedrückt");
+                            cmd = new Command(GameCommandType.SPAWN_MINI,
+                                    new Object[]{ new Integer(100)});
+                            break;
                         default:
-                            movecmd = MoveCommand.NOWHERE;
+                            cmd = new Command(GameCommandType.NOTHING, new Object[0]);
                     }
                 }
         );
@@ -80,7 +84,6 @@ public class FxUI extends Scene implements UI {
     public void render(final BoardView view) {
         Platform.runLater(() -> repaintBoardCanvas(view));
     }
-
 
     private void repaintBoardCanvas(BoardView view) {
         GraphicsContext gc = boardCanvas.getGraphicsContext2D();
@@ -187,27 +190,10 @@ public class FxUI extends Scene implements UI {
 
     @Override
     public Command getCommand() {
-        Command cmd;
-        switch (movecmd) {
-            case NORTH:
-                cmd = new Command(GameCommandType.UP, new Object[0]);
-                break;
-            case WEST:
-                cmd = new Command(GameCommandType.LEFT, new Object[0]);
-                break;
-            case EAST:
-                cmd = new Command(GameCommandType.RIGHT, new Object[0]);
-                break;
-            case SOUTH:
-                cmd = new Command(GameCommandType.DOWN, new Object[0]);
-                break;
-            case NOWHERE:
-                cmd = new Command(GameCommandType.NOTHING, new Object[0]);
-            default:
-                cmd = new Command(GameCommandType.NOTHING, new Object[0]);
-        }
-        movecmd = MoveCommand.NOWHERE;
-        return cmd;
+        Command temp = cmd;
+        cmd = new Command(GameCommandType.NOTHING, new Object[0]);
+        return temp;
+
     }
 
 

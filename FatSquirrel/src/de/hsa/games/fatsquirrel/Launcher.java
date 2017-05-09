@@ -13,7 +13,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Launcher extends Application {
-    private static final int FRAMERATE = 5;
+    private static final int FRAMERATE = 10;
 
     public static void main(String[] args) {
 
@@ -69,12 +69,12 @@ public class Launcher extends Application {
             }
         }, 5000, 1000 / FRAMERATE);
 
-        timer.schedule(new TimerTask() {
+        timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
                 game.processInput();
             }
-        }, 100, 1000 / FRAMERATE);
+        }, 4000, 1000 / FRAMERATE);
 
     }
 

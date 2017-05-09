@@ -2,6 +2,9 @@ package de.hsa.games.fatsquirrel.gui;
 
 import de.hsa.games.fatsquirrel.Game;
 import de.hsa.games.fatsquirrel.MoveCommand;
+import de.hsa.games.fatsquirrel.Vector;
+import de.hsa.games.fatsquirrel.XY;
+import de.hsa.games.fatsquirrel.console.NotEnoughEnergyException;
 import de.hsa.games.fatsquirrel.core.*;
 import de.hsa.games.fatsquirrel.util.ui.Command;
 
@@ -32,6 +35,13 @@ public class FxGameImpl extends Game {
             case "s":
                 masterSquirrel.setCommand(MoveCommand.SOUTH);
                 break;
+            case "m":
+                try {
+                    spawnMini((Integer) cmd.getParams()[0]);
+                } catch (NotEnoughEnergyException neee) {
+
+                }
+                break;
             case "":
                 masterSquirrel.setCommand(MoveCommand.NOWHERE);
                 break;
@@ -48,5 +58,30 @@ public class FxGameImpl extends Game {
         getState().update();
         FxUI fxUI = (FxUI) this.getUi();
         fxUI.message("MasterSquirrel Energy: " + Integer.toString(masterSquirrel.getEnergy()));
+    }
+
+    private void spawnMini(int energy) throws NotEnoughEnergyException {
+
+        XY locationOfMaster = masterSquirrel.getCoordinate();
+        for (MoveCommand offset : MoveCommand.values()) {
+            //Wenn dieses Feld leer ist....
+            if (masterSquirrel.getEnergy() >= energy) {
+                if (this.getState().flattenBoard().getEntityType(locationOfMaster.addVector(Vector.moveCommandToVector(offset))) == EntityType.EMPTY) {
+
+                    //Füge neues StandardMiniSquirrel hinzu zum Board
+                    masterSquirrel.updateEnergy(-energy);
+                    this.getState().getBoard().add(
+                            new StandardMiniSquirrel(
+                                    this.getState().getBoard().setID(),
+                                    (locationOfMaster.addVector(Vector.moveCommandToVector(offset))),
+                                    energy,
+                                    masterSquirrel));
+                    return;
+                }
+            } else {
+                throw new NotEnoughEnergyException();
+            }
+        }
+
     }
 }

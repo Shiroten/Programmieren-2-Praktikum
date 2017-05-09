@@ -99,23 +99,23 @@ public class FlattenedBoard implements BoardView, EntityContext {
 
             case MINISQUIRREL:
                 if (miniSquirrel.getDaddy() ==
-                        ((MiniSquirrel) flattenedBoard[newField.getX()][newField.getY()]).getDaddy()) {
+                        ((MiniSquirrel) flattenedBoard[newField.getY()][newField.getX()]).getDaddy()) {
                     //Mach nichts, da freundliche Kollision
                 } else {
 
                     //Löse beide MiniSquirrel auf
                     killEntity(miniSquirrel);
-                    killEntity(flattenedBoard[newField.getX()][newField.getY()]);
+                    killEntity(flattenedBoard[newField.getY()][newField.getX()]);
                 }
                 break;
 
             case MASTERSQUIRREL:
             case HANDOPERATEDMASTERSQUIRREL:
 
-                if (((MasterSquirrel) flattenedBoard[newField.getX()][newField.getY()]).mySquirrel(miniSquirrel)) {
+                if (((MasterSquirrel) flattenedBoard[newField.getY()][newField.getX()]).mySquirrel(miniSquirrel)) {
 
                     //Kollision mit eigenem MasterSquirrel: auflösen und Energie übertragen
-                    (flattenedBoard[newField.getX()][newField.getY()]).updateEnergy(miniSquirrel.getEnergy());
+                    (flattenedBoard[newField.getY()][newField.getX()]).updateEnergy(miniSquirrel.getEnergy());
                     killEntity(miniSquirrel);
 
                 } else {
@@ -186,9 +186,9 @@ public class FlattenedBoard implements BoardView, EntityContext {
             case GOODPLANT:
                 break;
             case MINISQUIRREL:
-                flattenedBoard[newField.getX()][newField.getY()].updateEnergy(BadBeast.START_ENERGY);
-                moveOrKillMiniSquirrel((MiniSquirrel) flattenedBoard[newField.getX()][newField.getY()],
-                        flattenedBoard[newField.getX()][newField.getY()].getCoordinate());
+                flattenedBoard[newField.getY()][newField.getX()].updateEnergy(BadBeast.START_ENERGY);
+                moveOrKillMiniSquirrel((MiniSquirrel) flattenedBoard[newField.getY()][newField.getX()],
+                        flattenedBoard[newField.getY()][newField.getX()].getCoordinate());
 
                 badBeast.bites();
                 if (badBeast.getLives() == 0)
