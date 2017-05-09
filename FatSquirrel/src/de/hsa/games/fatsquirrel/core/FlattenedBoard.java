@@ -325,6 +325,15 @@ public class FlattenedBoard implements BoardView, EntityContext {
         }
     }
 
+    @Override
+    public Entity getEntity(XY xy) {
+        try {
+            return flattenedBoard[xy.getY()][xy.getX()];
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     private XY randomFreePosition() {
         XY xy;
         do {

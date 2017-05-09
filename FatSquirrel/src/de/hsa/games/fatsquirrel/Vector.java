@@ -62,10 +62,13 @@ public class Vector {
 
     }
 
-    public Vector randomDirection() {
-        return new Vector(
-                ThreadLocalRandom.current().nextInt(0, 3) - 1,
-                ThreadLocalRandom.current().nextInt(1, 4) - 2);
+    public static Vector randomDirection() {
+
+        int x = ThreadLocalRandom.current().nextInt(0, 3) - 1;
+        int y = ThreadLocalRandom.current().nextInt(1, 4) - 2;
+
+        return new Vector(x,y);
+
     }
 
     //Gibt die Länge in Schritten aus

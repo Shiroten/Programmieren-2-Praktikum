@@ -32,8 +32,8 @@ public class MiniSquirrel extends PlayerEntity {
         if(stunTime > 0)
             stunTime--;
         else {
-            Vector distance = new Vector(getCoordinate(), getCoordinate().randomMove());
-            context.tryMove(this, distance.normalizedVector());
+            Vector distance = Vector.randomDirection();
+            context.tryMove(this, distance);
         }
     }
 }

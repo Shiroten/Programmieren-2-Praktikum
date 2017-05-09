@@ -5,6 +5,7 @@ import de.hsa.games.fatsquirrel.UI;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.console.GameCommandType;
 import de.hsa.games.fatsquirrel.core.BoardView;
+import de.hsa.games.fatsquirrel.core.Entity;
 import de.hsa.games.fatsquirrel.core.EntityType;
 import de.hsa.games.fatsquirrel.util.ui.Command;
 
@@ -69,7 +70,7 @@ public class FxUI extends Scene implements UI {
                         case F:
                             System.out.println("Taste F gedrückt");
                             cmd = new Command(GameCommandType.SPAWN_MINI,
-                                    new Object[]{ new Integer(100)});
+                                    new Object[]{100});
                             break;
                         case P:
                             cmd = new Command(GameCommandType.CHEAT_ENERGY, new Object[0]);
@@ -93,15 +94,20 @@ public class FxUI extends Scene implements UI {
         gc.clearRect(0, 0, boardCanvas.getWidth(), boardCanvas.getHeight());
         for (int x = 0; x < boardCanvas.getWidth(); x++) {
             for (int y = 0; y < boardCanvas.getHeight(); y++) {
-                printEntity(gc, view.getEntityType(new XY(x, y)), new XY(x, y));
+                printEntity(gc, view.getEntity(new XY(x, y)), new XY(x, y));
             }
         }
     }
 
-    private void printEntity(GraphicsContext gc, EntityType et, XY xy) {
+    private void printEntity(GraphicsContext gc, Entity e, XY xy) {
+
+        if (e == null)
+            return;
 
         //Kästchen für die Entity setzen
+        EntityType et = e.getEntityType();
         gc.setFill(entityTypeToColor(et));
+
         switch (et) {
             case WALL:
                 gc.fillRect(xy.getX() * CELL_SIZE, xy.getY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
@@ -116,11 +122,10 @@ public class FxUI extends Scene implements UI {
         gc.setFill(Color.BLACK);
         gc.setTextAlign(TextAlignment.CENTER);
         gc.setTextBaseline(VPos.CENTER);
-        gc.fillText(entityTypeToString(et), (xy.getX() + 0.5) * CELL_SIZE, (xy.getY() + 0.5) * CELL_SIZE);
+        gc.fillText(entityTypeToString(e), (xy.getX() + 0.5) * CELL_SIZE, (xy.getY() + 0.5) * CELL_SIZE);
     }
 
     private Color entityTypeToColor(EntityType et) {
-
         Color returnColor;
         switch (et) {
             case GOODPLANT:
@@ -153,8 +158,9 @@ public class FxUI extends Scene implements UI {
         return returnColor;
     }
 
-    private String entityTypeToString(EntityType et) {
+    private String entityTypeToString(Entity e) {
 
+        EntityType et = e.getEntityType();
         String stringToPrint;
         switch (et) {
             case GOODPLANT:
@@ -173,7 +179,8 @@ public class FxUI extends Scene implements UI {
                 stringToPrint = "";
                 break;
             case MINISQUIRREL:
-                stringToPrint = "mS";
+                //stringToPrint = "mS";
+                stringToPrint = Integer.toString(e.getEnergy());
                 break;
             case MASTERSQUIRREL:
                 stringToPrint = "MS";
