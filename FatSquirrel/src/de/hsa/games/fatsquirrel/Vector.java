@@ -1,6 +1,6 @@
 package de.hsa.games.fatsquirrel;
-
 import java.util.concurrent.ThreadLocalRandom;
+import static java.lang.Math.*;
 
 public class Vector {
 
@@ -122,6 +122,27 @@ public class Vector {
 
     public Vector oppositeVector() {
         return new Vector(-xDifference, -yDifference);
+    }
+
+    public enum rotation {
+        clockwise,
+        anticlockwise,
+    }
+
+    public static Vector rotate(rotation r, Vector toRotate) {
+
+        switch (r) {
+            case clockwise:
+                return new Vector(
+                        (int) Math.round(toRotate.getX() * Math.cos(-PI/4) - toRotate.getY() * Math.sin(-PI/4)),
+                        (int) Math.round(toRotate.getX() * Math.sin(-PI/4) + toRotate.getY() * Math.cos(-PI/4)));
+            case anticlockwise:
+                return new Vector(
+                        (int) Math.round(toRotate.getX() * Math.cos(PI/4) - toRotate.getY() * Math.sin(PI/4)),
+                        (int) Math.round(toRotate.getX() * Math.sin(PI/4) + toRotate.getY() * Math.cos(PI/4)));
+
+        }
+        return toRotate;
     }
 
     public String toString() {
