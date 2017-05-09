@@ -48,6 +48,7 @@ public class FxGameImpl extends Game {
             default:
                 masterSquirrel.setCommand(MoveCommand.NOWHERE);
         }
+
     }
 
     protected void render() {

@@ -152,7 +152,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
             case GOODPLANT:
                 break;
             case MINISQUIRREL:
-                flattenedBoard[newField.getY()][newField.getY()].updateEnergy(GoodBeast.START_ENERGY);
+                flattenedBoard[newField.getY()][newField.getX()].updateEnergy(GoodBeast.START_ENERGY);
                 killAndReplace(goodBeast);
                 break;
             case MASTERSQUIRREL:

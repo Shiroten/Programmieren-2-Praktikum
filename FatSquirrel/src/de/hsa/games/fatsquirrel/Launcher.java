@@ -17,7 +17,7 @@ public class Launcher extends Application {
 
     public static void main(String[] args) {
 
-        Application.launch(args);
+                    Application.launch(args);
     }
 
     private static void uiTest() {
@@ -61,29 +61,33 @@ public class Launcher extends Application {
     }
 
     private static void startGame(Game game) {
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                game.run();
-            }
-        }, 10000, 1000 / FRAMERATE);
+        try {
+            Timer timer = new Timer();
 
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                game.processInput();
-            }
-        }, 8000, 1000 / FRAMERATE);
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    game.run();
+                }
+            }, 4000, 1000 / FRAMERATE);
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    game.processInput();
+                }
+            }, 3000, 1000 / FRAMERATE);
+        }catch(Exception e){
+            System.out.println("Error");
+            e.printStackTrace();
+
+        }
 
     }
-
 
     @Override
     public void start(Stage primaryStage) {
 
-        BoardConfig config = new BoardConfig(new XY(20, 20),
-                0, 0, 20, 2, 4);
+        BoardConfig config = new BoardConfig(new XY(20, 20), 100, 0, 50, 2, 4);
         Board board = new Board(config);
         State state = new State(board);
 
