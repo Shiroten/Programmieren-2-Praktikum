@@ -18,6 +18,9 @@ public class Launcher extends Application {
     public static void main(String[] args) {
 
         Application.launch(args);
+
+        //For SingleThreaded Console Game
+        //consoleTest();
     }
 
     private static void uiTest() {
@@ -57,7 +60,7 @@ public class Launcher extends Application {
 
     private static void consoleTest() {
         Game game = new GameImpl();
-        startGame(game);
+        game.startSingleThreadGame();
     }
 
     private static void startGame(Game game) {

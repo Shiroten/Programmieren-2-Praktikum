@@ -15,11 +15,11 @@ public class BoardConfig {
     private final int NUMBER_OF_BP;
     private final int NUMBER_OF_WA;
 
-    private final int POINTS_FOR_MINI_SQUIRREL= 150;
+    private final int POINTS_FOR_MINI_SQUIRREL = 150;
 
     private final int TICKLENGTH;
     private final float SQUIRREL_STUN_TIME_LENGTH = 0.2f;
-    private final int  SQUIRREL_STUN_TIME_IN_TICKS;
+    private final int SQUIRREL_STUN_TIME_IN_TICKS;
     private final float BEAST_MOVE_TIME_LENGTH = 0.15f;
     private final int BEAST_MOVE_TIME_IN_TICKS;
     private final float MINI_SQUIRREL_MOVE_TIME_LENGTH = 0.05f;
@@ -35,17 +35,16 @@ public class BoardConfig {
         this.NUMBER_OF_WA = NUMBER_OF_WA;
         this.SQUIRREL_STUN_TIME_IN_TICKS = (int) (TICKLENGTH * SQUIRREL_STUN_TIME_LENGTH);
         this.BEAST_MOVE_TIME_IN_TICKS = (int) (TICKLENGTH * BEAST_MOVE_TIME_LENGTH);
-        this.MINI_SQUIRREL_MOVE_TIME_IN_TICKS = (int) (TICKLENGTH* MINI_SQUIRREL_MOVE_TIME_LENGTH);
+        this.MINI_SQUIRREL_MOVE_TIME_IN_TICKS = (int) (TICKLENGTH * MINI_SQUIRREL_MOVE_TIME_LENGTH);
     }
 
     public BoardConfig(XY size) {
-        this(size, 60,7, 7, 7, 7, 7);
+        this(size, 1, 7, 7, 7, 7, 7);
     }
 
     public BoardConfig(XY size, int NUMBER_OF_GB, int NUMBER_OF_BB, int NUMBER_OF_GP, int NUMBER_OF_BP, int NUMBER_OF_WA) {
-        this(size, 60,NUMBER_OF_GB, NUMBER_OF_BB, NUMBER_OF_GP, NUMBER_OF_BP, NUMBER_OF_WA);
+        this(size, 60, NUMBER_OF_GB, NUMBER_OF_BB, NUMBER_OF_GP, NUMBER_OF_BP, NUMBER_OF_WA);
     }
-
 
     public XY getSize() {
         return size;
