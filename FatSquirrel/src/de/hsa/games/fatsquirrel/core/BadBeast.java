@@ -54,4 +54,5 @@ public class BadBeast extends Character {
     public int getLives(){
         return this.lives;
     }
+
 }
