@@ -164,7 +164,7 @@ public class FxUI extends Scene implements UI {
                 stringToPrint = "BB";
                 break;
             case WALL:
-                stringToPrint = "WA";
+                stringToPrint = "";
                 break;
             case MINISQUIRREL:
                 stringToPrint = "mS";
