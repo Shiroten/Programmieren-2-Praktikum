@@ -68,13 +68,13 @@ public class Launcher extends Application {
                 public void run() {
                     game.run();
                 }
-            }, 2000, game.getState().getBoard().getConfig().getTICKLENGTH());
+            }, 1000, game.getState().getBoard().getConfig().getTICKLENGTH());
             timer.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
                     game.processInput();
                 }
-            }, 1000, game.getState().getBoard().getConfig().getTICKLENGTH());
+            }, 500, game.getState().getBoard().getConfig().getTICKLENGTH());
         } catch (Exception e) {
             System.out.println("Error");
             e.printStackTrace();
@@ -86,7 +86,7 @@ public class Launcher extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        BoardConfig config = new BoardConfig(new XY(20, 20),FRAMERATE, 10, 2, 30, 5, 7);
+        BoardConfig config = new BoardConfig(new XY(20, 20),FRAMERATE, 10, 7, 30, 5, 7);
         Board board = new Board(config);
         State state = new State(board);
 
@@ -98,8 +98,9 @@ public class Launcher extends Application {
 
         fxUI.getWindow().setOnCloseRequest(evt -> System.exit(-1));
 
-        primaryStage.show();
         game.render();
+        primaryStage.show();
+
         startGame(game);
     }
 }
