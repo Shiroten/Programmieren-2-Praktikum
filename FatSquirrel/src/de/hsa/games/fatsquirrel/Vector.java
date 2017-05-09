@@ -67,12 +67,13 @@ public class Vector {
         int x = ThreadLocalRandom.current().nextInt(0, 3) - 1;
         int y = ThreadLocalRandom.current().nextInt(1, 4) - 2;
 
-        return new Vector(x,y);
+        return new Vector(x, y);
 
     }
 
-    //Gibt die Länge in Schritten aus
     public int getLength() {
+
+        //Gibt die Länge in Schritten aus
         if (Math.abs(this.xDifference) > Math.abs(this.yDifference))
             return Math.abs(this.xDifference);
         return Math.abs(this.yDifference);
@@ -105,16 +106,18 @@ public class Vector {
             else
                 newY = Math.round(Math.abs(yDifference) / Math.abs(xDifference));
         }
-        if (newX < 1)
-            newX = 0;
-        else
-            newX = 1;
-        if (newY < 1)
-            newY = 0;
-        else
-            newY = 1;
-
+        newX = normalizeNumber(newX);
+        newY = normalizeNumber(newY);
         return new Vector(newX, newY);
+    }
+
+    private int normalizeNumber(int i) {
+        if (i >= 1)
+            return 1;
+        else if (i <= -1)
+            return -1;
+        else
+            return 0;
     }
 
     public Vector oppositeVector() {

@@ -62,7 +62,6 @@ public class FlattenedBoard implements BoardView, EntityContext {
     }
 
 
-
     private void move(Entity en, XY newPosition) {
 
         //Alte Position Löschen im Array
@@ -149,7 +148,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
                 badBeast.bites();
                 if (badBeast.getLives() == 0)
                     killAndReplace(badBeast);
-                checkMasterSquirrel((MasterSquirrel)flattenedBoard[newField.getY()][newField.getX()]);
+                checkMasterSquirrel((MasterSquirrel) flattenedBoard[newField.getY()][newField.getX()]);
                 break;
             default:
                 move(badBeast, newField);
@@ -296,7 +295,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
         checkMasterSquirrel(masterSquirrel);
     }
 
-    public void checkMasterSquirrel(MasterSquirrel ms){
+    public void checkMasterSquirrel(MasterSquirrel ms) {
         if (ms.getEnergy() < 0)
             ms.updateEnergy(-ms.getEnergy());
     }
@@ -326,7 +325,6 @@ public class FlattenedBoard implements BoardView, EntityContext {
         killEntity(entity);
         flattenedBoard[newE.getCoordinate().getY()][newE.getCoordinate().getX()] = newE;
     }
-
 
 
     @Override
