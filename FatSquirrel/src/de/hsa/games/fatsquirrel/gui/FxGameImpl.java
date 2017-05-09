@@ -42,8 +42,8 @@ public class FxGameImpl extends Game {
 
                 }
                 break;
-            case "":
-                masterSquirrel.setCommand(MoveCommand.NOWHERE);
+            case "p":
+                masterSquirrel.updateEnergy(1000);
                 break;
             default:
                 masterSquirrel.setCommand(MoveCommand.NOWHERE);

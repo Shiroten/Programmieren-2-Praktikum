@@ -83,7 +83,7 @@ public class Launcher extends Application {
     public void start(Stage primaryStage) {
 
         BoardConfig config = new BoardConfig(new XY(20, 20),
-                3, 4, 2, 2, 4);
+                0, 0, 20, 2, 4);
         Board board = new Board(config);
         State state = new State(board);
 

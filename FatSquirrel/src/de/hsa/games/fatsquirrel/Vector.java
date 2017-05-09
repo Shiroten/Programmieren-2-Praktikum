@@ -1,5 +1,9 @@
 package de.hsa.games.fatsquirrel;
 
+import java.util.ArrayList;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
 public class Vector {
 
     private final int xDifference;
@@ -61,38 +65,9 @@ public class Vector {
     }
 
     public Vector randomDirection() {
-        int random = (int) Math.round(Math.random() * 7);
-        Vector newPosition;
-
-        switch (random) {
-            case 0:
-                newPosition = new Vector(1, +1);
-                break;
-            case 1:
-                newPosition = new Vector(1, 0);
-                break;
-            case 2:
-                newPosition = new Vector(0, 1);
-                break;
-            case 3:
-                newPosition = new Vector(-1, 1);
-                break;
-            case 4:
-                newPosition = new Vector(-1, 0);
-                break;
-            case 5:
-                newPosition = new Vector(-1, -1);
-                break;
-            case 6:
-                newPosition = new Vector(0, -1);
-                break;
-            case 7:
-                newPosition = new Vector(1, -1);
-                break;
-            default:
-                newPosition = new Vector(0, 0);
-        }
-        return newPosition;
+        return new Vector(
+                ThreadLocalRandom.current().nextInt(0, 3) - 1,
+                ThreadLocalRandom.current().nextInt(1, 4) - 2);
     }
 
     //Gibt die Länge in Schritten aus
@@ -102,42 +77,38 @@ public class Vector {
         return Math.abs(this.yDifference);
     }
 
-    public Vector normalizedVector(){
-        int newX , newY;
-        if(xDifference ==  0) {
-            if(yDifference  == 0)
-                return new Vector(0,0);
-            else if(yDifference < 0){
-                return  new Vector(0, -1);
-            }
-            else{
+    public Vector normalizedVector() {
+        int newX, newY;
+        if (xDifference == 0) {
+            if (yDifference == 0)
+                return new Vector(0, 0);
+            else if (yDifference < 0) {
+                return new Vector(0, -1);
+            } else {
                 return new Vector(0, 1);
             }
-        }
-        else if(yDifference == 0) {
-            if(xDifference < 0){
-                return  new Vector(-1, 0);
-            }
-            else{
+        } else if (yDifference == 0) {
+            if (xDifference < 0) {
+                return new Vector(-1, 0);
+            } else {
                 return new Vector(1, 0);
             }
-        }
-        else{
-            if(xDifference < 0)
-                newX = Math.round(-1* (Math.abs(xDifference) / Math.abs(yDifference)));
+        } else {
+            if (xDifference < 0)
+                newX = Math.round(-1 * (Math.abs(xDifference) / Math.abs(yDifference)));
             else
                 newX = Math.round(Math.abs(xDifference) / Math.abs(yDifference));
 
-            if(yDifference < 0)
-                newY = Math.round(-1* (Math.abs(yDifference) / Math.abs(xDifference)));
+            if (yDifference < 0)
+                newY = Math.round(-1 * (Math.abs(yDifference) / Math.abs(xDifference)));
             else
                 newY = Math.round(Math.abs(yDifference) / Math.abs(xDifference));
         }
-        if(newX < 1)
+        if (newX < 1)
             newX = 0;
         else
             newX = 1;
-        if(newY < 1)
+        if (newY < 1)
             newY = 0;
         else
             newY = 1;
@@ -145,11 +116,11 @@ public class Vector {
         return new Vector(newX, newY);
     }
 
-    public Vector oppositeVector(){
+    public Vector oppositeVector() {
         return new Vector(-xDifference, -yDifference);
     }
 
-    public String toString(){
-        return "x: "+  xDifference + " y: " + yDifference;
+    public String toString() {
+        return "x: " + xDifference + " y: " + yDifference;
     }
 }

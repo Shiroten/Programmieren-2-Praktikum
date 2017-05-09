@@ -71,6 +71,9 @@ public class FxUI extends Scene implements UI {
                             cmd = new Command(GameCommandType.SPAWN_MINI,
                                     new Object[]{ new Integer(100)});
                             break;
+                        case P:
+                            cmd = new Command(GameCommandType.CHEAT_ENERGY, new Object[0]);
+                            break;
                         default:
                             cmd = new Command(GameCommandType.NOTHING, new Object[0]);
                     }
