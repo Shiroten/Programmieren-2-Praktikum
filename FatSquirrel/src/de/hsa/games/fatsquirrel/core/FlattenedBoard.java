@@ -110,6 +110,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
                 break;
 
             case MASTERSQUIRREL:
+
                 if (((MasterSquirrel) flattenedBoard[newField.getX()][newField.getY()]).mySquirrel(miniSquirrel)) {
 
                     //Kollision mit eigenem MasterSquirrel: auflösen und Energie übertragen
@@ -135,7 +136,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
 
         XY newField = goodBeast.getCoordinate().addVector(vector);
 
-        System.out.println(goodBeast.toString() + vector.toString());
+        //System.out.println(goodBeast.toString() + vector.toString());
 
         switch (getEntityType(newField)) {
             case WALL:
@@ -168,7 +169,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
 
         XY newField = badBeast.getCoordinate().addVector(vector);
 
-        System.out.println(badBeast.toString() + vector.toString());
+        //System.out.println(badBeast.toString() + vector.toString());
 
         switch (getEntityType(newField)) {
             case WALL:
@@ -192,8 +193,8 @@ public class FlattenedBoard implements BoardView, EntityContext {
                     killAndReplace(badBeast);
                 break;
             case MASTERSQUIRREL:
-                //Todo: Kollision mit MasterSquirrel bugt
-                flattenedBoard[newField.getX()][newField.getY()].updateEnergy(BadBeast.START_ENERGY);
+            case HANDOPERATEDMASTERSQUIRREL:
+                flattenedBoard[newField.getY()][newField.getX()].updateEnergy(BadBeast.START_ENERGY);
 
                 badBeast.bites();
                 if (badBeast.getLives() == 0)

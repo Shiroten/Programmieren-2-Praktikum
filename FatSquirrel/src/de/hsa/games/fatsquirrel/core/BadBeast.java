@@ -26,9 +26,9 @@ public class BadBeast extends Character {
         //Todo: Badbest bleibt manchmal einfach stehen über zu lange zeit
         if(moveCounter == 0) {
             PlayerEntity pe = context.nearestPlayerEntity(this.getCoordinate());
-            System.out.println(pe.getCoordinate().toString() + " The BB: " + this.getCoordinate().toString());
+            //System.out.println(pe.getCoordinate().toString() + " The BB: " + this.getCoordinate().toString());
             Vector distance = new Vector(pe.getCoordinate(), this.getCoordinate());
-            System.out.println("BadBeast to Player: " + distance.toString() + " Dis.: " + distance.getLength());
+            //System.out.println("BadBeast to Player: " + distance.toString() + " Dis.: " + distance.getLength());
             if (distance.getLength() < 6)
                 //context.tryMove(this, distance.normalizedVector().oppositeVector());
                   context.tryMove(this, distance.normalizedVector());

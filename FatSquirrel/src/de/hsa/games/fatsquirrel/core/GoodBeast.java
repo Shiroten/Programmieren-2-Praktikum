@@ -21,9 +21,9 @@ public class GoodBeast extends Character {
     public void nextStep(EntityContext context){
         if(moveCounter == 0) {
             PlayerEntity pe = context.nearestPlayerEntity(this.getCoordinate());
-            System.out.println(pe.getCoordinate().toString() + " The GB: " + this.getCoordinate().toString());
+            //System.out.println(pe.getCoordinate().toString() + " The GB: " + this.getCoordinate().toString());
             Vector distance = new Vector(pe.getCoordinate(), this.getCoordinate());
-            System.out.println("GoodBeast to Player: " + distance.toString() + " Dis.: " + distance.getLength());
+            //System.out.println("GoodBeast to Player: " + distance.toString() + " Dis.: " + distance.getLength());
             if (distance.getLength() < 6)
                 context.tryMove(this, distance.normalizedVector().oppositeVector());
             else
