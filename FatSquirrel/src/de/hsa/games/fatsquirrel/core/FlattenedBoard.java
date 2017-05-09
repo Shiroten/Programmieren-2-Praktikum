@@ -62,7 +62,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
 
     private void moveAndKillMiniSquirrel(Entity en, int startEnergy, XY newField) {
         en.updateEnergy(startEnergy);
-        killAndReplace(flattenedBoard[newField.getX()][newField.getY()]);
+        killAndReplace(flattenedBoard[newField.getY()][newField.getX()]);
         moveOrKillMiniSquirrel((MiniSquirrel) en, newField);
     }
 
