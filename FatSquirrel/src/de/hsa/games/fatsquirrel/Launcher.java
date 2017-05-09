@@ -13,7 +13,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Launcher extends Application {
-    private static final int FRAMERATE = 10;
+    private static final int FRAMERATE = 5;
 
     public static void main(String[] args) {
 

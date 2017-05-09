@@ -51,26 +51,18 @@ public class FxUI extends Scene implements UI {
 
                     switch (keyEvent.getCode()) {
                         case W:
-                            movecmd = MoveCommand.NORTH;
-                            break;
-                        case A:
-                            movecmd = MoveCommand.WEST;
-                            break;
-                        case S:
-                            movecmd = MoveCommand.SOUTH;
-                            break;
-                        case D:
-                            movecmd = MoveCommand.EAST;
-                            break;
                         case UP:
                             movecmd = MoveCommand.NORTH;
                             break;
+                        case A:
                         case LEFT:
                             movecmd = MoveCommand.WEST;
                             break;
+                        case S:
                         case DOWN:
                             movecmd = MoveCommand.SOUTH;
                             break;
+                        case D:
                         case RIGHT:
                             movecmd = MoveCommand.EAST;
                             break;
