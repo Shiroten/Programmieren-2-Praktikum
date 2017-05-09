@@ -215,6 +215,11 @@ public class FlattenedBoard implements BoardView, EntityContext {
         return board.getConfig().getBEAST_MOVE_TIME_IN_TICKS();
     }
 
+    @Override
+    public int getMINI_SQUIRREL_MOVE_TIME_IN_TICKS() {
+        return board.getConfig().getMINI_SQUIRREL_MOVE_TIME_IN_TICKS();
+    }
+
     public void moveAndKill(Entity en, int startEnergy, XY newField) {
         en.updateEnergy(startEnergy);
         killAndReplace(flattenedBoard[newField.getY()][newField.getX()]);

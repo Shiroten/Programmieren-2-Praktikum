@@ -14,7 +14,6 @@ import java.util.TimerTask;
 
 public class Launcher extends Application {
     private static final int FRAMERATE = 60;
-    private static final int TICKLENGTH = 1000/ FRAMERATE;
 
     public static void main(String[] args) {
 
@@ -69,13 +68,13 @@ public class Launcher extends Application {
                 public void run() {
                     game.run();
                 }
-            }, 2000, TICKLENGTH);
+            }, 2000, game.getState().getBoard().getConfig().getTICKLENGTH());
             timer.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
                     game.processInput();
                 }
-            }, 1000, TICKLENGTH);
+            }, 1000, game.getState().getBoard().getConfig().getTICKLENGTH());
         } catch (Exception e) {
             System.out.println("Error");
             e.printStackTrace();
@@ -87,7 +86,7 @@ public class Launcher extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        BoardConfig config = new BoardConfig(new XY(20, 20),FRAMERATE, 200, 0, 50, 2, 4);
+        BoardConfig config = new BoardConfig(new XY(20, 20),FRAMERATE, 10, 2, 30, 5, 7);
         Board board = new Board(config);
         State state = new State(board);
 
