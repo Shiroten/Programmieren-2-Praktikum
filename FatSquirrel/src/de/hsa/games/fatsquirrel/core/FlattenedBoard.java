@@ -196,7 +196,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
                 break;
             case MASTERSQUIRREL:
             case HANDOPERATEDMASTERSQUIRREL:
-                System.out.printf("Squirrel wurde gebissen.%n");
+                System.out.println("Squirrel wurde gebissen.%n");
                 flattenedBoard[newField.getY()][newField.getX()].updateEnergy(BadBeast.START_ENERGY);
                 badBeast.bites();
                 if (badBeast.getLives() == 0)
