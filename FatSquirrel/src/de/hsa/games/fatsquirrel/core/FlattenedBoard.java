@@ -149,6 +149,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
                 badBeast.bites();
                 if (badBeast.getLives() == 0)
                     killAndReplace(badBeast);
+                checkMasterSquirrel((MasterSquirrel)flattenedBoard[newField.getY()][newField.getX()]);
                 break;
             default:
                 move(badBeast, newField);
@@ -222,6 +223,8 @@ public class FlattenedBoard implements BoardView, EntityContext {
                 //Keine Kollisionen: einfacher Move
                 move(miniSquirrel, newField);
         }
+        miniSquirrel.updateEnergy(-1);
+        moveOrKillMiniSquirrel(miniSquirrel, miniSquirrel.getCoordinate());
 
 
     }
@@ -290,9 +293,12 @@ public class FlattenedBoard implements BoardView, EntityContext {
             default:
                 move(masterSquirrel, newField);
         }
+        checkMasterSquirrel(masterSquirrel);
+    }
 
-        if (masterSquirrel.getEnergy() < 0)
-            masterSquirrel.updateEnergy(-masterSquirrel.getEnergy());
+    public void checkMasterSquirrel(MasterSquirrel ms){
+        if (ms.getEnergy() < 0)
+            ms.updateEnergy(-ms.getEnergy());
     }
 
     public void moveAndKill(Entity en, int startEnergy, XY newField) {
