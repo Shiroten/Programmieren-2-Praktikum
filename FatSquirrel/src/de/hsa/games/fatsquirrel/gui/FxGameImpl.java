@@ -4,6 +4,7 @@ import de.hsa.games.fatsquirrel.Game;
 import de.hsa.games.fatsquirrel.MoveCommand;
 import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
+import de.hsa.games.fatsquirrel.console.GameCommandType;
 import de.hsa.games.fatsquirrel.console.NotEnoughEnergyException;
 import de.hsa.games.fatsquirrel.core.*;
 import de.hsa.games.fatsquirrel.util.ui.Command;
@@ -11,6 +12,7 @@ import de.hsa.games.fatsquirrel.util.ui.Command;
 public class FxGameImpl extends Game {
 
     private HandOperatedMasterSquirrel masterSquirrel;
+    private Command spawnMiniSquirrel = null;
 
     public FxGameImpl(FxUI fxUI, State state) {
 
@@ -36,11 +38,7 @@ public class FxGameImpl extends Game {
                 masterSquirrel.setCommand(MoveCommand.SOUTH);
                 break;
             case "m":
-                try {
-                    spawnMini((Integer) cmd.getParams()[0]);
-                } catch (NotEnoughEnergyException neee) {
-
-                }
+                spawnMiniSquirrel = cmd;
                 break;
             case "p":
                 masterSquirrel.updateEnergy(1000);
@@ -55,6 +53,16 @@ public class FxGameImpl extends Game {
     }
 
     protected void update() {
+
+        if (spawnMiniSquirrel != null) {
+            try {
+                spawnMini((Integer) spawnMiniSquirrel.getParams()[0]);
+            } catch (NotEnoughEnergyException neee) {
+
+            }
+            spawnMiniSquirrel = null;
+        }
+
         getState().update();
         FxUI fxUI = (FxUI) this.getUi();
         fxUI.message("MasterSquirrel Energy: " + Integer.toString(masterSquirrel.getEnergy()));

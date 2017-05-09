@@ -22,9 +22,6 @@ public class BadBeast extends Character {
     }
 
     public void nextStep(EntityContext context){
-
-        //Todo: Badbest bleibt manchmal einfach stehen über zu lange zeit
-        //Todo: BadBeast bleibt bei diagonalen hängen
         if(moveCounter == 0) {
             PlayerEntity pe = context.nearestPlayerEntity(this.getCoordinate());
             //System.out.println(pe.getCoordinate().toString() + " The BB: " + this.getCoordinate().toString());
