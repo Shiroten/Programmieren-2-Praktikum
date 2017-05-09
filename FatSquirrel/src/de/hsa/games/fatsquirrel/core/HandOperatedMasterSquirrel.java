@@ -10,11 +10,13 @@ import java.util.Scanner;
  * Created by tillm on 29.03.2017.
  */
 public class HandOperatedMasterSquirrel extends MasterSquirrel {
+
     public static final EntityType type = EntityType.HANDOPERATEDMASTERSQUIRREL;
+    private MoveCommand command = MoveCommand.NOWHERE;
+
     public HandOperatedMasterSquirrel(int id, XY coordinate) {
         super(id, coordinate);
     }
-    private MoveCommand command = MoveCommand.NOWHERE;
 
     public void setCommand(MoveCommand command) {
         this.command = command;
@@ -31,41 +33,34 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel {
             switch (command) {
                 case EAST:
                     context.tryMove(this, new Vector(1, 0));
-                    command = MoveCommand.NOWHERE;
                     break;
                 case WEST:
                     context.tryMove(this, new Vector(-1, 0));
-                    command = MoveCommand.NOWHERE;
                     break;
                 case NORTH:
                     context.tryMove(this, new Vector(0, -1));
-                    command = MoveCommand.NOWHERE;
                     break;
                 case SOUTH:
                     context.tryMove(this, new Vector(0, 1));
-                    command = MoveCommand.NOWHERE;
                     break;
                 case NORTHEAST:
                     context.tryMove(this, new Vector(1, -1));
-                    command = MoveCommand.NOWHERE;
                     break;
                 case NORTHWEST:
                     context.tryMove(this, new Vector(-1, -1));
-                    command = MoveCommand.NOWHERE;
                     break;
                 case SOUTHEAST:
                     context.tryMove(this, new Vector(1, 1));
-                    command = MoveCommand.NOWHERE;
                     break;
                 case SOUTHWEST:
                     context.tryMove(this, new Vector(-1, 1));
-                    command = MoveCommand.NOWHERE;
                     break;
                 case NOWHERE:
                     break;
                 default:
                     break;
             }
+            command = MoveCommand.NOWHERE;
         }
     }
 }

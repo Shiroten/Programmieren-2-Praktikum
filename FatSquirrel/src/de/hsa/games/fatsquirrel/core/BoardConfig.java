@@ -6,26 +6,41 @@ import de.hsa.games.fatsquirrel.XY;
  * Created by tillm on 07.04.2017.
  */
 public class BoardConfig {
+
     private final XY size;
 
-    private final int numberOfGoodBeast;
-    private final int numberOfBadBeast;
-    private final int numberOfGoodPlant;
-    private final int numberOfBadPlant;
-    private final int numberOfWalls;
+    private final int NUMBER_OF_GB;
+    private final int NUMBER_OF_BB;
+    private final int NUMBER_OF_GP;
+    private final int NUMBER_OF_BP;
+    private final int NUMBER_OF_WA;
 
+    private final int POINTS_FOR_MINI_SQUIRREL= 150;
 
-    public BoardConfig(XY size, int numberOfGoodBeast, int numberOfBadBeast, int numberOfGoodPlant, int numberOfBadPlant, int numberOfWalls) {
+    private final int TICKLENGTH;
+    private final float SQUIRREL_STUN_TIME_LENGTH = 0.5f;
+    private final int  SQUIRREL_STUN_TIME_IN_TICKS;
+    private final float BEAST_MOVE_TIME_LENGTH = 0.5f;
+    private final int BEAST_MOVE_TIME_IN_TICKS;
+
+    public BoardConfig(XY size, int TICKLENGTH, int NUMBER_OF_GB, int NUMBER_OF_BB, int NUMBER_OF_GP, int NUMBER_OF_BP, int NUMBER_OF_WA) {
         this.size = size;
-        this.numberOfGoodBeast = numberOfGoodBeast;
-        this.numberOfBadBeast = numberOfBadBeast;
-        this.numberOfGoodPlant = numberOfGoodPlant;
-        this.numberOfBadPlant = numberOfBadPlant;
-        this.numberOfWalls = numberOfWalls;
+        this.TICKLENGTH = TICKLENGTH;
+        this.NUMBER_OF_GB = NUMBER_OF_GB;
+        this.NUMBER_OF_BB = NUMBER_OF_BB;
+        this.NUMBER_OF_GP = NUMBER_OF_GP;
+        this.NUMBER_OF_BP = NUMBER_OF_BP;
+        this.NUMBER_OF_WA = NUMBER_OF_WA;
+        this.SQUIRREL_STUN_TIME_IN_TICKS = (int) (TICKLENGTH * SQUIRREL_STUN_TIME_LENGTH);
+        this.BEAST_MOVE_TIME_IN_TICKS = (int) (TICKLENGTH * BEAST_MOVE_TIME_LENGTH);
     }
 
     public BoardConfig(XY size) {
-        this(size, 7, 7, 7, 7, 7);
+        this(size, 60,7, 7, 7, 7, 7);
+    }
+
+    public BoardConfig(XY size, int NUMBER_OF_GB, int NUMBER_OF_BB, int NUMBER_OF_GP, int NUMBER_OF_BP, int NUMBER_OF_WA) {
+        this(size, 60,NUMBER_OF_GB, NUMBER_OF_BB, NUMBER_OF_GP, NUMBER_OF_BP, NUMBER_OF_WA);
     }
 
 
@@ -33,24 +48,40 @@ public class BoardConfig {
         return size;
     }
 
-    public int getNumberOfGoodBeast() {
-        return numberOfGoodBeast;
+    public int getTICKLENGTH() {
+        return TICKLENGTH;
     }
 
-    public int getNumberOfBadBeast() {
-        return numberOfBadBeast;
+    public int getPOINTS_FOR_MINI_SQUIRREL() {
+        return POINTS_FOR_MINI_SQUIRREL;
     }
 
-    public int getNumberOfGoodPlant() {
-        return numberOfGoodPlant;
+    public int getSQUIRREL_STUN_TIME_IN_TICKS() {
+        return SQUIRREL_STUN_TIME_IN_TICKS;
     }
 
-    public int getNumberOfBadPlant() {
-        return numberOfBadPlant;
+    public int getBEAST_MOVE_TIME_IN_TICKS() {
+        return BEAST_MOVE_TIME_IN_TICKS;
     }
 
-    public int getNumberOfWalls() {
-        return numberOfWalls;
+    public int getNUMBER_OF_GB() {
+        return NUMBER_OF_GB;
+    }
+
+    public int getNUMBER_OF_BB() {
+        return NUMBER_OF_BB;
+    }
+
+    public int getNUMBER_OF_GP() {
+        return NUMBER_OF_GP;
+    }
+
+    public int getNUMBER_OF_BP() {
+        return NUMBER_OF_BP;
+    }
+
+    public int getNUMBER_OF_WA() {
+        return NUMBER_OF_WA;
     }
 
 }

@@ -49,7 +49,6 @@ public class FxUI extends Scene implements UI {
 
         fxUI.setOnKeyPressed(
                 keyEvent -> {
-
                     switch (keyEvent.getCode()) {
                         case W:
                         case UP:
@@ -68,7 +67,7 @@ public class FxUI extends Scene implements UI {
                             cmd = new Command(GameCommandType.RIGHT, new Object[0]);
                             break;
                         case F:
-                            System.out.println("Taste F gedrückt");
+                            //Todo: Spawn Mini Energy in Config setzen oder per menü
                             cmd = new Command(GameCommandType.SPAWN_MINI,
                                     new Object[]{100});
                             break;

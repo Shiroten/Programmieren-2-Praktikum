@@ -72,11 +72,11 @@ public class Board {
         }
 
         //Random Entitys auf der Map verteilt
-        addEntity(EntityType.WALL, config.getNumberOfWalls());
-        addEntity(EntityType.BADBEAST, config.getNumberOfBadBeast());
-        addEntity(EntityType.BADPLANT, config.getNumberOfBadPlant());
-        addEntity(EntityType.GOODBEAST, config.getNumberOfGoodBeast());
-        addEntity(EntityType.GOODPLANT, config.getNumberOfGoodPlant());
+        addEntity(EntityType.WALL, config.getNUMBER_OF_WA());
+        addEntity(EntityType.BADBEAST, config.getNUMBER_OF_BB());
+        addEntity(EntityType.BADPLANT, config.getNUMBER_OF_BP());
+        addEntity(EntityType.GOODBEAST, config.getNUMBER_OF_GB());
+        addEntity(EntityType.GOODPLANT, config.getNUMBER_OF_GP());
 
         addEntity(EntityType.HANDOPERATEDMASTERSQUIRREL, 1);
 

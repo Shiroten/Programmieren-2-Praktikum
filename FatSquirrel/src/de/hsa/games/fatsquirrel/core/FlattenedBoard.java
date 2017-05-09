@@ -9,7 +9,6 @@ import de.hsa.games.fatsquirrel.XY;
 public class FlattenedBoard implements BoardView, EntityContext {
     private final XY size;
     private Board board;
-    private final int PointsForMiniSquirrel = 150;
 
     //Ganz, ganz wichtig für Konsistenz:
     //Ein Mehrdimensionales Array zählt folgendermaßen:
@@ -73,7 +72,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
         switch (getEntityType(newField)) {
             case WALL:
                 miniSquirrel.updateEnergy(Wall.START_ENERGY);
-                miniSquirrel.setStunTime(3);
+                miniSquirrel.setStunTime(board.getConfig().getSQUIRREL_STUN_TIME_IN_TICKS());
                 moveOrKillMiniSquirrel(miniSquirrel, miniSquirrel.getCoordinate());
                 break;
 
@@ -136,7 +135,6 @@ public class FlattenedBoard implements BoardView, EntityContext {
     public void tryMove(GoodBeast goodBeast, Vector vector) {
 
         XY newField = goodBeast.getCoordinate().addVector(vector);
-
         //System.out.println(goodBeast.toString() + vector.toString());
 
         switch (getEntityType(newField)) {
@@ -212,6 +210,11 @@ public class FlattenedBoard implements BoardView, EntityContext {
         //Todo: tryMove StandardSquirrel implementieren
     }
 
+    @Override
+    public int getBEAST_MOVE_TIME_IN_TICKS() {
+        return board.getConfig().getBEAST_MOVE_TIME_IN_TICKS();
+    }
+
     public void moveAndKill(Entity en, int startEnergy, XY newField) {
         en.updateEnergy(startEnergy);
         killAndReplace(flattenedBoard[newField.getY()][newField.getX()]);
@@ -228,7 +231,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
         switch (getEntityType(newField)) {
             case WALL:
                 masterSquirrel.updateEnergy(Wall.START_ENERGY);
-                masterSquirrel.setStunTime(3);
+                masterSquirrel.setStunTime(board.getConfig().getSQUIRREL_STUN_TIME_IN_TICKS());
                 break;
             case BADBEAST:
                 masterSquirrel.updateEnergy(BadBeast.START_ENERGY);
@@ -255,7 +258,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
                     energy = squirrel.getEnergy();
                 } else {
                     //Fremder MiniSquirrel wird gerammt
-                    energy = PointsForMiniSquirrel;
+                    energy = board.getConfig().getPOINTS_FOR_MINI_SQUIRREL();
                 }
 
                 masterSquirrel.updateEnergy(energy);

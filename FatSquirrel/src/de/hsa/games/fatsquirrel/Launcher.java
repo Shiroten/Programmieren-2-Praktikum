@@ -13,11 +13,12 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Launcher extends Application {
-    private static final int FRAMERATE = 10;
+    private static final int FRAMERATE = 60;
+    private static final int TICKLENGTH = 1000/ FRAMERATE;
 
     public static void main(String[] args) {
 
-                    Application.launch(args);
+        Application.launch(args);
     }
 
     private static void uiTest() {
@@ -63,20 +64,19 @@ public class Launcher extends Application {
     private static void startGame(Game game) {
         try {
             Timer timer = new Timer();
-
             timer.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
                     game.run();
                 }
-            }, 4000, 1000 / FRAMERATE);
+            }, 2000, TICKLENGTH);
             timer.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
                     game.processInput();
                 }
-            }, 3000, 1000 / FRAMERATE);
-        }catch(Exception e){
+            }, 1000, TICKLENGTH);
+        } catch (Exception e) {
             System.out.println("Error");
             e.printStackTrace();
 
@@ -87,7 +87,7 @@ public class Launcher extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        BoardConfig config = new BoardConfig(new XY(20, 20), 100, 0, 50, 2, 4);
+        BoardConfig config = new BoardConfig(new XY(20, 20),FRAMERATE, 200, 0, 50, 2, 4);
         Board board = new Board(config);
         State state = new State(board);
 

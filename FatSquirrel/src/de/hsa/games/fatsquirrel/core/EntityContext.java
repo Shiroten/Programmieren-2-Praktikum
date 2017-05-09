@@ -19,4 +19,5 @@ public interface EntityContext {
     void killAndReplace(Entity entity);
     EntityType getEntityType(XY xy);
     void tryMove(StandardMiniSquirrel standardMiniSquirrel);
+    int getBEAST_MOVE_TIME_IN_TICKS();
 }

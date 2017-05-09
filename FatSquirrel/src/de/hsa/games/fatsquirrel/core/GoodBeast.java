@@ -3,13 +3,12 @@ package de.hsa.games.fatsquirrel.core;
 import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
 
-/**
- * Created by tillm on 29.03.2017.
- */
 public class GoodBeast extends Character {
     public static final int START_ENERGY = 200;
     public static final EntityType type = EntityType.GOODBEAST;
     private int moveCounter = 0;
+
+
     public GoodBeast(int id, XY coordinate) {
         super(START_ENERGY, id, coordinate);
     }
@@ -30,7 +29,7 @@ public class GoodBeast extends Character {
                 context.tryMove(this, distance.randomDirection());
             moveCounter++;
         }
-        else if(moveCounter == 3)
+        else if(moveCounter == context.getBEAST_MOVE_TIME_IN_TICKS())
             moveCounter = 0;
         else
             moveCounter++;
