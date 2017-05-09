@@ -192,6 +192,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
                     killAndReplace(badBeast);
                 break;
             case MASTERSQUIRREL:
+                //Todo: Kollision mit MasterSquirrel bugt
                 flattenedBoard[newField.getX()][newField.getY()].updateEnergy(BadBeast.START_ENERGY);
 
                 badBeast.bites();
@@ -220,7 +221,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
 
         XY newField = masterSquirrel.getCoordinate().addVector(vector);
         //System.out.println(masterSquirrel.toString());
-
+        //Todo: MasterSquirrel Energy unter 0 abfangen
         switch (getEntityType(newField)) {
             case WALL:
                 masterSquirrel.updateEnergy(Wall.START_ENERGY);
