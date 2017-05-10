@@ -13,11 +13,14 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Launcher extends Application {
-    private static final int FRAMERATE = 10;
+    private static final int FRAMERATE = 60;
 
     public static void main(String[] args) {
 
         Application.launch(args);
+
+        //For SingleThreaded Console Game
+        //consoleTest();
     }
 
     private static void uiTest() {
@@ -57,33 +60,36 @@ public class Launcher extends Application {
 
     private static void consoleTest() {
         Game game = new GameImpl();
-        startGame(game);
+        game.startSingleThreadGame();
     }
 
     private static void startGame(Game game) {
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                game.run();
-            }
-        }, 10000, 1000 / FRAMERATE);
+        try {
+            Timer timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    game.run();
+                }
+            }, 1000, game.getState().getBoard().getConfig().getTICKLENGTH());
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    game.processInput();
+                }
+            }, 500, game.getState().getBoard().getConfig().getTICKLENGTH());
+        } catch (Exception e) {
+            System.out.println("Error");
+            e.printStackTrace();
 
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                game.processInput();
-            }
-        }, 8000, 1000 / FRAMERATE);
+        }
 
     }
-
 
     @Override
     public void start(Stage primaryStage) {
 
-        BoardConfig config = new BoardConfig(new XY(20, 20),
-                0, 0, 20, 2, 4);
+        BoardConfig config = new BoardConfig(new XY(20, 20), FRAMERATE, 100, 0, 0, 0, 0);
         Board board = new Board(config);
         State state = new State(board);
 
@@ -95,8 +101,9 @@ public class Launcher extends Application {
 
         fxUI.getWindow().setOnCloseRequest(evt -> System.exit(-1));
 
-        primaryStage.show();
         game.render();
+        primaryStage.show();
+
         startGame(game);
     }
 }

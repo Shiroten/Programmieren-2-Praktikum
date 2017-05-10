@@ -1,9 +1,9 @@
 package de.hsa.games.fatsquirrel.gui;
 
-import de.hsa.games.fatsquirrel.MoveCommand;
 import de.hsa.games.fatsquirrel.UI;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.console.GameCommandType;
+import de.hsa.games.fatsquirrel.core.BadBeast;
 import de.hsa.games.fatsquirrel.core.BoardView;
 import de.hsa.games.fatsquirrel.core.Entity;
 import de.hsa.games.fatsquirrel.core.EntityType;
@@ -49,7 +49,6 @@ public class FxUI extends Scene implements UI {
 
         fxUI.setOnKeyPressed(
                 keyEvent -> {
-
                     switch (keyEvent.getCode()) {
                         case W:
                         case UP:
@@ -68,7 +67,7 @@ public class FxUI extends Scene implements UI {
                             cmd = new Command(GameCommandType.RIGHT, new Object[0]);
                             break;
                         case F:
-                            System.out.println("Taste F gedrückt");
+                            //Todo: Spawn Mini Energy in Config setzen oder per menü
                             cmd = new Command(GameCommandType.SPAWN_MINI,
                                     new Object[]{100});
                             break;
@@ -119,10 +118,10 @@ public class FxUI extends Scene implements UI {
         }
 
         //Text Schreiben
-        gc.setFill(Color.BLACK);
+        gc.setFill(entityTypeToTextColor(et));
         gc.setTextAlign(TextAlignment.CENTER);
         gc.setTextBaseline(VPos.CENTER);
-        gc.fillText(entityTypeToString(e), (xy.getX() + 0.5) * CELL_SIZE, (xy.getY() + 0.5) * CELL_SIZE);
+        gc.fillText(entityToString(e), (xy.getX() + 0.5) * CELL_SIZE, (xy.getY() + 0.5) * CELL_SIZE);
     }
 
     private Color entityTypeToColor(EntityType et) {
@@ -158,7 +157,39 @@ public class FxUI extends Scene implements UI {
         return returnColor;
     }
 
-    private String entityTypeToString(Entity e) {
+    private Color entityTypeToTextColor(EntityType et){
+        Color returnColor =Color.BLACK;;
+        switch (et) {
+            case GOODPLANT:
+
+                break;
+            case GOODBEAST:
+
+                break;
+            case BADPLANT:
+                returnColor = Color.WHITE;
+                break;
+            case BADBEAST:
+
+                break;
+            case WALL:
+
+                break;
+            case MINISQUIRREL:
+
+                break;
+            case MASTERSQUIRREL:
+                break;
+            case HANDOPERATEDMASTERSQUIRREL:
+
+                break;
+            default:
+                returnColor = Color.BLACK;
+        }
+        return returnColor;
+    }
+
+    private String entityToString(Entity e) {
 
         EntityType et = e.getEntityType();
         String stringToPrint;
@@ -173,7 +204,8 @@ public class FxUI extends Scene implements UI {
                 stringToPrint = "BP";
                 break;
             case BADBEAST:
-                stringToPrint = "BB";
+                //stringToPrint = "BB";
+                stringToPrint = Integer.toString(((BadBeast)e).getLives());
                 break;
             case WALL:
                 stringToPrint = "";

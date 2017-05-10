@@ -1,6 +1,6 @@
 package de.hsa.games.fatsquirrel;
-
 import java.util.concurrent.ThreadLocalRandom;
+import static java.lang.Math.*;
 
 public class Vector {
 
@@ -67,12 +67,13 @@ public class Vector {
         int x = ThreadLocalRandom.current().nextInt(0, 3) - 1;
         int y = ThreadLocalRandom.current().nextInt(1, 4) - 2;
 
-        return new Vector(x,y);
+        return new Vector(x, y);
 
     }
 
-    //Gibt die Länge in Schritten aus
     public int getLength() {
+
+        //Gibt die Länge in Schritten aus
         if (Math.abs(this.xDifference) > Math.abs(this.yDifference))
             return Math.abs(this.xDifference);
         return Math.abs(this.yDifference);
@@ -105,20 +106,43 @@ public class Vector {
             else
                 newY = Math.round(Math.abs(yDifference) / Math.abs(xDifference));
         }
-        if (newX < 1)
-            newX = 0;
-        else
-            newX = 1;
-        if (newY < 1)
-            newY = 0;
-        else
-            newY = 1;
-
+        newX = normalizeNumber(newX);
+        newY = normalizeNumber(newY);
         return new Vector(newX, newY);
+    }
+
+    private int normalizeNumber(int i) {
+        if (i >= 1)
+            return 1;
+        else if (i <= -1)
+            return -1;
+        else
+            return 0;
     }
 
     public Vector oppositeVector() {
         return new Vector(-xDifference, -yDifference);
+    }
+
+    public enum rotation {
+        clockwise,
+        anticlockwise,
+    }
+
+    public static Vector rotate(rotation r, Vector toRotate) {
+
+        switch (r) {
+            case clockwise:
+                return new Vector(
+                        (int) Math.round(toRotate.getX() * Math.cos(-PI/4) - toRotate.getY() * Math.sin(-PI/4)),
+                        (int) Math.round(toRotate.getX() * Math.sin(-PI/4) + toRotate.getY() * Math.cos(-PI/4)));
+            case anticlockwise:
+                return new Vector(
+                        (int) Math.round(toRotate.getX() * Math.cos(PI/4) - toRotate.getY() * Math.sin(PI/4)),
+                        (int) Math.round(toRotate.getX() * Math.sin(PI/4) + toRotate.getY() * Math.cos(PI/4)));
+
+        }
+        return toRotate;
     }
 
     public String toString() {

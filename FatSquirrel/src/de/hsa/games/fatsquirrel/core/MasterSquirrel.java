@@ -26,8 +26,8 @@ public class MasterSquirrel extends PlayerEntity {
         if(getStunTime() > 0)
             stunTime--;
         else {
-            Vector distance = new Vector(getCoordinate(), getCoordinate().randomMove());
-            context.tryMove(this, distance.normalizedVector());
+            Vector distance = Vector.randomDirection();
+            context.tryMove(this, distance);
         }
     }
 

@@ -35,6 +35,8 @@ public class GameImpl extends Game {
             System.out.println("Methode nicht gefunden");
         } catch (InvocationTargetException ite) {
             ite.printStackTrace();
+        } catch(NullPointerException npe){
+
         }
 
     }

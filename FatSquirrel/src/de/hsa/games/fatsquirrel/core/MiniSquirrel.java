@@ -9,6 +9,7 @@ import de.hsa.games.fatsquirrel.XY;
 public class MiniSquirrel extends PlayerEntity {
     public static final EntityType type = EntityType.MINISQUIRREL;
     protected MasterSquirrel daddy;
+    private int moveCounter = 0;
 
     public EntityType getEntityType() {
         return type;
@@ -29,11 +30,21 @@ public class MiniSquirrel extends PlayerEntity {
     }
 
     public void nextStep(EntityContext context){
-        if(stunTime > 0)
-            stunTime--;
-        else {
-            Vector distance = Vector.randomDirection();
-            context.tryMove(this, distance);
+
+        if(moveCounter == 0) {
+            if(stunTime > 0)
+                stunTime--;
+            else {
+                Vector distance = Vector.randomDirection();
+                context.tryMove(this, distance);
+            }
+            moveCounter++;
         }
+        else if(moveCounter == context.getMINI_SQUIRREL_MOVE_TIME_IN_TICKS())
+            moveCounter = 0;
+        else
+            moveCounter++;
+
+
     }
 }
