@@ -13,13 +13,10 @@ public class Board {
     private HandOperatedMasterSquirrel masterSquirrel;
 
     public Board() {
-        this.set = new EntitySet(new XY(100,100));
-        this.config = new BoardConfig(new XY(100, 100));
-    }
-
-    public Board(XY size) {
-        this.set = new EntitySet(new XY(size.getX(), size.getY()));
-        this.config = new BoardConfig(new XY(size.getX(), size.getY()));
+        this.set = new EntitySet(new XY(20,20));
+        this.config = new BoardConfig(new XY(20, 20), 60, 0, 3, 100, 0, 0);
+        initBoard();
+        initPac();
     }
 
     public Board(BoardConfig config) {
@@ -60,16 +57,7 @@ public class Board {
 
     public void initBoard() {
         //Äußere Mauern
-        int WallIDs = setID();
-        int x = config.getSize().getX(), y = config.getSize().getY();
-        for (int i = 0; i < x; i++) {
-            set.add(new Wall(WallIDs, new XY(i, 0)));
-            set.add(new Wall(WallIDs, new XY(i, y - 1)));
-        }
-        for (int i = 1; i < y - 1; i++) {
-            set.add(new Wall(WallIDs, new XY(0, i)));
-            set.add(new Wall(WallIDs, new XY(x - 1, i)));
-        }
+        initOuterWalls();
 
         //Random Entitys auf der Map verteilt
         addEntity(EntityType.WALL, config.getNUMBER_OF_WA());
@@ -80,6 +68,19 @@ public class Board {
 
         addEntity(EntityType.HANDOPERATEDMASTERSQUIRREL, 1);
 
+    }
+
+    private void initOuterWalls(){
+        int WallIDs = setID();
+        int x = config.getSize().getX(), y = config.getSize().getY();
+        for (int i = 0; i < x; i++) {
+            set.add(new Wall(WallIDs, new XY(i, 0)));
+            set.add(new Wall(WallIDs, new XY(i, y - 1)));
+        }
+        for (int i = 1; i < y - 1; i++) {
+            set.add(new Wall(WallIDs, new XY(0, i)));
+            set.add(new Wall(WallIDs, new XY(x - 1, i)));
+        }
     }
 
     public int setID() {
@@ -178,6 +179,47 @@ public class Board {
 
     public void killEntity(Entity e){
         this.set.delete(e);
+    }
+
+    private void initPac(){
+        if(this.config.getSize().getX()  == 20 && this.getConfig().getSize().getY() == 20){
+            initOuterWalls();
+            String field =
+                "000X0000000000X000|" +
+                "0X0X0XXXX0XXX0X0X0|" +
+                "0X0x0xxxx0xxx0x0x0|" +
+                "00000x000000x000x0|" +
+                "xxxx0x0xxxx0x0x0x0|" +
+                "00000x0x00000000x0|" +
+                "0xxx000x0xxxxxx000|" +
+                "0x000xxx0xxxxxx0xx|" +
+                "0x0x0x00000000x000|" +
+                "000X000xx0xxx0X000|" +
+                "0X0X0XXXX0XXX0X0X0|" +
+                "0X0x0xxxx0xxx0x0x0|" +
+                "00000x000000x000x0|" +
+                "xxxx0x0xxxx0x0x0x0|" +
+                "00000x0x00000000x0|" +
+                "0xx0000x0xx0x0x000|" +
+                "0xx0xxxx0xx0x0x0xx|" +
+                "000000000000x00000|";
+            parseWalls(field);
+        }
+    }
+
+    private void parseWalls(String field){
+        int x = 0, y = 1;
+        field.toUpperCase();
+        for(char c : field.toCharArray()){
+            x++;
+            if(c == 'X' || c == 'x'){
+                addEntity(EntityType.WALL, new XY(x, y));
+            }
+            else if(c == '|'){
+                x = 0;
+                y++;
+            }
+        }
     }
 
     public void add(Entity toAdd){

@@ -2,6 +2,7 @@ package de.hsa.games.fatsquirrel.core;
 
 import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
+import de.hsa.games.fatsquirrel.core.Pac.PacSquirrel;
 
 /**
  * Created by tillm on 07.04.2017.
@@ -293,6 +294,56 @@ public class FlattenedBoard implements BoardView, EntityContext {
                 move(masterSquirrel, newField);
         }
         checkMasterSquirrel(masterSquirrel);
+    }
+
+    public void tryMove(PacSquirrel pacSquirrel, Vector vector) {
+
+        XY newField = pacSquirrel.getCoordinate().addVector(vector);
+        switch (getEntityType(newField)) {
+            case WALL:
+                break;
+            case BADBEAST:
+                pacSquirrel.updateEnergy(BadBeast.START_ENERGY);
+                ((BadBeast) flattenedBoard[newField.getY()][newField.getX()]).bites();
+                if (((BadBeast) flattenedBoard[newField.getY()][newField.getX()]).getLives() == 0)
+                    killAndReplace(flattenedBoard[newField.getY()][newField.getX()]);
+                break;
+            case BADPLANT:
+                moveAndKill(pacSquirrel, BadPlant.START_ENERGY, newField);
+                break;
+            case GOODBEAST:
+                moveAndKill(pacSquirrel, GoodBeast.START_ENERGY, newField);
+                break;
+            case GOODPLANT:
+                pacSquirrel.updateEnergy(GoodPlant.START_ENERGY);
+                killEntity(getEntity(newField));
+                break;
+            case MINISQUIRREL:
+
+                MiniSquirrel squirrel = (MiniSquirrel) flattenedBoard[newField.getY()][newField.getX()];
+                int energy;
+
+                if (pacSquirrel.mySquirrel(squirrel)) {
+                    //Eigener MiniSquirrel wird absorbiert
+                    energy = squirrel.getEnergy();
+                } else {
+                    //Fremder MiniSquirrel wird gerammt
+                    energy = board.getConfig().getPOINTS_FOR_MINI_SQUIRREL();
+                }
+
+                pacSquirrel.updateEnergy(energy);
+                killEntity(squirrel);
+                move(pacSquirrel, newField);
+                break;
+
+            case MASTERSQUIRREL:
+            case HANDOPERATEDMASTERSQUIRREL:
+                //Stößen nur mit den Köpfen Zusammen
+                break;
+            default:
+                move(pacSquirrel, newField);
+        }
+        checkMasterSquirrel(pacSquirrel);
     }
 
     public void checkMasterSquirrel(MasterSquirrel ms) {

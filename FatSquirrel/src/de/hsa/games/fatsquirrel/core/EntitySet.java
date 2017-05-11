@@ -2,6 +2,7 @@ package de.hsa.games.fatsquirrel.core;
 
 import de.hsa.games.fatsquirrel.MoveCommand;
 import de.hsa.games.fatsquirrel.XY;
+import de.hsa.games.fatsquirrel.core.Pac.PacSquirrel;
 
 /**
  * Created by Shiroten on 01.04.2017.

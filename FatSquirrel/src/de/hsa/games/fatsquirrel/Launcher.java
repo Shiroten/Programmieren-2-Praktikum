@@ -90,7 +90,7 @@ public class Launcher extends Application {
     public void start(Stage primaryStage) {
 
         BoardConfig config = new BoardConfig(new XY(20, 20), FRAMERATE, 100, 0, 0, 0, 0);
-        Board board = new Board(config);
+        Board board = new Board();
         State state = new State(board);
 
         FxUI fxUI = FxUI.createInstance(state.getBoard().getConfig().getSize());
