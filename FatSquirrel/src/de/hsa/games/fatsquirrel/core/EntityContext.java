@@ -4,9 +4,6 @@ import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.core.Pac.PacSquirrel;
 
-/**
- * Created by tillm on 04.04.2017.
- */
 public interface EntityContext {
     XY getSize();
     void tryMove(MiniSquirrel miniSquirrel, Vector vector);
@@ -22,4 +19,6 @@ public interface EntityContext {
     void tryMove(StandardMiniSquirrel standardMiniSquirrel);
     int getBEAST_MOVE_TIME_IN_TICKS();
     int getMINI_SQUIRREL_MOVE_TIME_IN_TICKS();
+    int getGOODBEAST_VIEW_DISTANCE();
+    int getBADBEAST_VIEW_DISTANCE();
 }

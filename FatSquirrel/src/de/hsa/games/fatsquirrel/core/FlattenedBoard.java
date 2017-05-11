@@ -8,9 +8,6 @@ import de.hsa.games.fatsquirrel.core.Pac.PacSquirrel;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by tillm on 07.04.2017.
- */
 public class FlattenedBoard implements BoardView, EntityContext {
     private final XY size;
     private Board board;
@@ -66,8 +63,27 @@ public class FlattenedBoard implements BoardView, EntityContext {
         return board.getConfig().getMINI_SQUIRREL_MOVE_TIME_IN_TICKS();
     }
 
+    @Override
+    public int getGOODBEAST_VIEW_DISTANCE() {
+        return board.getConfig().getGOODBEAST_VIEW_DISTANCE();
+    }
+
+    @Override
+    public int getBADBEAST_VIEW_DISTANCE() {
+        return board.getConfig().getBADBEAST_VIEW_DISTANCE();
+    }
+
 
     private void move(Entity en, XY newPosition) {
+
+        Logger logger = Logger.getLogger(Launcher.class.getName());
+        logger.log(Level.FINEST,
+                String.format("move %s at X: %d, Y: %d to X: %d, Y: %d",
+                        en.getEntityType().toString(),
+                        en.getCoordinate().getX(),
+                        en.getCoordinate().getY(),
+                        newPosition.getX(),
+                        newPosition.getY()));
 
         //Alte Position Löschen im Array
         flattenedBoard[en.getCoordinate().getY()][en.getCoordinate().getX()] = null;
@@ -197,14 +213,12 @@ public class FlattenedBoard implements BoardView, EntityContext {
                 break;
 
             case MINISQUIRREL:
-                if (miniSquirrel.getDaddy() ==
+                if (miniSquirrel.getDaddy() !=
                         ((MiniSquirrel) flattenedBoard[newField.getY()][newField.getX()]).getDaddy()) {
-                    //Mach nichts, da freundliche Kollision
-                } else {
 
-                    //Löse beide MiniSquirrel auf
                     killEntity(miniSquirrel);
                     killEntity(flattenedBoard[newField.getY()][newField.getX()]);
+
                 }
                 break;
 

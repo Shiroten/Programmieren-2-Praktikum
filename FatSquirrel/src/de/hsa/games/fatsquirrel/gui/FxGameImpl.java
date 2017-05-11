@@ -55,10 +55,12 @@ public class FxGameImpl extends Game {
     protected void update() {
 
         if (spawnMiniSquirrel != null) {
+            Logger logger = Logger.getLogger(Launcher.class.getName());
+            logger.log(Level.FINER, "try to Spawn MiniSquirrel in update() from FxGameImpl");
             try {
                 spawnMini((Integer) spawnMiniSquirrel.getParams()[0]);
             } catch (NotEnoughEnergyException neee) {
-
+                neee.printStackTrace();
             }
             spawnMiniSquirrel = null;
         }

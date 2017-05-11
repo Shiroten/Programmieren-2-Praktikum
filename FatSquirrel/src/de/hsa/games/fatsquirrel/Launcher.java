@@ -21,7 +21,7 @@ public class Launcher extends Application {
     public static void main(String[] args) {
 
         Logger logger = Logger.getLogger(Launcher.class.getName());
-        logger.setLevel(Level.ALL);
+        logger.setLevel(Level.FINEST);
         try {
             Handler handler = new FileHandler("log.txt");
             SimpleFormatter formatter = new SimpleFormatter();
@@ -85,12 +85,16 @@ public class Launcher extends Application {
             timer.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
+                    Logger logger = Logger.getLogger(Launcher.class.getName());
+                    logger.log(Level.FINER, "start game.run()");
                     game.run();
                 }
             }, 1000, game.getState().getBoard().getConfig().getTICKLENGTH());
             timer.scheduleAtFixedRate(new TimerTask() {
                 @Override
                 public void run() {
+                    Logger logger = Logger.getLogger(Launcher.class.getName());
+                    logger.log(Level.FINER, "start game.processInput()");
                     game.processInput();
                 }
             }, 500, game.getState().getBoard().getConfig().getTICKLENGTH());
@@ -105,7 +109,7 @@ public class Launcher extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        BoardConfig config = new BoardConfig(new XY(20, 20), FRAMERATE, 100, 0, 0, 0, 0);
+        BoardConfig config = new BoardConfig(new XY(20, 20), FRAMERATE, 315, 0, 0, 0, 0, 20, 20);
         Board board = new Board(config);
         State state = new State(board);
 

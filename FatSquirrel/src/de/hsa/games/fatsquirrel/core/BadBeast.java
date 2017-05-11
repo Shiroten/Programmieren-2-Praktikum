@@ -3,15 +3,13 @@ package de.hsa.games.fatsquirrel.core;
 import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
 
-/**
- * Created by tillm on 29.03.2017.
- */
 public class BadBeast extends Character {
     public static final int START_ENERGY = -150;
     public static final EntityType type = EntityType.BADBEAST;
     private int moveCounter = 0;
     private int lives;
-    public BadBeast(int id, XY coordinate){
+
+    public BadBeast(int id, XY coordinate) {
         super(START_ENERGY, id, coordinate);
         this.lives = 7;
     }
@@ -21,20 +19,18 @@ public class BadBeast extends Character {
         return type;
     }
 
-    public void nextStep(EntityContext context){
-        if(moveCounter == 0) {
+    public void nextStep(EntityContext context) {
+        if (moveCounter == 0) {
             PlayerEntity pe = context.nearestPlayerEntity(this.getCoordinate());
-            //System.out.println(pe.getCoordinate().toString() + " The BB: " + this.getCoordinate().toString());
             Vector distance = new Vector(pe.getCoordinate(), this.getCoordinate());
-            //System.out.println("BadBeast to Player: " + distance.toString() + " Dis.: " + distance.getLength());
-            if (distance.getLength() < 6)
-                //context.tryMove(this, distance.normalizedVector().oppositeVector());
-                  context.tryMove(this, distance.normalizedVector());
+
+            if (distance.getLength() < context.getBADBEAST_VIEW_DISTANCE())
+
+                context.tryMove(this, distance.normalizedVector());
             else
-                context.tryMove(this, distance.randomDirection());
+                context.tryMove(this, Vector.randomDirection());
             moveCounter++;
-        }
-        else if(moveCounter == context.getBEAST_MOVE_TIME_IN_TICKS())
+        } else if (moveCounter == context.getBEAST_MOVE_TIME_IN_TICKS())
             moveCounter = 0;
         else
             moveCounter++;
@@ -44,11 +40,11 @@ public class BadBeast extends Character {
         return ("de.hsa.games.fatsquirrel.core.BadBeast: " + super.toString());
     }
 
-    public void bites(){
-        lives --;
+    public void bites() {
+        lives--;
     }
 
-    public int getLives(){
+    public int getLives() {
         return this.lives;
     }
 

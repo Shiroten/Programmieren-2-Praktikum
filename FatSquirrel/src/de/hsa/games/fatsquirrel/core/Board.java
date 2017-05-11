@@ -2,9 +2,6 @@ package de.hsa.games.fatsquirrel.core;
 
 import de.hsa.games.fatsquirrel.XY;
 
-/**
- * Created by tillm on 07.04.2017.
- */
 public class Board {
 
     private EntitySet set;
@@ -14,7 +11,7 @@ public class Board {
 
     public Board() {
         this.set = new EntitySet(new XY(20,20));
-        this.config = new BoardConfig(new XY(20, 20), 60, 7, 7, 7, 7, 7);
+        this.config = new BoardConfig(new XY(20, 20), 60, 7, 7, 7, 7, 7, 6, 6);
         initBoard();
     }
 
@@ -48,9 +45,7 @@ public class Board {
             }
         }
 
-        FlattenedBoard fb = new FlattenedBoard(config.getSize(), this, list);
-
-        return fb;
+        return new FlattenedBoard(config.getSize(), this, list);
     }
 
     public void initBoard() {
@@ -207,10 +202,10 @@ public class Board {
 
     private void parseWalls(String field){
         int x = 0, y = 1;
-        field.toUpperCase();
+        field = field.toUpperCase();
         for(char c : field.toCharArray()){
             x++;
-            if(c == 'X' || c == 'x'){
+            if(c == 'X' ){
                 addEntity(EntityType.WALL, new XY(x, y));
             }
             else if(c == '|'){

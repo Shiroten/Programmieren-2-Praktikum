@@ -2,6 +2,9 @@ package de.hsa.games.fatsquirrel;
 
 import de.hsa.games.fatsquirrel.core.State;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class Game {
     private UI ui;
     private State state;
@@ -33,8 +36,12 @@ public class Game {
     }
 
     public void run() {
+        Logger logger = Logger.getLogger(Launcher.class.getName());
+        logger.log(Level.FINER, "start render()");
         render();
+        logger.log(Level.FINER, "start update()");
         update();
+
     }
 
     public void startSingleThreadGame() {
