@@ -9,13 +9,29 @@ import de.hsa.games.fatsquirrel.core.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.*;
 
 public class Launcher extends Application {
     private static final int FRAMERATE = 60;
 
     public static void main(String[] args) {
+
+        Logger logger = Logger.getLogger(Launcher.class.getName());
+        logger.setLevel(Level.ALL);
+        try {
+            Handler handler = new FileHandler("log.txt");
+            SimpleFormatter formatter = new SimpleFormatter();
+            handler.setFormatter(formatter);
+            handler.setLevel(Level.ALL);
+            logger.addHandler(handler);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Application.launch(args);
 
@@ -90,7 +106,7 @@ public class Launcher extends Application {
     public void start(Stage primaryStage) {
 
         BoardConfig config = new BoardConfig(new XY(20, 20), FRAMERATE, 100, 0, 0, 0, 0);
-        Board board = new Board();
+        Board board = new Board(config);
         State state = new State(board);
 
         FxUI fxUI = FxUI.createInstance(state.getBoard().getConfig().getSize());
@@ -104,6 +120,8 @@ public class Launcher extends Application {
         game.render();
         primaryStage.show();
 
+        Logger logger = Logger.getLogger(Launcher.class.getName());
+        logger.log(Level.INFO, "Starting Game");
         startGame(game);
     }
 }

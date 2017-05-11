@@ -1,13 +1,13 @@
 package de.hsa.games.fatsquirrel.gui;
 
-import de.hsa.games.fatsquirrel.Game;
-import de.hsa.games.fatsquirrel.MoveCommand;
-import de.hsa.games.fatsquirrel.Vector;
-import de.hsa.games.fatsquirrel.XY;
+import de.hsa.games.fatsquirrel.*;
 import de.hsa.games.fatsquirrel.console.GameCommandType;
 import de.hsa.games.fatsquirrel.console.NotEnoughEnergyException;
 import de.hsa.games.fatsquirrel.core.*;
 import de.hsa.games.fatsquirrel.util.ui.Command;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class FxGameImpl extends Game {
 
@@ -70,6 +70,9 @@ public class FxGameImpl extends Game {
 
     private void spawnMini(int energy) throws NotEnoughEnergyException {
 
+        Logger logger = Logger.getLogger(Launcher.class.getName());
+        logger.log(Level.FINE, "Spawning Mini");
+
         XY locationOfMaster = masterSquirrel.getCoordinate();
         for (MoveCommand offset : MoveCommand.values()) {
             //Wenn dieses Feld leer ist....
@@ -90,6 +93,5 @@ public class FxGameImpl extends Game {
                 throw new NotEnoughEnergyException();
             }
         }
-
     }
 }

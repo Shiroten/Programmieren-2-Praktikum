@@ -1,8 +1,12 @@
 package de.hsa.games.fatsquirrel.core;
 
+import de.hsa.games.fatsquirrel.Launcher;
 import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.core.Pac.PacSquirrel;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by tillm on 07.04.2017.
@@ -375,8 +379,16 @@ public class FlattenedBoard implements BoardView, EntityContext {
         Entity newE = board.addEntity(entity.getEntityType(), randomFreePosition());
         killEntity(entity);
         flattenedBoard[newE.getCoordinate().getY()][newE.getCoordinate().getX()] = newE;
-    }
 
+        Logger logger = Logger.getLogger(Launcher.class.getName());
+        logger.log(Level.FINER,
+                String.format("killAndReplace %s at X: %d, Y: %d to X: %d, Y: %d",
+                        newE.getEntityType().toString(),
+                        entity.getCoordinate().getX(),
+                        entity.getCoordinate().getY(),
+                        newE.getCoordinate().getX(),
+                        newE.getCoordinate().getY()));
+    }
 
     @Override
     public PlayerEntity nearestPlayerEntity(XY pos) {

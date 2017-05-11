@@ -14,15 +14,13 @@ public class Board {
 
     public Board() {
         this.set = new EntitySet(new XY(20,20));
-        this.config = new BoardConfig(new XY(20, 20), 60, 0, 3, 100, 0, 0);
+        this.config = new BoardConfig(new XY(20, 20), 60, 7, 7, 7, 7, 7);
         initBoard();
-        initPac();
     }
 
     public Board(BoardConfig config) {
         this.set = new EntitySet(config.getSize());
         this.config = config;
-
         initBoard();
     }
 
