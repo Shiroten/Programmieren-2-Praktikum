@@ -1,6 +1,5 @@
 package de.hsa.games.fatsquirrel.core.entity.character;
 
-import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.botapi.BotController;
 import de.hsa.games.fatsquirrel.botapi.ControllerContext;
@@ -26,12 +25,12 @@ public class MiniSquirrelBot extends MiniSquirrel {
         }
 
         @Override
-        public void move(Vector direction) {
+        public void move(XY direction) {
 
         }
 
         @Override
-        public void spawnMiniBot(Vector direction, int energy) {
+        public void spawnMiniBot(XY direction, int energy) {
 
         }
 

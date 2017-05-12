@@ -85,17 +85,17 @@ public class FxGameImpl extends Game {
         logger.log(Level.FINE, "Spawning Mini");
 
         XY locationOfMaster = handOperatedMasterSquirrel.getCoordinate();
-        for (MoveCommand offset : MoveCommand.values()) {
+        for (XY xy : XYsupport.directions()) {
             //Wenn dieses Feld leer ist....
             if (handOperatedMasterSquirrel.getEnergy() >= energy) {
-                if (this.getState().flattenBoard().getEntityType(locationOfMaster.addVector(Vector.moveCommandToVector(offset))) == EntityType.EMPTY) {
+                if (this.getState().flattenBoard().getEntityType(locationOfMaster.plus(xy)) == EntityType.EMPTY) {
 
                     //Füge neues StandardMiniSquirrel hinzu zum Board
                     handOperatedMasterSquirrel.updateEnergy(-energy);
                     this.getState().getBoard().add(
                             new StandardMiniSquirrel(
                                     this.getState().getBoard().setID(),
-                                    (locationOfMaster.addVector(Vector.moveCommandToVector(offset))),
+                                    (locationOfMaster.plus(xy)),
                                     energy,
                                     handOperatedMasterSquirrel));
                     return;

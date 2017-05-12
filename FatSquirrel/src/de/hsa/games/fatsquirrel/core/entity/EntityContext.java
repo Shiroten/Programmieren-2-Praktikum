@@ -1,17 +1,16 @@
 package de.hsa.games.fatsquirrel.core.entity;
 
-import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.core.Pac.PacSquirrel;
 import de.hsa.games.fatsquirrel.core.entity.character.*;
 
 public interface EntityContext {
     XY getSize();
-    void tryMove(MiniSquirrel miniSquirrel, Vector vector);
-    void tryMove(GoodBeast goodBeast, Vector vector);
-    void tryMove(BadBeast badBeast, Vector vector);
-    void tryMove(MasterSquirrel masterSquirrel, Vector vector);
-    void tryMove(PacSquirrel pacSquirrel, Vector vector);
+    void tryMove(MiniSquirrel miniSquirrel, XY xy);
+    void tryMove(GoodBeast goodBeast, XY xy);
+    void tryMove(BadBeast badBeast, XY xy);
+    void tryMove(MasterSquirrel masterSquirrel, XY xy);
+    void tryMove(PacSquirrel pacSquirrel, XY xy);
     PlayerEntity nearestPlayerEntity(XY pos);
 
     void killEntity(Entity entity);

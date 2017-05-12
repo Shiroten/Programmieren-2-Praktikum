@@ -30,17 +30,44 @@ public class XY {
         this.y = y;
     }
 
-    public XY addVector(Vector vector) {
-
-        int xOffset = vector.getX();
-        int yOffset = vector.getY();
-
-        return new XY(x + xOffset, y + yOffset);
+    public XY(XY end, XY start){
+        this.x = end.getX() - start.getX();
+        this.y = end.getY() - start.getY();
     }
 
-    public XY randomMove() {
-        Vector offset = new Vector();
-        return addVector(offset.randomDirection());
+    public XY plus(XY xy) {
+        return new XY(x + xy.getX(), y + xy.getY());
+    }
+
+    public XY minus(XY xy){
+        return new XY(x - xy.getX(), y - xy.getY());
+    }
+
+    public XY times(int factor){
+        return new XY(x*factor, y*factor);
+    }
+
+    public double length(){
+        return Math.sqrt(Math.abs(x)^2+Math.abs(y)^2);
+    }
+
+    public double distanceFrom(XY xy){
+        return Math.sqrt(Math.abs(xy.getX() - x)^2+Math.abs(xy.getY() - y)^2);
+    }
+
+    //TODO: hashCode
+    //Bisher keine sinnvolle Implementierungsmöglichkeit gefunden
+
+    @Override
+    public boolean equals(Object obj){
+        try {
+            XY xy = (XY) obj;
+            if (xy.getX() == x && xy.getY() == y)
+                return true;
+        }catch( Exception e){
+            return false;
+        }
+        return false;
     }
 
     public String toString(){

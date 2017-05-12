@@ -23,7 +23,7 @@ public class Launcher extends Application {
     public static void main(String[] args) {
 
         Logger logger = Logger.getLogger(Launcher.class.getName());
-        logger.setLevel(Level.FINER);
+        logger.setLevel(Level.FINE);
         try {
             Handler handler = new FileHandler("log.txt");
             SimpleFormatter formatter = new SimpleFormatter();
@@ -70,8 +70,8 @@ public class Launcher extends Application {
         board.getSet().add(manuelSquirrel);
 
         //MoveCommand Vector Test
-        Vector newVector = Vector.moveCommandToVector(MoveCommand.NORTHWEST);
-        XY newField = manuelSquirrel.getCoordinate().addVector(newVector);
+
+        XY newField = manuelSquirrel.getCoordinate().plus(XY.LEFT_UP);
 
         Entity manuelSquirrel2 = new HandOperatedMasterSquirrel(101, newField);
         board.getSet().add(manuelSquirrel2);

@@ -1,8 +1,8 @@
 package de.hsa.games.fatsquirrel.core.entity.character;
 
 import de.hsa.games.fatsquirrel.Launcher;
-import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
+import de.hsa.games.fatsquirrel.XYsupport;
 import de.hsa.games.fatsquirrel.core.entity.EntityContext;
 import de.hsa.games.fatsquirrel.core.entity.EntityType;
 
@@ -30,17 +30,17 @@ public class GoodBeast extends Character {
 
         if (moveCounter == 0) {
             PlayerEntity pe = context.nearestPlayerEntity(this.getCoordinate());
-            Vector distance = new Vector(pe.getCoordinate(), this.getCoordinate());
+            XY distance = new XY(pe.getCoordinate(), this.getCoordinate());
 
-            if (distance.getLength() < context.getGOODBEAST_VIEW_DISTANCE()) {
+            if (distance.length() < context.getGOODBEAST_VIEW_DISTANCE()) {
                 XY previousPosition = this.getCoordinate();
-                context.tryMove(this, distance.normalizedVector().oppositeVector());
+                context.tryMove(this, XYsupport.oppositeVector(XYsupport.normalizedVector(distance)));
 
                 if (gotStuck(previousPosition)) {
-                    tryUnStuck(context, distance.normalizedVector().oppositeVector(), Vector.rotation.clockwise);
+                    tryUnStuck(context, XYsupport.oppositeVector(XYsupport.normalizedVector(distance)), XYsupport.Rotation.clockwise);
                 }
             } else
-                context.tryMove(this, Vector.randomDirection());
+                context.tryMove(this, XYsupport.randomDirection());
             moveCounter++;
         } else if (moveCounter == context.getBEAST_MOVE_TIME_IN_TICKS())
             moveCounter = 0;
@@ -48,40 +48,40 @@ public class GoodBeast extends Character {
             moveCounter++;
     }
 
-    private void tryUnStuck(EntityContext context, Vector direction, Vector.rotation rotation) {
+    private void tryUnStuck(EntityContext context, XY direction, XYsupport.Rotation rotation) {
 
         //Todo: Rekursive auflösung benötigt.
         XY previousPosition = this.getCoordinate();
-        context.tryMove(this, Vector.rotate(rotation, direction));
+        context.tryMove(this, XYsupport.rotate(rotation, direction));
 
         if (gotStuck(previousPosition)) {
 
-            if (rotation == Vector.rotation.anticlockwise) {
-                rotation = Vector.rotation.clockwise;
+            if (rotation == XYsupport.Rotation.anticlockwise) {
+                rotation = XYsupport.Rotation.clockwise;
             } else {
-                rotation = Vector.rotation.anticlockwise;
+                rotation = XYsupport.Rotation.anticlockwise;
             }
 
-            context.tryMove(this, Vector.rotate(rotation, direction));
+            context.tryMove(this, XYsupport.rotate(rotation, direction));
         } else {
             return;
         }
 
         if (gotStuck(previousPosition)) {
             previousPosition = this.getCoordinate();
-            Vector directionTest = Vector.rotate(rotation, direction);
-            context.tryMove(this, Vector.rotate(rotation, directionTest));
+            XY directionTest = XYsupport.rotate(rotation, direction);
+            context.tryMove(this, XYsupport.rotate(rotation, directionTest));
 
             if (gotStuck(previousPosition)) {
 
-                if (rotation == Vector.rotation.anticlockwise) {
-                    rotation = Vector.rotation.clockwise;
+                if (rotation == XYsupport.Rotation.anticlockwise) {
+                    rotation = XYsupport.Rotation.clockwise;
                 } else {
-                    rotation = Vector.rotation.anticlockwise;
+                    rotation = XYsupport.Rotation.anticlockwise;
                 }
 
-                directionTest = Vector.rotate(rotation, direction);
-                context.tryMove(this, Vector.rotate(rotation, directionTest));
+                directionTest = XYsupport.rotate(rotation, direction);
+                context.tryMove(this, XYsupport.rotate(rotation, directionTest));
             }
 
         }

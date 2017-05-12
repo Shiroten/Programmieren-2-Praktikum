@@ -1,7 +1,6 @@
 package de.hsa.games.fatsquirrel.core;
 
 import de.hsa.games.fatsquirrel.Launcher;
-import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.core.Pac.PacSquirrel;
 import de.hsa.games.fatsquirrel.core.entity.character.*;
@@ -102,11 +101,10 @@ public class FlattenedBoard implements BoardView, EntityContext {
     //Zuerst wird geschaut, auf welchem Feld die Entity landen wird
     //Dann wird geschaut, ob und wenn ja welche Entity sich auf dem Feld befindet
     //In Abhängkeit der E wird die Energie abgezogen
-
     @Override
-    public void tryMove(GoodBeast goodBeast, Vector vector) {
+    public void tryMove(GoodBeast goodBeast, XY xy) {
 
-        XY newField = goodBeast.getCoordinate().addVector(vector);
+        XY newField = goodBeast.getCoordinate().plus(xy);
         //System.out.println(goodBeast.toString() + vector.toString());
 
         switch (getEntityType(newField)) {
@@ -137,9 +135,9 @@ public class FlattenedBoard implements BoardView, EntityContext {
     }
 
     @Override
-    public void tryMove(BadBeast badBeast, Vector vector) {
+    public void tryMove(BadBeast badBeast, XY xy) {
 
-        XY newField = badBeast.getCoordinate().addVector(vector);
+        XY newField = badBeast.getCoordinate().plus(xy);
 
         //System.out.println(badBeast.toString() + vector.toString());
 
@@ -184,8 +182,8 @@ public class FlattenedBoard implements BoardView, EntityContext {
     }
 
     @Override
-    public void tryMove(MiniSquirrel miniSquirrel, Vector vector) {
-        XY newField = miniSquirrel.getCoordinate().addVector(vector);
+    public void tryMove(MiniSquirrel miniSquirrel, XY xy) {
+        XY newField = miniSquirrel.getCoordinate().plus(xy);
 
         switch (getEntityType(newField)) {
             case WALL:
@@ -265,9 +263,9 @@ public class FlattenedBoard implements BoardView, EntityContext {
     }
 
     @Override
-    public void tryMove(MasterSquirrel masterSquirrel, Vector vector) {
+    public void tryMove(MasterSquirrel masterSquirrel, XY xy) {
 
-        XY newField = masterSquirrel.getCoordinate().addVector(vector);
+        XY newField = masterSquirrel.getCoordinate().plus(xy);
         switch (getEntityType(newField)) {
             case WALL:
                 masterSquirrel.updateEnergy(Wall.START_ENERGY);
@@ -316,9 +314,9 @@ public class FlattenedBoard implements BoardView, EntityContext {
         checkMasterSquirrel(masterSquirrel);
     }
 
-    public void tryMove(PacSquirrel pacSquirrel, Vector vector) {
+    public void tryMove(PacSquirrel pacSquirrel, XY xy) {
 
-        XY newField = pacSquirrel.getCoordinate().addVector(vector);
+        XY newField = pacSquirrel.getCoordinate().plus(xy);
         switch (getEntityType(newField)) {
             case WALL:
                 break;
@@ -419,10 +417,8 @@ public class FlattenedBoard implements BoardView, EntityContext {
                 if (nPE == null)
                     nPE = (PlayerEntity) e;
                 else {
-                    Vector v = new Vector(nPE.getCoordinate(), pos);
-                    double distance = v.getLength();
-                    Vector v2 = new Vector(e.getCoordinate(), pos);
-                    if (distance > v2.getLength())
+                    double distanceToNew = pos.distanceFrom(e.getCoordinate());
+                    if (distanceToNew < pos.distanceFrom(nPE.getCoordinate()))
                         nPE = (PlayerEntity) e;
                 }
             }

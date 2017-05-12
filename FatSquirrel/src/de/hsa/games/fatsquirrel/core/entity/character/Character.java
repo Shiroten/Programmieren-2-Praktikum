@@ -16,4 +16,9 @@ public abstract class Character extends Entity {
     Character(){}
 
     public abstract void nextStep(EntityContext context);
+
+    public XY possibleMove(EntityContext context, XY wantedDirection){
+        //TODO
+        return XY.ZERO_ZERO;
+    }
 }

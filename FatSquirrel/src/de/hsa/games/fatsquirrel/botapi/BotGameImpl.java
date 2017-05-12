@@ -24,7 +24,7 @@ public class BotGameImpl extends FxGameImpl {
         this.getUi().render(this.getState().flattenBoard());
     }*/
 
-    /*Üprotected void update() {
+    /*protected void update() {
 
         getState().update();
         FxUI fxUI = (FxUI) this.getUi();

@@ -2,7 +2,7 @@ package de.hsa.games.fatsquirrel;
 import java.util.concurrent.ThreadLocalRandom;
 import static java.lang.Math.*;
 
-public class Vector {
+/*public class Vector {
 
     private final int xDifference;
     private final int yDifference;
@@ -124,12 +124,12 @@ public class Vector {
         return new Vector(-xDifference, -yDifference);
     }
 
-    public enum rotation {
+    public enum Rotation {
         clockwise,
         anticlockwise,
     }
 
-    public static Vector rotate(rotation r, Vector toRotate) {
+    public static Vector rotate(Rotation r, Vector toRotate) {
 
         switch (r) {
             case clockwise:
@@ -148,4 +148,4 @@ public class Vector {
     public String toString() {
         return "x: " + xDifference + " y: " + yDifference;
     }
-}
+}*/

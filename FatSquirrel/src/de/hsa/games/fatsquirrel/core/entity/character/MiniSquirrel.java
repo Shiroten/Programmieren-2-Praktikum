@@ -1,8 +1,8 @@
 package de.hsa.games.fatsquirrel.core.entity.character;
 
 import de.hsa.games.fatsquirrel.Launcher;
-import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
+import de.hsa.games.fatsquirrel.XYsupport;
 import de.hsa.games.fatsquirrel.core.entity.EntityContext;
 import de.hsa.games.fatsquirrel.core.entity.EntityType;
 
@@ -42,7 +42,7 @@ public class MiniSquirrel extends PlayerEntity {
             if (stunTime > 0)
                 stunTime--;
             else {
-                Vector distance = Vector.randomDirection();
+                XY distance = XYsupport.randomDirection();
                 context.tryMove(this, distance);
             }
             moveCounter++;

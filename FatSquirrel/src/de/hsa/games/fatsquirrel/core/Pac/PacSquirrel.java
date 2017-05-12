@@ -1,7 +1,6 @@
 package de.hsa.games.fatsquirrel.core.Pac;
 
 import de.hsa.games.fatsquirrel.MoveCommand;
-import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.core.entity.EntityContext;
 import de.hsa.games.fatsquirrel.core.entity.EntityType;
@@ -19,28 +18,28 @@ public class PacSquirrel extends HandOperatedMasterSquirrel {
         else {
             switch (command) {
                 case EAST:
-                    context.tryMove(this, new Vector(1, 0));
+                    context.tryMove(this, XY.RIGHT);
                     break;
                 case WEST:
-                    context.tryMove(this, new Vector(-1, 0));
+                    context.tryMove(this, XY.LEFT);
                     break;
                 case NORTH:
-                    context.tryMove(this, new Vector(0, -1));
+                    context.tryMove(this, XY.UP);
                     break;
                 case SOUTH:
-                    context.tryMove(this, new Vector(0, 1));
+                    context.tryMove(this, XY.DOWN);
                     break;
                 case NORTHEAST:
-                    context.tryMove(this, new Vector(1, -1));
+                    context.tryMove(this, XY.RIGHT_UP);
                     break;
                 case NORTHWEST:
-                    context.tryMove(this, new Vector(-1, -1));
+                    context.tryMove(this, XY.LEFT_UP);
                     break;
                 case SOUTHEAST:
-                    context.tryMove(this, new Vector(1, 1));
+                    context.tryMove(this, XY.RIGHT_DOWN);
                     break;
                 case SOUTHWEST:
-                    context.tryMove(this, new Vector(-1, 1));
+                    context.tryMove(this, XY.LEFT_DOWN);
                     break;
                 case NOWHERE:
                     break;

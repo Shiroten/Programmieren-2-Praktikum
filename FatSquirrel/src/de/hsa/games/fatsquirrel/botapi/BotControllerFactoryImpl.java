@@ -1,8 +1,6 @@
 package de.hsa.games.fatsquirrel.botapi;
 
-import de.hsa.games.fatsquirrel.Vector;
-import de.hsa.games.fatsquirrel.botapi.BotController;
-import de.hsa.games.fatsquirrel.botapi.ControllerContext;
+import de.hsa.games.fatsquirrel.XYsupport;
 
 public class BotControllerFactoryImpl implements de.hsa.games.fatsquirrel.botapi.BotControllerFactory{
     public BotController createMasterBotController(){
@@ -10,7 +8,7 @@ public class BotControllerFactoryImpl implements de.hsa.games.fatsquirrel.botapi
             @Override
             public void nextStep(ControllerContext view) {
 
-                view.move(Vector.randomDirection());
+                view.move(XYsupport.randomDirection());
             }
         };
     }
@@ -20,7 +18,7 @@ public class BotControllerFactoryImpl implements de.hsa.games.fatsquirrel.botapi
             @Override
             public void nextStep(ControllerContext view) {
 
-                view.move(Vector.randomDirection());
+                view.move(XYsupport.randomDirection());
             }
         };
     }

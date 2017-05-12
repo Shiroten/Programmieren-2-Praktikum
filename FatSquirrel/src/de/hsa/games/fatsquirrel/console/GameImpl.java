@@ -2,8 +2,8 @@ package de.hsa.games.fatsquirrel.console;
 
 import de.hsa.games.fatsquirrel.Game;
 import de.hsa.games.fatsquirrel.MoveCommand;
-import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
+import de.hsa.games.fatsquirrel.XYsupport;
 import de.hsa.games.fatsquirrel.core.*;
 import de.hsa.games.fatsquirrel.core.entity.EntityType;
 import de.hsa.games.fatsquirrel.core.entity.character.HandOperatedMasterSquirrel;
@@ -81,16 +81,17 @@ public class GameImpl extends Game {
     private void spawnMini(int energy) throws NotEnoughEnergyException {
 
         XY locationOfMaster = handOperatedMasterSquirrel.getCoordinate();
-        for (MoveCommand offset : MoveCommand.values()) {
+
+        for (XY xy : XYsupport.directions()) {
             //Wenn dieses Feld leer ist....
             if (handOperatedMasterSquirrel.getEnergy() >= energy) {
-                if (this.getState().flattenBoard().getEntityType(locationOfMaster.addVector(Vector.moveCommandToVector(offset))) == EntityType.EMPTY) {
+                if (this.getState().flattenBoard().getEntityType(locationOfMaster.plus(xy)) == EntityType.EMPTY) {
 
                     //Füge neues StandardMiniSquirrel hinzu zum Board
                     this.getState().getBoard().add(
                             new StandardMiniSquirrel(
                                     this.getState().getBoard().setID(),
-                                    (locationOfMaster.addVector(Vector.moveCommandToVector(offset))),
+                                    (locationOfMaster.plus(xy)),
                                     energy,
                                     handOperatedMasterSquirrel));
                     return;

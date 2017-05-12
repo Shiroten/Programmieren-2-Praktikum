@@ -10,6 +10,9 @@ import de.hsa.games.fatsquirrel.core.entity.character.PlayerEntity;
 import de.hsa.games.fatsquirrel.core.entity.Entity;
 import de.hsa.games.fatsquirrel.util.ui.Command;
 
+import de.hsa.games.fatsquirrel.util.ui.CommandScanner;
+import de.hsa.games.fatsquirrel.util.ui.CommandTypeInfo;
+import de.hsa.games.fatsquirrel.util.ui.ScanException;
 import javafx.application.Platform;
 
 import javafx.geometry.VPos;
@@ -22,6 +25,11 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 
 public class FxUI extends Scene implements UI {
