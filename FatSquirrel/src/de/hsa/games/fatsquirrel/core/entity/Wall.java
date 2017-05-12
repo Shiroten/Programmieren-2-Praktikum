@@ -1,4 +1,4 @@
-package de.hsa.games.fatsquirrel.core;
+package de.hsa.games.fatsquirrel.core.entity;
 
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.core.entity.Entity;
@@ -20,6 +20,6 @@ public class Wall extends Entity {
     }
 
     public String toString() {
-        return ("de.hsa.games.fatsquirrel.core.Wall: " + super.toString());
+        return ("de.hsa.games.fatsquirrel.core.entity.Wall: " + super.toString());
     }
 }

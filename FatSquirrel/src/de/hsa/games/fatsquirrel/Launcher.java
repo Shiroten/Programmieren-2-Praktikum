@@ -1,7 +1,7 @@
 package de.hsa.games.fatsquirrel;
 
 import de.hsa.games.fatsquirrel.botapi.BotGameImpl;
-import de.hsa.games.fatsquirrel.core.character.HandOperatedMasterSquirrel;
+import de.hsa.games.fatsquirrel.core.entity.character.HandOperatedMasterSquirrel;
 import de.hsa.games.fatsquirrel.core.entity.Entity;
 import de.hsa.games.fatsquirrel.gui.FxUI;
 import de.hsa.games.fatsquirrel.util.ui.consoletest.MyFavoriteCommandsProcessor;

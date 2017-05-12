@@ -1,9 +1,8 @@
 package de.hsa.games.fatsquirrel.core.entity;
 
 import de.hsa.games.fatsquirrel.XY;
-import de.hsa.games.fatsquirrel.core.character.Character;
-import de.hsa.games.fatsquirrel.core.GoodPlant;
-import de.hsa.games.fatsquirrel.core.character.HandOperatedMasterSquirrel;
+import de.hsa.games.fatsquirrel.core.entity.character.Character;
+import de.hsa.games.fatsquirrel.core.entity.character.HandOperatedMasterSquirrel;
 
 public class EntitySet {
 

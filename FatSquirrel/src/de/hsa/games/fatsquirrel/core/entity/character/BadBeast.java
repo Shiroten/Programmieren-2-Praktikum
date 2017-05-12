@@ -1,4 +1,4 @@
-package de.hsa.games.fatsquirrel.core.character;
+package de.hsa.games.fatsquirrel.core.entity.character;
 
 import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
@@ -39,7 +39,7 @@ public class BadBeast extends Character {
     }
 
     public String toString() {
-        return ("de.hsa.games.fatsquirrel.core.character.BadBeast: " + super.toString());
+        return ("de.hsa.games.fatsquirrel.core.entity.character.BadBeast: " + super.toString());
     }
 
     public void bites() {

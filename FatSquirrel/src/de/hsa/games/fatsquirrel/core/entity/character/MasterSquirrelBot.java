@@ -1,4 +1,4 @@
-package de.hsa.games.fatsquirrel.core.character;
+package de.hsa.games.fatsquirrel.core.entity.character;
 
 import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
@@ -7,8 +7,10 @@ import de.hsa.games.fatsquirrel.botapi.ControllerContext;
 import de.hsa.games.fatsquirrel.botapi.BotControllerFactoryImpl;
 import de.hsa.games.fatsquirrel.core.entity.EntityType;
 
-public class MiniSquirrelBot extends MiniSquirrel {
-    class ControllerContextImpl implements ControllerContext {
+public class MasterSquirrelBot extends MasterSquirrel{
+
+    class ControllerContextImpl implements ControllerContext{
+
 
         @Override
         public XY getViewLowerLeft() {
@@ -41,17 +43,17 @@ public class MiniSquirrelBot extends MiniSquirrel {
         }
     }
 
-    private BotController miniBotController;
+    private BotController masterBotController;
     private BotControllerFactoryImpl factory = new BotControllerFactoryImpl();
 
-    public MiniSquirrelBot(int id, XY position, int energy, MasterSquirrel daddy) {
-        super(id, position, energy, daddy);
-        this.miniBotController = factory.createMiniBotController();
+    public MasterSquirrelBot(int id, XY position){
+        super(id, position);
+        this.masterBotController = factory.createMasterBotController();
     }
 
-    public void nextStep(ControllerContext view) {
-        miniBotController.nextStep(view);
-    }
+    public void nextStep(ControllerContext view){
 
+        masterBotController.nextStep(view);
+    }
 
 }

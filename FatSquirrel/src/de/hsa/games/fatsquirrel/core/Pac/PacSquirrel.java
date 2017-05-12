@@ -5,7 +5,7 @@ import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.core.entity.EntityContext;
 import de.hsa.games.fatsquirrel.core.entity.EntityType;
-import de.hsa.games.fatsquirrel.core.character.HandOperatedMasterSquirrel;
+import de.hsa.games.fatsquirrel.core.entity.character.HandOperatedMasterSquirrel;
 
 public class PacSquirrel extends HandOperatedMasterSquirrel {
     public static final int START_ENERGY = 1000;

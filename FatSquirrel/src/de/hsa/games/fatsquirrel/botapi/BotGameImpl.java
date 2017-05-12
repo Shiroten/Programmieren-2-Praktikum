@@ -1,6 +1,6 @@
 package de.hsa.games.fatsquirrel.botapi;
 
-import de.hsa.games.fatsquirrel.core.character.MasterSquirrel;
+import de.hsa.games.fatsquirrel.core.entity.character.MasterSquirrel;
 import de.hsa.games.fatsquirrel.core.State;
 import de.hsa.games.fatsquirrel.gui.FxGameImpl;
 import de.hsa.games.fatsquirrel.gui.FxUI;
