@@ -109,7 +109,7 @@ public class Launcher extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        BoardConfig config = new BoardConfig(new XY(20, 20), FRAMERATE, 315, 0, 0, 0, 0, 20, 20);
+        BoardConfig config = new BoardConfig(new XY(20, 20), FRAMERATE, 50, 0, 0, 0, 50, 20, 20);
         Board board = new Board(config);
         State state = new State(board);
 

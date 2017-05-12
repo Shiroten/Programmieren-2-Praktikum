@@ -3,10 +3,7 @@ package de.hsa.games.fatsquirrel.gui;
 import de.hsa.games.fatsquirrel.UI;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.console.GameCommandType;
-import de.hsa.games.fatsquirrel.core.BadBeast;
-import de.hsa.games.fatsquirrel.core.BoardView;
-import de.hsa.games.fatsquirrel.core.Entity;
-import de.hsa.games.fatsquirrel.core.EntityType;
+import de.hsa.games.fatsquirrel.core.*;
 import de.hsa.games.fatsquirrel.util.ui.Command;
 
 import javafx.application.Platform;
@@ -105,7 +102,7 @@ public class FxUI extends Scene implements UI {
 
         //Kästchen für die Entity setzen
         EntityType et = e.getEntityType();
-        gc.setFill(entityTypeToColor(et));
+        gc.setFill(entityTypeToColor(e));
 
         switch (et) {
             case WALL:
@@ -118,14 +115,16 @@ public class FxUI extends Scene implements UI {
         }
 
         //Text Schreiben
-        gc.setFill(entityTypeToTextColor(et));
+        gc.setFill(entityTypeToTextColor(e));
         gc.setTextAlign(TextAlignment.CENTER);
         gc.setTextBaseline(VPos.CENTER);
         gc.fillText(entityToString(e), (xy.getX() + 0.5) * CELL_SIZE, (xy.getY() + 0.5) * CELL_SIZE);
     }
 
-    private Color entityTypeToColor(EntityType et) {
-        Color returnColor;
+    private Color entityTypeToColor(Entity e) {
+        EntityType et = e.getEntityType();
+        Color returnColor = Color.gray(0);
+
         switch (et) {
             case GOODPLANT:
                 returnColor = Color.color(0, 1, 0);
@@ -157,8 +156,11 @@ public class FxUI extends Scene implements UI {
         return returnColor;
     }
 
-    private Color entityTypeToTextColor(EntityType et){
-        Color returnColor =Color.BLACK;;
+    private Color entityTypeToTextColor(Entity e) {
+
+        Color returnColor = Color.BLACK;
+        EntityType et = e.getEntityType();
+
         switch (et) {
             case GOODPLANT:
 
@@ -176,11 +178,20 @@ public class FxUI extends Scene implements UI {
 
                 break;
             case MINISQUIRREL:
+                if (((PlayerEntity) e).getStunTime() != 0) {
+                    returnColor = Color.RED;
+                }
 
                 break;
             case MASTERSQUIRREL:
+                if (((PlayerEntity) e).getStunTime() != 0) {
+                    returnColor = Color.RED;
+                }
                 break;
             case HANDOPERATEDMASTERSQUIRREL:
+                if (((PlayerEntity) e).getStunTime() != 0) {
+                    returnColor = Color.RED;
+                }
 
                 break;
             default:
@@ -205,20 +216,35 @@ public class FxUI extends Scene implements UI {
                 break;
             case BADBEAST:
                 //stringToPrint = "BB";
-                stringToPrint = Integer.toString(((BadBeast)e).getLives());
+                stringToPrint = Integer.toString(((BadBeast) e).getLives());
                 break;
             case WALL:
                 stringToPrint = "";
                 break;
             case MINISQUIRREL:
                 //stringToPrint = "mS";
-                stringToPrint = Integer.toString(e.getEnergy());
+                if (((PlayerEntity) e).getStunTime() != 0) {
+                    stringToPrint = Integer.toString(((PlayerEntity) e).getStunTime());
+                } else {
+                    stringToPrint = Integer.toString(e.getEnergy());
+                }
+
                 break;
             case MASTERSQUIRREL:
-                stringToPrint = "MS";
+                if (((PlayerEntity) e).getStunTime() != 0) {
+                    stringToPrint = Integer.toString(((PlayerEntity) e).getStunTime());
+                } else {
+                    stringToPrint = "MS";
+                }
+
                 break;
             case HANDOPERATEDMASTERSQUIRREL:
-                stringToPrint = "HS";
+                if (((PlayerEntity) e).getStunTime() != 0) {
+                    stringToPrint = Integer.toString(((PlayerEntity) e).getStunTime());
+                } else {
+                    stringToPrint = "HS";
+                }
+
                 break;
             default:
                 stringToPrint = "";
