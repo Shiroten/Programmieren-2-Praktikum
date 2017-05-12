@@ -110,9 +110,9 @@ public class Launcher extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        GameType gameType = GameType.BOT_SINGLE;
+        GameType gameType = GameType.BOT_MULTI;
 
-        State state = new State(new XY(20, 20), FRAMERATE, 50, 0, 0, 0, 50, 20, 20, gameType);
+        State state = new State(new XY(40, 20), FRAMERATE, 50, 2, 2, 2, 50, 20, 20, gameType);
 
         FxUI fxUI = FxUI.createInstance(state.getBoard().getConfig().getSize());
         //final Game game = new FxGameImpl(fxUI, state);

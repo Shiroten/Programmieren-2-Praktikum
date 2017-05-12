@@ -7,6 +7,7 @@ public class Board {
     private EntitySet set;
     private BoardConfig config;
     private int idCounter = 0;
+
     private MasterSquirrel masterSquirrel;
 
     public Board() {
@@ -59,7 +60,13 @@ public class Board {
         addEntity(EntityType.GOODBEAST, config.getNUMBER_OF_GB());
         addEntity(EntityType.GOODPLANT, config.getNUMBER_OF_GP());
 
-        addEntity(EntityType.MASTERSQUIRREL, 1);
+        if (config.getGameType() == GameType.BOT_MULTI){
+            addEntity(EntityType.MASTERSQUIRREL, 3);
+            //Todo: Add HandOperatedMasterSquirrel
+            //addEntity(EntityType.HANDOPERATEDMASTERSQUIRREL, 1);
+        } else {
+            addEntity(EntityType.MASTERSQUIRREL, 1);
+        }
 
     }
 
@@ -112,6 +119,9 @@ public class Board {
                 case MASTERSQUIRREL:
                     if(config.getGameType() == GameType.BOT_SINGLE)
                         entityToAdd = new MasterSquirrelBot(setID(), new XY(randomX, randomY));
+                    else if(config.getGameType() == GameType.BOT_MULTI){
+                        entityToAdd = new MasterSquirrelBot(setID(), new XY(randomX, randomY));
+                    }
                     else if(config.getGameType() == GameType.SINGLE_PLAYER)
                         entityToAdd = new HandOperatedMasterSquirrel(setID(), new XY(randomX, randomY));
                     else
@@ -145,6 +155,10 @@ public class Board {
             case GOODPLANT:
                 addEntity = new GoodPlant(setID(), position);
                 break;
+            case MASTERSQUIRREL:
+                if (config.getGameType() == GameType.BOT_MULTI){
+                    addEntity = new MasterSquirrelBot(setID(), position);
+                }
         }
         set.add(addEntity);
 
