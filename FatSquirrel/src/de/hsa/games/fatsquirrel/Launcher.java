@@ -125,7 +125,7 @@ public class Launcher extends Application {
 
         GameType gameType = GameType.WITH_BOT;
 
-        State state = new State(new XY(50, 30), FRAMERATE, 20, 5, 10, 5, 50, 10, 6, gameType);
+        State state = new State(new XY(50, 30), FRAMERATE, 20, 5, 10, 5, 100, 10, 6, gameType);
 
         FxUI fxUI = FxUI.createInstance(state.getBoard().getConfig().getSize());
         //final Game game = new FxGameImpl(fxUI, state);

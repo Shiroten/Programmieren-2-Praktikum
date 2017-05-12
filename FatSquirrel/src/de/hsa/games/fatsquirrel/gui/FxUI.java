@@ -83,7 +83,6 @@ public class FxUI extends Scene implements UI {
         return fxUI;
     }
 
-
     @Override
     public void render(final BoardView view) {
         Platform.runLater(() -> repaintBoardCanvas(view));
@@ -232,7 +231,9 @@ public class FxUI extends Scene implements UI {
                 if (((PlayerEntity) e).getStunTime() != 0) {
                     stringToPrint = Integer.toString(((PlayerEntity) e).getStunTime());
                 } else {
+
                     stringToPrint = Integer.toString(e.getEnergy());
+                    stringToPrint = String.format("A%n" + stringToPrint);
                 }
 
                 break;
@@ -241,6 +242,7 @@ public class FxUI extends Scene implements UI {
                     stringToPrint = Integer.toString(((PlayerEntity) e).getStunTime());
                 } else {
                     stringToPrint = Integer.toString(e.getEnergy());
+                    stringToPrint = String.format("A%n" + stringToPrint);
                 }
 
                 break;
