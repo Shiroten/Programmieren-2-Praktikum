@@ -25,8 +25,10 @@ public class BoardConfig {
     private final int GOODBEAST_VIEW_DISTANCE;
     private final int BADBEAST_VIEW_DISTANCE;
 
+    private final GameType gameType;
 
-    public BoardConfig(XY size, int TICKLENGTH, int NUMBER_OF_GB, int NUMBER_OF_BB, int NUMBER_OF_GP, int NUMBER_OF_BP, int NUMBER_OF_WA, int GOODBEAST_VIEW_DISTANCE, int BADBEAST_VIEW_DISTANCE) {
+
+    public BoardConfig(XY size, int TICKLENGTH, int NUMBER_OF_GB, int NUMBER_OF_BB, int NUMBER_OF_GP, int NUMBER_OF_BP, int NUMBER_OF_WA, int GOODBEAST_VIEW_DISTANCE, int BADBEAST_VIEW_DISTANCE, GameType gameType) {
         this.size = size;
         this.TICKLENGTH = TICKLENGTH;
         this.NUMBER_OF_GB = NUMBER_OF_GB;
@@ -39,14 +41,19 @@ public class BoardConfig {
         this.MINI_SQUIRREL_MOVE_TIME_IN_TICKS = (int) (TICKLENGTH * MINI_SQUIRREL_MOVE_TIME_LENGTH);
         this.GOODBEAST_VIEW_DISTANCE = GOODBEAST_VIEW_DISTANCE;
         this.BADBEAST_VIEW_DISTANCE = BADBEAST_VIEW_DISTANCE;
+        this.gameType = gameType;
     }
 
     public BoardConfig(XY size) {
-        this(size, 1, 7, 7, 7, 7, 7, 6, 6);
+        this(size, 1, 7, 7, 7, 7, 7, 6, 6, GameType.SINGLE_PLAYER);
+    }
+
+    public GameType getGameType() {
+        return gameType;
     }
 
     public BoardConfig(XY size, int NUMBER_OF_GB, int NUMBER_OF_BB, int NUMBER_OF_GP, int NUMBER_OF_BP, int NUMBER_OF_WA) {
-        this(size, 60, NUMBER_OF_GB, NUMBER_OF_BB, NUMBER_OF_GP, NUMBER_OF_BP, NUMBER_OF_WA, 6, 6);
+        this(size, 60, NUMBER_OF_GB, NUMBER_OF_BB, NUMBER_OF_GP, NUMBER_OF_BP, NUMBER_OF_WA, 6, 6, GameType.SINGLE_PLAYER);
     }
 
     public XY getSize() {

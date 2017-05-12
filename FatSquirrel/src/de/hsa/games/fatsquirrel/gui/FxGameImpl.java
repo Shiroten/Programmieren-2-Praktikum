@@ -14,11 +14,13 @@ public class FxGameImpl extends Game {
     private HandOperatedMasterSquirrel masterSquirrel;
     private Command spawnMiniSquirrel = null;
 
+    public FxGameImpl(){}
+
     public FxGameImpl(FxUI fxUI, State state) {
 
         this.setUi(fxUI);
         this.setState(state);
-        this.masterSquirrel = this.getState().getBoard().getMasterSquirrel();
+        this.masterSquirrel = (HandOperatedMasterSquirrel) this.getState().getBoard().getMasterSquirrel();
     }
 
     protected void processInput() {

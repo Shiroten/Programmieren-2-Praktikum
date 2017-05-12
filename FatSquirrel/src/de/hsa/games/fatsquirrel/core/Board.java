@@ -7,11 +7,11 @@ public class Board {
     private EntitySet set;
     private BoardConfig config;
     private int idCounter = 0;
-    private HandOperatedMasterSquirrel masterSquirrel;
+    private MasterSquirrel masterSquirrel;
 
     public Board() {
         this.set = new EntitySet(new XY(20,20));
-        this.config = new BoardConfig(new XY(20, 20), 60, 7, 7, 7, 7, 7, 6, 6);
+        this.config = new BoardConfig(new XY(20, 20), 60, 7, 7, 7, 7, 7, 6, 6, GameType.PACMAN);
         initBoard();
     }
 
@@ -59,7 +59,7 @@ public class Board {
         addEntity(EntityType.GOODBEAST, config.getNUMBER_OF_GB());
         addEntity(EntityType.GOODPLANT, config.getNUMBER_OF_GP());
 
-        addEntity(EntityType.HANDOPERATEDMASTERSQUIRREL, 1);
+        addEntity(EntityType.MASTERSQUIRREL, 1);
 
     }
 
@@ -83,7 +83,7 @@ public class Board {
 
     public void addEntity(EntityType type, int ammount) {
 
-        Entity addEntity = null;
+        Entity entityToAdd = null;
         for (int i = 0; i < ammount; i++) {
 
             XY position = randomPosition(config.getSize());
@@ -91,29 +91,35 @@ public class Board {
 
             switch (type) {
                 case WALL:
-                    addEntity = new Wall(setID(), new XY(randomX, randomY));
+                    entityToAdd = new Wall(setID(), new XY(randomX, randomY));
                     break;
                 case BADBEAST:
-                    addEntity = new BadBeast(setID(), new XY(randomX, randomY));
+                    entityToAdd = new BadBeast(setID(), new XY(randomX, randomY));
                     break;
                 case BADPLANT:
-                    addEntity = new BadPlant(setID(), new XY(randomX, randomY));
+                    entityToAdd = new BadPlant(setID(), new XY(randomX, randomY));
                     break;
                 case GOODBEAST:
-                    addEntity = new GoodBeast(setID(), new XY(randomX, randomY));
+                    entityToAdd = new GoodBeast(setID(), new XY(randomX, randomY));
                     break;
                 case GOODPLANT:
-                    addEntity = new GoodPlant(setID(), new XY(randomX, randomY));
+                    entityToAdd = new GoodPlant(setID(), new XY(randomX, randomY));
                     break;
                 case HANDOPERATEDMASTERSQUIRREL:
-                    addEntity = new HandOperatedMasterSquirrel(setID(), new XY(randomX, randomY));
-                    masterSquirrel = (HandOperatedMasterSquirrel)addEntity;
+                    entityToAdd = new HandOperatedMasterSquirrel(setID(), new XY(randomX, randomY));
+                    masterSquirrel = (HandOperatedMasterSquirrel)entityToAdd;
                     break;
                 case MASTERSQUIRREL:
-                    addEntity = new MasterSquirrel(setID(), new XY(randomX, randomY));
+                    if(config.getGameType() == GameType.BOT_SINGLE)
+                        entityToAdd = new MasterSquirrelBot(setID(), new XY(randomX, randomY));
+                    else if(config.getGameType() == GameType.SINGLE_PLAYER)
+                        entityToAdd = new HandOperatedMasterSquirrel(setID(), new XY(randomX, randomY));
+                    else
+                        entityToAdd = new MasterSquirrel(setID(), new XY(randomX, randomY));
+                    masterSquirrel = (MasterSquirrel) entityToAdd;
                     break;
             }
-            set.add(addEntity);
+            set.add(entityToAdd);
 
         }
 
@@ -219,7 +225,7 @@ public class Board {
         this.set.add(toAdd);
     }
 
-    public HandOperatedMasterSquirrel getMasterSquirrel() {
+    public MasterSquirrel getMasterSquirrel() {
         return masterSquirrel;
     }
 }

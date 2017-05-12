@@ -19,7 +19,7 @@ public class GameImpl extends Game {
     public GameImpl() {
         this.setUi(new ConsoleUI());
         this.setState(new State());
-        this.masterSquirrel = this.getState().getBoard().getMasterSquirrel();
+        this.masterSquirrel = (HandOperatedMasterSquirrel) this.getState().getBoard().getMasterSquirrel();
     }
 
     protected void processInput() {

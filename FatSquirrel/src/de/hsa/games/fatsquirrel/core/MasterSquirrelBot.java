@@ -8,7 +8,7 @@ import de.hsa.games.fatsquirrel.botapi.ControllerContext;
 /**
  * Created by tillm on 09.05.2017.
  */
-public class MasterSquirrelBot {
+public class MasterSquirrelBot extends MasterSquirrel{
     class ControllerContextImpl implements ControllerContext{
 
         @Override
@@ -45,7 +45,8 @@ public class MasterSquirrelBot {
     private BotController masterBotController;
     private BotControllerFactory factory = new BotControllerFactory();
 
-    public MasterSquirrelBot(){
+    public MasterSquirrelBot(int id, XY position){
+        super(id, position);
         this.masterBotController = factory.createMasterBotController();
     }
 

@@ -1,5 +1,6 @@
 package de.hsa.games.fatsquirrel;
 
+import de.hsa.games.fatsquirrel.botapi.BotGameImpl;
 import de.hsa.games.fatsquirrel.gui.FxGameImpl;
 import de.hsa.games.fatsquirrel.gui.FxUI;
 import de.hsa.games.fatsquirrel.util.ui.consoletest.MyFavoriteCommandsProcessor;
@@ -109,12 +110,13 @@ public class Launcher extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        BoardConfig config = new BoardConfig(new XY(20, 20), FRAMERATE, 50, 0, 0, 0, 50, 20, 20);
-        Board board = new Board(config);
-        State state = new State(board);
+        GameType gameType = GameType.BOT_SINGLE;
+
+        State state = new State(new XY(20, 20), FRAMERATE, 50, 0, 0, 0, 50, 20, 20, gameType);
 
         FxUI fxUI = FxUI.createInstance(state.getBoard().getConfig().getSize());
-        final Game game = new FxGameImpl(fxUI, state);
+        //final Game game = new FxGameImpl(fxUI, state);
+        final Game game = new BotGameImpl(fxUI, state);
 
         primaryStage.setScene(fxUI);
         primaryStage.setTitle("Diligent Squirrel");

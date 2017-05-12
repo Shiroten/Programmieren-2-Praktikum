@@ -12,6 +12,7 @@ public class BotControllerFactory implements de.hsa.games.fatsquirrel.botapi.Bot
         return new BotController() {
             @Override
             public void nextStep(ControllerContext view) {
+
                 view.move(Vector.randomDirection());
             }
         };
@@ -21,6 +22,7 @@ public class BotControllerFactory implements de.hsa.games.fatsquirrel.botapi.Bot
         return new BotController() {
             @Override
             public void nextStep(ControllerContext view) {
+
                 view.move(Vector.randomDirection());
             }
         };
