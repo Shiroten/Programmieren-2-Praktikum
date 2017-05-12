@@ -4,6 +4,10 @@ import de.hsa.games.fatsquirrel.Launcher;
 import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.core.Pac.PacSquirrel;
+import de.hsa.games.fatsquirrel.core.character.*;
+import de.hsa.games.fatsquirrel.core.entity.Entity;
+import de.hsa.games.fatsquirrel.core.entity.EntityContext;
+import de.hsa.games.fatsquirrel.core.entity.EntityType;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

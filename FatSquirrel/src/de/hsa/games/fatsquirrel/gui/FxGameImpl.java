@@ -3,9 +3,9 @@ package de.hsa.games.fatsquirrel.gui;
 import de.hsa.games.fatsquirrel.*;
 import de.hsa.games.fatsquirrel.console.NotEnoughEnergyException;
 import de.hsa.games.fatsquirrel.core.*;
-import de.hsa.games.fatsquirrel.core.EntityType;
-import de.hsa.games.fatsquirrel.core.HandOperatedMasterSquirrel;
-import de.hsa.games.fatsquirrel.core.StandardMiniSquirrel;
+import de.hsa.games.fatsquirrel.core.entity.EntityType;
+import de.hsa.games.fatsquirrel.core.character.HandOperatedMasterSquirrel;
+import de.hsa.games.fatsquirrel.core.character.StandardMiniSquirrel;
 import de.hsa.games.fatsquirrel.util.ui.Command;
 
 import java.util.logging.Level;

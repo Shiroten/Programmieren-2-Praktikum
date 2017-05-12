@@ -4,10 +4,10 @@ import de.hsa.games.fatsquirrel.UI;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.console.GameCommandType;
 import de.hsa.games.fatsquirrel.core.*;
-import de.hsa.games.fatsquirrel.core.EntityType;
-import de.hsa.games.fatsquirrel.core.BadBeast;
-import de.hsa.games.fatsquirrel.core.PlayerEntity;
-import de.hsa.games.fatsquirrel.core.Entity;
+import de.hsa.games.fatsquirrel.core.entity.EntityType;
+import de.hsa.games.fatsquirrel.core.character.BadBeast;
+import de.hsa.games.fatsquirrel.core.character.PlayerEntity;
+import de.hsa.games.fatsquirrel.core.entity.Entity;
 import de.hsa.games.fatsquirrel.util.ui.Command;
 
 import javafx.application.Platform;

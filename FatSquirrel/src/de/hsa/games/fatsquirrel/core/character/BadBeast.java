@@ -1,7 +1,9 @@
-package de.hsa.games.fatsquirrel.core;
+package de.hsa.games.fatsquirrel.core.character;
 
 import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
+import de.hsa.games.fatsquirrel.core.entity.EntityContext;
+import de.hsa.games.fatsquirrel.core.entity.EntityType;
 
 public class BadBeast extends Character {
     public static final int START_ENERGY = -150;
@@ -37,7 +39,7 @@ public class BadBeast extends Character {
     }
 
     public String toString() {
-        return ("de.hsa.games.fatsquirrel.core.BadBeast: " + super.toString());
+        return ("de.hsa.games.fatsquirrel.core.character.BadBeast: " + super.toString());
     }
 
     public void bites() {
