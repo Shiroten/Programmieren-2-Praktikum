@@ -110,7 +110,7 @@ public class Launcher extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        GameType gameType = GameType.BOT_MULTI;
+        GameType gameType = GameType.WITH_BOT;
 
         State state = new State(new XY(40, 20), FRAMERATE, 50, 2, 2, 2, 50, 20, 20, gameType);
 

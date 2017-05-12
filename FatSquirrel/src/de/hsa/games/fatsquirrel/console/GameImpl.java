@@ -13,13 +13,13 @@ import java.lang.reflect.Method;
 
 public class GameImpl extends Game {
 
-    private HandOperatedMasterSquirrel masterSquirrel;
+    private HandOperatedMasterSquirrel handOperatedMasterSquirrel;
 
 
     public GameImpl() {
         this.setUi(new ConsoleUI());
         this.setState(new State());
-        this.masterSquirrel = (HandOperatedMasterSquirrel) this.getState().getBoard().getMasterSquirrel();
+        this.handOperatedMasterSquirrel = (HandOperatedMasterSquirrel) this.getState().getBoard().getHandOperatedMasterSquirrel();
     }
 
     protected void processInput() {
@@ -56,31 +56,31 @@ public class GameImpl extends Game {
     }
 
     private void moveUp() {
-        masterSquirrel.setCommand(MoveCommand.NORTH);
+        handOperatedMasterSquirrel.setCommand(MoveCommand.NORTH);
     }
 
     private void moveDown() {
-        masterSquirrel.setCommand(MoveCommand.SOUTH);
+        handOperatedMasterSquirrel.setCommand(MoveCommand.SOUTH);
     }
 
     private void moveLeft() {
-        masterSquirrel.setCommand(MoveCommand.WEST);
+        handOperatedMasterSquirrel.setCommand(MoveCommand.WEST);
     }
 
     private void moveRight() {
-        masterSquirrel.setCommand(MoveCommand.EAST);
+        handOperatedMasterSquirrel.setCommand(MoveCommand.EAST);
     }
 
     private void masterEnergy() {
-        System.out.println("Energy vom MasterSquirrel: " + masterSquirrel.getEnergy());
+        System.out.println("Energy vom MasterSquirrel: " + handOperatedMasterSquirrel.getEnergy());
     }
 
     private void spawnMini(int energy) throws NotEnoughEnergyException {
 
-        XY locationOfMaster = masterSquirrel.getCoordinate();
+        XY locationOfMaster = handOperatedMasterSquirrel.getCoordinate();
         for (MoveCommand offset : MoveCommand.values()) {
             //Wenn dieses Feld leer ist....
-            if (masterSquirrel.getEnergy() >= energy) {
+            if (handOperatedMasterSquirrel.getEnergy() >= energy) {
                 if (this.getState().flattenBoard().getEntityType(locationOfMaster.addVector(Vector.moveCommandToVector(offset))) == EntityType.EMPTY) {
 
                     //Füge neues StandardMiniSquirrel hinzu zum Board
@@ -89,7 +89,7 @@ public class GameImpl extends Game {
                                     this.getState().getBoard().setID(),
                                     (locationOfMaster.addVector(Vector.moveCommandToVector(offset))),
                                     energy,
-                                    masterSquirrel));
+                                    handOperatedMasterSquirrel));
                     return;
                 }
             } else {

@@ -8,10 +8,12 @@ public class Board {
     private BoardConfig config;
     private int idCounter = 0;
 
-    private MasterSquirrel masterSquirrel;
+    private HandOperatedMasterSquirrel handOperatedMasterSquirrel;
+    private MasterSquirrel masterSquirrel[] = new MasterSquirrel[10];
 
     public Board() {
-        this.set = new EntitySet(new XY(20,20));
+
+        this.set = new EntitySet(new XY(20, 20));
         this.config = new BoardConfig(new XY(20, 20), 60, 7, 7, 7, 7, 7, 6, 6, GameType.PACMAN);
         initBoard();
     }
@@ -38,8 +40,7 @@ public class Board {
                 Entity dummy = set.getEntity(i);
                 try {
                     list[dummy.getCoordinate().getY()][dummy.getCoordinate().getX()] = dummy;
-                }
-                catch(Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     System.out.println(dummy.toString());
                 }
@@ -60,17 +61,17 @@ public class Board {
         addEntity(EntityType.GOODBEAST, config.getNUMBER_OF_GB());
         addEntity(EntityType.GOODPLANT, config.getNUMBER_OF_GP());
 
-        if (config.getGameType() == GameType.BOT_MULTI){
+        if (config.getGameType() == GameType.WITH_BOT) {
             addEntity(EntityType.MASTERSQUIRREL, 3);
             //Todo: Add HandOperatedMasterSquirrel
-            //addEntity(EntityType.HANDOPERATEDMASTERSQUIRREL, 1);
+            addEntity(EntityType.HANDOPERATEDMASTERSQUIRREL, 1);
         } else {
             addEntity(EntityType.MASTERSQUIRREL, 1);
         }
 
     }
 
-    private void initOuterWalls(){
+    private void initOuterWalls() {
         int WallIDs = setID();
         int x = config.getSize().getX(), y = config.getSize().getY();
         for (int i = 0; i < x; i++) {
@@ -114,24 +115,24 @@ public class Board {
                     break;
                 case HANDOPERATEDMASTERSQUIRREL:
                     entityToAdd = new HandOperatedMasterSquirrel(setID(), new XY(randomX, randomY));
-                    masterSquirrel = (HandOperatedMasterSquirrel)entityToAdd;
+                    this.handOperatedMasterSquirrel = (HandOperatedMasterSquirrel) entityToAdd;
                     break;
                 case MASTERSQUIRREL:
-                    if(config.getGameType() == GameType.BOT_SINGLE)
+                    if (config.getGameType() == GameType.WITH_BOT) {
                         entityToAdd = new MasterSquirrelBot(setID(), new XY(randomX, randomY));
-                    else if(config.getGameType() == GameType.BOT_MULTI){
-                        entityToAdd = new MasterSquirrelBot(setID(), new XY(randomX, randomY));
-                    }
-                    else if(config.getGameType() == GameType.SINGLE_PLAYER)
+                    } else {
                         entityToAdd = new HandOperatedMasterSquirrel(setID(), new XY(randomX, randomY));
-                    else
-                        entityToAdd = new MasterSquirrel(setID(), new XY(randomX, randomY));
-                    masterSquirrel = (MasterSquirrel) entityToAdd;
+                        this.handOperatedMasterSquirrel = (HandOperatedMasterSquirrel) entityToAdd;
+                    }
                     break;
             }
             set.add(entityToAdd);
 
         }
+
+    }
+
+    public void addMasterSquirrel() {
 
     }
 
@@ -155,10 +156,6 @@ public class Board {
             case GOODPLANT:
                 addEntity = new GoodPlant(setID(), position);
                 break;
-            case MASTERSQUIRREL:
-                if (config.getGameType() == GameType.BOT_MULTI){
-                    addEntity = new MasterSquirrelBot(setID(), position);
-                }
         }
         set.add(addEntity);
 
@@ -190,56 +187,59 @@ public class Board {
         return new XY(newX, newY);
     }
 
-    public void killEntity(Entity e){
+    public void killEntity(Entity e) {
         this.set.delete(e);
     }
 
-    private void initPac(){
-        if(this.config.getSize().getX()  == 20 && this.getConfig().getSize().getY() == 20){
+    private void initPac() {
+        if (this.config.getSize().getX() == 20 && this.getConfig().getSize().getY() == 20) {
             initOuterWalls();
             String field =
-                "000X0000000000X000|" +
-                "0X0X0XXXX0XXX0X0X0|" +
-                "0X0x0xxxx0xxx0x0x0|" +
-                "00000x000000x000x0|" +
-                "xxxx0x0xxxx0x0x0x0|" +
-                "00000x0x00000000x0|" +
-                "0xxx000x0xxxxxx000|" +
-                "0x000xxx0xxxxxx0xx|" +
-                "0x0x0x00000000x000|" +
-                "000X000xx0xxx0X000|" +
-                "0X0X0XXXX0XXX0X0X0|" +
-                "0X0x0xxxx0xxx0x0x0|" +
-                "00000x000000x000x0|" +
-                "xxxx0x0xxxx0x0x0x0|" +
-                "00000x0x00000000x0|" +
-                "0xx0000x0xx0x0x000|" +
-                "0xx0xxxx0xx0x0x0xx|" +
-                "000000000000x00000|";
+                    "000X0000000000X000|" +
+                            "0X0X0XXXX0XXX0X0X0|" +
+                            "0X0x0xxxx0xxx0x0x0|" +
+                            "00000x000000x000x0|" +
+                            "xxxx0x0xxxx0x0x0x0|" +
+                            "00000x0x00000000x0|" +
+                            "0xxx000x0xxxxxx000|" +
+                            "0x000xxx0xxxxxx0xx|" +
+                            "0x0x0x00000000x000|" +
+                            "000X000xx0xxx0X000|" +
+                            "0X0X0XXXX0XXX0X0X0|" +
+                            "0X0x0xxxx0xxx0x0x0|" +
+                            "00000x000000x000x0|" +
+                            "xxxx0x0xxxx0x0x0x0|" +
+                            "00000x0x00000000x0|" +
+                            "0xx0000x0xx0x0x000|" +
+                            "0xx0xxxx0xx0x0x0xx|" +
+                            "000000000000x00000|";
             parseWalls(field);
         }
     }
 
-    private void parseWalls(String field){
+    private void parseWalls(String field) {
         int x = 0, y = 1;
         field = field.toUpperCase();
-        for(char c : field.toCharArray()){
+        for (char c : field.toCharArray()) {
             x++;
-            if(c == 'X' ){
+            if (c == 'X') {
                 addEntity(EntityType.WALL, new XY(x, y));
-            }
-            else if(c == '|'){
+            } else if (c == '|') {
                 x = 0;
                 y++;
             }
         }
     }
 
-    public void add(Entity toAdd){
+    public void add(Entity toAdd) {
         this.set.add(toAdd);
     }
 
-    public MasterSquirrel getMasterSquirrel() {
+    public HandOperatedMasterSquirrel getHandOperatedMasterSquirrel() {
+        return handOperatedMasterSquirrel;
+    }
+
+    public MasterSquirrel[] getMasterSquirrel() {
         return masterSquirrel;
     }
 }
