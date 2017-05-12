@@ -9,7 +9,9 @@ import de.hsa.games.fatsquirrel.botapi.ControllerContext;
  * Created by tillm on 09.05.2017.
  */
 public class MasterSquirrelBot extends MasterSquirrel{
+
     class ControllerContextImpl implements ControllerContext{
+
 
         @Override
         public XY getViewLowerLeft() {
@@ -51,6 +53,7 @@ public class MasterSquirrelBot extends MasterSquirrel{
     }
 
     public void nextStep(ControllerContext view){
+
         masterBotController.nextStep(view);
     }
 
