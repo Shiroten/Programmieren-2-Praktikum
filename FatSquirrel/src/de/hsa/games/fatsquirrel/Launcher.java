@@ -1,8 +1,8 @@
 package de.hsa.games.fatsquirrel;
 
 import de.hsa.games.fatsquirrel.botapi.BotGameImpl;
-import de.hsa.games.fatsquirrel.core.entity.character.HandOperatedMasterSquirrel;
-import de.hsa.games.fatsquirrel.core.entity.Entity;
+import de.hsa.games.fatsquirrel.core.HandOperatedMasterSquirrel;
+import de.hsa.games.fatsquirrel.core.Entity;
 import de.hsa.games.fatsquirrel.gui.FxUI;
 import de.hsa.games.fatsquirrel.util.ui.consoletest.MyFavoriteCommandsProcessor;
 import de.hsa.games.fatsquirrel.console.ConsoleUI;
@@ -35,13 +35,25 @@ public class Launcher extends Application {
             e.printStackTrace();
         }
 
-        Application.launch(args);
+        int switchMode = 0;
 
-        //For SingleThreaded Console Game
-        //consoleTest();
+        switch (switchMode) {
+            case 0:
+                Application.launch(args);
+                break;
+            case 1:
+                //For SingleThreaded Console Game
+                consoleTest();
+                break;
+            case 2:
+                commandTest();
+                break;
+            case 3:
+                consoleUiTest();
+        }
     }
 
-    private static void uiTest() {
+    private static void consoleUiTest() {
         BoardConfig config = new BoardConfig(new XY(21, 21), 50, 7, 7, 7, 7);
         //config = new BoardConfig(new XY(10,10));
         Board board = new Board(config);

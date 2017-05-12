@@ -3,9 +3,9 @@ package de.hsa.games.fatsquirrel.core.Pac;
 import de.hsa.games.fatsquirrel.MoveCommand;
 import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
-import de.hsa.games.fatsquirrel.core.entity.EntityContext;
-import de.hsa.games.fatsquirrel.core.entity.EntityType;
-import de.hsa.games.fatsquirrel.core.entity.character.HandOperatedMasterSquirrel;
+import de.hsa.games.fatsquirrel.core.EntityContext;
+import de.hsa.games.fatsquirrel.core.EntityType;
+import de.hsa.games.fatsquirrel.core.HandOperatedMasterSquirrel;
 
 public class PacSquirrel extends HandOperatedMasterSquirrel {
     public static final int START_ENERGY = 1000;

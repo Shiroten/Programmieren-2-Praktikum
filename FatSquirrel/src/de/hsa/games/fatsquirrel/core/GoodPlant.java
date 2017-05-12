@@ -1,4 +1,4 @@
-package de.hsa.games.fatsquirrel.core.entity;
+package de.hsa.games.fatsquirrel.core;
 
 import de.hsa.games.fatsquirrel.XY;
 
@@ -17,6 +17,6 @@ public class GoodPlant extends Entity {
     }
 
     public String toString() {
-        return ("de.hsa.games.fatsquirrel.core.entity.GoodPlant: " + super.toString());
+        return ("de.hsa.games.fatsquirrel.core.GoodPlant: " + super.toString());
     }
 }

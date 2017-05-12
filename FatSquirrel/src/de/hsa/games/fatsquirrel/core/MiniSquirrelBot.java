@@ -1,11 +1,10 @@
-package de.hsa.games.fatsquirrel.core.entity.character;
+package de.hsa.games.fatsquirrel.core;
 
 import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.botapi.BotController;
 import de.hsa.games.fatsquirrel.botapi.ControllerContext;
 import de.hsa.games.fatsquirrel.botapi.BotControllerFactoryImpl;
-import de.hsa.games.fatsquirrel.core.entity.EntityType;
 
 public class MiniSquirrelBot extends MiniSquirrel {
     class ControllerContextImpl implements ControllerContext {

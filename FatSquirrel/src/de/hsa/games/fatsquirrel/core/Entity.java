@@ -1,4 +1,4 @@
-package de.hsa.games.fatsquirrel.core.entity;
+package de.hsa.games.fatsquirrel.core;
 
 import de.hsa.games.fatsquirrel.XY;
 

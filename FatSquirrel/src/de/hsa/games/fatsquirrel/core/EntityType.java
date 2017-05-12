@@ -1,4 +1,4 @@
-package de.hsa.games.fatsquirrel.core.entity;
+package de.hsa.games.fatsquirrel.core;
 
 public enum EntityType {
     BADBEAST, GOODBEAST, BADPLANT, GOODPLANT, WALL, MASTERSQUIRREL, MINISQUIRREL, HANDOPERATEDMASTERSQUIRREL, PACSQUIRREL ,EMPTY

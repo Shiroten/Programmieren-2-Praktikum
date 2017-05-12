@@ -2,8 +2,7 @@ package de.hsa.games.fatsquirrel.core;
 
 import de.hsa.games.fatsquirrel.GameType;
 import de.hsa.games.fatsquirrel.XY;
-import de.hsa.games.fatsquirrel.core.entity.*;
-import de.hsa.games.fatsquirrel.core.entity.character.*;
+
 
 public class Board {
 

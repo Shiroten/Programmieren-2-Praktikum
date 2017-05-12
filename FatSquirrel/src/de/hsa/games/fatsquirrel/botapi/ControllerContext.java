@@ -2,7 +2,7 @@ package de.hsa.games.fatsquirrel.botapi;
 
 import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
-import de.hsa.games.fatsquirrel.core.entity.EntityType;
+import de.hsa.games.fatsquirrel.core.EntityType;
 
 public interface ControllerContext {
     XY getViewLowerLeft();

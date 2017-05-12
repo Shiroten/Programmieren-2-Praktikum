@@ -1,10 +1,8 @@
-package de.hsa.games.fatsquirrel.core.entity.character;
+package de.hsa.games.fatsquirrel.core;
 
 import de.hsa.games.fatsquirrel.Launcher;
 import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
-import de.hsa.games.fatsquirrel.core.entity.EntityContext;
-import de.hsa.games.fatsquirrel.core.entity.EntityType;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,7 +28,7 @@ public class MiniSquirrel extends PlayerEntity {
     }
 
     public String toString() {
-        return ("de.hsa.games.fatsquirrel.core.entity.character.MiniSquirrel: " + super.toString() + "Luke, wer ist dein Vater? ParentID:" + daddy.getId());
+        return ("de.hsa.games.fatsquirrel.core.MiniSquirrel: " + super.toString() + "Luke, wer ist dein Vater? ParentID:" + daddy.getId());
     }
 
     public void nextStep(EntityContext context) {

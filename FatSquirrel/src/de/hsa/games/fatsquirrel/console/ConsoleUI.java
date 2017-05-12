@@ -3,7 +3,7 @@ package de.hsa.games.fatsquirrel.console;
 import de.hsa.games.fatsquirrel.UI;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.core.BoardView;
-import de.hsa.games.fatsquirrel.core.entity.EntityType;
+import de.hsa.games.fatsquirrel.core.EntityType;
 import de.hsa.games.fatsquirrel.util.ui.Command;
 import de.hsa.games.fatsquirrel.util.ui.CommandScanner;
 import de.hsa.games.fatsquirrel.util.ui.CommandTypeInfo;

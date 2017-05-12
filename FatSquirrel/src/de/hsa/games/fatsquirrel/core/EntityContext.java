@@ -1,9 +1,8 @@
-package de.hsa.games.fatsquirrel.core.entity;
+package de.hsa.games.fatsquirrel.core;
 
 import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.core.Pac.PacSquirrel;
-import de.hsa.games.fatsquirrel.core.entity.character.*;
 
 public interface EntityContext {
     XY getSize();

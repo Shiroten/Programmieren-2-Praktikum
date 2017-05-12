@@ -1,10 +1,8 @@
-package de.hsa.games.fatsquirrel.core.entity.character;
+package de.hsa.games.fatsquirrel.core;
 
 import de.hsa.games.fatsquirrel.MoveCommand;
 import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
-import de.hsa.games.fatsquirrel.core.entity.EntityContext;
-import de.hsa.games.fatsquirrel.core.entity.EntityType;
 
 public class HandOperatedMasterSquirrel extends MasterSquirrel {
 

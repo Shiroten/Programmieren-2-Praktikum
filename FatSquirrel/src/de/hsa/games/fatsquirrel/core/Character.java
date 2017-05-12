@@ -1,8 +1,8 @@
-package de.hsa.games.fatsquirrel.core.entity.character;
+package de.hsa.games.fatsquirrel.core;
 
 import de.hsa.games.fatsquirrel.XY;
-import de.hsa.games.fatsquirrel.core.entity.Entity;
-import de.hsa.games.fatsquirrel.core.entity.EntityContext;
+import de.hsa.games.fatsquirrel.core.Entity;
+import de.hsa.games.fatsquirrel.core.EntityContext;
 
 public abstract class Character extends Entity {
     Character(int energy, int id, XY coordinate){
