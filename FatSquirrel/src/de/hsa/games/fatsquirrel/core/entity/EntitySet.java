@@ -1,17 +1,14 @@
-package de.hsa.games.fatsquirrel.core;
+package de.hsa.games.fatsquirrel.core.entity;
 
-import de.hsa.games.fatsquirrel.MoveCommand;
 import de.hsa.games.fatsquirrel.XY;
-import de.hsa.games.fatsquirrel.core.Pac.PacSquirrel;
+import de.hsa.games.fatsquirrel.core.entity.character.Character;
+import de.hsa.games.fatsquirrel.core.entity.character.HandOperatedMasterSquirrel;
 
-/**
- * Created by Shiroten on 01.04.2017.
- */
 public class EntitySet {
 
     private final int numberOfMaxEntities;
     private Entity[] entityList;
-    //private ArrayList<de.hsa.games.fatsquirrel.core.Entity> entityList = new ArrayList<de.hsa.games.fatsquirrel.core.Entity>();
+    //private ArrayList<de.hsa.games.fatsquirrel.core.entity.Entity> entityList = new ArrayList<de.hsa.games.fatsquirrel.core.entity.Entity>();
 
     public EntitySet (XY size){
         numberOfMaxEntities = size.getX()*size.getY();

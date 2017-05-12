@@ -1,8 +1,9 @@
 package de.hsa.games.fatsquirrel.core;
 
+import de.hsa.games.fatsquirrel.GameType;
 import de.hsa.games.fatsquirrel.Launcher;
-import de.hsa.games.fatsquirrel.MoveCommand;
 import de.hsa.games.fatsquirrel.XY;
+import de.hsa.games.fatsquirrel.core.entity.Entity;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;

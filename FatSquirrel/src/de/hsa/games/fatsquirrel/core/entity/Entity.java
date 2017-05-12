@@ -1,10 +1,7 @@
-package de.hsa.games.fatsquirrel.core;
+package de.hsa.games.fatsquirrel.core.entity;
 
 import de.hsa.games.fatsquirrel.XY;
 
-/**
- * Created by tillm on 28.03.2017.
- */
 public abstract class Entity {
     private final int id;
     protected int energy;
@@ -48,7 +45,7 @@ public abstract class Entity {
 
     public EntityType getEntityType(){
         return EntityType.EMPTY;
-    };
+    }
 
     @Override
     public String toString() {

@@ -2,11 +2,8 @@ package de.hsa.games.fatsquirrel.botapi;
 
 import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
-import de.hsa.games.fatsquirrel.core.EntityType;
+import de.hsa.games.fatsquirrel.core.entity.EntityType;
 
-/**
- * Created by tillm on 09.05.2017.
- */
 public interface ControllerContext {
     XY getViewLowerLeft();
     XY getViewUpperRight();

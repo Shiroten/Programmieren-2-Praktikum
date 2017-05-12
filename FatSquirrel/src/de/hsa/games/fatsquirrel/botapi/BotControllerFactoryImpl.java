@@ -1,13 +1,10 @@
-package de.hsa.games.fatsquirrel.core;
+package de.hsa.games.fatsquirrel.botapi;
 
 import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.botapi.BotController;
 import de.hsa.games.fatsquirrel.botapi.ControllerContext;
 
-/**
- * Created by tillm on 09.05.2017.
- */
-public class BotControllerFactory implements de.hsa.games.fatsquirrel.botapi.BotControllerFactory{
+public class BotControllerFactoryImpl implements de.hsa.games.fatsquirrel.botapi.BotControllerFactory{
     public BotController createMasterBotController(){
         return new BotController() {
             @Override

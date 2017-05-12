@@ -1,16 +1,15 @@
-package de.hsa.games.fatsquirrel.core;
+package de.hsa.games.fatsquirrel.core.entity.character;
 
 import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
+import de.hsa.games.fatsquirrel.core.entity.EntityContext;
+import de.hsa.games.fatsquirrel.core.entity.EntityType;
 
-/**
- * Created by tillm on 29.03.2017.
- */
 public class MasterSquirrel extends PlayerEntity {
 
-    public static final int START_ENERGY = 1000;
+    private static final int START_ENERGY = 1000;
     public static final EntityType type = EntityType.MASTERSQUIRREL;
-    protected int moveCounter;
+    private int moveCounter;
 
     public EntityType getEntityType() {
         return type;
@@ -42,10 +41,7 @@ public class MasterSquirrel extends PlayerEntity {
     }
 
     public boolean mySquirrel(MiniSquirrel squirrelToCheck) {
-        if (this == squirrelToCheck.getDaddy()) {
-            return true;
-        }
-        return false;
+        return this == squirrelToCheck.getDaddy();
     }
 
 }

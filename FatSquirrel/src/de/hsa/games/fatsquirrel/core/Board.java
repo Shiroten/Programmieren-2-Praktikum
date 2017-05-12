@@ -1,6 +1,9 @@
 package de.hsa.games.fatsquirrel.core;
 
+import de.hsa.games.fatsquirrel.GameType;
 import de.hsa.games.fatsquirrel.XY;
+import de.hsa.games.fatsquirrel.core.entity.*;
+import de.hsa.games.fatsquirrel.core.entity.character.*;
 
 public class Board {
 
@@ -63,7 +66,6 @@ public class Board {
 
         if (config.getGameType() == GameType.WITH_BOT) {
             addEntity(EntityType.MASTERSQUIRREL, 3);
-            //Todo: Add HandOperatedMasterSquirrel
             addEntity(EntityType.HANDOPERATEDMASTERSQUIRREL, 1);
         } else {
             addEntity(EntityType.MASTERSQUIRREL, 1);
@@ -89,7 +91,7 @@ public class Board {
         return idCounter++;
     }
 
-    public void addEntity(EntityType type, int ammount) {
+    private void addEntity(EntityType type, int ammount) {
 
         Entity entityToAdd = null;
         for (int i = 0; i < ammount; i++) {
@@ -136,7 +138,8 @@ public class Board {
 
     }
 
-    public Entity addEntity(EntityType type, XY position) {
+    //Package Private
+    Entity addEntity(EntityType type, XY position) {
 
         Entity addEntity = null;
 
@@ -162,7 +165,7 @@ public class Board {
         return addEntity;
     }
 
-    public XY randomPosition(XY size) {
+    private XY randomPosition(XY size) {
 
         boolean collision;
         int newX, newY;
@@ -186,8 +189,8 @@ public class Board {
         } while (collision);
         return new XY(newX, newY);
     }
-
-    public void killEntity(Entity e) {
+    //Package Private
+    void killEntity(Entity e) {
         this.set.delete(e);
     }
 

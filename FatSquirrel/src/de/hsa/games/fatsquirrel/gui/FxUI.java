@@ -4,6 +4,10 @@ import de.hsa.games.fatsquirrel.UI;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.console.GameCommandType;
 import de.hsa.games.fatsquirrel.core.*;
+import de.hsa.games.fatsquirrel.core.entity.EntityType;
+import de.hsa.games.fatsquirrel.core.entity.character.BadBeast;
+import de.hsa.games.fatsquirrel.core.entity.character.PlayerEntity;
+import de.hsa.games.fatsquirrel.core.entity.Entity;
 import de.hsa.games.fatsquirrel.util.ui.Command;
 
 import javafx.application.Platform;
@@ -26,9 +30,9 @@ public class FxUI extends Scene implements UI {
     private Label msgLabel;
     private static Command cmd = new Command(GameCommandType.NOTHING, new Object[0]);
 
-    final static int CELL_SIZE = 30;
+    private final static int CELL_SIZE = 30;
 
-    public FxUI(Parent parent, Canvas boardCanvas, Label msgLabel) {
+    private FxUI(Parent parent, Canvas boardCanvas, Label msgLabel) {
         super(parent);
         this.boardCanvas = boardCanvas;
         this.msgLabel = msgLabel;
@@ -123,7 +127,7 @@ public class FxUI extends Scene implements UI {
 
     private Color entityTypeToColor(Entity e) {
         EntityType et = e.getEntityType();
-        Color returnColor = Color.gray(0);
+        Color returnColor;
 
         switch (et) {
             case GOODPLANT:
@@ -186,6 +190,8 @@ public class FxUI extends Scene implements UI {
             case MASTERSQUIRREL:
                 if (((PlayerEntity) e).getStunTime() != 0) {
                     returnColor = Color.RED;
+                } else {
+                    returnColor = Color.WHITE;
                 }
                 break;
             case HANDOPERATEDMASTERSQUIRREL:
@@ -234,7 +240,7 @@ public class FxUI extends Scene implements UI {
                 if (((PlayerEntity) e).getStunTime() != 0) {
                     stringToPrint = Integer.toString(((PlayerEntity) e).getStunTime());
                 } else {
-                    stringToPrint = "MS";
+                    stringToPrint = Integer.toString(e.getEnergy());
                 }
 
                 break;
@@ -252,7 +258,7 @@ public class FxUI extends Scene implements UI {
         return stringToPrint;
     }
 
-    public void message(final String msg) {
+    void message(final String msg) {
         Platform.runLater(() -> msgLabel.setText(msg));
     }
 

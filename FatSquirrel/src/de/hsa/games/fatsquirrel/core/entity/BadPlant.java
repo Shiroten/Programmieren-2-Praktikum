@@ -1,10 +1,7 @@
-package de.hsa.games.fatsquirrel.core;
+package de.hsa.games.fatsquirrel.core.entity;
 
 import de.hsa.games.fatsquirrel.XY;
 
-/**
- * Created by tillm on 29.03.2017.
- */
 public class BadPlant extends Entity {
     public static final int START_ENERGY = -100;
     public static final EntityType type = EntityType.BADPLANT;
@@ -17,6 +14,6 @@ public class BadPlant extends Entity {
     }
 
     public String toString() {
-        return ("de.hsa.games.fatsquirrel.core.BadPlant: " + super.toString());
+        return ("de.hsa.games.fatsquirrel.core.entity.BadPlant: " + super.toString());
     }
 }

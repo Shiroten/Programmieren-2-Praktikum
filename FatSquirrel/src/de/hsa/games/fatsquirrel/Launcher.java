@@ -1,7 +1,8 @@
 package de.hsa.games.fatsquirrel;
 
 import de.hsa.games.fatsquirrel.botapi.BotGameImpl;
-import de.hsa.games.fatsquirrel.gui.FxGameImpl;
+import de.hsa.games.fatsquirrel.core.entity.character.HandOperatedMasterSquirrel;
+import de.hsa.games.fatsquirrel.core.entity.Entity;
 import de.hsa.games.fatsquirrel.gui.FxUI;
 import de.hsa.games.fatsquirrel.util.ui.consoletest.MyFavoriteCommandsProcessor;
 import de.hsa.games.fatsquirrel.console.ConsoleUI;
@@ -22,7 +23,7 @@ public class Launcher extends Application {
     public static void main(String[] args) {
 
         Logger logger = Logger.getLogger(Launcher.class.getName());
-        logger.setLevel(Level.FINEST);
+        logger.setLevel(Level.FINER);
         try {
             Handler handler = new FileHandler("log.txt");
             SimpleFormatter formatter = new SimpleFormatter();
@@ -112,7 +113,7 @@ public class Launcher extends Application {
 
         GameType gameType = GameType.WITH_BOT;
 
-        State state = new State(new XY(40, 20), FRAMERATE, 50, 2, 2, 2, 50, 20, 20, gameType);
+        State state = new State(new XY(50, 30), FRAMERATE, 20, 5, 10, 5, 50, 10, 6, gameType);
 
         FxUI fxUI = FxUI.createInstance(state.getBoard().getConfig().getSize());
         //final Game game = new FxGameImpl(fxUI, state);

@@ -1,18 +1,16 @@
-package de.hsa.games.fatsquirrel.core;
+package de.hsa.games.fatsquirrel.core.entity.character;
 
 import de.hsa.games.fatsquirrel.XY;
 
-/**
- * Created by tillm on 22.04.2017.
- */
 public abstract class PlayerEntity extends Character {
     protected int stunTime = 0;
 
-    public PlayerEntity(){
+    //Package Private
+    PlayerEntity(){
         super();
     }
-
-    public PlayerEntity(int id, XY coordinate){
+    //Package Private
+    PlayerEntity(int id, XY coordinate){
         super(id, coordinate);
     }
 

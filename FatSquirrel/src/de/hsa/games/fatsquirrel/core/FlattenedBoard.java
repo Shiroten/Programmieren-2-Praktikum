@@ -4,6 +4,8 @@ import de.hsa.games.fatsquirrel.Launcher;
 import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.core.Pac.PacSquirrel;
+import de.hsa.games.fatsquirrel.core.entity.*;
+import de.hsa.games.fatsquirrel.core.entity.character.*;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -364,12 +366,12 @@ public class FlattenedBoard implements BoardView, EntityContext {
         checkMasterSquirrel(pacSquirrel);
     }
 
-    public void checkMasterSquirrel(MasterSquirrel ms) {
+    private void checkMasterSquirrel(MasterSquirrel ms) {
         if (ms.getEnergy() < 0)
             ms.updateEnergy(-ms.getEnergy());
     }
 
-    public void moveAndKill(Entity en, int startEnergy, XY newField) {
+    private void moveAndKill(Entity en, int startEnergy, XY newField) {
         en.updateEnergy(startEnergy);
         killAndReplace(flattenedBoard[newField.getY()][newField.getX()]);
         move(en, newField);
@@ -390,8 +392,9 @@ public class FlattenedBoard implements BoardView, EntityContext {
 
     @Override
     public void killAndReplace(Entity entity) {
-        Entity newE = board.addEntity(entity.getEntityType(), randomFreePosition());
+        EntityType temp = entity.getEntityType();
         killEntity(entity);
+        Entity newE = board.addEntity(temp, randomFreePosition());
         flattenedBoard[newE.getCoordinate().getY()][newE.getCoordinate().getX()] = newE;
 
         Logger logger = Logger.getLogger(Launcher.class.getName());

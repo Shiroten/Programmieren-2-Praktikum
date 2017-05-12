@@ -3,7 +3,7 @@ package de.hsa.games.fatsquirrel.console;
 import de.hsa.games.fatsquirrel.UI;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.core.BoardView;
-import de.hsa.games.fatsquirrel.core.EntityType;
+import de.hsa.games.fatsquirrel.core.entity.EntityType;
 import de.hsa.games.fatsquirrel.util.ui.Command;
 import de.hsa.games.fatsquirrel.util.ui.CommandScanner;
 import de.hsa.games.fatsquirrel.util.ui.CommandTypeInfo;
@@ -15,7 +15,7 @@ import java.io.PrintStream;
 
 public class ConsoleUI implements UI {
 
-    PrintStream outputStream = new PrintStream(System.out);
+    private PrintStream outputStream = new PrintStream(System.out);
     private BufferedReader inputReader = new BufferedReader(new InputStreamReader(System.in));
     private CommandScanner commandScanner = new CommandScanner(GameCommandType.values(), inputReader);
 
@@ -25,6 +25,7 @@ public class ConsoleUI implements UI {
         try {
             return commandScanner.next();
         } catch (ScanException e) {
+            e.printStackTrace();
         }
         return null;
     }

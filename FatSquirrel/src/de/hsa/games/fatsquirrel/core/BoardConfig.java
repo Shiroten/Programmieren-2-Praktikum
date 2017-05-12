@@ -1,5 +1,6 @@
 package de.hsa.games.fatsquirrel.core;
 
+import de.hsa.games.fatsquirrel.GameType;
 import de.hsa.games.fatsquirrel.XY;
 
 public class BoardConfig {
@@ -28,7 +29,7 @@ public class BoardConfig {
     private final GameType gameType;
 
 
-    public BoardConfig(XY size, int TICKLENGTH, int NUMBER_OF_GB, int NUMBER_OF_BB, int NUMBER_OF_GP, int NUMBER_OF_BP, int NUMBER_OF_WA, int GOODBEAST_VIEW_DISTANCE, int BADBEAST_VIEW_DISTANCE, GameType gameType) {
+    BoardConfig(XY size, int TICKLENGTH, int NUMBER_OF_GB, int NUMBER_OF_BB, int NUMBER_OF_GP, int NUMBER_OF_BP, int NUMBER_OF_WA, int GOODBEAST_VIEW_DISTANCE, int BADBEAST_VIEW_DISTANCE, GameType gameType) {
         this.size = size;
         this.TICKLENGTH = TICKLENGTH;
         this.NUMBER_OF_GB = NUMBER_OF_GB;
@@ -48,7 +49,7 @@ public class BoardConfig {
         this(size, 1, 7, 7, 7, 7, 7, 6, 6, GameType.SINGLE_PLAYER);
     }
 
-    public GameType getGameType() {
+    GameType getGameType() {
         return gameType;
     }
 
@@ -64,47 +65,47 @@ public class BoardConfig {
         return TICKLENGTH;
     }
 
-    public int getPOINTS_FOR_MINI_SQUIRREL() {
+    int getPOINTS_FOR_MINI_SQUIRREL() {
         return POINTS_FOR_MINI_SQUIRREL;
     }
 
-    public int getSQUIRREL_STUN_TIME_IN_TICKS() {
+    int getSQUIRREL_STUN_TIME_IN_TICKS() {
         return SQUIRREL_STUN_TIME_IN_TICKS;
     }
 
-    public int getBEAST_MOVE_TIME_IN_TICKS() {
+    int getBEAST_MOVE_TIME_IN_TICKS() {
         return BEAST_MOVE_TIME_IN_TICKS;
     }
 
-    public int getMINI_SQUIRREL_MOVE_TIME_IN_TICKS() {
+    int getMINI_SQUIRREL_MOVE_TIME_IN_TICKS() {
         return MINI_SQUIRREL_MOVE_TIME_IN_TICKS;
     }
 
-    public int getGOODBEAST_VIEW_DISTANCE() {
+    int getGOODBEAST_VIEW_DISTANCE() {
         return GOODBEAST_VIEW_DISTANCE;
     }
 
-    public int getBADBEAST_VIEW_DISTANCE() {
+    int getBADBEAST_VIEW_DISTANCE() {
         return BADBEAST_VIEW_DISTANCE;
     }
 
-    public int getNUMBER_OF_GB() {
+    int getNUMBER_OF_GB() {
         return NUMBER_OF_GB;
     }
 
-    public int getNUMBER_OF_BB() {
+    int getNUMBER_OF_BB() {
         return NUMBER_OF_BB;
     }
 
-    public int getNUMBER_OF_GP() {
+    int getNUMBER_OF_GP() {
         return NUMBER_OF_GP;
     }
 
-    public int getNUMBER_OF_BP() {
+    int getNUMBER_OF_BP() {
         return NUMBER_OF_BP;
     }
 
-    public int getNUMBER_OF_WA() {
+    int getNUMBER_OF_WA() {
         return NUMBER_OF_WA;
     }
 

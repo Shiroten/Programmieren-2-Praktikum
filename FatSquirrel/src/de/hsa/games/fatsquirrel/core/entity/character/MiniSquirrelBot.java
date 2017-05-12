@@ -1,13 +1,12 @@
-package de.hsa.games.fatsquirrel.core;
+package de.hsa.games.fatsquirrel.core.entity.character;
 
 import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.botapi.BotController;
 import de.hsa.games.fatsquirrel.botapi.ControllerContext;
+import de.hsa.games.fatsquirrel.botapi.BotControllerFactoryImpl;
+import de.hsa.games.fatsquirrel.core.entity.EntityType;
 
-/**
- * Created by tillm on 11.05.2017.
- */
 public class MiniSquirrelBot extends MiniSquirrel {
     class ControllerContextImpl implements ControllerContext {
 
@@ -43,7 +42,7 @@ public class MiniSquirrelBot extends MiniSquirrel {
     }
 
     private BotController miniBotController;
-    private BotControllerFactory factory = new BotControllerFactory();
+    private BotControllerFactoryImpl factory = new BotControllerFactoryImpl();
 
     public MiniSquirrelBot(int id, XY position, int energy, MasterSquirrel daddy) {
         super(id, position, energy, daddy);

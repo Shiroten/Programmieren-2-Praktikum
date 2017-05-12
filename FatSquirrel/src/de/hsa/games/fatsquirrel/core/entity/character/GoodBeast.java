@@ -1,8 +1,10 @@
-package de.hsa.games.fatsquirrel.core;
+package de.hsa.games.fatsquirrel.core.entity.character;
 
 import de.hsa.games.fatsquirrel.Launcher;
 import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
+import de.hsa.games.fatsquirrel.core.entity.EntityContext;
+import de.hsa.games.fatsquirrel.core.entity.EntityType;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -92,6 +94,6 @@ public class GoodBeast extends Character {
     }
 
     public String toString() {
-        return ("de.hsa.games.fatsquirrel.core.GoodBeast: " + super.toString());
+        return ("de.hsa.games.fatsquirrel.core.entity.character.GoodBeast: " + super.toString());
     }
 }

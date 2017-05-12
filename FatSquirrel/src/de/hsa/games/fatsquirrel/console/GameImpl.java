@@ -5,6 +5,9 @@ import de.hsa.games.fatsquirrel.MoveCommand;
 import de.hsa.games.fatsquirrel.Vector;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.core.*;
+import de.hsa.games.fatsquirrel.core.entity.EntityType;
+import de.hsa.games.fatsquirrel.core.entity.character.HandOperatedMasterSquirrel;
+import de.hsa.games.fatsquirrel.core.entity.character.StandardMiniSquirrel;
 import de.hsa.games.fatsquirrel.util.ui.Command;
 import de.hsa.games.fatsquirrel.util.ui.CommandTypeInfo;
 
@@ -19,7 +22,7 @@ public class GameImpl extends Game {
     public GameImpl() {
         this.setUi(new ConsoleUI());
         this.setState(new State());
-        this.handOperatedMasterSquirrel = (HandOperatedMasterSquirrel) this.getState().getBoard().getHandOperatedMasterSquirrel();
+        this.handOperatedMasterSquirrel = this.getState().getBoard().getHandOperatedMasterSquirrel();
     }
 
     protected void processInput() {
