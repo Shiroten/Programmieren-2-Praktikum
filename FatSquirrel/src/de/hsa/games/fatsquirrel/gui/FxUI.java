@@ -230,6 +230,7 @@ public class FxUI extends Scene implements UI {
                 //stringToPrint = "mS";
                 if (((PlayerEntity) e).getStunTime() != 0) {
                     stringToPrint = Integer.toString(((PlayerEntity) e).getStunTime());
+                    stringToPrint = String.format("A%n" + stringToPrint);
                 } else {
 
                     stringToPrint = Integer.toString(e.getEnergy());
@@ -240,6 +241,7 @@ public class FxUI extends Scene implements UI {
             case MASTERSQUIRREL:
                 if (((PlayerEntity) e).getStunTime() != 0) {
                     stringToPrint = Integer.toString(((PlayerEntity) e).getStunTime());
+                    stringToPrint = String.format("A%n" + stringToPrint);
                 } else {
                     stringToPrint = Integer.toString(e.getEnergy());
                     stringToPrint = String.format("A%n" + stringToPrint);
