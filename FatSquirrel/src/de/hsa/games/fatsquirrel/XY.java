@@ -1,8 +1,4 @@
 package de.hsa.games.fatsquirrel;
-
-/**
- * Created by tillm on 28.03.2017.
- */
 public class XY {
     private final int x;
     private final int y;
@@ -48,7 +44,7 @@ public class XY {
     }
 
     public double length(){
-        return Math.sqrt(Math.abs(x)^2+Math.abs(y)^2);
+        return Math.sqrt(Math.pow(Math.abs(x), 2)+Math.pow(Math.abs(y), 2));
     }
 
     public double distanceFrom(XY xy){

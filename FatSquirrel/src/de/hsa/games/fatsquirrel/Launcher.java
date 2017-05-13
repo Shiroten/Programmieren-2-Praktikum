@@ -1,12 +1,9 @@
 package de.hsa.games.fatsquirrel;
 
 import de.hsa.games.fatsquirrel.botapi.BotGameImpl;
-import de.hsa.games.fatsquirrel.core.entity.character.HandOperatedMasterSquirrel;
-import de.hsa.games.fatsquirrel.core.entity.Entity;
 import de.hsa.games.fatsquirrel.gui.FxGameImpl;
 import de.hsa.games.fatsquirrel.gui.FxUI;
 import de.hsa.games.fatsquirrel.util.ui.consoletest.MyFavoriteCommandsProcessor;
-import de.hsa.games.fatsquirrel.console.ConsoleUI;
 import de.hsa.games.fatsquirrel.console.GameImpl;
 import de.hsa.games.fatsquirrel.core.*;
 import javafx.application.Application;
@@ -21,14 +18,14 @@ import java.util.logging.*;
 public class Launcher extends Application {
 
     private static final int FRAMERATE = 60;
-    private static final GameType gameType = GameType.WITH_BOT;
+    private static final GameType gameType = GameType.SINGLE_PLAYER;
     private static final Level logLevel = Level.FINE;
     private static final XY gameSize = new XY(40, 30);
-    private static final int NUMBER_OF_GB = 100;
-    private static final int NUMBER_OF_BB = 3;
-    private static final int NUMBER_OF_GP = 10;
+    private static final int NUMBER_OF_GB = 500;
+    private static final int NUMBER_OF_BB = 0;
+    private static final int NUMBER_OF_GP = 5;
     private static final int NUMBER_OF_BP = 5;
-    private static final int NUMBER_OF_WA = 25;
+    private static final int NUMBER_OF_WA = 0;
     private static final int VIEW_DISTANCE_OF_GOODBEAST = 6;
     private static final int VIEW_DISTANCE_OF_BADBEAST = 6;
 

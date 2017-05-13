@@ -2,6 +2,7 @@ package de.hsa.games.fatsquirrel.core;
 
 import de.hsa.games.fatsquirrel.Launcher;
 import de.hsa.games.fatsquirrel.XY;
+import de.hsa.games.fatsquirrel.XYsupport;
 import de.hsa.games.fatsquirrel.core.Pac.PacSquirrel;
 import de.hsa.games.fatsquirrel.core.entity.character.*;
 import de.hsa.games.fatsquirrel.core.entity.*;
@@ -98,7 +99,6 @@ public class FlattenedBoard implements BoardView, EntityContext {
     public int getBADBEAST_VIEW_DISTANCE() {
         return board.getConfig().getVIEW_DISTANCE_OF_BADBEAST();
     }
-
 
     private void move(Entity en, XY newPosition) {
 
@@ -384,28 +384,35 @@ public class FlattenedBoard implements BoardView, EntityContext {
             for (int j = -impactRadius; j < impactRadius; j++) {
                 if (!(i == 0 && j == 0)) {
 
-                    Entity entityToCheck = getEntity(position.plus(new XY(j, i)));
-                    if (entityToCheck != null) {
-                        double distance = position.distanceFrom(entityToCheck.getCoordinate());
-                        double energyLoss = 200 * (e.getEnergy() / impactArea) * (1 - distance / impactRadius);
-                        collectedEnergy += calculateEnergyOfEntity(energyLoss, entityToCheck);
-                        EntityType et = entityToCheck.getEntityType();
+                    System.out.println(j);
+                    System.out.println(i);
+                    System.out.println(new XY(j,i).length());
 
-                        switch (et) {
-                            case WALL:
-                                break;
-                            case BADPLANT:
-                            case GOODPLANT:
-                            case BADBEAST:
-                            case GOODBEAST:
-                                if (entityToCheck.getEnergy() == 0) {
-                                    killAndReplace(entityToCheck);
-                                }
-                                break;
-                            case MINISQUIRREL:
-                                if (entityToCheck.getEnergy() == 0) {
-                                    killEntity(entityToCheck);
-                                }
+                    if (new XY(j,i).length() < impactRadius) {
+
+                        Entity entityToCheck = getEntity(position.plus(new XY(j, i)));
+                        if (entityToCheck != null) {
+                            double distance = position.distanceFrom(entityToCheck.getCoordinate());
+                            double energyLoss = 200 * (e.getEnergy() / impactArea) * (1 - distance / impactRadius);
+                            collectedEnergy += calculateEnergyOfEntity(energyLoss, entityToCheck);
+                            EntityType et = entityToCheck.getEntityType();
+
+                            switch (et) {
+                                case WALL:
+                                    break;
+                                case BADPLANT:
+                                case GOODPLANT:
+                                case BADBEAST:
+                                case GOODBEAST:
+                                    if (entityToCheck.getEnergy() == 0) {
+                                        killAndReplace(entityToCheck);
+                                    }
+                                    break;
+                                case MINISQUIRREL:
+                                    if (entityToCheck.getEnergy() == 0) {
+                                        killEntity(entityToCheck);
+                                    }
+                            }
                         }
                     }
                 }
