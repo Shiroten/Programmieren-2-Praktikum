@@ -4,6 +4,9 @@ import de.hsa.games.fatsquirrel.GameType;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.core.entity.character.*;
 import de.hsa.games.fatsquirrel.core.entity.*;
+import de.hsa.games.fatsquirrel.gui.ImplosionContext;
+
+import java.util.ArrayList;
 
 
 public class Board {
@@ -15,22 +18,29 @@ public class Board {
     private HandOperatedMasterSquirrel handOperatedMasterSquirrel;
     private MasterSquirrel masterSquirrel[] = new MasterSquirrel[10];
 
+    private ArrayList<ImplosionContext> implosions;
+
     public Board() {
 
         this.set = new EntitySet(new XY(20, 20));
         this.config = new BoardConfig(new XY(20, 20), 60, 7, 7, 7, 7, 7, 6, 6, GameType.PACMAN);
+
         initBoard();
     }
 
     public Board(BoardConfig config) {
         this.set = new EntitySet(config.getSize());
         this.config = config;
+        this.implosions = new ArrayList<>();
         initBoard();
     }
 
-
     public EntitySet getSet() {
         return set;
+    }
+
+    ArrayList<ImplosionContext> getImplosions() {
+        return implosions;
     }
 
     public BoardConfig getConfig() {
@@ -190,6 +200,7 @@ public class Board {
         } while (collision);
         return new XY(newX, newY);
     }
+
     //Package Private
     void killEntity(Entity e) {
         this.set.delete(e);

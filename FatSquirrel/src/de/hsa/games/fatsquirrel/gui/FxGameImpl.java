@@ -73,7 +73,6 @@ public class FxGameImpl extends Game {
             }
             spawnMiniSquirrel = null;
         }
-
         getState().update();
         FxUI fxUI = (FxUI) this.getUi();
         fxUI.message("MasterSquirrel Energy: " + Integer.toString(handOperatedMasterSquirrel.getEnergy()));

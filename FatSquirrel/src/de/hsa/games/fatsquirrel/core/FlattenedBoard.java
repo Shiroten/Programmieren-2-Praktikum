@@ -5,13 +5,16 @@ import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.core.Pac.PacSquirrel;
 import de.hsa.games.fatsquirrel.core.entity.character.*;
 import de.hsa.games.fatsquirrel.core.entity.*;
+import de.hsa.games.fatsquirrel.gui.ImplosionContext;
 
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class FlattenedBoard implements BoardView, EntityContext {
     private final XY size;
     private Board board;
+    private ArrayList<ImplosionContext> implosions;
 
     //Ganz, ganz wichtig für Konsistenz:
     //Ein Mehrdimensionales Array zählt folgendermaßen:
@@ -27,6 +30,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
         flattenedBoard = new Entity[size.getY()][size.getX()];
         this.board = board;
         this.flattenedBoard = flat;
+        this.implosions = board.getImplosions();
     }
 
     public XY getSize() {
@@ -34,6 +38,26 @@ public class FlattenedBoard implements BoardView, EntityContext {
         //Hier wird die Koordinate etwas missbraucht: man speichert in einer Koordinate die x-Höhe
         //und die y-Höhe. Felder sind wohl nicht immer quadratisch...
         return size;
+    }
+
+    @Override
+    public ArrayList<ImplosionContext> getImplosions() {
+
+        return implosions;
+    }
+
+    @Override
+    public void tickImplosions() {
+        ImplosionContext icToDelete = null;
+        for (ImplosionContext ic : implosions) {
+            ic.addTick();
+            if (ic.getTickCounter() >= 6 * 10) {
+                icToDelete = ic;
+            }
+        }
+        if (icToDelete != null)
+            implosions.remove(icToDelete);
+
     }
 
     @Override
@@ -361,6 +385,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
         float impactArea = (float) (impactRadius * impactRadius * Math.PI);
         XY position = e.getCoordinate();
 
+
         for (int i = -impactRadius; i < impactRadius; i++) {
             for (int j = -impactRadius; j < impactRadius; j++) {
                 if (!(i == 0 && j == 0)) {
@@ -369,7 +394,6 @@ public class FlattenedBoard implements BoardView, EntityContext {
                     if (entityToCheck != null) {
                         double distance = position.distanceFrom(entityToCheck.getCoordinate());
                         double energyLoss = 200 * (e.getEnergy() / impactArea) * (1 - distance / impactRadius);
-
                         collectedEnergy += calculateEnergyOfEntity(energyLoss, entityToCheck);
                         EntityType et = entityToCheck.getEntityType();
 
@@ -393,6 +417,10 @@ public class FlattenedBoard implements BoardView, EntityContext {
                 }
             }
         }
+
+        double energyLoss = 200 * (e.getEnergy() / impactArea) * (1 - impactRadius / impactRadius);
+        implosions.add(new ImplosionContext((int) energyLoss, impactRadius, position));
+
         if (e.getEntityType() == EntityType.MINISQUIRREL) {
             ((MiniSquirrel) e).getDaddy().updateEnergy(collectedEnergy);
             killEntity(e);
@@ -408,16 +436,14 @@ public class FlattenedBoard implements BoardView, EntityContext {
         int energyDifference;
 
         if (e.getEnergy() <= 0) {
-
             energyDifference = 0;
             ceoeHelper(energyLoss, e);
 
-        } else if (e.getEnergy() >= (int) energyLoss) {
+        } else if (e.getEnergy() > (int) energyLoss) {
 
             energyDifference = ceoeHelper(energyLoss, e);
 
         } else if (e.getEntityType() == EntityType.MASTERSQUIRREL) {
-
             energyDifference = (int) energyLoss;
             e.updateEnergy(-(int) energyLoss);
             checkMasterSquirrel((MasterSquirrel) e);
@@ -428,7 +454,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
             e.updateEnergy(-e.getEnergy());
 
         }
-
+        System.out.println(energyDifference);
         return energyDifference;
     }
 
@@ -451,8 +477,8 @@ public class FlattenedBoard implements BoardView, EntityContext {
                 break;
             default:
                 //Fall Energy Positiv
-                energyCollected = e.getEnergy() - (int) energyLoss;
-                e.updateEnergy(-energyCollected);
+                energyCollected = (int) energyLoss;
+                e.updateEnergy(-(int) energyLoss);
                 if (e.getEnergy() <= 0) {
                     e.updateEnergy(-e.getEnergy());
                 }

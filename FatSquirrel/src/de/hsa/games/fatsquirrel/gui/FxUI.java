@@ -78,7 +78,7 @@ public class FxUI extends Scene implements UI {
                         case F:
                             //Todo: Spawn Mini Energy in Config setzen oder per menü
                             cmd = new Command(GameCommandType.SPAWN_MINI,
-                                    new Object[]{100});
+                                    new Object[]{10});
                             break;
                         case P:
                             cmd = new Command(GameCommandType.CHEAT_ENERGY, new Object[0]);
@@ -98,10 +98,28 @@ public class FxUI extends Scene implements UI {
 
     private void repaintBoardCanvas(BoardView view) {
 
-        //Todo: Implosion visualizieren
-
         GraphicsContext gc = boardCanvas.getGraphicsContext2D();
         gc.clearRect(0, 0, boardCanvas.getWidth(), boardCanvas.getHeight());
+
+        for (ImplosionContext ic : view.getImplosions()) {
+            XY position = ic.getPosition();
+            int radius = ic.getRadius();
+
+            double opacity = ic.getEnergyLoss() / 200 * (1 - ic.getTickCounter() / 6 / 10);
+
+            //System.out.println("EnergyLoss: " + ic.getEnergyLoss() / 200);
+            //System.out.println("TickCounter: " + (1 - ic.getTickCounter() / 6 / 10));
+
+            //System.out.println(opacity);
+            Color implisionColor = Color.color(1, 0, 0, opacity);
+
+            gc.setFill(implisionColor);
+            gc.fillOval(position.getX() * CELL_SIZE - CELL_SIZE * radius / 2,
+                    position.getY() * CELL_SIZE - CELL_SIZE * radius / 2,
+                    CELL_SIZE * radius,
+                    CELL_SIZE * radius);
+        }
+
         for (int x = 0; x < boardCanvas.getWidth(); x++) {
             for (int y = 0; y < boardCanvas.getHeight(); y++) {
                 printEntity(gc, view.getEntity(new XY(x, y)), new XY(x, y));
@@ -226,6 +244,7 @@ public class FxUI extends Scene implements UI {
                 break;
             case GOODBEAST:
                 stringToPrint = "GB";
+                stringToPrint = Integer.toString(e.getEnergy());
                 break;
             case BADPLANT:
                 stringToPrint = "BP";

@@ -21,7 +21,7 @@ public class State {
         this.board = board;
     }
 
-    public State(XY size, int TICKLENGTH, int NUMBER_OF_GB, int NUMBER_OF_BB, int NUMBER_OF_GP, int NUMBER_OF_BP, int NUMBER_OF_WA, int GOODBEAST_VIEW_DISTANCE, int BADBEAST_VIEW_DISTANCE, GameType gameType){
+    public State(XY size, int TICKLENGTH, int NUMBER_OF_GB, int NUMBER_OF_BB, int NUMBER_OF_GP, int NUMBER_OF_BP, int NUMBER_OF_WA, int GOODBEAST_VIEW_DISTANCE, int BADBEAST_VIEW_DISTANCE, GameType gameType) {
         this.board = new Board(new BoardConfig(size, TICKLENGTH, NUMBER_OF_GB, NUMBER_OF_BB, NUMBER_OF_GP, NUMBER_OF_BP, NUMBER_OF_WA, GOODBEAST_VIEW_DISTANCE, BADBEAST_VIEW_DISTANCE, gameType));
     }
 
@@ -38,7 +38,9 @@ public class State {
         Logger logger = Logger.getLogger(Launcher.class.getName());
         logger.log(Level.FINER, "start update() from State");
 
+
         FlattenedBoard flat = board.flatten();
+        flat.tickImplosions();
         board.getSet().nextStep(flat);
     }
 

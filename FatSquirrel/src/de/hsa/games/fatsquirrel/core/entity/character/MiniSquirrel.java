@@ -42,10 +42,10 @@ public class MiniSquirrel extends PlayerEntity {
             if (stunTime > 0)
                 stunTime--;
             else {
-                if (this.energy >= 2000) {
+                if (this.energy >= 10) {
 
                     //Todo: Test Implementierung der implode im MiniSquirrel
-                    implode(context, 10);
+                    implode(context, 3);
                 } else {
 
                     XY distance = XYsupport.randomDirection();
