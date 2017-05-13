@@ -1,6 +1,5 @@
 package de.hsa.games.fatsquirrel;
 
-import de.hsa.games.fatsquirrel.botapi.BotGameImpl;
 import de.hsa.games.fatsquirrel.gui.FxGameImpl;
 import de.hsa.games.fatsquirrel.gui.FxUI;
 import de.hsa.games.fatsquirrel.util.ui.consoletest.MyFavoriteCommandsProcessor;
@@ -123,8 +122,8 @@ public class Launcher extends Application {
                 break;
             case testcase1:
                 config = new BoardConfig(new XY(30, 30), 60,
-                        600, 0, 0, 0, 0,
-                        10, 5, GameType.SINGLE_PLAYER);
+                        500, 0, 0, 0, 0,
+                        20, 5, GameType.SINGLE_PLAYER);
                 break;
             case custom:
             default:
@@ -137,7 +136,6 @@ public class Launcher extends Application {
         State state = new State(board);
         FxUI fxUI = FxUI.createInstance(state.getBoard().getConfig().getSize());
         final Game game = new FxGameImpl(fxUI, state);
-        //final Game game = new BotGameImpl(fxUI, state);
 
         primaryStage.setScene(fxUI);
         primaryStage.setTitle("Diligent Squirrel");

@@ -1,5 +1,6 @@
 package de.hsa.games.fatsquirrel.core;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
 import de.hsa.games.fatsquirrel.Launcher;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.XYsupport;
@@ -379,32 +380,35 @@ public class FlattenedBoard implements BoardView, EntityContext {
         float impactArea = (float) (impactRadius * impactRadius * Math.PI);
         XY position = e.getCoordinate();
 
-        for (int i = -impactRadius; i < impactRadius+1; i++) {
-            for (int j = -impactRadius; j < impactRadius+1; j++) {
+        for (int i = -impactRadius; i < impactRadius + 1; i++) {
+            for (int j = -impactRadius; j < impactRadius + 1; j++) {
                 if (!(i == 0 && j == 0)) {
-                    if (Math.round(new XY(Math.abs(j),Math.abs(i)).length()) < impactRadius+1) {
+                    if (Math.round(new XY(Math.abs(j), Math.abs(i)).length()) < impactRadius + 1) {
                         Entity entityToCheck = getEntity(position.plus(new XY(j, i)));
                         if (entityToCheck != null) {
-                            double distance = position.distanceFrom(entityToCheck.getCoordinate());
-                            double energyLoss = 200 * (e.getEnergy() / impactArea) * (1 - distance / impactRadius);
-                            collectedEnergy += calculateEnergyOfEntity(energyLoss, entityToCheck);
-                            EntityType et = entityToCheck.getEntityType();
+                            if (!entityFriendly(e, entityToCheck)) {
+                                double distance = position.distanceFrom(entityToCheck.getCoordinate());
 
-                            switch (et) {
-                                case WALL:
-                                    break;
-                                case BADPLANT:
-                                case GOODPLANT:
-                                case BADBEAST:
-                                case GOODBEAST:
-                                    if (entityToCheck.getEnergy() == 0) {
-                                        killAndReplace(entityToCheck);
-                                    }
-                                    break;
-                                case MINISQUIRREL:
-                                    if (entityToCheck.getEnergy() == 0) {
-                                        killEntity(entityToCheck);
-                                    }
+                                double energyLoss = 200 * (e.getEnergy() / impactArea) * (1 - distance / impactRadius);
+                                collectedEnergy += calculateEnergyOfEntity(energyLoss, entityToCheck);
+                                EntityType et = entityToCheck.getEntityType();
+
+                                switch (et) {
+                                    case WALL:
+                                        break;
+                                    case BADPLANT:
+                                    case GOODPLANT:
+                                    case BADBEAST:
+                                    case GOODBEAST:
+                                        if (entityToCheck.getEnergy() == 0) {
+                                            killAndReplace(entityToCheck);
+                                        }
+                                        break;
+                                    case MINISQUIRREL:
+                                        if (entityToCheck.getEnergy() == 0) {
+                                            killEntity(entityToCheck);
+                                        }
+                                }
                             }
                         }
                     }
@@ -423,6 +427,37 @@ public class FlattenedBoard implements BoardView, EntityContext {
         }
 
 
+    }
+
+    private boolean entityFriendly(Entity e, Entity toCheck) {
+
+        if (e.getEntityType() == EntityType.MINISQUIRREL) {
+            MasterSquirrel MasterOfE = ((MiniSquirrel) e).getDaddy();
+
+            switch (toCheck.getEntityType()) {
+                case MASTERSQUIRREL:
+                    if (MasterOfE.equals(toCheck)) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                case MINISQUIRREL:
+                    if (MasterOfE.equals(((MiniSquirrel) toCheck).getDaddy())) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                case WALL:
+                case NONE:
+                    return true;
+
+                default:
+                    return false;
+            }
+        }
+
+
+        return true;
     }
 
     private int calculateEnergyOfEntity(double energyLoss, Entity e) {
