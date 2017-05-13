@@ -25,7 +25,8 @@ public class FlattenedBoard implements BoardView, EntityContext {
     //Das heißt der erste Wert ist die y-Koordinate (Höhe), der zweite Wert ist die x-Koordinate (Breite)
     private Entity[][] flattenedBoard;
 
-    public FlattenedBoard(XY size, Board board, Entity[][] flat) {
+    //Package private per default
+    FlattenedBoard(XY size, Board board, Entity[][] flat) {
         this.size = size;
         flattenedBoard = new Entity[size.getY()][size.getX()];
         this.board = board;
@@ -324,8 +325,6 @@ public class FlattenedBoard implements BoardView, EntityContext {
     }
 
     public void tryMove(PacSquirrel pacSquirrel, XY xy) {
-
-        //Todo: tryMove PacSquirrel nicht refactort
         XY newField = pacSquirrel.getCoordinate().plus(xy);
         switch (getEntityType(newField)) {
             case WALL:

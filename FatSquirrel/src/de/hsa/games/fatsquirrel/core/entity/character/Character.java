@@ -21,9 +21,6 @@ public abstract class Character extends Entity {
         //TODO: possibleMove implementieren
         return XY.ZERO_ZERO;
     }
-
-    //Todo: Implosion Methode implementieren
-
     void implode(EntityContext context, int impactRadius){
 
         context.implode(this, impactRadius);

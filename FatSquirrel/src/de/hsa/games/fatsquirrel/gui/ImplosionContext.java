@@ -15,7 +15,6 @@ public class ImplosionContext {
         this.energyLoss = energyLoss;
         this.radius = radius;
         this.position = position;
-        //Todo: MAX_TICK_COUNTER sinnvoll ausrechnen
         MAX_TICK_COUNTER = calcTickCounter(energyLoss);
         this.tickCounter = MAX_TICK_COUNTER;
     }
