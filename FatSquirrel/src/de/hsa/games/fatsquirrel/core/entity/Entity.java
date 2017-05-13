@@ -44,7 +44,7 @@ public abstract class Entity {
     }
 
     public EntityType getEntityType(){
-        return EntityType.EMPTY;
+        return EntityType.NONE;
     }
 
     @Override

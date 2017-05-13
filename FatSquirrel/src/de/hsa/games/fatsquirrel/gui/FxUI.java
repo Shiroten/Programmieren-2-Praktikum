@@ -140,7 +140,7 @@ public class FxUI extends Scene implements UI {
             case WALL:
                 gc.fillRect(xy.getX() * CELL_SIZE, xy.getY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
                 break;
-            case EMPTY:
+            case NONE:
                 return;
             default:
                 gc.fillOval(xy.getX() * CELL_SIZE, xy.getY() * CELL_SIZE, CELL_SIZE, CELL_SIZE);
@@ -178,9 +178,6 @@ public class FxUI extends Scene implements UI {
                 break;
             case MASTERSQUIRREL:
                 returnColor = Color.color(0, 0.0588, 1);
-                break;
-            case HANDOPERATEDMASTERSQUIRREL:
-                returnColor = Color.color(0.2314, 0.7843, 1);
                 break;
             default:
                 returnColor = Color.gray(0, 0);
@@ -221,12 +218,6 @@ public class FxUI extends Scene implements UI {
                 } else {
                     returnColor = Color.WHITE;
                 }
-                break;
-            case HANDOPERATEDMASTERSQUIRREL:
-                if (((PlayerEntity) e).getStunTime() != 0) {
-                    returnColor = Color.RED;
-                }
-
                 break;
             default:
                 returnColor = Color.BLACK;
@@ -275,14 +266,6 @@ public class FxUI extends Scene implements UI {
                 } else {
                     stringToPrint = Integer.toString(e.getEnergy());
                     stringToPrint = String.format("A%n" + stringToPrint);
-                }
-
-                break;
-            case HANDOPERATEDMASTERSQUIRREL:
-                if (((PlayerEntity) e).getStunTime() != 0) {
-                    stringToPrint = Integer.toString(((PlayerEntity) e).getStunTime());
-                } else {
-                    stringToPrint = "HS";
                 }
 
                 break;

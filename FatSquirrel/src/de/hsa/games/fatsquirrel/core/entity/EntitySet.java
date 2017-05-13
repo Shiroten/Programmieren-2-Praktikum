@@ -3,6 +3,7 @@ package de.hsa.games.fatsquirrel.core.entity;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.core.entity.character.Character;
 import de.hsa.games.fatsquirrel.core.entity.character.HandOperatedMasterSquirrel;
+import de.hsa.games.fatsquirrel.core.entity.character.MasterSquirrel;
 
 public class EntitySet {
 
@@ -72,5 +73,13 @@ public class EntitySet {
             }
         }
         return destination;
+    }
+
+    public MasterSquirrel getHandOperatedMasterSquirrel(){
+        for(Entity e : entityList){
+            if(e instanceof HandOperatedMasterSquirrel)
+                return (MasterSquirrel) e;
+        }
+        return null;
     }
 }

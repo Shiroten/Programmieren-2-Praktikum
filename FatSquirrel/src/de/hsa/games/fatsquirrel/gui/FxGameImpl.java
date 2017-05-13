@@ -87,7 +87,7 @@ public class FxGameImpl extends Game {
         for (XY xy : XYsupport.directions()) {
             //Wenn dieses Feld leer ist....
             if (handOperatedMasterSquirrel.getEnergy() >= energy) {
-                if (this.getState().flattenBoard().getEntityType(locationOfMaster.plus(xy)) == EntityType.EMPTY) {
+                if (this.getState().flattenBoard().getEntityType(locationOfMaster.plus(xy)) == EntityType.NONE) {
 
                     //Füge neues StandardMiniSquirrel hinzu zum Board
                     handOperatedMasterSquirrel.updateEnergy(-energy);

@@ -7,7 +7,7 @@ import de.hsa.games.fatsquirrel.core.entity.EntityType;
 
 public class HandOperatedMasterSquirrel extends MasterSquirrel {
 
-    public static final EntityType type = EntityType.HANDOPERATEDMASTERSQUIRREL;
+    public static final EntityType type = EntityType.MASTERSQUIRREL;
     private MoveCommand command = MoveCommand.NOWHERE;
 
     public HandOperatedMasterSquirrel(int id, XY coordinate) {

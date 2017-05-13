@@ -8,7 +8,7 @@ import de.hsa.games.fatsquirrel.core.entity.character.HandOperatedMasterSquirrel
 
 public class PacSquirrel extends HandOperatedMasterSquirrel {
     public static final int START_ENERGY = 1000;
-    public static final EntityType type = EntityType.PACSQUIRREL;
+    public static final EntityType type = EntityType.MASTERSQUIRREL;
     private MoveCommand command = MoveCommand.NOWHERE;
 
     public PacSquirrel(int id, XY coordinate){super(id, coordinate);}
