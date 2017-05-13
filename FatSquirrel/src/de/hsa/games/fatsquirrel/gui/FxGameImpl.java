@@ -52,7 +52,7 @@ public class FxGameImpl extends Game {
                 case "p":
                     handOperatedMasterSquirrel.updateEnergy(1000);
                     break;
-                case "T":
+                case "t":
                     imploadMiniSquirrel = cmd;
                 default:
                     handOperatedMasterSquirrel.setCommand(MoveCommand.NOWHERE);
