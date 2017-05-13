@@ -9,6 +9,7 @@ import de.hsa.games.fatsquirrel.core.entity.EntityType;
 public class MiniSquirrelBot extends MiniSquirrel {
     class ControllerContextImpl implements ControllerContext {
 
+        //Todo: 6.2 Sichteinschränken vom MiniSquirrel
         @Override
         public XY getViewLowerLeft() {
             return null;

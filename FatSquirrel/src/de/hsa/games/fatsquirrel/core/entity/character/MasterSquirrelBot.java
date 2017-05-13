@@ -11,6 +11,7 @@ public class MasterSquirrelBot extends MasterSquirrel{
     class ControllerContextImpl implements ControllerContext{
 
 
+        //Todo: 6.2 Sichteinschränken vom MasterSquirrel
         @Override
         public XY getViewLowerLeft() {
             return null;

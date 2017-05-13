@@ -97,6 +97,9 @@ public class FxUI extends Scene implements UI {
     }
 
     private void repaintBoardCanvas(BoardView view) {
+
+        //Todo: Implosion visualizieren
+
         GraphicsContext gc = boardCanvas.getGraphicsContext2D();
         gc.clearRect(0, 0, boardCanvas.getWidth(), boardCanvas.getHeight());
         for (int x = 0; x < boardCanvas.getWidth(); x++) {

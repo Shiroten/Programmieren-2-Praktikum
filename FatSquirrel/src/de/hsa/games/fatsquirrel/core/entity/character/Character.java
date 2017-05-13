@@ -18,7 +18,13 @@ public abstract class Character extends Entity {
     public abstract void nextStep(EntityContext context);
 
     public XY possibleMove(EntityContext context, XY wantedDirection){
-        //TODO
+        //TODO: possibleMove implementieren
         return XY.ZERO_ZERO;
+    }
+
+    //Todo: Implosion Methode implementieren
+
+    public void implode (int impactRadius ){
+
     }
 }
