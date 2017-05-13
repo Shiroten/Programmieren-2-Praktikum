@@ -28,7 +28,7 @@ public class ImplosionContext {
         } else if (energyLoss > 100) {
             return 240;
         } else if (energyLoss > 10) {
-            return 120;
+            return 180;
         } else {
             return 0;
         }
@@ -57,7 +57,7 @@ public class ImplosionContext {
     }
 
     public void updateTick() {
-        tickCounter--;
+        tickCounter = tickCounter-2;
     }
 
 

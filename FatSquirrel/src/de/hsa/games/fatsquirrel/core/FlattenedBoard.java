@@ -383,13 +383,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
         for (int i = -impactRadius; i < impactRadius; i++) {
             for (int j = -impactRadius; j < impactRadius; j++) {
                 if (!(i == 0 && j == 0)) {
-
-                    System.out.println(j);
-                    System.out.println(i);
-                    System.out.println(new XY(j,i).length());
-
                     if (new XY(j,i).length() < impactRadius) {
-
                         Entity entityToCheck = getEntity(position.plus(new XY(j, i)));
                         if (entityToCheck != null) {
                             double distance = position.distanceFrom(entityToCheck.getCoordinate());

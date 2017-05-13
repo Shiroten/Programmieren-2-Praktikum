@@ -29,6 +29,18 @@ public class Launcher extends Application {
     private static final int VIEW_DISTANCE_OF_GOODBEAST = 6;
     private static final int VIEW_DISTANCE_OF_BADBEAST = 6;
 
+    private static final defaultNumber dn = defaultNumber.testcase1;
+
+    public enum defaultNumber {
+        testcase1,
+        testcase2,
+        testcase3,
+        testcase4,
+        testcase5,
+        custom,
+        normal,
+    }
+
     public static void main(String[] args) {
 
         Logger logger = Logger.getLogger(Launcher.class.getName());
@@ -101,10 +113,28 @@ public class Launcher extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        State state = new State(gameSize, FRAMERATE,
-                NUMBER_OF_GB, NUMBER_OF_BB, NUMBER_OF_GP, NUMBER_OF_BP, NUMBER_OF_WA,
-                VIEW_DISTANCE_OF_GOODBEAST, VIEW_DISTANCE_OF_BADBEAST, gameType);
+        BoardConfig config;
+        switch (dn) {
 
+            case normal:
+                config = new BoardConfig(new XY(40, 30), 60,
+                        50, 7, 7, 7, 50,
+                        7, 5, GameType.WITH_BOT);
+                break;
+            case testcase1:
+                config = new BoardConfig(new XY(20, 20), 60,
+                        270, 0, 0, 0, 0,
+                        7, 5, GameType.SINGLE_PLAYER);
+                break;
+            case custom:
+            default:
+                config = new BoardConfig(gameSize, FRAMERATE,
+                        NUMBER_OF_GB, NUMBER_OF_BB, NUMBER_OF_GP, NUMBER_OF_BP, NUMBER_OF_WA,
+                        VIEW_DISTANCE_OF_GOODBEAST, VIEW_DISTANCE_OF_BADBEAST, gameType);
+
+        }
+        Board board = new Board(config);
+        State state = new State(board);
         FxUI fxUI = FxUI.createInstance(state.getBoard().getConfig().getSize());
         final Game game = new FxGameImpl(fxUI, state);
         //final Game game = new BotGameImpl(fxUI, state);
