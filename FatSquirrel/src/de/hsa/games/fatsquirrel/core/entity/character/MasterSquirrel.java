@@ -10,7 +10,7 @@ public class MasterSquirrel extends PlayerEntity {
 
     private static final int START_ENERGY = 1000;
     public static final EntityType type = EntityType.MASTERSQUIRREL;
-    private int moveCounter;
+    protected int moveCounter;
 
     public EntityType getEntityType() {
         return type;
@@ -45,7 +45,7 @@ public class MasterSquirrel extends PlayerEntity {
         return this == squirrelToCheck.getDaddy();
     }
 
-    public void nextStep(ControllerContext view){
+    public void nextStep(ControllerContext view) {
 
     }
 }

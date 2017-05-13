@@ -7,6 +7,7 @@ import de.hsa.games.fatsquirrel.console.GameCommandType;
 import de.hsa.games.fatsquirrel.core.*;
 import de.hsa.games.fatsquirrel.core.entity.EntityType;
 import de.hsa.games.fatsquirrel.core.entity.character.BadBeast;
+import de.hsa.games.fatsquirrel.core.entity.character.Character;
 import de.hsa.games.fatsquirrel.core.entity.character.PlayerEntity;
 import de.hsa.games.fatsquirrel.core.entity.Entity;
 import de.hsa.games.fatsquirrel.util.ui.Command;
@@ -35,7 +36,7 @@ public class FxUI extends Scene implements UI {
     private Label msgLabel;
     private static Command cmd = new Command(GameCommandType.NOTHING, new Object[0]);
     private static verboseLevel vl = verboseLevel.simple;
-
+    private static boolean printVector = false;
     private static int CELL_SIZE = 30;
 
     public enum verboseLevel {
@@ -90,6 +91,9 @@ public class FxUI extends Scene implements UI {
                         case T:
                             cmd = new Command(GameCommandType.IMPLODE_MINISQUIRRELS, new Object[0]);
                             break;
+                        case B:
+                            printVector = !printVector;
+                            break;
                         case V:
                             switch (vl) {
                                 case simple:
@@ -125,6 +129,7 @@ public class FxUI extends Scene implements UI {
         boardCanvas.setHeight(30 * CELL_SIZE);
 
         GraphicsContext gc = boardCanvas.getGraphicsContext2D();
+
         gc.clearRect(0, 0, boardCanvas.getWidth(), boardCanvas.getHeight());
         gc.setFont(Font.font("Courier", fontSize));
 
@@ -152,13 +157,79 @@ public class FxUI extends Scene implements UI {
             }
             for (int x = 0; x < boardCanvas.getWidth(); x++) {
                 for (int y = 0; y < boardCanvas.getHeight(); y++) {
-                    printEntity(gc, view.getEntity(new XY(x, y)), new XY(x, y));
+                    if (view.getEntity(new XY(x, y)) != null) {
+                        printEntity(gc, view.getEntity(new XY(x, y)), new XY(x, y));
+                        if (printVector) {
+                            EntityType et = view.getEntity(new XY(x, y)).getEntityType();
+                            switch (et) {
+                                case WALL:
+                                case NONE:
+                                case GOODPLANT:
+                                case BADPLANT:
+                                    break;
+                                case MINISQUIRREL:
+                                    //Todo: MiniSquirrel lastVector bug beheben (nur nullVectoren übergeben)
+                                    //System.out.println(((Character)view.getEntity(new XY(x, y))).getLastVector());
+                                default:
+                                    XY lastVector = ((Character) view.getEntity(new XY(x, y))).getLastVector();
+                                    if (lastVector.equals(XY.ZERO_ZERO)) {
+                                    } else if (lastVector.equals(XY.RIGHT_UP)) {
+                                        printVector(gc, x, y, 4);
+                                    } else if (lastVector.equals(XY.RIGHT)) {
+                                        printVector(gc, x, y, 5);
+                                    } else if (lastVector.equals(XY.RIGHT_DOWN)) {
+                                        printVector(gc, x, y, 6);
+                                    } else if (lastVector.equals(XY.DOWN)) {
+                                        printVector(gc, x, y, 7);
+                                    } else if (lastVector.equals(XY.LEFT_DOWN)) {
+                                        printVector(gc, x, y, 0);
+                                    } else if (lastVector.equals(XY.LEFT)) {
+                                        printVector(gc, x, y, 1);
+                                    } else if (lastVector.equals(XY.LEFT_UP)) {
+                                        printVector(gc, x, y, 2);
+                                    } else if (lastVector.equals(XY.UP)) {
+                                        printVector(gc, x, y, 3);
+                                    }
+                            }
+                        }
+
+                    }
+
                 }
             }
         } catch (Exception e) {
             Logger logger = Logger.getLogger(Launcher.class.getName());
             logger.log(Level.SEVERE, e.getMessage());
         }
+    }
+
+    private void printVector(GraphicsContext gc, int x, int y, int numberOfRotation) {
+
+        double rotationCenterX = (x * CELL_SIZE + CELL_SIZE / 2);
+        double rotationCenterY = (y * CELL_SIZE + CELL_SIZE / 2);
+
+        gc.save();
+        gc.translate(rotationCenterX, rotationCenterY);
+
+        int rotateOffset = 45;
+        for (int i = 0; i < numberOfRotation; i++) {
+            rotateOffset += 45;
+        }
+        //Head
+        gc.rotate(45 + rotateOffset);
+        gc.setFill(Color.color(0.702, 0.3098, 0.0824));
+        double offset = -CELL_SIZE / 2;
+        gc.fillRect(offset, offset, 2, 10);
+        gc.fillRect(offset, offset, 10, 2);
+
+        //Tail
+        gc.rotate(0);
+        gc.setFill(Color.color(0.4275, 0.1961, 0.0431));
+        double offsetTail = CELL_SIZE / 2 - 7;
+        gc.fillRect(offsetTail, offsetTail, 2, 15);
+        gc.fillRect(offsetTail, offsetTail, 15, 2);
+
+        gc.restore();
     }
 
     private void printEntity(GraphicsContext gc, Entity e, XY xy) {

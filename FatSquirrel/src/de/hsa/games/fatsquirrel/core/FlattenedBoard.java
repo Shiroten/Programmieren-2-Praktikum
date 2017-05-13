@@ -7,6 +7,7 @@ import de.hsa.games.fatsquirrel.XYsupport;
 import de.hsa.games.fatsquirrel.core.Pac.PacSquirrel;
 import de.hsa.games.fatsquirrel.core.entity.character.*;
 import de.hsa.games.fatsquirrel.core.entity.*;
+import de.hsa.games.fatsquirrel.core.entity.character.Character;
 import de.hsa.games.fatsquirrel.gui.ImplosionContext;
 
 import java.util.ArrayList;
@@ -107,6 +108,11 @@ public class FlattenedBoard implements BoardView, EntityContext {
     }
 
     private void move(Entity en, XY newPosition) {
+        ((Character) en).setLastVector(en.getCoordinate().minus(newPosition));
+        if(en.getEntityType() == EntityType.MINISQUIRREL){
+            //Todo: Entfernen nach dem Finden des MiniSquirrels Bug
+            //System.out.println(((Character) en).getLastVector());
+        }
 
         Logger logger = Logger.getLogger(Launcher.class.getName());
         logger.log(Level.FINEST,
@@ -378,7 +384,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
         checkMasterSquirrel(pacSquirrel);
     }
 
-    public void spawnMiniSquirrel(XY direction, int energy, MasterSquirrel daddy){
+    public void spawnMiniSquirrel(XY direction, int energy, MasterSquirrel daddy) {
         board.addMiniSquirrel(direction, energy, daddy);
     }
 
