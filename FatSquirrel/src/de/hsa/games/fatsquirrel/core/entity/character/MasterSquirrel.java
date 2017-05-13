@@ -30,7 +30,6 @@ public class MasterSquirrel extends PlayerEntity {
             if (stunTime > 0)
                 stunTime--;
             else {
-
                 XY distance = XYsupport.randomDirection();
                 context.tryMove(this, distance);
             }

@@ -54,10 +54,6 @@ public class GameImpl extends Game {
         }
     }
 
-    private void all() {
-        //Todo: ALL Befehl definieren
-    }
-
     private void moveUp() {
         handOperatedMasterSquirrel.setCommand(ActionCommand.NORTH);
     }
