@@ -25,7 +25,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
     //Das heißt der erste Wert ist die y-Koordinate (Höhe), der zweite Wert ist die x-Koordinate (Breite)
     private Entity[][] flattenedBoard;
 
-    FlattenedBoard(XY size, Board board, Entity[][] flat) {
+    public FlattenedBoard(XY size, Board board, Entity[][] flat) {
         this.size = size;
         flattenedBoard = new Entity[size.getY()][size.getX()];
         this.board = board;
@@ -65,7 +65,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
         try {
             return flattenedBoard[xy.getY()][xy.getX()].getEntityType();
         } catch (Exception e) {
-            return EntityType.EMPTY;
+            return EntityType.NONE;
         }
     }
 
@@ -186,7 +186,6 @@ public class FlattenedBoard implements BoardView, EntityContext {
                     killAndReplace(badBeast);
                 break;
             case MASTERSQUIRREL:
-            case HANDOPERATEDMASTERSQUIRREL:
                 System.out.println("Squirrel wurde gebissen.%n");
                 getEntity(newField).updateEnergy(badBeast.getEnergy());
                 badBeast.bites();
@@ -240,7 +239,6 @@ public class FlattenedBoard implements BoardView, EntityContext {
                 break;
 
             case MASTERSQUIRREL:
-            case HANDOPERATEDMASTERSQUIRREL:
 
                 if (((MasterSquirrel) getEntity(newField)).mySquirrel(miniSquirrel)) {
 
@@ -318,7 +316,6 @@ public class FlattenedBoard implements BoardView, EntityContext {
                 break;
 
             case MASTERSQUIRREL:
-            case HANDOPERATEDMASTERSQUIRREL:
                 //Stößen nur mit den Köpfen Zusammen
                 break;
             default:
@@ -369,7 +366,6 @@ public class FlattenedBoard implements BoardView, EntityContext {
                 break;
 
             case MASTERSQUIRREL:
-            case HANDOPERATEDMASTERSQUIRREL:
                 //Stößen nur mit den Köpfen Zusammen
                 break;
             default:

@@ -76,7 +76,7 @@ public class ConsoleUI implements UI {
         if (view.getEntityType(new XY(x, y)) != null) {
             onField = view.getEntityType(new XY(x, y));
         } else {
-            onField = EntityType.EMPTY;
+            onField = EntityType.NONE;
         }
 
         String stringToPrint;
@@ -102,9 +102,6 @@ public class ConsoleUI implements UI {
                 break;
             case MASTERSQUIRREL:
                 stringToPrint = " MS |";
-                break;
-            case HANDOPERATEDMASTERSQUIRREL:
-                stringToPrint = " HS |";
                 break;
             default:
                 stringToPrint = " .. |";

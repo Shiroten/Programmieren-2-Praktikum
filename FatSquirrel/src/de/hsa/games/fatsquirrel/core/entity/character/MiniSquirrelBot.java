@@ -36,6 +36,31 @@ public class MiniSquirrelBot extends MiniSquirrel {
         }
 
         @Override
+        public XY locate() {
+            return null;
+        }
+
+        @Override
+        public boolean isMine(XY xy) {
+            return false;
+        }
+
+        @Override
+        public void implode(int impactRadius) {
+
+        }
+
+        @Override
+        public XY directionOfMaster() {
+            return null;
+        }
+
+        @Override
+        public long getRemainingSteps() {
+            return 0;
+        }
+
+        @Override
         public int getEnergy() {
             return 0;
         }
