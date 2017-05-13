@@ -19,5 +19,4 @@ public interface ControllerContext {
     default void shout(String text){};
     int getEnergy();
 
-    //Todo: 6.2 C Himmelsrichtung des Masters für Bots implentieren
 }

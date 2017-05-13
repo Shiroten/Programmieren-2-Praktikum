@@ -22,9 +22,9 @@ import javafx.scene.control.Label;
 
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
 
-import java.util.ConcurrentModificationException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,7 +36,7 @@ public class FxUI extends Scene implements UI {
     private static Command cmd = new Command(GameCommandType.NOTHING, new Object[0]);
     private static verboseLevel vl = verboseLevel.simple;
 
-    private final static int CELL_SIZE = 30;
+    private static int CELL_SIZE = 30;
 
     public enum verboseLevel {
         simple,
@@ -117,8 +117,16 @@ public class FxUI extends Scene implements UI {
 
     private void repaintBoardCanvas(BoardView view) {
 
+        double xSize = this.getWidth();
+        double ySize = this.getHeight();
+        double Size = xSize > ySize ? ySize : xSize;
+        CELL_SIZE = (int) (Size / 30);
+        int fontSize = (int) (CELL_SIZE * 18.0 / 40.0);
+        boardCanvas.setHeight(30 * CELL_SIZE);
+
         GraphicsContext gc = boardCanvas.getGraphicsContext2D();
         gc.clearRect(0, 0, boardCanvas.getWidth(), boardCanvas.getHeight());
+        gc.setFont(Font.font("Courier", fontSize));
 
         try {
             for (ImplosionContext ic : view.getImplosions()) {
@@ -147,7 +155,7 @@ public class FxUI extends Scene implements UI {
                     printEntity(gc, view.getEntity(new XY(x, y)), new XY(x, y));
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             Logger logger = Logger.getLogger(Launcher.class.getName());
             logger.log(Level.SEVERE, e.getMessage());
         }
