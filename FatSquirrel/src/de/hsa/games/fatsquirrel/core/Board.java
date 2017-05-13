@@ -166,7 +166,7 @@ public class Board {
     }
 
     public void addMiniSquirrel(XY position, int energy, MasterSquirrel daddy){
-        MiniSquirrelBot msb = new MiniSquirrelBot(setID(), position, energy, daddy);
+        MiniSquirrel msb = new MiniSquirrel(setID(), position, energy, daddy);
         set.add(msb);
     }
 

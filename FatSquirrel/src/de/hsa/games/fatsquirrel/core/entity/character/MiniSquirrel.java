@@ -20,8 +20,8 @@ public class MiniSquirrel extends PlayerEntity {
         return type;
     }
 
-    //Package Private
-    MiniSquirrel(int id, XY coordinate, int startEnergy, MasterSquirrel daddy) {
+
+    public MiniSquirrel(int id, XY coordinate, int startEnergy, MasterSquirrel daddy) {
         super(id, coordinate);
         this.daddy = daddy;
         this.energy = startEnergy;
