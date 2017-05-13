@@ -50,8 +50,8 @@ public class FlattenedBoard implements BoardView, EntityContext {
     public void tickImplosions() {
         ImplosionContext icToDelete = null;
         for (ImplosionContext ic : implosions) {
-            ic.addTick();
-            if (ic.getTickCounter() >= 6 * 10) {
+            ic.updateTick();
+            if (ic.getTickCounter() <= 0) {
                 icToDelete = ic;
             }
         }
@@ -418,7 +418,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
             }
         }
 
-        double energyLoss = 200 * (e.getEnergy() / impactArea) * (1 - impactRadius / impactRadius);
+        double energyLoss = 200 * (e.getEnergy() / impactArea);
         implosions.add(new ImplosionContext((int) energyLoss, impactRadius, position));
 
         if (e.getEntityType() == EntityType.MINISQUIRREL) {
@@ -454,7 +454,6 @@ public class FlattenedBoard implements BoardView, EntityContext {
             e.updateEnergy(-e.getEnergy());
 
         }
-        System.out.println(energyDifference);
         return energyDifference;
     }
 

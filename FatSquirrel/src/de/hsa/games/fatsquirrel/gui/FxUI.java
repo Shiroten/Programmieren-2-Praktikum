@@ -10,9 +10,6 @@ import de.hsa.games.fatsquirrel.core.entity.character.PlayerEntity;
 import de.hsa.games.fatsquirrel.core.entity.Entity;
 import de.hsa.games.fatsquirrel.util.ui.Command;
 
-import de.hsa.games.fatsquirrel.util.ui.CommandScanner;
-import de.hsa.games.fatsquirrel.util.ui.CommandTypeInfo;
-import de.hsa.games.fatsquirrel.util.ui.ScanException;
 import javafx.application.Platform;
 
 import javafx.geometry.VPos;
@@ -26,19 +23,21 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
 
 public class FxUI extends Scene implements UI {
 
     private Canvas boardCanvas;
     private Label msgLabel;
     private static Command cmd = new Command(GameCommandType.NOTHING, new Object[0]);
+    private static verboseLevel vl = verboseLevel.simple;
 
     private final static int CELL_SIZE = 30;
+
+    public enum verboseLevel {
+        simple,
+        detailed,
+        extended,
+    }
 
     private FxUI(Parent parent, Canvas boardCanvas, Label msgLabel) {
         super(parent);
@@ -78,11 +77,23 @@ public class FxUI extends Scene implements UI {
                         case F:
                             //Todo: Spawn Mini Energy in Config setzen oder per menü
                             cmd = new Command(GameCommandType.SPAWN_MINI,
-                                    new Object[]{10});
+                                    new Object[]{100});
                             break;
                         case P:
                             cmd = new Command(GameCommandType.CHEAT_ENERGY, new Object[0]);
                             break;
+                        case V:
+                            switch (vl) {
+                                case simple:
+                                    vl = verboseLevel.detailed;
+                                    break;
+                                case detailed:
+                                    vl = verboseLevel.extended;
+                                    break;
+                                case extended:
+                                    vl = verboseLevel.simple;
+                                    break;
+                            }
                         default:
                             cmd = new Command(GameCommandType.NOTHING, new Object[0]);
                     }
@@ -102,22 +113,15 @@ public class FxUI extends Scene implements UI {
         gc.clearRect(0, 0, boardCanvas.getWidth(), boardCanvas.getHeight());
 
         for (ImplosionContext ic : view.getImplosions()) {
-            XY position = ic.getPosition();
-            int radius = ic.getRadius();
 
-            double opacity = ic.getEnergyLoss() / 200 * (1 - ic.getTickCounter() / 6 / 10);
-
-            //System.out.println("EnergyLoss: " + ic.getEnergyLoss() / 200);
-            //System.out.println("TickCounter: " + (1 - ic.getTickCounter() / 6 / 10));
-
-            //System.out.println(opacity);
+            double opacity = (((double) ic.getTickCounter() / ic.getMAX_TICK_COUNTER()));
             Color implisionColor = Color.color(1, 0, 0, opacity);
 
             gc.setFill(implisionColor);
-            gc.fillOval(position.getX() * CELL_SIZE - CELL_SIZE * radius / 2,
-                    position.getY() * CELL_SIZE - CELL_SIZE * radius / 2,
-                    CELL_SIZE * radius,
-                    CELL_SIZE * radius);
+            gc.fillOval(ic.getPosition().getX() * CELL_SIZE - CELL_SIZE * ic.getRadius() / 2,
+                    ic.getPosition().getY() * CELL_SIZE - CELL_SIZE * ic.getRadius() / 2,
+                    CELL_SIZE * ic.getRadius(),
+                    CELL_SIZE * ic.getRadius());
         }
 
         for (int x = 0; x < boardCanvas.getWidth(); x++) {
@@ -238,57 +242,87 @@ public class FxUI extends Scene implements UI {
 
         EntityType et = e.getEntityType();
         String stringToPrint;
+        String simpleText, detailedText, extendText;
         switch (et) {
             case GOODPLANT:
-                stringToPrint = "GP";
+                simpleText = detailedText = "GP";
+                extendText = Integer.toString(e.getEnergy());
                 break;
             case GOODBEAST:
-                stringToPrint = "GB";
-                stringToPrint = Integer.toString(e.getEnergy());
+                simpleText = detailedText = "GB";
+                extendText = Integer.toString(e.getEnergy());
                 break;
             case BADPLANT:
-                stringToPrint = "BP";
+                simpleText = detailedText = "BP";
+                extendText = Integer.toString(e.getEnergy());
                 break;
             case BADBEAST:
-                //stringToPrint = "BB";
-                stringToPrint = Integer.toString(((BadBeast) e).getLives());
+                simpleText = "BB";
+                detailedText = Integer.toString(e.getEnergy());
+                extendText = Integer.toString(((BadBeast) e).getLives());
                 break;
             case WALL:
-                stringToPrint = "";
+                simpleText = detailedText = extendText = "";
                 break;
             case MINISQUIRREL:
-                //stringToPrint = "mS";
+                simpleText = "mS";
+                detailedText = Integer.toString(e.getEnergy());
+                detailedText = String.format("A%n" + detailedText);
                 if (((PlayerEntity) e).getStunTime() != 0) {
-                    stringToPrint = Integer.toString(((PlayerEntity) e).getStunTime());
-                    stringToPrint = String.format("A%n" + stringToPrint);
+                    extendText = Integer.toString(((PlayerEntity) e).getStunTime());
+                    extendText = String.format("A%n" + extendText);
                 } else {
-
-                    stringToPrint = Integer.toString(e.getEnergy());
-                    stringToPrint = String.format("A%n" + stringToPrint);
+                    extendText = detailedText;
                 }
-
                 break;
             case MASTERSQUIRREL:
+                simpleText = "MS";
+                detailedText = Integer.toString(e.getEnergy());
+                detailedText = String.format("A%n" + detailedText);
                 if (((PlayerEntity) e).getStunTime() != 0) {
-                    stringToPrint = Integer.toString(((PlayerEntity) e).getStunTime());
-                    stringToPrint = String.format("A%n" + stringToPrint);
+                    extendText = Integer.toString(((PlayerEntity) e).getStunTime());
+                    extendText = String.format("A%n" + extendText);
                 } else {
-                    stringToPrint = Integer.toString(e.getEnergy());
-                    stringToPrint = String.format("A%n" + stringToPrint);
+                    extendText = detailedText;
                 }
-
                 break;
             case HANDOPERATEDMASTERSQUIRREL:
+                simpleText = "HS";
+                detailedText = simpleText;
                 if (((PlayerEntity) e).getStunTime() != 0) {
-                    stringToPrint = Integer.toString(((PlayerEntity) e).getStunTime());
+                    extendText = Integer.toString(((PlayerEntity) e).getStunTime());
+                    extendText = String.format("A%n" + extendText);
                 } else {
-                    stringToPrint = "HS";
+                    extendText = detailedText;
                 }
-
                 break;
             default:
-                stringToPrint = "";
+                simpleText = detailedText = extendText = "";
+
         }
+
+        stringToPrint = switchVerboseLevel(vl, simpleText, detailedText, extendText);
+
+        return stringToPrint;
+    }
+
+    private String switchVerboseLevel(verboseLevel vl, String simpleText, String detailedText, String extendedText) {
+
+        String stringToPrint = simpleText;
+
+        switch (vl) {
+            case simple:
+                stringToPrint = simpleText;
+                break;
+            case detailed:
+                stringToPrint = detailedText;
+                break;
+            case extended:
+                stringToPrint = extendedText;
+                break;
+
+        }
+
         return stringToPrint;
     }
 
