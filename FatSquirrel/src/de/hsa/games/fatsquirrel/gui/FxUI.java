@@ -118,6 +118,9 @@ public class FxUI extends Scene implements UI {
         for (ImplosionContext ic : view.getImplosions()) {
 
             double opacity = (((double) ic.getTickCounter() / ic.getMAX_TICK_COUNTER()));
+            if (opacity < 0)
+                opacity = 0;
+
             Color implisionColor = Color.color(1, 0, 0, opacity);
 
             gc.setFill(implisionColor);

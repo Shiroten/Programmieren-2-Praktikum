@@ -123,7 +123,7 @@ public class Launcher extends Application {
                 break;
             case testcase1:
                 config = new BoardConfig(new XY(30, 30), 60,
-                        650, 0, 0, 0, 0,
+                        600, 0, 0, 0, 0,
                         10, 5, GameType.SINGLE_PLAYER);
                 break;
             case custom:
