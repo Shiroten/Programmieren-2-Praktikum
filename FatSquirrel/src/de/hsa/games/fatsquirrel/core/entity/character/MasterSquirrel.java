@@ -2,6 +2,7 @@ package de.hsa.games.fatsquirrel.core.entity.character;
 
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.XYsupport;
+import de.hsa.games.fatsquirrel.botapi.ControllerContext;
 import de.hsa.games.fatsquirrel.core.entity.EntityContext;
 import de.hsa.games.fatsquirrel.core.entity.EntityType;
 
@@ -29,6 +30,7 @@ public class MasterSquirrel extends PlayerEntity {
             if (stunTime > 0)
                 stunTime--;
             else {
+
                 XY distance = XYsupport.randomDirection();
                 context.tryMove(this, distance);
             }
@@ -44,4 +46,7 @@ public class MasterSquirrel extends PlayerEntity {
         return this == squirrelToCheck.getDaddy();
     }
 
+    public void nextStep(ControllerContext view){
+
+    }
 }

@@ -159,14 +159,6 @@ public class Board {
             case GOODPLANT:
                 addEntity = new GoodPlant(setID(), position);
                 break;
-            case MASTERSQUIRREL:
-                if (handOperatedMasterSquirrel == null) {
-                    addEntity = new MasterSquirrel(-100, position);
-                    handOperatedMasterSquirrel = (HandOperatedMasterSquirrel) addEntity;
-                }else{
-                    addEntity = new MasterSquirrel(setID(), position);
-                }
-                break;
         }
         set.add(addEntity);
 

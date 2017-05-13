@@ -71,7 +71,7 @@ public class MiniSquirrelBot extends MiniSquirrel {
 
     public MiniSquirrelBot(int id, XY position, int energy, MasterSquirrel daddy) {
         super(id, position, energy, daddy);
-        this.miniBotController = factory.createMiniBotController();
+        this.miniBotController = factory.createMiniBotController("de.hsa.games.fatsquirrel.botapi.MiniBotControllerImplShiroten");
     }
 
     public void nextStep(ControllerContext view) {

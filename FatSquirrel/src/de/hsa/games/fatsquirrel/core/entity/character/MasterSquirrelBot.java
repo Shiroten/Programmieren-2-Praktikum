@@ -8,7 +8,7 @@ import de.hsa.games.fatsquirrel.core.entity.EntityType;
 
 public class MasterSquirrelBot extends MasterSquirrel{
 
-    class ControllerContextImpl implements ControllerContext{
+    static class ControllerContextImpl implements ControllerContext{
 
         @Override
         public XY locate() {
@@ -22,7 +22,6 @@ public class MasterSquirrelBot extends MasterSquirrel{
 
         @Override
         public void implode(int impactRadius) {
-
         }
 
         @Override
@@ -72,12 +71,14 @@ public class MasterSquirrelBot extends MasterSquirrel{
 
     public MasterSquirrelBot(int id, XY position){
         super(id, position);
-        this.masterBotController = factory.createMasterBotController();
+        this.masterBotController = factory.createMasterBotController("de.hsa.games.fatsquirrel.botapi.MasterBotControllerImplShiroten");
     }
 
-    public void nextStep(ControllerContext view){
-
+        @Override
+        public void nextStep(ControllerContext view){
+        System.out.println("nextStep of MasterSquirrelBot");
         masterBotController.nextStep(view);
+
     }
 
 }

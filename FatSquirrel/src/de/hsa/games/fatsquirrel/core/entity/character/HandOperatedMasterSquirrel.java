@@ -2,6 +2,7 @@ package de.hsa.games.fatsquirrel.core.entity.character;
 
 import de.hsa.games.fatsquirrel.MoveCommand;
 import de.hsa.games.fatsquirrel.XY;
+import de.hsa.games.fatsquirrel.botapi.ControllerContext;
 import de.hsa.games.fatsquirrel.core.entity.EntityContext;
 import de.hsa.games.fatsquirrel.core.entity.EntityType;
 
@@ -59,4 +60,5 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel {
             command = MoveCommand.NOWHERE;
         }
     }
+
 }

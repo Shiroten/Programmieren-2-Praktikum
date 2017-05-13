@@ -1,25 +1,38 @@
 package de.hsa.games.fatsquirrel.botapi;
 
-import de.hsa.games.fatsquirrel.XYsupport;
-
 public class BotControllerFactoryImpl implements de.hsa.games.fatsquirrel.botapi.BotControllerFactory{
-    public BotController createMasterBotController(){
-        return new BotController() {
-            @Override
-            public void nextStep(ControllerContext view) {
 
-                view.move(XYsupport.randomDirection());
-            }
-        };
+    public BotControllerFactoryImpl(){
+
     }
 
-    public BotController createMiniBotController(){
-        return new BotController() {
-            @Override
-            public void nextStep(ControllerContext view) {
+    public BotController createMasterBotController(String masterBotControllerName){
+        try {
+            Class clazz = Class.forName(masterBotControllerName);
+            return (BotController) clazz.newInstance();
 
-                view.move(XYsupport.randomDirection());
-            }
-        };
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public BotController createMiniBotController(String miniBotControllerName){
+        try {
+            Class clazz = Class.forName(miniBotControllerName);
+            return (BotController) clazz.newInstance();
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }
