@@ -1,5 +1,6 @@
 package de.hsa.games.fatsquirrel.gui;
 
+import de.hsa.games.fatsquirrel.Launcher;
 import de.hsa.games.fatsquirrel.UI;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.console.GameCommandType;
@@ -22,6 +23,10 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.TextAlignment;
+
+import java.util.ConcurrentModificationException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class FxUI extends Scene implements UI {
@@ -115,31 +120,36 @@ public class FxUI extends Scene implements UI {
         GraphicsContext gc = boardCanvas.getGraphicsContext2D();
         gc.clearRect(0, 0, boardCanvas.getWidth(), boardCanvas.getHeight());
 
-        for (ImplosionContext ic : view.getImplosions()) {
+        try {
+            for (ImplosionContext ic : view.getImplosions()) {
 
-            double opacity = (((double) ic.getTickCounter() / ic.getMAX_TICK_COUNTER()));
-            if (opacity < 0)
-                opacity = 0;
+                double opacity = (((double) ic.getTickCounter() / ic.getMAX_TICK_COUNTER()));
+                if (opacity < 0)
+                    opacity = 0;
 
-            Color implisionColor = Color.color(1, 0, 0, opacity);
+                Color implisionColor = Color.color(1, 0, 0, opacity);
 
-            gc.setFill(implisionColor);
-            gc.fillOval(ic.getPosition().getX() * CELL_SIZE - CELL_SIZE * ic.getRadius() + (CELL_SIZE / 2),
-                    ic.getPosition().getY() * CELL_SIZE - CELL_SIZE * ic.getRadius() + (CELL_SIZE / 2),
-                    CELL_SIZE * ic.getRadius() * 2,
-                    CELL_SIZE * ic.getRadius() * 2);
+                gc.setFill(implisionColor);
+                gc.fillOval(ic.getPosition().getX() * CELL_SIZE - CELL_SIZE * ic.getRadius() + (CELL_SIZE / 2),
+                        ic.getPosition().getY() * CELL_SIZE - CELL_SIZE * ic.getRadius() + (CELL_SIZE / 2),
+                        CELL_SIZE * ic.getRadius() * 2,
+                        CELL_SIZE * ic.getRadius() * 2);
 
-            if (vl == verboseLevel.extended) {
-                gc.setFill(Color.BLACK);
-                gc.fillText(Integer.toString(ic.getTickCounter()),
-                        ic.getPosition().getX() * CELL_SIZE + (CELL_SIZE / 2),
-                        ic.getPosition().getY() * CELL_SIZE + (CELL_SIZE / 2));
+                if (vl == verboseLevel.extended) {
+                    gc.setFill(Color.BLACK);
+                    gc.fillText(Integer.toString(ic.getTickCounter()),
+                            ic.getPosition().getX() * CELL_SIZE + (CELL_SIZE / 2),
+                            ic.getPosition().getY() * CELL_SIZE + (CELL_SIZE / 2));
+                }
             }
-        }
-        for (int x = 0; x < boardCanvas.getWidth(); x++) {
-            for (int y = 0; y < boardCanvas.getHeight(); y++) {
-                printEntity(gc, view.getEntity(new XY(x, y)), new XY(x, y));
+            for (int x = 0; x < boardCanvas.getWidth(); x++) {
+                for (int y = 0; y < boardCanvas.getHeight(); y++) {
+                    printEntity(gc, view.getEntity(new XY(x, y)), new XY(x, y));
+                }
             }
+        }catch (Exception e){
+            Logger logger = Logger.getLogger(Launcher.class.getName());
+            logger.log(Level.SEVERE, e.getMessage());
         }
     }
 

@@ -74,7 +74,7 @@ public class FxGameImpl extends Game {
             try {
                 spawnMini((Integer) spawnMiniSquirrel.getParams()[0]);
             } catch (NotEnoughEnergyException neee) {
-                neee.printStackTrace();
+                logger.log(Level.FINE, "NotEnoughEnergyException");
             }
             spawnMiniSquirrel = null;
         }

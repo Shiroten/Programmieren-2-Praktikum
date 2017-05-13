@@ -28,7 +28,7 @@ public class Launcher extends Application {
     private static final int VIEW_DISTANCE_OF_GOODBEAST = 6;
     private static final int VIEW_DISTANCE_OF_BADBEAST = 6;
 
-    private static final defaultNumber dn = defaultNumber.normal;
+    private static final defaultNumber dn = defaultNumber.testcase1;
 
     public enum defaultNumber {
         testcase1,
