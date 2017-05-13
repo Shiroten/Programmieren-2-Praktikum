@@ -354,6 +354,112 @@ public class FlattenedBoard implements BoardView, EntityContext {
         checkMasterSquirrel(pacSquirrel);
     }
 
+    @Override
+    public void implode(Entity e, int impactRadius) {
+
+        int collectedEnergy = 0;
+        float impactArea = (float) (impactRadius * impactRadius * Math.PI);
+        XY position = e.getCoordinate();
+
+        for (int i = -impactRadius; i < impactRadius; i++) {
+            for (int j = -impactRadius; j < impactRadius; j++) {
+                if (!(i == 0 && j == 0)) {
+
+                    Entity entityToCheck = getEntity(position.plus(new XY(j, i)));
+                    if (entityToCheck != null) {
+                        double distance = position.distanceFrom(entityToCheck.getCoordinate());
+                        double energyLoss = 200 * (e.getEnergy() / impactArea) * (1 - distance / impactRadius);
+
+                        collectedEnergy += calculateEnergyOfEntity(energyLoss, entityToCheck);
+                        EntityType et = entityToCheck.getEntityType();
+
+                        switch (et) {
+                            case WALL:
+                                break;
+                            case BADPLANT:
+                            case GOODPLANT:
+                            case BADBEAST:
+                            case GOODBEAST:
+                                if (entityToCheck.getEnergy() == 0) {
+                                    killAndReplace(entityToCheck);
+                                }
+                                break;
+                            case MINISQUIRREL:
+                                if (entityToCheck.getEnergy() == 0) {
+                                    killEntity(entityToCheck);
+                                }
+                        }
+                    }
+                }
+            }
+        }
+        if (e.getEntityType() == EntityType.MINISQUIRREL) {
+            ((MiniSquirrel) e).getDaddy().updateEnergy(collectedEnergy);
+            killEntity(e);
+        } else {
+            //Todo: restliche EntiType behalden für implode falls gewünscht.
+        }
+
+
+    }
+
+    private int calculateEnergyOfEntity(double energyLoss, Entity e) {
+
+        int energyDifference;
+
+        if (e.getEnergy() <= 0) {
+
+            energyDifference = 0;
+            ceoeHelper(energyLoss, e);
+
+        } else if (e.getEnergy() >= (int) energyLoss) {
+
+            energyDifference = ceoeHelper(energyLoss, e);
+
+        } else if (e.getEntityType() == EntityType.MASTERSQUIRREL) {
+
+            energyDifference = (int) energyLoss;
+            e.updateEnergy(-(int) energyLoss);
+            checkMasterSquirrel((MasterSquirrel) e);
+
+        } else {
+
+            energyDifference = e.getEnergy();
+            e.updateEnergy(-e.getEnergy());
+
+        }
+
+        return energyDifference;
+    }
+
+    private int ceoeHelper(double energyLoss, Entity e) {
+
+        int energyCollected;
+        EntityType et = e.getEntityType();
+
+        switch (et) {
+            case BADBEAST:
+            case BADPLANT:
+                //Fall Energy Negativ
+                e.updateEnergy((int) energyLoss);
+                if (e.getEnergy() >= 0) {
+                    //Energy auf Null setzen
+                    e.updateEnergy(-e.getEnergy());
+                }
+            case WALL:
+                energyCollected = 0;
+                break;
+            default:
+                //Fall Energy Positiv
+                energyCollected = e.getEnergy() - (int) energyLoss;
+                e.updateEnergy(-energyCollected);
+                if (e.getEnergy() <= 0) {
+                    e.updateEnergy(-e.getEnergy());
+                }
+        }
+        return energyCollected;
+    }
+
     private void checkMasterSquirrel(MasterSquirrel ms) {
         if (ms.getEnergy() < 0)
             ms.updateEnergy(-ms.getEnergy());

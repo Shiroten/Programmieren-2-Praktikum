@@ -24,7 +24,9 @@ public abstract class Character extends Entity {
 
     //Todo: Implosion Methode implementieren
 
-    public void implode (int impactRadius ){
+    void implode(EntityContext context, int impactRadius){
+
+        context.implode(this, impactRadius);
 
     }
 }

@@ -6,19 +6,34 @@ import de.hsa.games.fatsquirrel.core.entity.character.*;
 
 public interface EntityContext {
     XY getSize();
+
     void tryMove(MiniSquirrel miniSquirrel, XY xy);
+
     void tryMove(GoodBeast goodBeast, XY xy);
+
     void tryMove(BadBeast badBeast, XY xy);
+
     void tryMove(MasterSquirrel masterSquirrel, XY xy);
+
     void tryMove(PacSquirrel pacSquirrel, XY xy);
+
+    void implode(Entity e, int impactradius);
+
     PlayerEntity nearestPlayerEntity(XY pos);
 
     void killEntity(Entity entity);
+
     void killAndReplace(Entity entity);
+
     EntityType getEntityType(XY xy);
+
     void tryMove(StandardMiniSquirrel standardMiniSquirrel);
+
     int getBEAST_MOVE_TIME_IN_TICKS();
+
     int getMINI_SQUIRREL_MOVE_TIME_IN_TICKS();
+
     int getGOODBEAST_VIEW_DISTANCE();
+
     int getBADBEAST_VIEW_DISTANCE();
 }
