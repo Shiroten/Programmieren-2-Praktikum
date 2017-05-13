@@ -14,6 +14,8 @@ public class MiniSquirrel extends PlayerEntity {
     private MasterSquirrel daddy;
     private int moveCounter = 0;
 
+    private boolean impload = false;
+
     public EntityType getEntityType() {
         return type;
     }
@@ -42,7 +44,7 @@ public class MiniSquirrel extends PlayerEntity {
             if (stunTime > 0)
                 stunTime--;
             else {
-                if (this.energy >= 10) {
+                if (impload) {
                     implode(context, 5);
                 } else {
 
@@ -57,5 +59,9 @@ public class MiniSquirrel extends PlayerEntity {
             moveCounter++;
 
 
+    }
+
+    public void impload() {
+        this.impload = true;
     }
 }

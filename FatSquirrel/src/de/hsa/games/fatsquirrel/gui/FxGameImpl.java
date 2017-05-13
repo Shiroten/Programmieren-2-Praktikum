@@ -3,8 +3,10 @@ package de.hsa.games.fatsquirrel.gui;
 import de.hsa.games.fatsquirrel.*;
 import de.hsa.games.fatsquirrel.console.NotEnoughEnergyException;
 import de.hsa.games.fatsquirrel.core.*;
+import de.hsa.games.fatsquirrel.core.entity.Entity;
 import de.hsa.games.fatsquirrel.core.entity.EntityType;
 import de.hsa.games.fatsquirrel.core.entity.character.HandOperatedMasterSquirrel;
+import de.hsa.games.fatsquirrel.core.entity.character.MiniSquirrel;
 import de.hsa.games.fatsquirrel.core.entity.character.StandardMiniSquirrel;
 import de.hsa.games.fatsquirrel.util.ui.Command;
 
@@ -15,6 +17,7 @@ public class FxGameImpl extends Game {
 
     protected HandOperatedMasterSquirrel handOperatedMasterSquirrel;
     private Command spawnMiniSquirrel = null;
+    private Command imploadMiniSquirrel = null;
 
     protected FxGameImpl() {
     }
@@ -43,12 +46,14 @@ public class FxGameImpl extends Game {
                 case "s":
                     handOperatedMasterSquirrel.setCommand(MoveCommand.SOUTH);
                     break;
-                case "m":
+                case "f":
                     spawnMiniSquirrel = cmd;
                     break;
                 case "p":
                     handOperatedMasterSquirrel.updateEnergy(1000);
                     break;
+                case "T":
+                    imploadMiniSquirrel = cmd;
                 default:
                     handOperatedMasterSquirrel.setCommand(MoveCommand.NOWHERE);
             }
@@ -73,6 +78,12 @@ public class FxGameImpl extends Game {
             }
             spawnMiniSquirrel = null;
         }
+
+        if (imploadMiniSquirrel != null) {
+            imploadMiniSquirrel();
+            imploadMiniSquirrel = null;
+        }
+
         getState().update();
         FxUI fxUI = (FxUI) this.getUi();
         fxUI.message("MasterSquirrel Energy: " + Integer.toString(handOperatedMasterSquirrel.getEnergy()));
@@ -101,6 +112,19 @@ public class FxGameImpl extends Game {
                 }
             } else {
                 throw new NotEnoughEnergyException();
+            }
+        }
+    }
+
+    private void imploadMiniSquirrel() {
+        for (Entity e : getState().getEntitySet()){
+            if (e!=null){
+                if (e.getEntityType()== EntityType.MINISQUIRREL){
+                    if (((MiniSquirrel)e).getDaddy() == handOperatedMasterSquirrel){
+                        ((MiniSquirrel)e).impload();
+                    }
+
+                }
             }
         }
     }

@@ -82,6 +82,9 @@ public class FxUI extends Scene implements UI {
                         case P:
                             cmd = new Command(GameCommandType.CHEAT_ENERGY, new Object[0]);
                             break;
+                        case T:
+                            cmd = new Command(GameCommandType.IMPLODE_MINISQUIRRELS, new Object[0]);
+                            break;
                         case V:
                             switch (vl) {
                                 case simple:
