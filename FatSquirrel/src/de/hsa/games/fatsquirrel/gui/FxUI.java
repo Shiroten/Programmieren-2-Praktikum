@@ -29,15 +29,21 @@ import javafx.scene.text.TextAlignment;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 public class FxUI extends Scene implements UI {
 
     private Canvas boardCanvas;
     private Label msgLabel;
     private static Command cmd = new Command(GameCommandType.NOTHING, new Object[0]);
     private static verboseLevel vl = verboseLevel.simple;
-    private static boolean printVector = false;
+    private static headOrTail printVector = headOrTail.tail;
     private static int CELL_SIZE = 30;
+
+    public enum headOrTail {
+        none,
+        head,
+        tail,
+        headAndTail;
+    }
 
     public enum verboseLevel {
         simple,
@@ -92,8 +98,20 @@ public class FxUI extends Scene implements UI {
                             cmd = new Command(GameCommandType.IMPLODE_MINISQUIRRELS, new Object[0]);
                             break;
                         case B:
-                            printVector = !printVector;
-                            break;
+                            switch (printVector) {
+                                case none:
+                                    printVector = headOrTail.headAndTail;
+                                    break;
+                                case head:
+                                    printVector = headOrTail.tail;
+                                    break;
+                                case tail:
+                                    printVector = headOrTail.none;
+                                    break;
+                                case headAndTail:
+                                    printVector = headOrTail.head;
+                                    break;
+                            }
                         case V:
                             switch (vl) {
                                 case simple:
@@ -159,7 +177,7 @@ public class FxUI extends Scene implements UI {
                 for (int y = 0; y < boardCanvas.getHeight(); y++) {
                     if (view.getEntity(new XY(x, y)) != null) {
                         printEntity(gc, view.getEntity(new XY(x, y)), new XY(x, y));
-                        if (printVector) {
+                        if (printVector != headOrTail.none) {
                             EntityType et = view.getEntity(new XY(x, y)).getEntityType();
                             switch (et) {
                                 case WALL:
@@ -215,19 +233,25 @@ public class FxUI extends Scene implements UI {
         for (int i = 0; i < numberOfRotation; i++) {
             rotateOffset += 45;
         }
-        //Head
-        gc.rotate(45 + rotateOffset);
-        gc.setFill(Color.color(0.702, 0.3098, 0.0824));
-        double offset = -CELL_SIZE / 2;
-        gc.fillRect(offset, offset, 2, 10);
-        gc.fillRect(offset, offset, 10, 2);
 
-        //Tail
+        gc.rotate(45 + rotateOffset);
+        //Head
+        if (printVector == headOrTail.head || printVector == headOrTail.headAndTail) {
+            gc.setFill(Color.color(0.702, 0.3098, 0.0824));
+            double offset = -CELL_SIZE / 2;
+            gc.fillRect(offset, offset, 2, 10);
+            gc.fillRect(offset, offset, 10, 2);
+        }
+
         gc.rotate(0);
-        gc.setFill(Color.color(0.4275, 0.1961, 0.0431));
-        double offsetTail = CELL_SIZE / 2 - 7;
-        gc.fillRect(offsetTail, offsetTail, 2, 15);
-        gc.fillRect(offsetTail, offsetTail, 15, 2);
+        //Tail
+        if (printVector == headOrTail.tail || printVector == headOrTail.headAndTail) {
+            gc.setFill(Color.color(0.4275, 0.1961, 0.0431));
+            double offsetTail = CELL_SIZE / 2 - 7;
+            gc.fillRect(offsetTail, offsetTail, 4, 15);
+            gc.fillRect(offsetTail, offsetTail, 15, 4);
+        }
+
 
         gc.restore();
     }
