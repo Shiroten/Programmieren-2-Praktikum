@@ -181,7 +181,12 @@ public class FxUI extends Scene implements UI {
                 returnColor = Color.color(1, 0.5412, 0);
                 break;
             case MASTERSQUIRREL:
-                returnColor = Color.color(0, 0.0588, 1);
+                if (e.getId() == -100) {
+                    returnColor = Color.color(0, 0.9608, 1);
+                } else {
+                    returnColor = Color.color(0, 0.0588, 1);
+                }
+
                 break;
             default:
                 returnColor = Color.gray(0, 0);
@@ -220,7 +225,11 @@ public class FxUI extends Scene implements UI {
                 if (((PlayerEntity) e).getStunTime() != 0) {
                     returnColor = Color.RED;
                 } else {
-                    returnColor = Color.WHITE;
+                    if (e.getId() == -100) {
+                        returnColor = Color.BLACK;
+                    } else {
+                        returnColor = Color.WHITE;
+                    }
                 }
                 break;
             default:
@@ -267,7 +276,12 @@ public class FxUI extends Scene implements UI {
                 }
                 break;
             case MASTERSQUIRREL:
-                simpleText = "MS";
+                if (e.getId() == -100) {
+                    simpleText = "HS";
+                } else {
+                    simpleText = "MS";
+                }
+
                 detailedText = Integer.toString(e.getEnergy());
                 detailedText = String.format("A%n" + detailedText);
                 if (((PlayerEntity) e).getStunTime() != 0) {
@@ -277,17 +291,6 @@ public class FxUI extends Scene implements UI {
                     extendText = detailedText;
                 }
                 break;
-            /*case HANDOPERATEDMASTERSQUIRREL:
-                simpleText = "HS";
-                detailedText = simpleText;
-                if (((PlayerEntity) e).getStunTime() != 0) {
-                    extendText = Integer.toString(((PlayerEntity) e).getStunTime());
-                    extendText = String.format("A%n" + extendText);
-                } else {
-                    extendText = detailedText;
-                }
-                break;
-                */
             default:
                 simpleText = detailedText = extendText = "";
 

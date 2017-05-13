@@ -127,21 +127,15 @@ public class Board {
                     break;
                 case MASTERSQUIRREL:
                     if (config.getGameType() != GameType.BOT_ONLY && set.getHandOperatedMasterSquirrel() == null) {
-                        entityToAdd = new HandOperatedMasterSquirrel(setID(), new XY(randomX, randomY));
+                        entityToAdd = new HandOperatedMasterSquirrel(-100, new XY(randomX, randomY));
                         this.handOperatedMasterSquirrel = (HandOperatedMasterSquirrel) entityToAdd;
-                    } else{
+                    } else {
                         entityToAdd = new MasterSquirrelBot(setID(), new XY(randomX, randomY));
                     }
                     break;
             }
             set.add(entityToAdd);
-
         }
-
-    }
-
-    public void addMasterSquirrel() {
-
     }
 
     //Package Private
@@ -164,6 +158,14 @@ public class Board {
                 break;
             case GOODPLANT:
                 addEntity = new GoodPlant(setID(), position);
+                break;
+            case MASTERSQUIRREL:
+                if (handOperatedMasterSquirrel == null) {
+                    addEntity = new MasterSquirrel(-100, position);
+                    handOperatedMasterSquirrel = (HandOperatedMasterSquirrel) addEntity;
+                }else{
+                    addEntity = new MasterSquirrel(setID(), position);
+                }
                 break;
         }
         set.add(addEntity);
