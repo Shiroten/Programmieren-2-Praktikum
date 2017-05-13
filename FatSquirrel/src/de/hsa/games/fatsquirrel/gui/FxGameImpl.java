@@ -15,8 +15,7 @@ import java.util.logging.Logger;
 
 public class FxGameImpl extends Game {
 
-    protected HandOperatedMasterSquirrel handOperatedMasterSquirrel;
-    private Command spawnMiniSquirrel = null;
+    private HandOperatedMasterSquirrel handOperatedMasterSquirrel;
     private Command imploadMiniSquirrel = null;
 
     protected FxGameImpl() {
@@ -35,19 +34,19 @@ public class FxGameImpl extends Game {
             Command cmd = this.getUi().getCommand();
             switch (cmd.getCommandTypeInfo().getName()) {
                 case "w":
-                    handOperatedMasterSquirrel.setCommand(MoveCommand.NORTH);
+                    handOperatedMasterSquirrel.setCommand(ActionCommand.NORTH);
                     break;
                 case "a":
-                    handOperatedMasterSquirrel.setCommand(MoveCommand.WEST);
+                    handOperatedMasterSquirrel.setCommand(ActionCommand.WEST);
                     break;
                 case "d":
-                    handOperatedMasterSquirrel.setCommand(MoveCommand.EAST);
+                    handOperatedMasterSquirrel.setCommand(ActionCommand.EAST);
                     break;
                 case "s":
-                    handOperatedMasterSquirrel.setCommand(MoveCommand.SOUTH);
+                    handOperatedMasterSquirrel.setCommand(ActionCommand.SOUTH);
                     break;
                 case "f":
-                    spawnMiniSquirrel = cmd;
+                    handOperatedMasterSquirrel.setCommand(ActionCommand.SPAWN);
                     break;
                 case "p":
                     handOperatedMasterSquirrel.updateEnergy(1000);
@@ -55,7 +54,7 @@ public class FxGameImpl extends Game {
                 case "t":
                     imploadMiniSquirrel = cmd;
                 default:
-                    handOperatedMasterSquirrel.setCommand(MoveCommand.NOWHERE);
+                    handOperatedMasterSquirrel.setCommand(ActionCommand.NOWHERE);
             }
         } else {
             System.out.println("No HandOperatedMasterSquirrel found");
@@ -68,17 +67,6 @@ public class FxGameImpl extends Game {
 
     protected void update() {
 
-        if (spawnMiniSquirrel != null) {
-            Logger logger = Logger.getLogger(Launcher.class.getName());
-            logger.log(Level.FINER, "try to Spawn MiniSquirrel in update() from FxGameImpl");
-            try {
-                spawnMini((Integer) spawnMiniSquirrel.getParams()[0]);
-            } catch (NotEnoughEnergyException neee) {
-                neee.printStackTrace();
-            }
-            spawnMiniSquirrel = null;
-        }
-
         if (imploadMiniSquirrel != null) {
             imploadMiniSquirrel();
             imploadMiniSquirrel = null;
@@ -89,32 +77,6 @@ public class FxGameImpl extends Game {
         fxUI.message("MasterSquirrel Energy: " + Integer.toString(handOperatedMasterSquirrel.getEnergy()));
     }
 
-    private void spawnMini(int energy) throws NotEnoughEnergyException {
-
-        Logger logger = Logger.getLogger(Launcher.class.getName());
-        logger.log(Level.FINE, "Spawning Mini");
-
-        XY locationOfMaster = handOperatedMasterSquirrel.getCoordinate();
-        for (XY xy : XYsupport.directions()) {
-            //Wenn dieses Feld leer ist....
-            if (handOperatedMasterSquirrel.getEnergy() >= energy) {
-                if (this.getState().flattenBoard().getEntityType(locationOfMaster.plus(xy)) == EntityType.NONE) {
-
-                    //Füge neues StandardMiniSquirrel hinzu zum Board
-                    handOperatedMasterSquirrel.updateEnergy(-energy);
-                    this.getState().getBoard().add(
-                            new StandardMiniSquirrel(
-                                    this.getState().getBoard().setID(),
-                                    (locationOfMaster.plus(xy)),
-                                    energy,
-                                    handOperatedMasterSquirrel));
-                    return;
-                }
-            } else {
-                throw new NotEnoughEnergyException();
-            }
-        }
-    }
 
     private void imploadMiniSquirrel() {
         for (Entity e : getState().getEntitySet()){

@@ -10,7 +10,6 @@ import java.io.PrintStream;
 public class CommandScanner {
     private CommandTypeInfo[] commandTypeInfos;
     private BufferedReader inputReader;
-    private PrintStream outputStream;
 
     public CommandScanner(CommandTypeInfo[] commandTypeInfos, BufferedReader inputReader) {
         this.commandTypeInfos = commandTypeInfos;

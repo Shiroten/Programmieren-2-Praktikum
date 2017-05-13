@@ -14,6 +14,7 @@ public class BoardConfig {
     private final int NUMBER_OF_WA;
 
     private final int POINTS_FOR_MINI_SQUIRREL = 150;
+    private final long gameDuration;
 
     private final int TICKLENGTH;
     private final float SQUIRREL_STUN_TIME_LENGTH = 0.2f;
@@ -45,6 +46,11 @@ public class BoardConfig {
         this.VIEW_DISTANCE_OF_GOODBEAST = VIEW_DISTANCE_OF_GOODBEAST;
         this.VIEW_DISTANCE_OF_BADBEAST = VIEW_DISTANCE_OF_BADBEAST;
         this.gameType = gameType;
+        this.gameDuration = 1000000000;
+    }
+
+    public long getGameDuration() {
+        return gameDuration;
     }
 
     public BoardConfig() {
@@ -61,6 +67,8 @@ public class BoardConfig {
         this.VIEW_DISTANCE_OF_GOODBEAST = 7;
         this.VIEW_DISTANCE_OF_BADBEAST = 6;
         this.gameType = GameType.WITH_BOT;
+        this.gameDuration = 1000000000;
+
     }
 
     public BoardConfig(XY size, int NUMBER_OF_GB, int NUMBER_OF_BB, int NUMBER_OF_GP, int NUMBER_OF_BP, int NUMBER_OF_WA) {

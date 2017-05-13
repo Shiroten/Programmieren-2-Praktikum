@@ -1,7 +1,7 @@
 package de.hsa.games.fatsquirrel.console;
 
+import de.hsa.games.fatsquirrel.ActionCommand;
 import de.hsa.games.fatsquirrel.Game;
-import de.hsa.games.fatsquirrel.MoveCommand;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.XYsupport;
 import de.hsa.games.fatsquirrel.core.*;
@@ -59,19 +59,19 @@ public class GameImpl extends Game {
     }
 
     private void moveUp() {
-        handOperatedMasterSquirrel.setCommand(MoveCommand.NORTH);
+        handOperatedMasterSquirrel.setCommand(ActionCommand.NORTH);
     }
 
     private void moveDown() {
-        handOperatedMasterSquirrel.setCommand(MoveCommand.SOUTH);
+        handOperatedMasterSquirrel.setCommand(ActionCommand.SOUTH);
     }
 
     private void moveLeft() {
-        handOperatedMasterSquirrel.setCommand(MoveCommand.WEST);
+        handOperatedMasterSquirrel.setCommand(ActionCommand.WEST);
     }
 
     private void moveRight() {
-        handOperatedMasterSquirrel.setCommand(MoveCommand.EAST);
+        handOperatedMasterSquirrel.setCommand(ActionCommand.EAST);
     }
 
     private void masterEnergy() {

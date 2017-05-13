@@ -25,6 +25,12 @@ public interface EntityContext {
 
     void killAndReplace(Entity entity);
 
+    Entity getEntity(XY xy);
+
+    void spawnMiniSquirrel(XY direction, int energy, MasterSquirrel daddy);
+
+    long getRemainingTime();
+
     EntityType getEntityType(XY xy);
 
     void tryMove(StandardMiniSquirrel standardMiniSquirrel);

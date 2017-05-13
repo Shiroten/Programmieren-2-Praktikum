@@ -71,6 +71,13 @@ public class XYsupport {
         return toRotate;
     }
 
+    public static boolean isInRange(XY middle, XY lowerLeftEnd, XY upperRightEnd){
+        if(middle.getX() <= upperRightEnd.getX() && middle.getX() >= lowerLeftEnd.getX()
+                && middle.getY() <= lowerLeftEnd.getY() && middle.getY() >= upperRightEnd.getY())
+            return true;
+        return false;
+    }
+
     private static int randomWithRange(int min, int max) {
         int range = (max - min) + 1;
         return (int) (Math.random() * range) + min;

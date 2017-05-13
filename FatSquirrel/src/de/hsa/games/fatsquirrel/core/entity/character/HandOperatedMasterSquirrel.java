@@ -1,21 +1,27 @@
 package de.hsa.games.fatsquirrel.core.entity.character;
 
-import de.hsa.games.fatsquirrel.MoveCommand;
+import de.hsa.games.fatsquirrel.ActionCommand;
+import de.hsa.games.fatsquirrel.Launcher;
 import de.hsa.games.fatsquirrel.XY;
-import de.hsa.games.fatsquirrel.botapi.ControllerContext;
+import de.hsa.games.fatsquirrel.XYsupport;
+import de.hsa.games.fatsquirrel.console.NotEnoughEnergyException;
 import de.hsa.games.fatsquirrel.core.entity.EntityContext;
 import de.hsa.games.fatsquirrel.core.entity.EntityType;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class HandOperatedMasterSquirrel extends MasterSquirrel {
 
     public static final EntityType type = EntityType.MASTERSQUIRREL;
-    private MoveCommand command = MoveCommand.NOWHERE;
+    private ActionCommand command = ActionCommand.NOWHERE;
+    private boolean spawnMiniSquirrel = false;
 
     public HandOperatedMasterSquirrel(int id, XY coordinate) {
         super(id, coordinate);
     }
 
-    public void setCommand(MoveCommand command) {
+    public void setCommand(ActionCommand command) {
         this.command = command;
     }
 
@@ -26,6 +32,15 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel {
     public void nextStep(EntityContext context){
         if(stunTime > 0)
             stunTime--;
+        if(stunTime == 0 && spawnMiniSquirrel){
+            spawnMiniSquirrel = false;
+            try{
+                spawnMini(100, context);
+            } catch (NotEnoughEnergyException e){
+
+            }
+        }
+
         else {
             switch (command) {
                 case EAST:
@@ -52,12 +67,37 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel {
                 case SOUTHWEST:
                     context.tryMove(this, XY.LEFT_DOWN);
                     break;
+                case SPAWN:
+                    spawnMiniSquirrel = true;
+                    break;
                 case NOWHERE:
                     break;
                 default:
                     break;
             }
-            command = MoveCommand.NOWHERE;
+            command = ActionCommand.NOWHERE;
+        }
+    }
+
+    private void spawnMini(int energy, EntityContext context) throws NotEnoughEnergyException {
+
+        Logger logger = Logger.getLogger(Launcher.class.getName());
+        logger.log(Level.FINE, "Spawning Mini");
+
+        XY locationOfMaster = getCoordinate();
+        for (XY xy : XYsupport.directions()) {
+            //Wenn dieses Feld leer ist....
+            if (getEnergy() >= energy) {
+                if (context.getEntityType(locationOfMaster.plus(xy)) == EntityType.NONE) {
+
+                    //Füge neues StandardMiniSquirrel hinzu zum Board
+                    updateEnergy(-energy);
+                    context.spawnMiniSquirrel(getCoordinate().plus(xy), energy, this);
+                    return;
+                }
+            } else {
+                throw new NotEnoughEnergyException();
+            }
         }
     }
 

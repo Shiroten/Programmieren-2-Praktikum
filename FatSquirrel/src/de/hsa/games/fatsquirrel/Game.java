@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 public class Game {
     private UI ui;
     private State state;
-    protected MoveCommand command;
+    protected ActionCommand command;
 
 
     public UI getUi() {

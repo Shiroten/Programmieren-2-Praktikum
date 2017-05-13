@@ -1,68 +1,102 @@
 package de.hsa.games.fatsquirrel.core.entity.character;
 
 import de.hsa.games.fatsquirrel.XY;
-import de.hsa.games.fatsquirrel.botapi.BotController;
-import de.hsa.games.fatsquirrel.botapi.ControllerContext;
-import de.hsa.games.fatsquirrel.botapi.BotControllerFactoryImpl;
+import de.hsa.games.fatsquirrel.XYsupport;
+import de.hsa.games.fatsquirrel.botapi.*;
+import de.hsa.games.fatsquirrel.core.entity.EntityContext;
 import de.hsa.games.fatsquirrel.core.entity.EntityType;
 
 public class MiniSquirrelBot extends MiniSquirrel {
     class ControllerContextImpl implements ControllerContext {
 
-        //Todo: 6.2 Sichteinschränken vom MiniSquirrel
+        private EntityContext context;
+        private XY myPosition;
+        private MiniSquirrel miniSquirrel;
+
+        protected ControllerContextImpl(EntityContext context, XY myPosition, MiniSquirrel miniSquirrel){
+            this.context = context;
+            this.myPosition = myPosition;
+            this.miniSquirrel = miniSquirrel;
+        }
+
         @Override
         public XY getViewLowerLeft() {
-            return null;
+            int x = locate().getX() - 21;
+            if(x < 0)
+                x = 0;
+            int y = locate().getY() + 21;
+            if(y > context.getSize().getY())
+                y = context.getSize().getY();
+            return new XY(x, y);
         }
 
         @Override
         public XY getViewUpperRight() {
-            return null;
-        }
-
-        @Override
-        public EntityType getEntityAt(XY xy) {
-            return null;
-        }
-
-        @Override
-        public void move(XY direction) {
-
-        }
-
-        @Override
-        public void spawnMiniBot(XY direction, int energy) {
-
+            int x = locate().getX() + 21;
+            if(x > context.getSize().getY())
+                x = context.getSize().getY();
+            int y = locate().getY() - 21;
+            if(y < 0)
+                y = 0;
+            return new XY(x, y);
         }
 
         @Override
         public XY locate() {
-            return null;
+            return myPosition;
         }
 
         @Override
-        public boolean isMine(XY xy) {
-            return false;
+        public boolean isMine(XY xy) throws OutOfViewException {
+            if(!XYsupport.isInRange(xy, getViewLowerLeft(), getViewUpperRight()))
+                throw new OutOfViewException();
+            try{
+                return context.getEntity(xy).equals(miniSquirrel.getDaddy());
+            } catch (Exception e){
+                return false;
+            }
         }
 
         @Override
         public void implode(int impactRadius) {
-
+            context.implode(miniSquirrel, impactRadius);
         }
 
         @Override
         public XY directionOfMaster() {
-            return null;
+            return XYsupport.normalizedVector(miniSquirrel.getDaddy().getCoordinate().minus(miniSquirrel.getCoordinate()));
         }
 
         @Override
         public long getRemainingSteps() {
-            return 0;
+            return context.getRemainingTime();
+        }
+
+        @Override
+        public EntityType getEntityAt(XY xy) throws OutOfViewException{
+            if(!XYsupport.isInRange(xy, getViewLowerLeft(), getViewUpperRight()))
+                throw new OutOfViewException();
+
+            return context.getEntityType(xy);
+        }
+
+        @Override
+        public void move(XY direction) {
+            for(XY xy : XYsupport.directions()){
+                if(xy.equals(direction)){
+                    context.tryMove(miniSquirrel, direction);
+                    return;
+                }
+            }
+        }
+
+        @Override
+        public void spawnMiniBot(XY direction, int energy) throws SpawnException {
         }
 
         @Override
         public int getEnergy() {
-            return 0;
+            return miniSquirrel.getEnergy();
         }
     }
 
@@ -74,7 +108,8 @@ public class MiniSquirrelBot extends MiniSquirrel {
         this.miniBotController = factory.createMiniBotController("de.hsa.games.fatsquirrel.botapi.MiniBotControllerImplShiroten");
     }
 
-    public void nextStep(ControllerContext view) {
+    public void nextStep(EntityContext context) {
+        ControllerContextImpl view = new ControllerContextImpl(context,getCoordinate(), this);
         miniBotController.nextStep(view);
     }
 

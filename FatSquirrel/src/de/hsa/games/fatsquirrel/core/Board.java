@@ -165,6 +165,11 @@ public class Board {
         return addEntity;
     }
 
+    public void addMiniSquirrel(XY position, int energy, MasterSquirrel daddy){
+        MiniSquirrelBot msb = new MiniSquirrelBot(setID(), position, energy, daddy);
+        set.add(msb);
+    }
+
     private XY randomPosition(XY size) {
 
         boolean collision;

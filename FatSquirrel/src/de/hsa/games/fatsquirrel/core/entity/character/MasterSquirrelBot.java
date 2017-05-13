@@ -1,22 +1,63 @@
 package de.hsa.games.fatsquirrel.core.entity.character;
 
 import de.hsa.games.fatsquirrel.XY;
-import de.hsa.games.fatsquirrel.botapi.BotController;
-import de.hsa.games.fatsquirrel.botapi.ControllerContext;
-import de.hsa.games.fatsquirrel.botapi.BotControllerFactoryImpl;
+import de.hsa.games.fatsquirrel.XYsupport;
+import de.hsa.games.fatsquirrel.botapi.*;
+import de.hsa.games.fatsquirrel.core.entity.Entity;
+import de.hsa.games.fatsquirrel.core.entity.EntityContext;
 import de.hsa.games.fatsquirrel.core.entity.EntityType;
 
 public class MasterSquirrelBot extends MasterSquirrel{
 
     static class ControllerContextImpl implements ControllerContext{
 
-        @Override
-        public XY locate() {
-            return null;
+        private EntityContext context;
+        private XY myPosition;
+        private MasterSquirrel masterSquirrel;
+
+        protected ControllerContextImpl(EntityContext context, XY myPosition, MasterSquirrel masterSquirrel){
+            this.context = context;
+            this.myPosition = myPosition;
+            this.masterSquirrel = masterSquirrel;
         }
 
         @Override
-        public boolean isMine(XY xy) {
+        public XY getViewLowerLeft() {
+            int x = locate().getX() - 31;
+            if(x < 0)
+               x = 0;
+            int y = locate().getY() + 31;
+            if(y > context.getSize().getY())
+                y = context.getSize().getY();
+            return new XY(x, y);
+        }
+
+        @Override
+        public XY getViewUpperRight() {
+            int x = locate().getX() + 31;
+            if(x > context.getSize().getY())
+                x = context.getSize().getY();
+            int y = locate().getY() - 31;
+            if(y < 0)
+                y = 0;
+            return new XY(x, y);
+        }
+
+        @Override
+        public XY locate() {
+            return myPosition;
+        }
+
+        @Override
+        public boolean isMine(XY xy) throws OutOfViewException{
+            if(!XYsupport.isInRange(xy, getViewLowerLeft(), getViewUpperRight()))
+                throw new OutOfViewException();
+            try{
+                if(masterSquirrel.mySquirrel((MiniSquirrel)context.getEntity(xy)))
+                    return true;
+            } catch (Exception e){
+                return false;
+            }
             return false;
         }
 
@@ -31,38 +72,41 @@ public class MasterSquirrelBot extends MasterSquirrel{
 
         @Override
         public long getRemainingSteps() {
-            return 0;
-        }
-
-        //Todo: 6.2 Sichteinschränken vom MasterSquirrel
-        @Override
-        public XY getViewLowerLeft() {
-            return null;
+            return context.getRemainingTime();
         }
 
         @Override
-        public XY getViewUpperRight() {
-            return null;
-        }
+        public EntityType getEntityAt(XY xy) throws OutOfViewException{
+            if(!XYsupport.isInRange(xy, getViewLowerLeft(), getViewUpperRight()))
+                throw new OutOfViewException();
 
-        @Override
-        public EntityType getEntityAt(XY xy) {
-            return null;
+            return context.getEntityType(xy);
         }
 
         @Override
         public void move(XY direction) {
-
+            for(XY xy : XYsupport.directions()){
+                if(xy.equals(direction)){
+                    context.tryMove(masterSquirrel, direction);
+                    return;
+                }
+            }
         }
 
         @Override
-        public void spawnMiniBot(XY direction, int energy) {
-
+        public void spawnMiniBot(XY direction, int energy) throws SpawnException{
+            try {
+                if (getEntityAt(locate().plus(direction)) != EntityType.NONE)
+                    throw new SpawnException();
+            } catch (OutOfViewException e){
+                throw new SpawnException();
+            }
+            context.spawnMiniSquirrel(direction, energy, masterSquirrel);
         }
 
         @Override
         public int getEnergy() {
-            return 0;
+            return masterSquirrel.getEnergy();
         }
     }
 
@@ -74,9 +118,10 @@ public class MasterSquirrelBot extends MasterSquirrel{
         this.masterBotController = factory.createMasterBotController("de.hsa.games.fatsquirrel.botapi.MasterBotControllerImplShiroten");
     }
 
-        @Override
-        public void nextStep(ControllerContext view){
+    @Override
+    public void nextStep(EntityContext context){
         System.out.println("nextStep of MasterSquirrelBot");
+        ControllerContextImpl view = new ControllerContextImpl(context, getCoordinate(), this);
         masterBotController.nextStep(view);
 
     }

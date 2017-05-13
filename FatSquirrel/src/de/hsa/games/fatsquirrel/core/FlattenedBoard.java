@@ -82,6 +82,11 @@ public class FlattenedBoard implements BoardView, EntityContext {
     }
 
     @Override
+    public long getRemainingTime() {
+        return board.getConfig().getGameDuration();
+    }
+
+    @Override
     public int getBEAST_MOVE_TIME_IN_TICKS() {
         return board.getConfig().getBEAST_MOVE_TIME_IN_TICKS();
     }
@@ -373,6 +378,10 @@ public class FlattenedBoard implements BoardView, EntityContext {
         checkMasterSquirrel(pacSquirrel);
     }
 
+    public void spawnMiniSquirrel(XY direction, int energy, MasterSquirrel daddy){
+        board.addMiniSquirrel(direction, energy, daddy);
+    }
+
     @Override
     public void implode(Entity e, int impactRadius) {
 
@@ -436,17 +445,9 @@ public class FlattenedBoard implements BoardView, EntityContext {
 
             switch (toCheck.getEntityType()) {
                 case MASTERSQUIRREL:
-                    if (MasterOfE.equals(toCheck)) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+                    return MasterOfE.equals(toCheck);
                 case MINISQUIRREL:
-                    if (MasterOfE.equals(((MiniSquirrel) toCheck).getDaddy())) {
-                        return true;
-                    } else {
-                        return false;
-                    }
+                    return MasterOfE.equals(((MiniSquirrel) toCheck).getDaddy());
                 case WALL:
                 case NONE:
                     return true;

@@ -9,11 +9,17 @@ public interface ControllerContext {
     XY getViewLowerLeft();
     XY getViewUpperRight();
     XY locate();
-    boolean isMine(XY xy);
+    boolean isMine(XY xy) throws OutOfViewException;
     void implode(int impactRadius);
-    EntityType getEntityAt(XY xy);
+    /**
+     *
+     * @param xy : cell coordinates
+     * @return the type of the entity at that position or none
+     * @throws OutOfViewException if xy is outside the view
+     */
+    EntityType getEntityAt(XY xy) throws OutOfViewException;
     void move(XY direction);
-    void spawnMiniBot(XY direction, int energy);
+    void spawnMiniBot(XY direction, int energy) throws SpawnException;
     XY directionOfMaster();
     long getRemainingSteps();
     default void shout(String text){};
