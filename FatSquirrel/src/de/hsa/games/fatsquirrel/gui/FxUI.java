@@ -118,16 +118,16 @@ public class FxUI extends Scene implements UI {
             Color implisionColor = Color.color(1, 0, 0, opacity);
 
             gc.setFill(implisionColor);
-            gc.fillOval(ic.getPosition().getX() * CELL_SIZE - CELL_SIZE * ic.getRadius(),
-                    ic.getPosition().getY() * CELL_SIZE - CELL_SIZE * ic.getRadius(),
+            gc.fillOval(ic.getPosition().getX() * CELL_SIZE - CELL_SIZE * ic.getRadius() + (CELL_SIZE / 2),
+                    ic.getPosition().getY() * CELL_SIZE - CELL_SIZE * ic.getRadius() + (CELL_SIZE / 2),
                     CELL_SIZE * ic.getRadius() * 2,
                     CELL_SIZE * ic.getRadius() * 2);
 
             if (vl == verboseLevel.extended) {
                 gc.setFill(Color.BLACK);
                 gc.fillText(Integer.toString(ic.getTickCounter()),
-                        ic.getPosition().getX() * CELL_SIZE,
-                        ic.getPosition().getY() * CELL_SIZE);
+                        ic.getPosition().getX() * CELL_SIZE + (CELL_SIZE / 2),
+                        ic.getPosition().getY() * CELL_SIZE + (CELL_SIZE / 2));
             }
         }
         for (int x = 0; x < boardCanvas.getWidth(); x++) {

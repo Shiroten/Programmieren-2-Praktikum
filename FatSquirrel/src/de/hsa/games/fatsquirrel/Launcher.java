@@ -122,9 +122,9 @@ public class Launcher extends Application {
                         7, 5, GameType.WITH_BOT);
                 break;
             case testcase1:
-                config = new BoardConfig(new XY(20, 20), 60,
-                        270, 0, 0, 0, 0,
-                        7, 5, GameType.SINGLE_PLAYER);
+                config = new BoardConfig(new XY(30, 30), 60,
+                        730, 0, 0, 0, 0,
+                        10, 5, GameType.SINGLE_PLAYER);
                 break;
             case custom:
             default:
