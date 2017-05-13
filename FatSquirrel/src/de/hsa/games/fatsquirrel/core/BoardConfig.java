@@ -23,13 +23,15 @@ public class BoardConfig {
     private final float MINI_SQUIRREL_MOVE_TIME_LENGTH = 0.05f;
     private final int MINI_SQUIRREL_MOVE_TIME_IN_TICKS;
 
-    private final int GOODBEAST_VIEW_DISTANCE;
-    private final int BADBEAST_VIEW_DISTANCE;
+    private final int VIEW_DISTANCE_OF_GOODBEAST;
+    private final int VIEW_DISTANCE_OF_BADBEAST;
 
     private final GameType gameType;
 
 
-    BoardConfig(XY size, int TICKLENGTH, int NUMBER_OF_GB, int NUMBER_OF_BB, int NUMBER_OF_GP, int NUMBER_OF_BP, int NUMBER_OF_WA, int GOODBEAST_VIEW_DISTANCE, int BADBEAST_VIEW_DISTANCE, GameType gameType) {
+    BoardConfig(XY size, int TICKLENGTH,
+                int NUMBER_OF_GB, int NUMBER_OF_BB, int NUMBER_OF_GP, int NUMBER_OF_BP, int NUMBER_OF_WA,
+                int VIEW_DISTANCE_OF_GOODBEAST, int VIEW_DISTANCE_OF_BADBEAST, GameType gameType) {
         this.size = size;
         this.TICKLENGTH = TICKLENGTH;
         this.NUMBER_OF_GB = NUMBER_OF_GB;
@@ -40,13 +42,9 @@ public class BoardConfig {
         this.SQUIRREL_STUN_TIME_IN_TICKS = (int) (TICKLENGTH * SQUIRREL_STUN_TIME_LENGTH);
         this.BEAST_MOVE_TIME_IN_TICKS = (int) (TICKLENGTH * BEAST_MOVE_TIME_LENGTH);
         this.MINI_SQUIRREL_MOVE_TIME_IN_TICKS = (int) (TICKLENGTH * MINI_SQUIRREL_MOVE_TIME_LENGTH);
-        this.GOODBEAST_VIEW_DISTANCE = GOODBEAST_VIEW_DISTANCE;
-        this.BADBEAST_VIEW_DISTANCE = BADBEAST_VIEW_DISTANCE;
+        this.VIEW_DISTANCE_OF_GOODBEAST = VIEW_DISTANCE_OF_GOODBEAST;
+        this.VIEW_DISTANCE_OF_BADBEAST = VIEW_DISTANCE_OF_BADBEAST;
         this.gameType = gameType;
-    }
-
-    public BoardConfig(XY size) {
-        this(size, 1, 7, 7, 7, 7, 7, 6, 6, GameType.SINGLE_PLAYER);
     }
 
     GameType getGameType() {
@@ -82,11 +80,11 @@ public class BoardConfig {
     }
 
     int getGOODBEAST_VIEW_DISTANCE() {
-        return GOODBEAST_VIEW_DISTANCE;
+        return VIEW_DISTANCE_OF_GOODBEAST;
     }
 
-    int getBADBEAST_VIEW_DISTANCE() {
-        return BADBEAST_VIEW_DISTANCE;
+    int getVIEW_DISTANCE_OF_BADBEAST() {
+        return VIEW_DISTANCE_OF_BADBEAST;
     }
 
     int getNUMBER_OF_GB() {
