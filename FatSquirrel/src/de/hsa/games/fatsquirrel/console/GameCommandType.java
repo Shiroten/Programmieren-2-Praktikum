@@ -1,10 +1,6 @@
 package de.hsa.games.fatsquirrel.console;
 
 import de.hsa.games.fatsquirrel.util.ui.CommandTypeInfo;
-
-/**
- * Created by tillm on 05.05.2017.
- */
 public enum GameCommandType implements CommandTypeInfo {
     HELP("h", "help", "* list all commands"),
     EXIT("e", "exit", "* exit the game"),
@@ -16,7 +12,7 @@ public enum GameCommandType implements CommandTypeInfo {
     MASTER_ENERGY("i", "masterEnergy" ,"* the energy of the mastersquirrel"),
     SPAWN_MINI("f", "spawnMini" ,"<param1> Integer  *spawn a mini-squirrel with param1 Energy", int.class),
     CHEAT_ENERGY("p", "addEnergy" ,"Adds 1000 Energy to MasterSquirrel"),
-    IMPLODE_MINISQUIRRELS("T", "implode" ,"Implode all MiniSquirrel of Player"),
+    IMPLODE_MINISQUIRRELS("t", "implode" ,"Implode all MiniSquirrel of Player"),
     NOTHING("", "doNothing", "* Just press Enter");
 
     private String commandName, helpText, methodName;
