@@ -277,7 +277,7 @@ public class FxUI extends Scene implements UI {
                     extendText = detailedText;
                 }
                 break;
-            case HANDOPERATEDMASTERSQUIRREL:
+            /*case HANDOPERATEDMASTERSQUIRREL:
                 simpleText = "HS";
                 detailedText = simpleText;
                 if (((PlayerEntity) e).getStunTime() != 0) {
@@ -287,6 +287,7 @@ public class FxUI extends Scene implements UI {
                     extendText = detailedText;
                 }
                 break;
+                */
             default:
                 simpleText = detailedText = extendText = "";
 
