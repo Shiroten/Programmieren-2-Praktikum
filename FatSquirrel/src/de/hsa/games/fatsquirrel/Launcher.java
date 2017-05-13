@@ -24,13 +24,13 @@ public class Launcher extends Application {
     private static final GameType gameType = GameType.WITH_BOT;
     private static final Level logLevel = Level.FINE;
     private static final XY gameSize = new XY(40, 30);
-    private final int NUMBER_OF_GB = 100;
-    private final int NUMBER_OF_BB = 3;
-    private final int NUMBER_OF_GP = 10;
-    private final int NUMBER_OF_BP = 5;
-    private final int NUMBER_OF_WA = 25;
-    private final int VIEW_DISTANCE_OF_GOODBEAST = 6;
-    private final int VIEW_DISTANCE_OF_BADBEAST = 6;
+    private static final int NUMBER_OF_GB = 100;
+    private static final int NUMBER_OF_BB = 3;
+    private static final int NUMBER_OF_GP = 10;
+    private static final int NUMBER_OF_BP = 5;
+    private static final int NUMBER_OF_WA = 25;
+    private static final int VIEW_DISTANCE_OF_GOODBEAST = 6;
+    private static final int VIEW_DISTANCE_OF_BADBEAST = 6;
 
     public static void main(String[] args) {
 
@@ -60,38 +60,7 @@ public class Launcher extends Application {
             case 2:
                 commandTest();
                 break;
-            case 3:
-                consoleUiTest();
         }
-    }
-
-    private static void consoleUiTest() {
-        BoardConfig config = new BoardConfig(new XY(21, 21), 50, 7, 7, 7, 7);
-        //config = new BoardConfig(new XY(10,10));
-        Board board = new Board(config);
-
-
-        board.initBoard();
-
-        FlattenedBoard flatBoard = board.flatten();
-
-        ConsoleUI ui = new ConsoleUI();
-        ui.render(flatBoard);
-
-        Entity manuelSquirrel = new HandOperatedMasterSquirrel(101, new XY(3, 3));
-        board.getSet().add(manuelSquirrel);
-
-        //MoveCommand Vector Test
-
-        XY newField = manuelSquirrel.getCoordinate().plus(XY.LEFT_UP);
-
-        Entity manuelSquirrel2 = new HandOperatedMasterSquirrel(101, newField);
-        board.getSet().add(manuelSquirrel2);
-
-        flatBoard = board.flatten();
-        ui.render(flatBoard);
-
-
     }
 
     private static void commandTest() {
