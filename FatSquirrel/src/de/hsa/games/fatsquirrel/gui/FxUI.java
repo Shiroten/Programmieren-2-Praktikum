@@ -42,7 +42,7 @@ public class FxUI extends Scene implements UI {
         none,
         head,
         tail,
-        headAndTail;
+        headAndTail,
     }
 
     public enum verboseLevel {
@@ -355,7 +355,7 @@ public class FxUI extends Scene implements UI {
                     if (e.getId() == -100) {
                         returnColor = Color.BLACK;
                     } else {
-                        returnColor = Color.WHITE;
+                        returnColor = Color.color(1, 0.651, 0);
                     }
                 }
                 break;

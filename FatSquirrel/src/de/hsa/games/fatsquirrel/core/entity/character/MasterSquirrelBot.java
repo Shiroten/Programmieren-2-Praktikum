@@ -15,7 +15,7 @@ public class MasterSquirrelBot extends MasterSquirrel {
         private XY myPosition;
         private MasterSquirrel masterSquirrel;
 
-        protected ControllerContextImpl(EntityContext context, XY myPosition, MasterSquirrel masterSquirrel) {
+        ControllerContextImpl(EntityContext context, XY myPosition, MasterSquirrel masterSquirrel) {
             this.context = context;
             this.myPosition = myPosition;
             this.masterSquirrel = masterSquirrel;
@@ -35,8 +35,8 @@ public class MasterSquirrelBot extends MasterSquirrel {
         @Override
         public XY getViewUpperRight() {
             int x = locate().getX() + 31;
-            if (x > context.getSize().getY())
-                x = context.getSize().getY();
+            if (x > context.getSize().getX())
+                x = context.getSize().getX();
             int y = locate().getY() - 31;
             if (y < 0)
                 y = 0;
@@ -101,7 +101,7 @@ public class MasterSquirrelBot extends MasterSquirrel {
             } catch (OutOfViewException e) {
                 throw new SpawnException();
             }
-            context.spawnMiniSquirrel(direction, energy, masterSquirrel);
+            context.spawnMiniSquirrel(locate().plus(direction), energy, masterSquirrel);
         }
 
         @Override

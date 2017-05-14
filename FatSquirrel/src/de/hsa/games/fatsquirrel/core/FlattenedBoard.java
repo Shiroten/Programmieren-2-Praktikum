@@ -385,7 +385,9 @@ public class FlattenedBoard implements BoardView, EntityContext {
     }
 
     public void spawnMiniSquirrel(XY direction, int energy, MasterSquirrel daddy) {
+        daddy.updateEnergy(-energy);
         board.addMiniSquirrel(direction, energy, daddy);
+
     }
 
     @Override

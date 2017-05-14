@@ -12,9 +12,9 @@ import java.util.logging.Logger;
 public class MiniSquirrel extends PlayerEntity {
     public static final EntityType type = EntityType.MINISQUIRREL;
     private MasterSquirrel daddy;
-    private int moveCounter = 0;
+    int moveCounter = 0;
 
-    private boolean impload = false;
+    boolean impload = false;
 
     public EntityType getEntityType() {
         return type;

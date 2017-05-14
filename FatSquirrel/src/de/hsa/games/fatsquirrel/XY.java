@@ -1,4 +1,5 @@
 package de.hsa.games.fatsquirrel;
+
 public class XY {
     private final int x;
     private final int y;
@@ -26,7 +27,7 @@ public class XY {
         this.y = y;
     }
 
-    public XY(XY end, XY start){
+    public XY(XY end, XY start) {
         this.x = end.getX() - start.getX();
         this.y = end.getY() - start.getY();
     }
@@ -35,39 +36,39 @@ public class XY {
         return new XY(x + xy.getX(), y + xy.getY());
     }
 
-    public XY minus(XY xy){
+    public XY minus(XY xy) {
         return new XY(x - xy.getX(), y - xy.getY());
     }
 
-    public XY times(int factor){
-        return new XY(x*factor, y*factor);
+    public XY times(int factor) {
+        return new XY(x * factor, y * factor);
     }
 
-    public double length(){
-        return Math.sqrt(Math.pow(Math.abs(x), 2)+Math.pow(Math.abs(y), 2));
+    public double length() {
+        return Math.sqrt(Math.pow(Math.abs(x), 2) + Math.pow(Math.abs(y), 2));
     }
 
-    public double distanceFrom(XY xy){
-        return Math.sqrt(Math.abs(xy.getX() - x)^2+Math.abs(xy.getY() - y)^2);
+    public double distanceFrom(XY xy) {
+        return Math.sqrt(Math.pow(xy.getX() - x, 2) + Math.pow(xy.getY() - y, 2));
     }
 
     //TODO: hashCode
     //Bisher keine sinnvolle Implementierungsmöglichkeit gefunden
 
     @Override
-    public boolean equals(Object obj){
+    public boolean equals(Object obj) {
         try {
             XY xy = (XY) obj;
             if (xy.getX() == x && xy.getY() == y)
                 return true;
-        }catch( Exception e){
+        } catch (Exception e) {
             return false;
         }
         return false;
     }
 
-    public String toString(){
-        return new String("x: " + x + " y: "+ y);
+    public String toString() {
+        return "x: " + x + " y: " + y;
     }
 
 }

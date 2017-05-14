@@ -35,7 +35,7 @@ public class Board {
         initBoard();
     }
 
-    public EntitySet getSet() {
+    EntitySet getSet() {
         return set;
     }
 
@@ -47,7 +47,7 @@ public class Board {
         return config;
     }
 
-    public FlattenedBoard flatten() {
+    FlattenedBoard flatten() {
         Entity[][] list = new Entity[config.getSize().getY()][config.getSize().getX()];
         for (int i = 0; i < set.getNumberOfMaxEntities(); i++) {
             if (set.getEntity(i) != null) {
@@ -64,6 +64,11 @@ public class Board {
         return new FlattenedBoard(config.getSize(), this, list);
     }
 
+    public int setID() {
+
+        return idCounter++;
+    }
+
     public void initBoard() {
         //Äußere Mauern
         initOuterWalls();
@@ -76,7 +81,7 @@ public class Board {
         addEntity(EntityType.GOODPLANT, config.getNUMBER_OF_GP());
 
         if (config.getGameType() == GameType.WITH_BOT) {
-            addEntity(EntityType.MASTERSQUIRREL, 3);
+            addEntity(EntityType.MASTERSQUIRREL, 5);
         } else {
             addEntity(EntityType.MASTERSQUIRREL, 1);
         }
@@ -94,11 +99,6 @@ public class Board {
             set.add(new Wall(WallIDs, new XY(0, i)));
             set.add(new Wall(WallIDs, new XY(x - 1, i)));
         }
-    }
-
-    public int setID() {
-
-        return idCounter++;
     }
 
     private void addEntity(EntityType type, int ammount) {
@@ -165,8 +165,8 @@ public class Board {
         return addEntity;
     }
 
-    public void addMiniSquirrel(XY position, int energy, MasterSquirrel daddy){
-        MiniSquirrel msb = new MiniSquirrel(setID(), position, energy, daddy);
+    void addMiniSquirrel(XY position, int energy, MasterSquirrel daddy) {
+        MiniSquirrel msb = new MiniSquirrelBot(setID(), position, energy, daddy);
         set.add(msb);
     }
 
