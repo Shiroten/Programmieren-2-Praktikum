@@ -49,6 +49,7 @@ public class FxUI extends Scene implements UI {
         simple,
         detailed,
         extended,
+        showID,
     }
 
     private FxUI(Parent parent, Canvas boardCanvas, Label msgLabel) {
@@ -122,8 +123,10 @@ public class FxUI extends Scene implements UI {
                                     vl = verboseLevel.extended;
                                     break;
                                 case extended:
-                                    vl = verboseLevel.simple;
+                                    vl = verboseLevel.showID;
                                     break;
+                                case showID:
+                                    vl = verboseLevel.simple;
                             }
                         default:
                             cmd = new Command(GameCommandType.NOTHING, new Object[0]);
@@ -153,72 +156,82 @@ public class FxUI extends Scene implements UI {
         gc.setFont(Font.font("Courier", fontSize));
 
         try {
-            for (ImplosionContext ic : view.getImplosions()) {
-
-                double opacity = (((double) ic.getTickCounter() / ic.getMAX_TICK_COUNTER()));
-                if (opacity < 0)
-                    opacity = 0;
-
-                Color implisionColor = Color.color(1, 0, 0, opacity);
-
-                gc.setFill(implisionColor);
-                gc.fillOval(ic.getPosition().getX() * CELL_SIZE - CELL_SIZE * ic.getRadius() + (CELL_SIZE / 2),
-                        ic.getPosition().getY() * CELL_SIZE - CELL_SIZE * ic.getRadius() + (CELL_SIZE / 2),
-                        CELL_SIZE * ic.getRadius() * 2,
-                        CELL_SIZE * ic.getRadius() * 2);
-
-                if (vl == verboseLevel.extended) {
-                    gc.setFill(Color.BLACK);
-                    gc.fillText(Integer.toString(ic.getTickCounter()),
-                            ic.getPosition().getX() * CELL_SIZE + (CELL_SIZE / 2),
-                            ic.getPosition().getY() * CELL_SIZE + (CELL_SIZE / 2));
-                }
-            }
-            for (int x = 0; x < boardCanvas.getWidth(); x++) {
-                for (int y = 0; y < boardCanvas.getHeight(); y++) {
-                    if (view.getEntity(new XY(x, y)) != null) {
-                        printEntity(gc, view.getEntity(new XY(x, y)), new XY(x, y));
-                        if (printVector != headOrTail.none) {
-                            EntityType et = view.getEntity(new XY(x, y)).getEntityType();
-                            switch (et) {
-                                case WALL:
-                                case NONE:
-                                case GOODPLANT:
-                                case BADPLANT:
-                                    break;
-                                case MINISQUIRREL:
-                                    //Todo: MiniSquirrel lastVector bug beheben (nur nullVectoren übergeben)
-                                    //System.out.println(((Character)view.getEntity(new XY(x, y))).getLastVector());
-                                default:
-                                    XY lastVector = ((Character) view.getEntity(new XY(x, y))).getLastVector();
-                                    if (lastVector.equals(XY.ZERO_ZERO)) {
-                                    } else if (lastVector.equals(XY.RIGHT_UP)) {
-                                        printVector(gc, x, y, 4);
-                                    } else if (lastVector.equals(XY.RIGHT)) {
-                                        printVector(gc, x, y, 5);
-                                    } else if (lastVector.equals(XY.RIGHT_DOWN)) {
-                                        printVector(gc, x, y, 6);
-                                    } else if (lastVector.equals(XY.DOWN)) {
-                                        printVector(gc, x, y, 7);
-                                    } else if (lastVector.equals(XY.LEFT_DOWN)) {
-                                        printVector(gc, x, y, 0);
-                                    } else if (lastVector.equals(XY.LEFT)) {
-                                        printVector(gc, x, y, 1);
-                                    } else if (lastVector.equals(XY.LEFT_UP)) {
-                                        printVector(gc, x, y, 2);
-                                    } else if (lastVector.equals(XY.UP)) {
-                                        printVector(gc, x, y, 3);
-                                    }
-                            }
-                        }
-
-                    }
-
-                }
-            }
+            printImplosion(gc, view);
+            printHeadOrTail(gc, view);
         } catch (Exception e) {
             Logger logger = Logger.getLogger(Launcher.class.getName());
             logger.log(Level.SEVERE, e.getMessage());
+        }
+    }
+
+    private void printHeadOrTail(GraphicsContext gc, BoardView view) {
+
+        for (int x = 0; x < boardCanvas.getWidth(); x++) {
+            for (int y = 0; y < boardCanvas.getHeight(); y++) {
+                if (view.getEntity(new XY(x, y)) != null) {
+                    printEntity(gc, view.getEntity(new XY(x, y)), new XY(x, y));
+                    if (printVector != headOrTail.none) {
+                        EntityType et = view.getEntity(new XY(x, y)).getEntityType();
+                        switch (et) {
+                            case WALL:
+                            case NONE:
+                            case GOODPLANT:
+                            case BADPLANT:
+                                break;
+                            case MINISQUIRREL:
+                                //Todo: MiniSquirrel lastVector bug beheben (nur nullVectoren übergeben)
+                                //System.out.println(((Character)view.getEntity(new XY(x, y))).getLastVector());
+                            default:
+                                XY lastVector = ((Character) view.getEntity(new XY(x, y))).getLastVector();
+                                if (lastVector.equals(XY.ZERO_ZERO)) {
+                                } else if (lastVector.equals(XY.RIGHT_UP)) {
+                                    printVector(gc, x, y, 4);
+                                } else if (lastVector.equals(XY.RIGHT)) {
+                                    printVector(gc, x, y, 5);
+                                } else if (lastVector.equals(XY.RIGHT_DOWN)) {
+                                    printVector(gc, x, y, 6);
+                                } else if (lastVector.equals(XY.DOWN)) {
+                                    printVector(gc, x, y, 7);
+                                } else if (lastVector.equals(XY.LEFT_DOWN)) {
+                                    printVector(gc, x, y, 0);
+                                } else if (lastVector.equals(XY.LEFT)) {
+                                    printVector(gc, x, y, 1);
+                                } else if (lastVector.equals(XY.LEFT_UP)) {
+                                    printVector(gc, x, y, 2);
+                                } else if (lastVector.equals(XY.UP)) {
+                                    printVector(gc, x, y, 3);
+                                }
+                        }
+                    }
+
+                }
+
+            }
+        }
+
+    }
+
+    private void printImplosion(GraphicsContext gc, BoardView view) throws Exception {
+        for (ImplosionContext ic : view.getImplosions()) {
+
+            double opacity = (((double) ic.getTickCounter() / ic.getMAX_TICK_COUNTER()));
+            if (opacity < 0)
+                opacity = 0;
+
+            Color implisionColor = Color.color(1, 0, 0, opacity);
+
+            gc.setFill(implisionColor);
+            gc.fillOval(ic.getPosition().getX() * CELL_SIZE - CELL_SIZE * ic.getRadius() + (CELL_SIZE / 2),
+                    ic.getPosition().getY() * CELL_SIZE - CELL_SIZE * ic.getRadius() + (CELL_SIZE / 2),
+                    CELL_SIZE * ic.getRadius() * 2,
+                    CELL_SIZE * ic.getRadius() * 2);
+
+            if (vl == verboseLevel.extended) {
+                gc.setFill(Color.BLACK);
+                gc.fillText(Integer.toString(ic.getTickCounter()),
+                        ic.getPosition().getX() * CELL_SIZE + (CELL_SIZE / 2),
+                        ic.getPosition().getY() * CELL_SIZE + (CELL_SIZE / 2));
+            }
         }
     }
 
@@ -253,7 +266,6 @@ public class FxUI extends Scene implements UI {
             gc.fillRect(offsetTail, offsetTail, 15, 4);
             gc.fillRect(offsetTail, offsetTail, 10, 10);
         }
-
 
         gc.restore();
     }
@@ -369,7 +381,7 @@ public class FxUI extends Scene implements UI {
 
         EntityType et = e.getEntityType();
         String stringToPrint;
-        String simpleText, detailedText, extendText;
+        String simpleText, detailedText, extendText, showIDText = Integer.toString(e.getId());
         switch (et) {
             case GOODPLANT:
                 simpleText = detailedText = "GP";
@@ -394,10 +406,10 @@ public class FxUI extends Scene implements UI {
             case MINISQUIRREL:
                 simpleText = "mS";
                 detailedText = Integer.toString(e.getEnergy());
-                detailedText = String.format("A%n" + detailedText);
+                //detailedText = String.format("A%n" + detailedText);
                 if (((PlayerEntity) e).getStunTime() != 0) {
                     extendText = Integer.toString(((PlayerEntity) e).getStunTime());
-                    extendText = String.format("A%n" + extendText);
+                    //extendText = String.format("A%n" + extendText);
                 } else {
                     extendText = detailedText;
                 }
@@ -410,10 +422,10 @@ public class FxUI extends Scene implements UI {
                 }
 
                 detailedText = Integer.toString(e.getEnergy());
-                detailedText = String.format("A%n" + detailedText);
+                //detailedText = String.format("A%n" + detailedText);
                 if (((PlayerEntity) e).getStunTime() != 0) {
                     extendText = Integer.toString(((PlayerEntity) e).getStunTime());
-                    extendText = String.format("A%n" + extendText);
+                    //extendText = String.format("A%n" + extendText);
                 } else {
                     extendText = detailedText;
                 }
@@ -423,12 +435,13 @@ public class FxUI extends Scene implements UI {
 
         }
 
-        stringToPrint = switchVerboseLevel(vl, simpleText, detailedText, extendText);
+        stringToPrint = switchVerboseLevel(vl, simpleText, detailedText, extendText, showIDText);
 
         return stringToPrint;
     }
 
-    private String switchVerboseLevel(verboseLevel vl, String simpleText, String detailedText, String extendedText) {
+    private String switchVerboseLevel(verboseLevel vl, String simpleText, String detailedText,
+                                      String extendedText, String showIDText) {
 
         String stringToPrint = simpleText;
 
@@ -442,6 +455,8 @@ public class FxUI extends Scene implements UI {
             case extended:
                 stringToPrint = extendedText;
                 break;
+            case showID:
+                stringToPrint = showIDText;
 
         }
 

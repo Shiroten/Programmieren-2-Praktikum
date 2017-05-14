@@ -1,9 +1,7 @@
 package de.hsa.games.fatsquirrel.core;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
 import de.hsa.games.fatsquirrel.Launcher;
 import de.hsa.games.fatsquirrel.XY;
-import de.hsa.games.fatsquirrel.XYsupport;
 import de.hsa.games.fatsquirrel.core.Pac.PacSquirrel;
 import de.hsa.games.fatsquirrel.core.entity.character.*;
 import de.hsa.games.fatsquirrel.core.entity.*;
@@ -111,7 +109,7 @@ public class FlattenedBoard implements BoardView, EntityContext {
         ((Character) en).setLastVector(en.getCoordinate().minus(newPosition));
         if(en.getEntityType() == EntityType.MINISQUIRREL){
             //Todo: Entfernen nach dem Finden des MiniSquirrels Bug
-            //System.out.println(((Character) en).getLastVector());
+            System.out.println(((Character) en).getLastVector());
         }
 
         Logger logger = Logger.getLogger(Launcher.class.getName());
