@@ -1,9 +1,13 @@
 package de.hsa.games.fatsquirrel.core.entity.character;
 
+import de.hsa.games.fatsquirrel.Launcher;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.XYsupport;
 import de.hsa.games.fatsquirrel.core.entity.EntityContext;
 import de.hsa.games.fatsquirrel.core.entity.EntityType;
+
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class BadBeast extends Character {
     public static final int START_ENERGY = -150;
@@ -21,15 +25,24 @@ public class BadBeast extends Character {
         return type;
     }
 
+    @Override
     public void nextStep(EntityContext context) {
+
+        Logger logger = Logger.getLogger(Launcher.class.getName());
+        logger.log(Level.FINEST, "start nextStep() of BadBeast");
+
         if (moveCounter == 0) {
             PlayerEntity pe = context.nearestPlayerEntity(this.getCoordinate());
             XY distance = new XY(pe.getCoordinate(), this.getCoordinate());
 
-            if (distance.length() < context.getBADBEAST_VIEW_DISTANCE())
-
+            if (distance.length() < context.getBADBEAST_VIEW_DISTANCE()) {
+                XY previousPosition = this.getCoordinate();
                 context.tryMove(this, XYsupport.normalizedVector(distance));
-            else
+
+                if (gotStuck(previousPosition)) {
+                    tryUnStuck(context, XYsupport.normalizedVector(distance), XYsupport.Rotation.clockwise);
+                }
+            } else
                 context.tryMove(this, XYsupport.randomDirection());
             moveCounter++;
         } else if (moveCounter == context.getBEAST_MOVE_TIME_IN_TICKS())
@@ -37,6 +50,7 @@ public class BadBeast extends Character {
         else
             moveCounter++;
     }
+
 
     public String toString() {
         return ("de.hsa.games.fatsquirrel.core.entity.character.BadBeast: " + super.toString());

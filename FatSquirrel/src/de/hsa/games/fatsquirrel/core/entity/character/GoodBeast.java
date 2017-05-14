@@ -48,51 +48,6 @@ public class GoodBeast extends Character {
             moveCounter++;
     }
 
-    private void tryUnStuck(EntityContext context, XY direction, XYsupport.Rotation rotation) {
-
-        //Todo: Rekursive auflösung benötigt.
-        XY previousPosition = this.getCoordinate();
-        context.tryMove(this, XYsupport.rotate(rotation, direction));
-
-        if (gotStuck(previousPosition)) {
-
-            if (rotation == XYsupport.Rotation.anticlockwise) {
-                rotation = XYsupport.Rotation.clockwise;
-            } else {
-                rotation = XYsupport.Rotation.anticlockwise;
-            }
-
-            context.tryMove(this, XYsupport.rotate(rotation, direction));
-        } else {
-            return;
-        }
-
-        if (gotStuck(previousPosition)) {
-            previousPosition = this.getCoordinate();
-            XY directionTest = XYsupport.rotate(rotation, direction);
-            context.tryMove(this, XYsupport.rotate(rotation, directionTest));
-
-            if (gotStuck(previousPosition)) {
-
-                if (rotation == XYsupport.Rotation.anticlockwise) {
-                    rotation = XYsupport.Rotation.clockwise;
-                } else {
-                    rotation = XYsupport.Rotation.anticlockwise;
-                }
-
-                directionTest = XYsupport.rotate(rotation, direction);
-                context.tryMove(this, XYsupport.rotate(rotation, directionTest));
-            }
-
-        }
-
-
-    }
-
-    private boolean gotStuck(XY xy) {
-        return this.getCoordinate().getX() == xy.getX() && this.getCoordinate().getY() == xy.getY();
-    }
-
     public String toString() {
         return ("de.hsa.games.fatsquirrel.core.entity.character.GoodBeast: " + super.toString());
     }

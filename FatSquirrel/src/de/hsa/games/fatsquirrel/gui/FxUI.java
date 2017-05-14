@@ -112,6 +112,7 @@ public class FxUI extends Scene implements UI {
                                     printVector = headOrTail.head;
                                     break;
                             }
+                            break;
                         case V:
                             switch (vl) {
                                 case simple:
@@ -250,6 +251,7 @@ public class FxUI extends Scene implements UI {
             double offsetTail = CELL_SIZE / 2 - 7;
             gc.fillRect(offsetTail, offsetTail, 4, 15);
             gc.fillRect(offsetTail, offsetTail, 15, 4);
+            gc.fillRect(offsetTail, offsetTail, 10, 10);
         }
 
 
