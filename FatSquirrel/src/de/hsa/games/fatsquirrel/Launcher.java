@@ -18,7 +18,7 @@ public class Launcher extends Application {
 
     private static final int FRAMERATE = 60;
     private static final GameType gameType = GameType.SINGLE_PLAYER;
-    private static final Level logLevel = Level.FINE;
+    private static final Level logLevel = Level.FINER;
     private static final XY gameSize = new XY(40, 30);
     private static final int NUMBER_OF_GB = 500;
     private static final int NUMBER_OF_BB = 0;
@@ -28,7 +28,7 @@ public class Launcher extends Application {
     private static final int VIEW_DISTANCE_OF_GOODBEAST = 6;
     private static final int VIEW_DISTANCE_OF_BADBEAST = 6;
 
-    private static final defaultNumber dn = defaultNumber.testcase3;
+    private static final defaultNumber dn = defaultNumber.testcase4;
 
     public enum defaultNumber {
         testcase1,
@@ -48,7 +48,7 @@ public class Launcher extends Application {
             Handler handler = new FileHandler("log.txt");
             SimpleFormatter formatter = new SimpleFormatter();
             handler.setFormatter(formatter);
-            handler.setLevel(Level.ALL);
+            handler.setLevel(Level.FINER);
             logger.addHandler(handler);
 
         } catch (IOException e) {
@@ -89,7 +89,7 @@ public class Launcher extends Application {
                 @Override
                 public void run() {
                     Logger logger = Logger.getLogger(Launcher.class.getName());
-                    logger.log(Level.FINER, "start game.run()");
+                    logger.log(Level.FINEST, "start game.run()");
                     game.run();
                 }
             }, 1000, game.getState().getBoard().getConfig().getTICKLENGTH());
@@ -97,7 +97,7 @@ public class Launcher extends Application {
                 @Override
                 public void run() {
                     Logger logger = Logger.getLogger(Launcher.class.getName());
-                    logger.log(Level.FINER, "start game.processInput()");
+                    logger.log(Level.FINEST, "start game.processInput()");
                     game.processInput();
                 }
             }, 500, game.getState().getBoard().getConfig().getTICKLENGTH());
@@ -134,6 +134,11 @@ public class Launcher extends Application {
                 config = new BoardConfig(new XY(30, 30), 60,
                         50, 0, 0, 0, 100,
                         20, 20, GameType.WITH_BOT);
+                break;
+            case testcase4:
+                config = new BoardConfig(new XY(10, 10), 20,
+                        40, 0, 0, 0, 0,
+                        20, 20, GameType.SINGLE_PLAYER);
                 break;
             case custom:
             default:
