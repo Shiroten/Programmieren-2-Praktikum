@@ -3,20 +3,36 @@ package de.hsa.games.fatsquirrel.botapi;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.core.entity.EntityType;
 
+import static java.lang.Math.PI;
+
 public class MiniBotControllerImplShiroten implements BotController {
     @Override
     public void nextStep(ControllerContext view) {
+        try {
+            XY nearestEntityOf = nearestSearchedEntity(view, EntityType.GOODBEAST);
+            XY toMove = oppositeVector(this.normalizedVector(view.locate().minus(nearestEntityOf)));
 
-        XY nearestEntityOf = nearestSearchedEntity(view, EntityType.GOODBEAST);
-        XY toMove = oppositeVector(this.normalizedVector(view.locate().minus(nearestEntityOf)));
+            if (view.getEntityAt(view.locate().plus(toMove)) == EntityType.WALL) {
+                XY lookAtNewToMove = rotate(Rotation.clockwise, toMove);
+                if (view.getEntityAt(view.locate().plus(lookAtNewToMove)) != EntityType.WALL) {
+                    XY newToMove = rotate(Rotation.clockwise, toMove);
+                    view.move(newToMove);
+                    return;
+                } else {
+                    XY newToMove = rotate(Rotation.anticlockwise, toMove);
+                    view.move(newToMove);
+                    return;
+                }
 
-        if (view.getEnergy() > 5000) {
-            view.implode(5);
-        } else {
-            view.move(toMove);
+            } else{
+                view.move(toMove);
+                return;
+            }
+
+
+        } catch (OutOfViewException e) {
+            e.printStackTrace();
         }
-
-
     }
 
     private XY nearestSearchedEntity(ControllerContext view, EntityType et) {
@@ -89,5 +105,26 @@ public class MiniBotControllerImplShiroten implements BotController {
 
     private static XY oppositeVector(XY xy) {
         return new XY(-xy.getX(), -xy.getY());
+    }
+
+    private static XY rotate(Rotation r, XY toRotate) {
+
+        switch (r) {
+            case clockwise:
+                return new XY(
+                        (int) Math.round(toRotate.getX() * Math.cos(-PI / 4) - toRotate.getY() * Math.sin(-PI / 4)),
+                        (int) Math.round(toRotate.getX() * Math.sin(-PI / 4) + toRotate.getY() * Math.cos(-PI / 4)));
+            case anticlockwise:
+                return new XY(
+                        (int) Math.round(toRotate.getX() * Math.cos(PI / 4) - toRotate.getY() * Math.sin(PI / 4)),
+                        (int) Math.round(toRotate.getX() * Math.sin(PI / 4) + toRotate.getY() * Math.cos(PI / 4)));
+
+        }
+        return toRotate;
+    }
+
+    private enum Rotation {
+        clockwise,
+        anticlockwise,
     }
 }

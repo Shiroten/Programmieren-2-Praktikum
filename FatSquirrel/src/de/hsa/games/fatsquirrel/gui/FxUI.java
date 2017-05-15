@@ -38,8 +38,8 @@ public class FxUI extends Scene implements UI {
     private static showLastVector printVector = showLastVector.tail;
     private static toogleInput inputMode = toogleInput.inputEnergy;
     private static int CELL_SIZE = 30;
-    private static int miniSquirrelEnergy = 0;
-    private static int miniSquirrelRadius = 0;
+    private static int miniSquirrelEnergy = 200;
+    private static int miniSquirrelRadius = 5;
 
 
     public enum toogleInput {
@@ -106,7 +106,7 @@ public class FxUI extends Scene implements UI {
                             cmd = new Command(GameCommandType.CHEAT_ENERGY, new Object[0]);
                             break;
                         case T:
-                            cmd = new Command(GameCommandType.IMPLODE_MINISQUIRRELS, new Object[0]);
+                            cmd = new Command(GameCommandType.IMPLODE_MINISQUIRRELS, new Object[]{miniSquirrelRadius});
                             break;
                         case B:
                             switch (printVector) {
@@ -138,7 +138,7 @@ public class FxUI extends Scene implements UI {
                                 case showID:
                                     outputMode = outputLevel.simple;
                             }
-
+                            break;
                         case NUMPAD0:
                         case N:
                             calcInput(0);

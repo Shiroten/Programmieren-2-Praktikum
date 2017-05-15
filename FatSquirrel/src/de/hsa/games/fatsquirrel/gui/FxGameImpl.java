@@ -69,7 +69,8 @@ public class FxGameImpl extends Game {
     protected void update() {
 
         if (imploadMiniSquirrel != null) {
-            imploadMiniSquirrel();
+            int implosionRadius = (Integer)(imploadMiniSquirrel.getParams())[0];
+            imploadMiniSquirrel(implosionRadius);
             imploadMiniSquirrel = null;
         }
 
@@ -79,12 +80,12 @@ public class FxGameImpl extends Game {
     }
 
 
-    private void imploadMiniSquirrel() {
+    private void imploadMiniSquirrel(int implosionRadius) {
         for (Entity e : getState().getEntitySet()) {
             if (e != null) {
                 if (e.getEntityType() == EntityType.MINISQUIRREL) {
                     if (((MiniSquirrel) e).getDaddy() == handOperatedMasterSquirrel) {
-                        ((MiniSquirrel) e).impload();
+                        ((MiniSquirrel) e).impload(implosionRadius);
                     }
 
                 }

@@ -13,9 +13,9 @@ public class MasterBotControllerImplShiroten implements BotController {
             XY nearestEntityOf = nearestSearchedEntity(view, EntityType.GOODBEAST);
             XY toMove = oppositeVector(this.normalizedVector(view.locate().minus(nearestEntityOf)));
 
-            if (view.getEntityAt(view.locate().plus(toMove)) == EntityType.WALL) {
+            if ((view.getEntityAt(view.locate().plus(toMove)) == EntityType.WALL || view.getEntityAt(view.locate().plus(toMove)) == EntityType.MINISQUIRREL)) {
                 XY lookAtNewToMove = rotate(Rotation.clockwise, toMove);
-                if (view.getEntityAt(view.locate().plus(lookAtNewToMove)) != EntityType.WALL) {
+                if (!(view.getEntityAt(view.locate().plus(lookAtNewToMove)) == EntityType.WALL || view.getEntityAt(view.locate().plus(lookAtNewToMove)) == EntityType.MINISQUIRREL)) {
                     XY newToMove = rotate(Rotation.clockwise, toMove);
                     view.move(newToMove);
                     return;
@@ -29,6 +29,7 @@ public class MasterBotControllerImplShiroten implements BotController {
                 if (view.getEnergy() > 2000) {
                     if (view.getEntityAt(view.locate().plus(toMove)) == EntityType.NONE) {
                         view.spawnMiniBot(toMove, 1000);
+                        return;
                     }
                 } else {
                     view.move(toMove);
