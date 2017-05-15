@@ -34,18 +34,27 @@ public class FxUI extends Scene implements UI {
     private Canvas boardCanvas;
     private Label msgLabel;
     private static Command cmd = new Command(GameCommandType.NOTHING, new Object[0]);
-    private static verboseLevel vl = verboseLevel.simple;
-    private static headOrTail printVector = headOrTail.tail;
+    private static outputLevel outputMode = outputLevel.simple;
+    private static showLastVector printVector = showLastVector.tail;
+    private static toogleInput inputMode = toogleInput.inputEnergy;
     private static int CELL_SIZE = 30;
+    private static int miniSquirrelEnergy = 0;
+    private static int miniSquirrelRadius = 0;
 
-    public enum headOrTail {
+
+    public enum toogleInput {
+        inputEnergy,
+        inputRadius,
+    }
+
+    public enum showLastVector {
         none,
         head,
         tail,
         headAndTail,
     }
 
-    public enum verboseLevel {
+    public enum outputLevel {
         simple,
         detailed,
         extended,
@@ -70,6 +79,7 @@ public class FxUI extends Scene implements UI {
 
         fxUI.setOnKeyPressed(
                 keyEvent -> {
+                    System.out.println(keyEvent.getCode());
                     switch (keyEvent.getCode()) {
                         case W:
                         case UP:
@@ -90,9 +100,9 @@ public class FxUI extends Scene implements UI {
                         case F:
                             //Todo: Spawn Mini Energy in Config setzen oder per menü
                             cmd = new Command(GameCommandType.SPAWN_MINI,
-                                    new Object[]{100});
+                                    new Object[]{miniSquirrelEnergy});
                             break;
-                        case P:
+                        case INSERT:
                             cmd = new Command(GameCommandType.CHEAT_ENERGY, new Object[0]);
                             break;
                         case T:
@@ -101,33 +111,90 @@ public class FxUI extends Scene implements UI {
                         case B:
                             switch (printVector) {
                                 case none:
-                                    printVector = headOrTail.headAndTail;
+                                    printVector = showLastVector.headAndTail;
                                     break;
                                 case head:
-                                    printVector = headOrTail.tail;
+                                    printVector = showLastVector.tail;
                                     break;
                                 case tail:
-                                    printVector = headOrTail.none;
+                                    printVector = showLastVector.none;
                                     break;
                                 case headAndTail:
-                                    printVector = headOrTail.head;
+                                    printVector = showLastVector.head;
                                     break;
                             }
                             break;
                         case V:
-                            switch (vl) {
+                            switch (outputMode) {
                                 case simple:
-                                    vl = verboseLevel.detailed;
+                                    outputMode = outputLevel.detailed;
                                     break;
                                 case detailed:
-                                    vl = verboseLevel.extended;
+                                    outputMode = outputLevel.extended;
                                     break;
                                 case extended:
-                                    vl = verboseLevel.showID;
+                                    outputMode = outputLevel.showID;
                                     break;
                                 case showID:
-                                    vl = verboseLevel.simple;
+                                    outputMode = outputLevel.simple;
                             }
+
+                        case NUMPAD0:
+                        case N:
+                            calcInput(0);
+                            break;
+                        case NUMPAD1:
+                        case M:
+                            calcInput(1);
+                            break;
+                        case NUMPAD2:
+                        case COMMA:
+                            calcInput(2);
+                            break;
+                        case NUMPAD3:
+                        case PERIOD:
+                            calcInput(3);
+                            break;
+                        case NUMPAD4:
+                        case J:
+                            calcInput(4);
+                            break;
+                        case NUMPAD5:
+                        case K:
+                            calcInput(5);
+                            break;
+                        case NUMPAD6:
+                        case L:
+                            calcInput(6);
+                            break;
+                        case NUMPAD7:
+                        case U:
+                            calcInput(7);
+                            break;
+                        case NUMPAD8:
+                        case I:
+                            calcInput(8);
+                            break;
+                        case NUMPAD9:
+                        case O:
+                            calcInput(9);
+                            break;
+                        case ADD:
+                        case P:
+                            miniSquirrelEnergy = 0;
+                            break;
+                        case SUBTRACT:
+                        case UNDEFINED:
+                            switch (inputMode) {
+                                case inputEnergy:
+                                    inputMode = toogleInput.inputRadius;
+                                    break;
+                                case inputRadius:
+                                    inputMode = toogleInput.inputEnergy;
+                                    break;
+                            }
+                            break;
+
                         default:
                             cmd = new Command(GameCommandType.NOTHING, new Object[0]);
                     }
@@ -170,7 +237,7 @@ public class FxUI extends Scene implements UI {
             for (int y = 0; y < boardCanvas.getHeight(); y++) {
                 if (view.getEntity(new XY(x, y)) != null) {
                     printEntity(gc, view.getEntity(new XY(x, y)), new XY(x, y));
-                    if (printVector != headOrTail.none) {
+                    if (printVector != showLastVector.none) {
                         EntityType et = view.getEntity(new XY(x, y)).getEntityType();
                         switch (et) {
                             case WALL:
@@ -226,7 +293,7 @@ public class FxUI extends Scene implements UI {
                     CELL_SIZE * ic.getRadius() * 2,
                     CELL_SIZE * ic.getRadius() * 2);
 
-            if (vl == verboseLevel.extended) {
+            if (outputMode == outputLevel.extended) {
                 gc.setFill(Color.BLACK);
                 gc.fillText(Integer.toString(ic.getTickCounter()),
                         ic.getPosition().getX() * CELL_SIZE + (CELL_SIZE / 2),
@@ -250,7 +317,7 @@ public class FxUI extends Scene implements UI {
 
         gc.rotate(45 + rotateOffset);
         //Head
-        if (printVector == headOrTail.head || printVector == headOrTail.headAndTail) {
+        if (printVector == showLastVector.head || printVector == showLastVector.headAndTail) {
             gc.setFill(Color.color(0.702, 0.3098, 0.0824));
             double offset = -CELL_SIZE / 2;
             gc.fillRect(offset, offset, 2, 10);
@@ -259,7 +326,7 @@ public class FxUI extends Scene implements UI {
 
         gc.rotate(0);
         //Tail
-        if (printVector == headOrTail.tail || printVector == headOrTail.headAndTail) {
+        if (printVector == showLastVector.tail || printVector == showLastVector.headAndTail) {
             gc.setFill(Color.color(0.4275, 0.1961, 0.0431));
             double offsetTail = CELL_SIZE / 2 - 7;
             gc.fillRect(offsetTail, offsetTail, 4, 15);
@@ -435,12 +502,12 @@ public class FxUI extends Scene implements UI {
 
         }
 
-        stringToPrint = switchVerboseLevel(vl, simpleText, detailedText, extendText, showIDText);
+        stringToPrint = switchVerboseLevel(outputMode, simpleText, detailedText, extendText, showIDText);
 
         return stringToPrint;
     }
 
-    private String switchVerboseLevel(verboseLevel vl, String simpleText, String detailedText,
+    private String switchVerboseLevel(FxUI.outputLevel vl, String simpleText, String detailedText,
                                       String extendedText, String showIDText) {
 
         String stringToPrint = simpleText;
@@ -464,7 +531,18 @@ public class FxUI extends Scene implements UI {
     }
 
     void message(final String msg) {
-        Platform.runLater(() -> msgLabel.setText(msg));
+
+        String addmsg;
+        if (inputMode == toogleInput.inputEnergy) {
+            addmsg = String.format(" | MiniSquirrel-InputEnergy: " + miniSquirrelEnergy);
+        } else if (inputMode == toogleInput.inputRadius) {
+            addmsg = String.format(" | MiniSquirrel-InputRadius: " + miniSquirrelRadius);
+        } else {
+            addmsg = "";
+        }
+
+        final String outmsg = msg + addmsg;
+        Platform.runLater(() -> msgLabel.setText(outmsg));
     }
 
     @Override
@@ -475,5 +553,12 @@ public class FxUI extends Scene implements UI {
 
     }
 
+    private static void calcInput(int input) {
+        if (inputMode == toogleInput.inputEnergy) {
+            miniSquirrelEnergy = miniSquirrelEnergy * 10 + input;
+        } else if (inputMode == toogleInput.inputRadius) {
+            miniSquirrelRadius = input;
+        }
+    }
 
 }

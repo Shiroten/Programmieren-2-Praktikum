@@ -47,6 +47,7 @@ public class FxGameImpl extends Game {
                     break;
                 case "f":
                     handOperatedMasterSquirrel.setCommand(ActionCommand.SPAWN);
+                    handOperatedMasterSquirrel.setMiniSquirrelSpawnEnergy((Integer) (cmd.getParams())[0]);
                     break;
                 case "p":
                     handOperatedMasterSquirrel.updateEnergy(1000);
@@ -79,11 +80,11 @@ public class FxGameImpl extends Game {
 
 
     private void imploadMiniSquirrel() {
-        for (Entity e : getState().getEntitySet()){
-            if (e!=null){
-                if (e.getEntityType()== EntityType.MINISQUIRREL){
-                    if (((MiniSquirrel)e).getDaddy() == handOperatedMasterSquirrel){
-                        ((MiniSquirrel)e).impload();
+        for (Entity e : getState().getEntitySet()) {
+            if (e != null) {
+                if (e.getEntityType() == EntityType.MINISQUIRREL) {
+                    if (((MiniSquirrel) e).getDaddy() == handOperatedMasterSquirrel) {
+                        ((MiniSquirrel) e).impload();
                     }
 
                 }

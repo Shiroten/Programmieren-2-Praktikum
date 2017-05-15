@@ -17,6 +17,12 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel {
     private ActionCommand command = ActionCommand.NOWHERE;
     private boolean spawnMiniSquirrel = false;
 
+    public void setMiniSquirrelSpawnEnergy(int miniSquirrelSpawnEnergy) {
+        this.miniSquirrelSpawnEnergy = miniSquirrelSpawnEnergy;
+    }
+
+    private  int miniSquirrelSpawnEnergy = 100;
+
     public HandOperatedMasterSquirrel(int id, XY coordinate) {
         super(id, coordinate);
     }
@@ -35,7 +41,7 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel {
         if(stunTime == 0 && spawnMiniSquirrel){
             spawnMiniSquirrel = false;
             try{
-                spawnMini(100, context);
+                spawnMini(miniSquirrelSpawnEnergy, context);
             } catch (NotEnoughEnergyException e){
 
             }
