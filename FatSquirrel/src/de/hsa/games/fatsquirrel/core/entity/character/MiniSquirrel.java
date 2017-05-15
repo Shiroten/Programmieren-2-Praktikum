@@ -14,8 +14,7 @@ public class MiniSquirrel extends PlayerEntity {
     private MasterSquirrel daddy;
     int moveCounter = 0;
     int implosionRadius = 5;
-
-    boolean impload = false;
+    boolean implode = false;
 
     public EntityType getEntityType() {
         return type;
@@ -45,7 +44,9 @@ public class MiniSquirrel extends PlayerEntity {
             if (stunTime > 0)
                 stunTime--;
             else {
-                if (impload) {
+                if (implode) {
+                    System.out.println(implosionRadius);
+                    System.out.println("Test");
                     implode(context, implosionRadius);
                 } else {
 
@@ -62,8 +63,8 @@ public class MiniSquirrel extends PlayerEntity {
 
     }
 
-    public void impload(int implosionRadius) {
-        this.impload = true;
+    public void implode(int implosionRadius) {
+        this.implode = true;
         this.implosionRadius = implosionRadius;
     }
 }

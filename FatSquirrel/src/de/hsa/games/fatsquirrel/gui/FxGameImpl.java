@@ -1,17 +1,12 @@
 package de.hsa.games.fatsquirrel.gui;
 
 import de.hsa.games.fatsquirrel.*;
-import de.hsa.games.fatsquirrel.console.NotEnoughEnergyException;
 import de.hsa.games.fatsquirrel.core.*;
 import de.hsa.games.fatsquirrel.core.entity.Entity;
 import de.hsa.games.fatsquirrel.core.entity.EntityType;
 import de.hsa.games.fatsquirrel.core.entity.character.HandOperatedMasterSquirrel;
 import de.hsa.games.fatsquirrel.core.entity.character.MiniSquirrel;
-import de.hsa.games.fatsquirrel.core.entity.character.StandardMiniSquirrel;
 import de.hsa.games.fatsquirrel.util.ui.Command;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class FxGameImpl extends Game {
 
@@ -85,7 +80,7 @@ public class FxGameImpl extends Game {
             if (e != null) {
                 if (e.getEntityType() == EntityType.MINISQUIRREL) {
                     if (((MiniSquirrel) e).getDaddy() == handOperatedMasterSquirrel) {
-                        ((MiniSquirrel) e).impload(implosionRadius);
+                        ((MiniSquirrel) e).implode(implosionRadius);
                     }
 
                 }
