@@ -2,12 +2,8 @@ package de.hsa.games.fatsquirrel.console;
 
 import de.hsa.games.fatsquirrel.ActionCommand;
 import de.hsa.games.fatsquirrel.Game;
-import de.hsa.games.fatsquirrel.XY;
-import de.hsa.games.fatsquirrel.XYsupport;
 import de.hsa.games.fatsquirrel.core.*;
-import de.hsa.games.fatsquirrel.core.entity.EntityType;
 import de.hsa.games.fatsquirrel.core.entity.character.HandOperatedMasterSquirrel;
-import de.hsa.games.fatsquirrel.core.entity.character.StandardMiniSquirrel;
 import de.hsa.games.fatsquirrel.util.ui.Command;
 import de.hsa.games.fatsquirrel.util.ui.CommandTypeInfo;
 
@@ -74,30 +70,6 @@ public class GameImpl extends Game {
         System.out.println("Energy vom MasterSquirrel: " + handOperatedMasterSquirrel.getEnergy());
     }
 
-    private void spawnMini(int energy) throws NotEnoughEnergyException {
-
-        XY locationOfMaster = handOperatedMasterSquirrel.getCoordinate();
-
-        for (XY xy : XYsupport.directions()) {
-            //Wenn dieses Feld leer ist....
-            if (handOperatedMasterSquirrel.getEnergy() >= energy) {
-                if (this.getState().flattenBoard().getEntityType(locationOfMaster.plus(xy)) == EntityType.NONE) {
-
-                    //Füge neues StandardMiniSquirrel hinzu zum Board
-                    this.getState().getBoard().add(
-                            new StandardMiniSquirrel(
-                                    this.getState().getBoard().setID(),
-                                    (locationOfMaster.plus(xy)),
-                                    energy,
-                                    handOperatedMasterSquirrel));
-                    return;
-                }
-            } else {
-                throw new NotEnoughEnergyException();
-            }
-        }
-
-    }
 
     private void doNothing(){
 

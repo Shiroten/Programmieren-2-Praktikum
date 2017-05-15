@@ -33,8 +33,6 @@ public interface EntityContext {
 
     EntityType getEntityType(XY xy);
 
-    void tryMove(StandardMiniSquirrel standardMiniSquirrel);
-
     int getBEAST_MOVE_TIME_IN_TICKS();
 
     int getMINI_SQUIRREL_MOVE_TIME_IN_TICKS();

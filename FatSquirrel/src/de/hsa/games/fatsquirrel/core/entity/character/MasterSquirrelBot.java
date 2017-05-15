@@ -110,11 +110,12 @@ public class MasterSquirrelBot extends MasterSquirrel {
     }
 
     private BotController masterBotController;
-    private BotControllerFactoryImpl factory = new BotControllerFactoryImpl();
+    private BotControllerFactory factory;
 
-    public MasterSquirrelBot(int id, XY position) {
+    public MasterSquirrelBot(int id, XY position, BotControllerFactory factory) {
         super(id, position);
-        this.masterBotController = factory.createMasterBotController("de.hsa.games.fatsquirrel.botapi.MasterBotControllerImplShiroten");
+        this.factory = factory;
+        this.masterBotController = factory.createMasterBotController();
     }
 
     @Override
@@ -132,7 +133,6 @@ public class MasterSquirrelBot extends MasterSquirrel {
             moveCounter = 0;
         else
             moveCounter++;
-
 
     }
 

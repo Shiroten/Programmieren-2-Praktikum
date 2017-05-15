@@ -245,11 +245,12 @@ public class FxUI extends Scene implements UI {
                             case GOODPLANT:
                             case BADPLANT:
                                 break;
-                            case MINISQUIRREL:
+                            //case MINISQUIRREL:
                                 //Todo: MiniSquirrel lastVector bug beheben (nur nullVectoren übergeben)
                                 //System.out.println(((Character)view.getEntity(new XY(x, y))).getLastVector());
                             default:
                                 XY lastVector = ((Character) view.getEntity(new XY(x, y))).getLastVector();
+                                Entity e = view.getEntity(new XY(x, y));
                                 if (lastVector.equals(XY.ZERO_ZERO)) {
                                 } else if (lastVector.equals(XY.RIGHT_UP)) {
                                     printVector(gc, x, y, 4);

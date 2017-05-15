@@ -130,6 +130,7 @@ public class Board {
                         entityToAdd = new HandOperatedMasterSquirrel(-100, new XY(randomX, randomY));
                         this.handOperatedMasterSquirrel = (HandOperatedMasterSquirrel) entityToAdd;
                     } else {
+
                         entityToAdd = new MasterSquirrelBot(setID(), new XY(randomX, randomY));
                     }
                     break;
@@ -137,6 +138,8 @@ public class Board {
             set.add(entityToAdd);
         }
     }
+
+    //TODO: Methode für Factory
 
     //Package Private
     Entity addEntity(EntityType type, XY position) {

@@ -2,11 +2,14 @@ package de.hsa.games.fatsquirrel.core.entity.character;
 
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.XYsupport;
+import de.hsa.games.fatsquirrel.botapi.BotControllerFactory;
 import de.hsa.games.fatsquirrel.botapi.ControllerContext;
 import de.hsa.games.fatsquirrel.core.entity.EntityContext;
 import de.hsa.games.fatsquirrel.core.entity.EntityType;
 
-public class MasterSquirrel extends PlayerEntity {
+public abstract class MasterSquirrel extends PlayerEntity {
+
+    protected BotControllerFactory factory;
 
     private static final int START_ENERGY = 1000;
     public static final EntityType type = EntityType.MASTERSQUIRREL;
@@ -46,6 +49,9 @@ public class MasterSquirrel extends PlayerEntity {
     }
 
     public void nextStep(ControllerContext view) {
+    }
 
+    protected BotControllerFactory getFactory(){
+        return factory;
     }
 }

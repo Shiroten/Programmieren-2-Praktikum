@@ -4,6 +4,7 @@ import de.hsa.games.fatsquirrel.ActionCommand;
 import de.hsa.games.fatsquirrel.Launcher;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.XYsupport;
+import de.hsa.games.fatsquirrel.botapi.ShirotenBotControllerFactory;
 import de.hsa.games.fatsquirrel.console.NotEnoughEnergyException;
 import de.hsa.games.fatsquirrel.core.entity.EntityContext;
 import de.hsa.games.fatsquirrel.core.entity.EntityType;
@@ -25,6 +26,7 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel {
 
     public HandOperatedMasterSquirrel(int id, XY coordinate) {
         super(id, coordinate);
+        this.factory = new ShirotenBotControllerFactory();
     }
 
     public void setCommand(ActionCommand command) {
@@ -96,7 +98,7 @@ public class HandOperatedMasterSquirrel extends MasterSquirrel {
             if (getEnergy() >= energy) {
                 if (context.getEntityType(locationOfMaster.plus(xy)) == EntityType.NONE) {
 
-                    //Füge neues StandardMiniSquirrel hinzu zum Board
+                    //Füge neues MiniSquirreBot hinzu zum Board
                     updateEnergy(-energy);
                     context.spawnMiniSquirrel(getCoordinate().plus(xy), energy, this);
                     return;

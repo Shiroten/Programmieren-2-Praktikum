@@ -101,11 +101,12 @@ public class MiniSquirrelBot extends MiniSquirrel {
     }
 
     private BotController miniBotController;
-    private BotControllerFactoryImpl factory = new BotControllerFactoryImpl();
+    private BotControllerFactory factory;
 
     public MiniSquirrelBot(int id, XY position, int energy, MasterSquirrel daddy) {
         super(id, position, energy, daddy);
-        this.miniBotController = factory.createMiniBotController("de.hsa.games.fatsquirrel.botapi.MiniBotControllerImplShiroten");
+        factory = daddy.getFactory();
+        this.miniBotController = factory.createMiniBotController();
     }
 
     public void nextStep(EntityContext context) {
