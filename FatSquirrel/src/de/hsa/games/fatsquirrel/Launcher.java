@@ -132,7 +132,7 @@ public class Launcher extends Application {
                 break;
             case testcase3:
                 config = new BoardConfig(new XY(30, 30), 60,
-                        50, 0, 0, 0, 200,
+                        50, 0, 0, 0, 100,
                         20, 20, GameType.WITH_BOT);
                 break;
             case custom:

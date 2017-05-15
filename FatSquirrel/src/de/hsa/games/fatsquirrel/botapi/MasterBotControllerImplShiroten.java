@@ -14,12 +14,13 @@ public class MasterBotControllerImplShiroten implements BotController {
             XY toMove = oppositeVector(this.normalizedVector(view.locate().minus(nearestEntityOf)));
 
             if (view.getEntityAt(view.locate().plus(toMove)) == EntityType.WALL) {
-                XY newToMove = rotate(Rotation.clockwise, toMove);
-                if (view.getEntityAt(view.locate().plus(newToMove)) != EntityType.WALL) {
-                    newToMove = rotate(Rotation.clockwise, toMove);
+                XY lookAtNewToMove = rotate(Rotation.clockwise, toMove);
+                if (view.getEntityAt(view.locate().plus(lookAtNewToMove)) != EntityType.WALL) {
+                    XY newToMove = rotate(Rotation.clockwise, toMove);
                     view.move(newToMove);
                     return;
                 } else {
+                    XY newToMove = rotate(Rotation.anticlockwise, toMove);
                     view.move(newToMove);
                     return;
                 }
