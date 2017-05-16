@@ -63,4 +63,8 @@ public class Game {
     protected void update() {
 
     }
+
+    public static enum GameType {
+        SINGLE_PLAYER, WITH_BOT, BOT_ONLY, PACMAN
+    }
 }

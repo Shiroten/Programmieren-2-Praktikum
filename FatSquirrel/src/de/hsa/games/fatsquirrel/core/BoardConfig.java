@@ -1,6 +1,6 @@
 package de.hsa.games.fatsquirrel.core;
 
-import de.hsa.games.fatsquirrel.GameType;
+import de.hsa.games.fatsquirrel.Game;
 import de.hsa.games.fatsquirrel.XY;
 
 public class BoardConfig {
@@ -29,11 +29,11 @@ public class BoardConfig {
     private final int VIEW_DISTANCE_OF_GOODBEAST;
 
     private final int VIEW_DISTANCE_OF_BADBEAST;
-    private final GameType gameType;
+    private final Game.GameType gameType;
 
     public BoardConfig(XY size, int TICKLENGTH,
                        int NUMBER_OF_GB, int NUMBER_OF_BB, int NUMBER_OF_GP, int NUMBER_OF_BP, int NUMBER_OF_WA,
-                       int NUMBER_OF_BOTS, int VIEW_DISTANCE_OF_GOODBEAST, int VIEW_DISTANCE_OF_BADBEAST, GameType gameType) {
+                       int NUMBER_OF_BOTS, int VIEW_DISTANCE_OF_GOODBEAST, int VIEW_DISTANCE_OF_BADBEAST, Game.GameType gameType) {
         this.size = size;
         this.TICKLENGTH = TICKLENGTH;
         this.NUMBER_OF_GB = NUMBER_OF_GB;
@@ -70,16 +70,16 @@ public class BoardConfig {
         this.MINI_SQUIRREL_MOVE_TIME_IN_TICKS = (int) (TICKLENGTH * MINI_SQUIRREL_MOVE_TIME_LENGTH);
         this.VIEW_DISTANCE_OF_GOODBEAST = 7;
         this.VIEW_DISTANCE_OF_BADBEAST = 6;
-        this.gameType = GameType.WITH_BOT;
+        this.gameType = Game.GameType.WITH_BOT;
         this.GAME_DURATIONE_AT_START = 1000000000;
 
     }
 
     public BoardConfig(XY size, int NUMBER_OF_GB, int NUMBER_OF_BB, int NUMBER_OF_GP, int NUMBER_OF_BP, int NUMBER_OF_WA) {
-        this(size, 60, NUMBER_OF_GB, NUMBER_OF_BB, NUMBER_OF_GP, NUMBER_OF_BP, NUMBER_OF_WA, 4, 6, 6, GameType.SINGLE_PLAYER);
+        this(size, 60, NUMBER_OF_GB, NUMBER_OF_BB, NUMBER_OF_GP, NUMBER_OF_BP, NUMBER_OF_WA, 4, 6, 6, Game.GameType.SINGLE_PLAYER);
     }
 
-    GameType getGameType() {
+    Game.GameType getGameType() {
         return gameType;
     }
 

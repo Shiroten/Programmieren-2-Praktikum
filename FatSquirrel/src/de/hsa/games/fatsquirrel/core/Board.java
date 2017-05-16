@@ -1,6 +1,6 @@
 package de.hsa.games.fatsquirrel.core;
 
-import de.hsa.games.fatsquirrel.GameType;
+import de.hsa.games.fatsquirrel.Game;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.botapi.bots.Baster.BasterFactory;
 import de.hsa.games.fatsquirrel.botapi.BotControllerFactory;
@@ -28,7 +28,7 @@ public class Board {
     public Board() {
 
         this.set = new EntitySet(new XY(20, 20));
-        this.config = new BoardConfig(new XY(20, 20), 60, 7, 7, 7, 7, 7, 4, 6, 6, GameType.PACMAN);
+        this.config = new BoardConfig(new XY(20, 20), 60, 7, 7, 7, 7, 7, 4, 6, 6, Game.GameType.PACMAN);
 
         initBoard();
     }
@@ -85,7 +85,7 @@ public class Board {
         addEntity(EntityType.GOODBEAST, config.getNUMBER_OF_GB());
         addEntity(EntityType.GOODPLANT, config.getNUMBER_OF_GP());
 
-        if (config.getGameType() == GameType.WITH_BOT) {
+        if (config.getGameType() == Game.GameType.WITH_BOT) {
             addEntity(EntityType.MASTERSQUIRREL, config.getNUMBER_OF_BOTS()+1);
         } else {
             addEntity(EntityType.MASTERSQUIRREL, 1);
@@ -133,7 +133,7 @@ public class Board {
                     entityToAdd = new GoodPlant(setID(), new XY(randomX, randomY));
                     break;
                 case MASTERSQUIRREL:
-                    if (config.getGameType() != GameType.BOT_ONLY && set.getHandOperatedMasterSquirrel() == null) {
+                    if (config.getGameType() != Game.GameType.BOT_ONLY && set.getHandOperatedMasterSquirrel() == null) {
                         entityToAdd = new HandOperatedMasterSquirrel(-100, new XY(randomX, randomY));
                         this.handOperatedMasterSquirrel = (HandOperatedMasterSquirrel) entityToAdd;
                     } else {
