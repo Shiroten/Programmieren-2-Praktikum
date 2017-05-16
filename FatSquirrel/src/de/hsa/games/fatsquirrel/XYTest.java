@@ -3,13 +3,13 @@ package de.hsa.games.fatsquirrel;
 import static org.junit.Assert.*;
 
 public class XYTest {
-    XY test1 = new XY(10,10);
-    XY test2 = new XY(20,20);
-    XY testLength1 = new XY(9,12);
-    XY testLength2 = new XY (13,17);
-    XY testDistanceFrome1 = new XY(15,15);
-    XY testDistanceFrome2 = new XY(23,29);
-    XY testDistanceFrome3 = new XY(6,3);
+    private XY test1 = new XY(10,10);
+    private XY test2 = new XY(20,20);
+    private XY testLength1 = new XY(9,12);
+    private XY testLength2 = new XY (13,17);
+    private XY testDistanceFrome1 = new XY(15,15);
+    private XY testDistanceFrome2 = new XY(23,29);
+    private XY testDistanceFrome3 = new XY(6,3);
 
 
     @org.junit.Before
