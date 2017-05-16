@@ -110,7 +110,6 @@ public class MasterSquirrelBot extends MasterSquirrel {
     }
 
     private BotController masterBotController;
-    private BotControllerFactory factory;
 
     public MasterSquirrelBot(int id, XY position, BotControllerFactory factory) {
         super(id, position);

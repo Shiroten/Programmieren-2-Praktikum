@@ -1,4 +1,6 @@
-package de.hsa.games.fatsquirrel;
+package de.hsa.games.fatsquirrel.tests;
+
+import de.hsa.games.fatsquirrel.XY;
 
 import static org.junit.Assert.*;
 

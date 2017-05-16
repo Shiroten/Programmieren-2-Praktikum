@@ -28,7 +28,7 @@ public class Launcher extends Application {
     private static final int VIEW_DISTANCE_OF_GOODBEAST = 6;
     private static final int VIEW_DISTANCE_OF_BADBEAST = 6;
 
-    private static final defaultNumber dn = defaultNumber.testcase4;
+    private static final defaultNumber dn = defaultNumber.normal;
 
     public enum defaultNumber {
         testcase1,
@@ -48,7 +48,7 @@ public class Launcher extends Application {
             Handler handler = new FileHandler("log.txt");
             SimpleFormatter formatter = new SimpleFormatter();
             handler.setFormatter(formatter);
-            handler.setLevel(Level.FINER);
+            handler.setLevel(Level.FINE);
             logger.addHandler(handler);
 
         } catch (IOException e) {

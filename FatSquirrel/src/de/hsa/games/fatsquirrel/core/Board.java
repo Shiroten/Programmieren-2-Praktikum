@@ -2,6 +2,9 @@ package de.hsa.games.fatsquirrel.core;
 
 import de.hsa.games.fatsquirrel.GameType;
 import de.hsa.games.fatsquirrel.XY;
+import de.hsa.games.fatsquirrel.botapi.BasterBotControllerFactory;
+import de.hsa.games.fatsquirrel.botapi.BotControllerFactory;
+import de.hsa.games.fatsquirrel.botapi.ShirotenBotControllerFactory;
 import de.hsa.games.fatsquirrel.core.entity.character.*;
 import de.hsa.games.fatsquirrel.core.entity.*;
 import de.hsa.games.fatsquirrel.gui.ImplosionContext;
@@ -17,6 +20,7 @@ public class Board {
 
     private HandOperatedMasterSquirrel handOperatedMasterSquirrel;
     private MasterSquirrel masterSquirrel[] = new MasterSquirrel[10];
+    private BotControllerFactory factoryList[] = {new BasterBotControllerFactory(), new ShirotenBotControllerFactory()};
 
     private ArrayList<ImplosionContext> implosions;
 
@@ -103,6 +107,8 @@ public class Board {
 
     private void addEntity(EntityType type, int ammount) {
 
+        int numberOfAIs = 0;
+
         Entity entityToAdd = null;
         for (int i = 0; i < ammount; i++) {
 
@@ -130,8 +136,8 @@ public class Board {
                         entityToAdd = new HandOperatedMasterSquirrel(-100, new XY(randomX, randomY));
                         this.handOperatedMasterSquirrel = (HandOperatedMasterSquirrel) entityToAdd;
                     } else {
-
-                        entityToAdd = new MasterSquirrelBot(setID(), new XY(randomX, randomY));
+                        entityToAdd = new MasterSquirrelBot(setID(), new XY(randomX, randomY), getFactory(numberOfAIs));
+                        numberOfAIs++;
                     }
                     break;
             }
@@ -140,6 +146,9 @@ public class Board {
     }
 
     //TODO: Methode für Factory
+    private BotControllerFactory getFactory(int aiNumber){
+        return factoryList[aiNumber % factoryList.length];
+    }
 
     //Package Private
     Entity addEntity(EntityType type, XY position) {
