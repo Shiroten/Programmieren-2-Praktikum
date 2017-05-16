@@ -66,6 +66,15 @@ public class MasterSquirrelBot extends MasterSquirrel {
 
         @Override
         public XY directionOfMaster() {
+            try {
+                if (getEntityAt(locate()) == EntityType.MINISQUIRREL){
+                    MasterSquirrel ms = ((MiniSquirrel)context.getEntity(locate())).getDaddy();
+                    return ms.getCoordinate();
+                }
+
+            } catch (OutOfViewException e) {
+                e.printStackTrace();
+            }
             return null;
         }
 

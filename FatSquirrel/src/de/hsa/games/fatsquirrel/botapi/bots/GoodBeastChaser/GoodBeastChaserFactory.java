@@ -10,10 +10,10 @@ import de.hsa.games.fatsquirrel.botapi.bots.Shiroten.ShirotenMini;
  */
 public class GoodBeastChaserFactory implements BotControllerFactory {
     public BotController createMasterBotController(){
-        return new ShirotenMaster();
+        return new GoodBeastChaserMaster();
     }
 
     public BotController createMiniBotController(){
-        return new ShirotenMini();
+        return new GoodBeastChaserMini();
     }
 }

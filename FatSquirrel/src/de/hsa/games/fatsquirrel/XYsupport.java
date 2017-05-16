@@ -20,17 +20,24 @@ public class XYsupport {
         return new XY(-xy.getX(), -xy.getY());
     }
 
-    public static XY rotate(Rotation r, XY toRotate) {
+    public static XY rotate(Rotation r, XY toRotate, int numberOfRotation) {
+
+        double rotationClockwise = (-PI / 4 * numberOfRotation);
+        double rotationAntiClockwise = (PI / 4 * numberOfRotation);
 
         switch (r) {
             case clockwise:
                 return new XY(
-                        (int) Math.round(toRotate.getX() * Math.cos(-PI / 4) - toRotate.getY() * Math.sin(-PI / 4)),
-                        (int) Math.round(toRotate.getX() * Math.sin(-PI / 4) + toRotate.getY() * Math.cos(-PI / 4)));
+                        (int) Math.round(toRotate.getX() * Math.cos(rotationClockwise)
+                                - toRotate.getY() * Math.sin(rotationClockwise)),
+                        (int) Math.round(toRotate.getX() * Math.sin(rotationClockwise)
+                                + toRotate.getY() * Math.cos(rotationClockwise)));
             case anticlockwise:
                 return new XY(
-                        (int) Math.round(toRotate.getX() * Math.cos(PI / 4) - toRotate.getY() * Math.sin(PI / 4)),
-                        (int) Math.round(toRotate.getX() * Math.sin(PI / 4) + toRotate.getY() * Math.cos(PI / 4)));
+                        (int) Math.round(toRotate.getX() * Math.cos(rotationAntiClockwise)
+                                - toRotate.getY() * Math.sin(rotationAntiClockwise)),
+                        (int) Math.round(toRotate.getX() * Math.sin(rotationAntiClockwise)
+                                + toRotate.getY() * Math.cos(rotationAntiClockwise)));
 
         }
         return toRotate;

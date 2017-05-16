@@ -10,31 +10,77 @@ import de.hsa.games.fatsquirrel.core.entity.EntityType;
 public class GoodBeastChaserMini implements BotController {
     @Override
     public void nextStep(ControllerContext view) {
-        try {
-            XY nearestEntityOf = nearestSearchedEntity(view, EntityType.GOODBEAST);
-            XY toMove = XYsupport.oppositeVector(XYsupport.normalizedVector(view.locate().minus(nearestEntityOf)));
 
-            if (view.getEntityAt(view.locate().plus(toMove)) == EntityType.WALL) {
-                XY lookAtNewToMove = XYsupport.rotate(XYsupport.Rotation.clockwise, toMove);
-                if (view.getEntityAt(view.locate().plus(lookAtNewToMove)) != EntityType.WALL) {
-                    XY newToMove = XYsupport.rotate(XYsupport.Rotation.clockwise, toMove);
-                    view.move(newToMove);
-                    return;
+        XY nearestEntityOfGOODPLANT = nearestSearchedEntity(view, EntityType.GOODPLANT);
+        XY nearestEntityOfGOODBEAST = nearestSearchedEntity(view, EntityType.GOODBEAST);
+        XY nearestEntityOf = nearestEntityOfGOODBEAST.distanceFrom(view.locate()) <
+                nearestEntityOfGOODPLANT.distanceFrom(view.locate())
+                ? nearestEntityOfGOODBEAST : nearestEntityOfGOODPLANT;
+
+
+        XY toMove = XYsupport.oppositeVector(XYsupport.normalizedVector(view.locate().minus(nearestEntityOf)));
+        toMove = goodMove(view, toMove);
+
+        if (view.getEnergy() > 7500) {
+            view.move(XYsupport.normalizedVector(view.directionOfMaster()));
+        } else {
+            view.move(toMove);
+            return;
+        }
+
+
+    }
+
+    private XY goodMove(ControllerContext view, XY direction) {
+
+        XYsupport.Rotation rotation = XYsupport.Rotation.clockwise;
+        int nor = 1;
+        boolean stuck = true;
+
+        if (freeField(view, view.locate().plus(direction))) {
+            return direction;
+        }
+
+        while (stuck) {
+            if (freeField(view, view.locate().plus(XYsupport.rotate(rotation, direction, nor)))) {
+                return XYsupport.rotate(rotation, direction, nor);
+            } else {
+                if (rotation == XYsupport.Rotation.clockwise) {
+                    rotation = XYsupport.Rotation.anticlockwise;
                 } else {
-                    XY newToMove = XYsupport.rotate(XYsupport.Rotation.anticlockwise, toMove);
-                    view.move(newToMove);
-                    return;
+                    rotation = XYsupport.Rotation.clockwise;
+                    nor++;
+                    System.out.println(nor);
                 }
-
-            } else{
-                view.move(toMove);
-                return;
+                if (nor > 3)
+                    return direction;
             }
+        }
+        return null;
+    }
 
+    private boolean freeField(ControllerContext view, XY location) {
+
+        try {
+            EntityType et = view.getEntityAt(location);
+            switch (et) {
+                case WALL:
+                case BADBEAST:
+                case BADPLANT:
+                case MASTERSQUIRREL:
+                    return false;
+                case NONE:
+                case GOODBEAST:
+                case GOODPLANT:
+                case MINISQUIRREL:
+                    return true;
+
+            }
 
         } catch (OutOfViewException e) {
             e.printStackTrace();
         }
+        return false;
     }
 
     private XY nearestSearchedEntity(ControllerContext view, EntityType et) {

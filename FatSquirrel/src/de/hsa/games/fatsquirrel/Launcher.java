@@ -29,7 +29,7 @@ public class Launcher extends Application {
     private static final int VIEW_DISTANCE_OF_GOODBEAST = 6;
     private static final int VIEW_DISTANCE_OF_BADBEAST = 6;
 
-    private static final defaultNumber dn = defaultNumber.normal;
+    private static final defaultNumber dn = defaultNumber.testcase5;
 
     public enum defaultNumber {
         testcase1,
@@ -142,9 +142,9 @@ public class Launcher extends Application {
                         0, 20, 20, GameType.SINGLE_PLAYER);
                 break;
             case testcase5:
-                config = new BoardConfig(new XY(10, 10), 60,
-                        0, 0, 00, 0, 0,
-                        0, 20, 20, GameType.SINGLE_PLAYER);
+                config = new BoardConfig(new XY(30, 30), 60,
+                        50, 7, 7, 7, 200,
+                        NUMBER_OF_BOTS, 7, 7, GameType.WITH_BOT);
                 break;
             case custom:
             default:

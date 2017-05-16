@@ -11,17 +11,21 @@ public class PlayerMini implements BotController {
     @Override
     public void nextStep(ControllerContext view) {
         try {
-            XY nearestEntityOf = nearestSearchedEntity(view, EntityType.GOODBEAST);
+            XY nearestEntityOfGOODPLANT = nearestSearchedEntity(view, EntityType.GOODPLANT);
+            XY nearestEntityOfGOODBEAST = nearestSearchedEntity(view, EntityType.GOODBEAST);
+            XY nearestEntityOf = nearestEntityOfGOODBEAST.distanceFrom(view.locate()) >
+                    nearestEntityOfGOODPLANT.distanceFrom(view.locate())
+                    ? nearestEntityOfGOODBEAST : nearestEntityOfGOODPLANT;
             XY toMove = XYsupport.oppositeVector(XYsupport.normalizedVector(view.locate().minus(nearestEntityOf)));
 
             if (view.getEntityAt(view.locate().plus(toMove)) == EntityType.WALL) {
-                XY lookAtNewToMove = XYsupport.rotate(XYsupport.Rotation.clockwise, toMove);
+                XY lookAtNewToMove = XYsupport.rotate(XYsupport.Rotation.clockwise, toMove, 1);
                 if (view.getEntityAt(view.locate().plus(lookAtNewToMove)) != EntityType.WALL) {
-                    XY newToMove = XYsupport.rotate(XYsupport.Rotation.clockwise, toMove);
+                    XY newToMove = XYsupport.rotate(XYsupport.Rotation.clockwise, toMove, 1);
                     view.move(newToMove);
                     return;
                 } else {
-                    XY newToMove = XYsupport.rotate(XYsupport.Rotation.anticlockwise, toMove);
+                    XY newToMove = XYsupport.rotate(XYsupport.Rotation.anticlockwise, toMove, 1);
                     view.move(newToMove);
                     return;
                 }
