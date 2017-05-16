@@ -36,12 +36,7 @@ public class BadBeast extends Character {
             XY distance = new XY(pe.getCoordinate(), this.getCoordinate());
 
             if (distance.length() < context.getBADBEAST_VIEW_DISTANCE()) {
-                XY previousPosition = this.getCoordinate();
-                context.tryMove(this, XYsupport.normalizedVector(distance));
-
-                if (gotStuck(previousPosition)) {
-                    tryUnStuck(context, XYsupport.normalizedVector(distance), XYsupport.Rotation.clockwise);
-                }
+                tryUnStuck(context, XYsupport.normalizedVector(distance));
             } else
                 context.tryMove(this, XYsupport.randomDirection());
             moveCounter++;

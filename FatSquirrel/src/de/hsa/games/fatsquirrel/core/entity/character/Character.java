@@ -42,9 +42,86 @@ public abstract class Character extends Entity {
 
     }
 
-    void tryUnStuck(EntityContext context, XY direction, XYsupport.Rotation rotation) {
-
+    void tryUnStuck(EntityContext context, XY direction) {
+        XY toMove = direction;
+        toMove = goodMove(context, toMove, freeFieldMode.master);
+        EntityType et = context.getEntityType(getCoordinate());
+        switch (et) {
+            case MINISQUIRREL:
+                context.tryMove((MiniSquirrel)this,toMove);
+                break;
+            case GOODBEAST:
+                context.tryMove((GoodBeast) this,toMove);
+                break;
+            case BADBEAST:
+                context.tryMove((BadBeast) this,toMove);
+                break;
+        }
     }
+
+    private XY goodMove(EntityContext view, XY directionVector, freeFieldMode ffm) {
+        XYsupport.Rotation rotation = XYsupport.Rotation.clockwise;
+        int nor = 1;
+        boolean stuck = true;
+        XY checkPostion = getCoordinate().plus(directionVector);
+        if (freeField(view, checkPostion, ffm)) {
+            return directionVector;
+        }
+        XY newVector;
+        while (stuck) {
+            newVector = XYsupport.rotate(rotation, directionVector, nor);
+            checkPostion = getCoordinate().plus(newVector);
+            if (freeField(view, checkPostion, ffm)) {
+                return newVector;
+            } else {
+                if (rotation == XYsupport.Rotation.clockwise) {
+                    rotation = XYsupport.Rotation.anticlockwise;
+                } else {
+                    rotation = XYsupport.Rotation.clockwise;
+                    nor++;
+                }
+                if (nor > 3)
+                    return XYsupport.oppositeVector(directionVector);
+            }
+        }
+        return null;
+    }
+
+    private enum freeFieldMode {
+        master,
+        spawnmini
+    }
+
+    private boolean freeField(EntityContext view, XY location, freeFieldMode ffm) {
+        EntityType et = view.getEntityType(location);
+        switch (ffm) {
+            case master: {
+                switch (et) {
+                    case WALL:
+                    case BADBEAST:
+                    case BADPLANT:
+                    case MASTERSQUIRREL:
+                        return false;
+                    case NONE:
+                    case GOODBEAST:
+                    case GOODPLANT:
+                    case MINISQUIRREL:
+                        return true;
+                }
+                break;
+            }
+            case spawnmini: {
+                switch (et) {
+                    case NONE:
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        }
+        return false;
+    }
+
 
     boolean gotStuck(XY xy) {
         return this.getCoordinate().getX() == xy.getX() && this.getCoordinate().getY() == xy.getY();

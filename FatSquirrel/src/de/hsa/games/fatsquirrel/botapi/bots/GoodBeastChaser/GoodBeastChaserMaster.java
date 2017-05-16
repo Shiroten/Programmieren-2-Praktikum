@@ -15,8 +15,8 @@ public class GoodBeastChaserMaster implements BotController {
         try {
             XY toMove = XY.UP;
             if (view.getEnergy() > 2000) {
-                if (view.getEntityAt(view.locate().plus(toMove)) == EntityType.NONE) {
-                    XY toSpawnDirection = goodMove(view, toMove, freeFieldMode.spawnmini);
+                XY toSpawnDirection = goodMove(view, toMove, freeFieldMode.spawnmini);
+                if (freeField(view, view.locate().plus(toSpawnDirection), freeFieldMode.spawnmini)) {
                     view.spawnMiniBot(toSpawnDirection, 1000);
                 }
             } else {
@@ -29,39 +29,37 @@ public class GoodBeastChaserMaster implements BotController {
                 toMove = XYsupport.oppositeVector(XYsupport.normalizedVector(view.locate().minus(nearestEntityOf)));
                 toMove = goodMove(view, toMove, freeFieldMode.master);
                 view.move(toMove);
-                return;
             }
 
         } catch (SpawnException e) {
             e.printStackTrace();
-        } catch (OutOfViewException e) {
-            e.printStackTrace();
         }
     }
 
-    private XY goodMove(ControllerContext view, XY direction, freeFieldMode ffm) {
-
+    private XY goodMove(ControllerContext view, XY directionVector, freeFieldMode ffm) {
         XYsupport.Rotation rotation = XYsupport.Rotation.clockwise;
         int nor = 1;
         boolean stuck = true;
 
-        if (freeField(view, view.locate().plus(direction), ffm)) {
-            return direction;
+        XY checkPostion = view.locate().plus(directionVector);
+        if (freeField(view, checkPostion, ffm)) {
+            return directionVector;
         }
-
+        XY newVector;
         while (stuck) {
-            if (freeField(view, view.locate().plus(XYsupport.rotate(rotation, direction, nor)), ffm)) {
-                return XYsupport.rotate(rotation, direction, nor);
+            newVector = XYsupport.rotate(rotation, directionVector, nor);
+            checkPostion = view.locate().plus(newVector);
+            if (freeField(view, checkPostion, ffm)) {
+                return newVector;
             } else {
                 if (rotation == XYsupport.Rotation.clockwise) {
                     rotation = XYsupport.Rotation.anticlockwise;
                 } else {
                     rotation = XYsupport.Rotation.clockwise;
                     nor++;
-                    System.out.println(nor);
                 }
                 if (nor > 3)
-                    return direction;
+                    return XYsupport.oppositeVector(directionVector);
             }
         }
         return null;
@@ -77,7 +75,7 @@ public class GoodBeastChaserMaster implements BotController {
         try {
             EntityType et = view.getEntityAt(location);
             switch (ffm) {
-                case master:
+                case master: {
                     switch (et) {
                         case WALL:
                         case BADBEAST:
@@ -91,15 +89,15 @@ public class GoodBeastChaserMaster implements BotController {
                             return true;
                     }
                     break;
-                case spawnmini:
+                }
+                case spawnmini: {
                     switch (et) {
                         case NONE:
-                            System.out.println("free");
                             return true;
                         default:
-                            System.out.println("notfree");
                             return false;
                     }
+                }
             }
         } catch (OutOfViewException e) {
             e.printStackTrace();

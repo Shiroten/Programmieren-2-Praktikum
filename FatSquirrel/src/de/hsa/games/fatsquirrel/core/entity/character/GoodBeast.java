@@ -33,14 +33,9 @@ public class GoodBeast extends Character {
             XY distance = new XY(pe.getCoordinate(), this.getCoordinate());
 
             if (distance.length() < context.getGOODBEAST_VIEW_DISTANCE()) {
-                XY previousPosition = this.getCoordinate();
-                context.tryMove(this, XYsupport.oppositeVector(XYsupport.normalizedVector(distance)));
-
-                if (gotStuck(previousPosition)) {
-                    tryUnStuck(context, XYsupport.oppositeVector(XYsupport.normalizedVector(distance)), XYsupport.Rotation.clockwise);
-                }
+                tryUnStuck(context, XYsupport.oppositeVector(XYsupport.normalizedVector(distance)));
             } else
-                context.tryMove(this, XYsupport.randomDirection());
+                tryUnStuck(context, XYsupport.randomDirection());
             moveCounter++;
         } else if (moveCounter == context.getBEAST_MOVE_TIME_IN_TICKS())
             moveCounter = 0;

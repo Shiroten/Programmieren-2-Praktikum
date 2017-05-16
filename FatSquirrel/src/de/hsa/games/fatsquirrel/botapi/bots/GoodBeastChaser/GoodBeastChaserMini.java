@@ -6,15 +6,57 @@ import de.hsa.games.fatsquirrel.botapi.BotController;
 import de.hsa.games.fatsquirrel.botapi.ControllerContext;
 import de.hsa.games.fatsquirrel.botapi.OutOfViewException;
 import de.hsa.games.fatsquirrel.core.entity.EntityType;
+import de.hsa.games.fatsquirrel.core.entity.character.GoodBeast;
 
 public class GoodBeastChaserMini implements BotController {
     @Override
     public void nextStep(ControllerContext view) {
 
-        XY toMove;
+        boolean shouldImplode = false;
+        int counterForPoints = 0;
 
+        /*for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; i++) {
+                try {
+                    int x = view.locate().getX() + i;
+                    int y = view.locate().getY() + j;
+
+                    if (x > view.getViewUpperRight().getX())
+                        x = view.getViewUpperRight().getX();
+                    else if (x < view.getViewLowerLeft().getX())
+                        x = view.getViewLowerLeft().getX();
+
+                    if (y < view.getViewUpperRight().getY())
+                        y = view.getViewUpperRight().getY();
+                    else if (y > view.getViewLowerLeft().getY())
+                        y = view.getViewLowerLeft().getY();
+
+                    System.out.println(x + " " + y);
+                    System.out.println(view.getViewLowerLeft());
+                    System.out.println(view.getViewUpperRight());
+
+                    EntityType toCheck = view.getEntityAt(view.locate().plus(new XY(x, y)));
+                    if (toCheck == EntityType.GOODBEAST || toCheck == EntityType.GOODPLANT) {
+                        counterForPoints++;
+                    }
+                } catch (OutOfViewException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if (counterForPoints > 7) {
+            shouldImplode = true;
+        } else {
+            counterForPoints = 0;
+        }
+        */
+        if (shouldImplode)
+            view.implode(5);
+
+        XY toMove;
         if (view.getEnergy() > 7500) {
-            toMove = XYsupport.normalizedVector(view.directionOfMaster().minus(view.locate()));
+            toMove = view.directionOfMaster();
+            toMove = goodMove(view, toMove);
             view.move(toMove);
         } else {
 
@@ -50,7 +92,6 @@ public class GoodBeastChaserMini implements BotController {
                 } else {
                     rotation = XYsupport.Rotation.clockwise;
                     nor++;
-                    System.out.println(nor);
                 }
                 if (nor > 3)
                     return direction;
