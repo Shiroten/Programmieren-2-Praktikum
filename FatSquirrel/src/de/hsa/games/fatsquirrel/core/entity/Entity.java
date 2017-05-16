@@ -1,11 +1,17 @@
 package de.hsa.games.fatsquirrel.core.entity;
 
 import de.hsa.games.fatsquirrel.XY;
+import javafx.scene.paint.Color;
 
 public abstract class Entity {
     private final int id;
     protected int energy;
     private XY coordinate;
+
+    private String entityName;
+    private Color entityColor;
+
+    private Color entityTextColor;
 
     public Entity(int id, XY coordinate) {
         this.id = id;
@@ -43,7 +49,7 @@ public abstract class Entity {
         this.coordinate = coordinate;
     }
 
-    public EntityType getEntityType(){
+    public EntityType getEntityType() {
         return EntityType.NONE;
     }
 
@@ -64,5 +70,29 @@ public abstract class Entity {
         }
         return false;
 
+    }
+
+    public String getEntityName() {
+        return entityName;
+    }
+
+    public void setEntityName(String entityName) {
+        this.entityName = entityName;
+    }
+
+    public Color getEntityColor() {
+        return entityColor;
+    }
+
+    public void setEntityColor(Color entityColor) {
+        this.entityColor = entityColor;
+    }
+
+    public Color getEntityTextColor() {
+        return entityTextColor;
+    }
+
+    public void setEntityTextColor(Color entityTextColor) {
+        this.entityTextColor = entityTextColor;
     }
 }

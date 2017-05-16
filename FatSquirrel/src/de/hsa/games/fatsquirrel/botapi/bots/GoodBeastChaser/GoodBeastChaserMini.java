@@ -1,22 +1,22 @@
-package de.hsa.games.fatsquirrel.botapi;
+package de.hsa.games.fatsquirrel.botapi.bots.GoodBeastChaser;
 
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.XYsupport;
+import de.hsa.games.fatsquirrel.botapi.BotController;
+import de.hsa.games.fatsquirrel.botapi.ControllerContext;
+import de.hsa.games.fatsquirrel.botapi.OutOfViewException;
 import de.hsa.games.fatsquirrel.core.entity.EntityType;
 
-import static java.lang.Math.PI;
-
-
-public class MasterBotControllerImplShiroten implements BotController {
+public class GoodBeastChaserMini implements BotController {
     @Override
     public void nextStep(ControllerContext view) {
         try {
             XY nearestEntityOf = nearestSearchedEntity(view, EntityType.GOODBEAST);
             XY toMove = XYsupport.oppositeVector(XYsupport.normalizedVector(view.locate().minus(nearestEntityOf)));
 
-            if ((view.getEntityAt(view.locate().plus(toMove)) == EntityType.WALL || view.getEntityAt(view.locate().plus(toMove)) == EntityType.MINISQUIRREL)) {
+            if (view.getEntityAt(view.locate().plus(toMove)) == EntityType.WALL) {
                 XY lookAtNewToMove = XYsupport.rotate(XYsupport.Rotation.clockwise, toMove);
-                if (!(view.getEntityAt(view.locate().plus(lookAtNewToMove)) == EntityType.WALL || view.getEntityAt(view.locate().plus(lookAtNewToMove)) == EntityType.MINISQUIRREL)) {
+                if (view.getEntityAt(view.locate().plus(lookAtNewToMove)) != EntityType.WALL) {
                     XY newToMove = XYsupport.rotate(XYsupport.Rotation.clockwise, toMove);
                     view.move(newToMove);
                     return;
@@ -26,19 +26,12 @@ public class MasterBotControllerImplShiroten implements BotController {
                     return;
                 }
 
-            } else {
-                if (view.getEnergy() > 2000) {
-                    if (view.getEntityAt(view.locate().plus(toMove)) == EntityType.NONE) {
-                        view.spawnMiniBot(toMove, 1000);
-                        return;
-                    }
-                } else {
-                    view.move(toMove);
-                    return;
-                }
+            } else{
+                view.move(toMove);
+                return;
             }
-        } catch (SpawnException e) {
-            e.printStackTrace();
+
+
         } catch (OutOfViewException e) {
             e.printStackTrace();
         }
@@ -79,6 +72,4 @@ public class MasterBotControllerImplShiroten implements BotController {
         else
             return 0;
     }
-
 }
-

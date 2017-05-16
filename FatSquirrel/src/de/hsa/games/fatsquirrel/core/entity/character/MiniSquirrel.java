@@ -25,6 +25,14 @@ public class MiniSquirrel extends PlayerEntity {
         super(id, coordinate);
         this.daddy = daddy;
         this.energy = startEnergy;
+
+        String factoryName = daddy.getFactory().getClass().getSimpleName();
+        CharSequence replaceChars = "Factory";
+        CharSequence with = "";
+        String newName = factoryName.replace(replaceChars,with);
+        newName = newName + "Mini";
+        this.setEntityName(newName);
+
     }
 
     public MasterSquirrel getDaddy() {

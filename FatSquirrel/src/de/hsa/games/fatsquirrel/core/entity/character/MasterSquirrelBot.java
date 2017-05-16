@@ -115,6 +115,12 @@ public class MasterSquirrelBot extends MasterSquirrel {
         super(id, position);
         this.factory = factory;
         this.masterBotController = factory.createMasterBotController();
+
+        String factoryName = factory.getClass().getSimpleName();
+        CharSequence replaceChars = "Factory";
+        CharSequence with = "";
+        String newName = factoryName.replace(replaceChars,with);
+        this.setEntityName(newName);
     }
 
     @Override

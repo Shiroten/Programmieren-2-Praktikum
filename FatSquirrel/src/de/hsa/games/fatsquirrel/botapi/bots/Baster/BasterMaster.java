@@ -1,8 +1,10 @@
-package de.hsa.games.fatsquirrel.botapi;
+package de.hsa.games.fatsquirrel.botapi.bots.Baster;
 
 import de.hsa.games.fatsquirrel.XY;
+import de.hsa.games.fatsquirrel.botapi.BotController;
+import de.hsa.games.fatsquirrel.botapi.ControllerContext;
 
-public class MasterBotControllerImplBaster implements BotController{
+public class BasterMaster implements BotController {
     @Override
     public void nextStep(ControllerContext view) {
 

@@ -37,6 +37,7 @@ public class FxUI extends Scene implements UI {
     private static outputLevel outputMode = outputLevel.simple;
     private static showLastVector printVector = showLastVector.tail;
     private static toogleInput inputMode = toogleInput.inputEnergy;
+    private static boolean showName = false;
     private static int CELL_SIZE = 30;
     private static int miniSquirrelEnergy = 200;
     private static int miniSquirrelRadius = 5;
@@ -138,6 +139,9 @@ public class FxUI extends Scene implements UI {
                                 case showID:
                                     outputMode = outputLevel.simple;
                             }
+                            break;
+                        case C:
+                            showName = !showName;
                             break;
                         case NUMPAD0:
                         case N:
@@ -246,8 +250,8 @@ public class FxUI extends Scene implements UI {
                             case BADPLANT:
                                 break;
                             //case MINISQUIRREL:
-                                //Todo: MiniSquirrel lastVector bug beheben (nur nullVectoren übergeben)
-                                //System.out.println(((Character)view.getEntity(new XY(x, y))).getLastVector());
+                            //Todo: MiniSquirrel lastVector bug beheben (nur nullVectoren übergeben)
+                            //System.out.println(((Character)view.getEntity(new XY(x, y))).getLastVector());
                             default:
                                 XY lastVector = ((Character) view.getEntity(new XY(x, y))).getLastVector();
                                 Entity e = view.getEntity(new XY(x, y));
@@ -450,6 +454,7 @@ public class FxUI extends Scene implements UI {
         EntityType et = e.getEntityType();
         String stringToPrint;
         String simpleText, detailedText, extendText, showIDText = Integer.toString(e.getId());
+
         switch (et) {
             case GOODPLANT:
                 simpleText = detailedText = "GP";
@@ -500,8 +505,14 @@ public class FxUI extends Scene implements UI {
                 break;
             default:
                 simpleText = detailedText = extendText = "";
-
         }
+
+        if (showName && e.getEntityName() != null)
+            simpleText = detailedText = extendText = showIDText = e.getEntityName();
+        else if (showName)
+            detailedText = extendText = showIDText = simpleText;
+        else
+            ;
 
         stringToPrint = switchVerboseLevel(outputMode, simpleText, detailedText, extendText, showIDText);
 
