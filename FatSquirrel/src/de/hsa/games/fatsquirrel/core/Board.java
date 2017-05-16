@@ -27,7 +27,7 @@ public class Board {
     public Board() {
 
         this.set = new EntitySet(new XY(20, 20));
-        this.config = new BoardConfig(new XY(20, 20), 60, 7, 7, 7, 7, 7, 6, 6, GameType.PACMAN);
+        this.config = new BoardConfig(new XY(20, 20), 60, 7, 7, 7, 7, 7, 4, 6, 6, GameType.PACMAN);
 
         initBoard();
     }
@@ -85,7 +85,7 @@ public class Board {
         addEntity(EntityType.GOODPLANT, config.getNUMBER_OF_GP());
 
         if (config.getGameType() == GameType.WITH_BOT) {
-            addEntity(EntityType.MASTERSQUIRREL, 5);
+            addEntity(EntityType.MASTERSQUIRREL, config.getNUMBER_OF_BOTS()+1);
         } else {
             addEntity(EntityType.MASTERSQUIRREL, 1);
         }

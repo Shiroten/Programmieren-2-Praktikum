@@ -25,6 +25,7 @@ public class Launcher extends Application {
     private static final int NUMBER_OF_GP = 5;
     private static final int NUMBER_OF_BP = 5;
     private static final int NUMBER_OF_WA = 0;
+    private static final int NUMBER_OF_BOTS = 4;
     private static final int VIEW_DISTANCE_OF_GOODBEAST = 6;
     private static final int VIEW_DISTANCE_OF_BADBEAST = 6;
 
@@ -118,38 +119,38 @@ public class Launcher extends Application {
             case normal:
                 config = new BoardConfig(new XY(30, 30), 60,
                         50, 7, 7, 7, 50,
-                        7, 7, GameType.WITH_BOT);
+                        NUMBER_OF_BOTS, 7, 7, GameType.WITH_BOT);
                 break;
             case testcase1:
                 config = new BoardConfig(new XY(30, 30), 60,
                         500, 0, 0, 0, 0,
-                        20, 5, GameType.SINGLE_PLAYER);
+                        0, 20, 5, GameType.SINGLE_PLAYER);
                 break;
             case testcase2:
                 config = new BoardConfig(new XY(30, 30), 60,
                         100, 15, 0, 0, 50,
-                        20, 20, GameType.SINGLE_PLAYER);
+                        NUMBER_OF_BOTS, 20, 20, GameType.SINGLE_PLAYER);
                 break;
             case testcase3:
                 config = new BoardConfig(new XY(30, 30), 20,
                         50, 0, 0, 0, 100,
-                        20, 20, GameType.WITH_BOT);
+                        NUMBER_OF_BOTS, 20, 20, GameType.WITH_BOT);
                 break;
             case testcase4:
                 config = new BoardConfig(new XY(10, 10), 20,
                         40, 0, 0, 0, 0,
-                        20, 20, GameType.SINGLE_PLAYER);
+                        0, 20, 20, GameType.SINGLE_PLAYER);
                 break;
             case testcase5:
                 config = new BoardConfig(new XY(10, 10), 60,
                         0, 0, 00, 0, 0,
-                        20, 20, GameType.SINGLE_PLAYER);
+                        0, 20, 20, GameType.SINGLE_PLAYER);
                 break;
             case custom:
             default:
                 config = new BoardConfig(gameSize, FRAMERATE,
                         NUMBER_OF_GB, NUMBER_OF_BB, NUMBER_OF_GP, NUMBER_OF_BP, NUMBER_OF_WA,
-                        VIEW_DISTANCE_OF_GOODBEAST, VIEW_DISTANCE_OF_BADBEAST, gameType);
+                        NUMBER_OF_BOTS, VIEW_DISTANCE_OF_GOODBEAST, VIEW_DISTANCE_OF_BADBEAST, gameType);
 
         }
         Board board = new Board(config);
