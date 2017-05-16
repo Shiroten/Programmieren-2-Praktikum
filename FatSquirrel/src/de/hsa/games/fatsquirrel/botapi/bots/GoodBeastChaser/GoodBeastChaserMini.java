@@ -11,24 +11,24 @@ public class GoodBeastChaserMini implements BotController {
     @Override
     public void nextStep(ControllerContext view) {
 
-        XY nearestEntityOfGOODPLANT = nearestSearchedEntity(view, EntityType.GOODPLANT);
-        XY nearestEntityOfGOODBEAST = nearestSearchedEntity(view, EntityType.GOODBEAST);
-        XY nearestEntityOf = nearestEntityOfGOODBEAST.distanceFrom(view.locate()) <
-                nearestEntityOfGOODPLANT.distanceFrom(view.locate())
-                ? nearestEntityOfGOODBEAST : nearestEntityOfGOODPLANT;
-
-
-        XY toMove = XYsupport.oppositeVector(XYsupport.normalizedVector(view.locate().minus(nearestEntityOf)));
-        toMove = goodMove(view, toMove);
+        XY toMove;
 
         if (view.getEnergy() > 7500) {
-            view.move(XYsupport.normalizedVector(view.directionOfMaster()));
+            toMove = XYsupport.normalizedVector(view.directionOfMaster().minus(view.locate()));
+            view.move(toMove);
         } else {
+
+            XY nearestEntityOfGOODPLANT = nearestSearchedEntity(view, EntityType.GOODPLANT);
+            XY nearestEntityOfGOODBEAST = nearestSearchedEntity(view, EntityType.GOODBEAST);
+            XY nearestEntityOf = nearestEntityOfGOODBEAST.distanceFrom(view.locate()) <
+                    nearestEntityOfGOODPLANT.distanceFrom(view.locate())
+                    ? nearestEntityOfGOODBEAST : nearestEntityOfGOODPLANT;
+
+            toMove = XYsupport.oppositeVector(XYsupport.normalizedVector(view.locate().minus(nearestEntityOf)));
+            toMove = goodMove(view, toMove);
             view.move(toMove);
             return;
         }
-
-
     }
 
     private XY goodMove(ControllerContext view, XY direction) {

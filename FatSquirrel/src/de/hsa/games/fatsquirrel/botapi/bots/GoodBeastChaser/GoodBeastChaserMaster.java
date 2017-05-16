@@ -13,21 +13,21 @@ public class GoodBeastChaserMaster implements BotController {
     @Override
     public void nextStep(ControllerContext view) {
         try {
-            XY nearestEntityOfGOODPLANT = nearestSearchedEntity(view, EntityType.GOODPLANT);
-            XY nearestEntityOfGOODBEAST = nearestSearchedEntity(view, EntityType.GOODBEAST);
-            XY nearestEntityOf = nearestEntityOfGOODBEAST.distanceFrom(view.locate()) <
-                    nearestEntityOfGOODPLANT.distanceFrom(view.locate())
-                    ? nearestEntityOfGOODBEAST : nearestEntityOfGOODPLANT;
-
-            XY toMove = XYsupport.oppositeVector(XYsupport.normalizedVector(view.locate().minus(nearestEntityOf)));
-            toMove = goodMove(view, toMove);
-
+            XY toMove = XY.UP;
             if (view.getEnergy() > 2000) {
                 if (view.getEntityAt(view.locate().plus(toMove)) == EntityType.NONE) {
-                    view.spawnMiniBot(toMove, 1000);
-                    return;
+                    XY toSpawnDirection = goodMove(view, toMove, freeFieldMode.spawnmini);
+                    view.spawnMiniBot(toSpawnDirection, 1000);
                 }
             } else {
+                XY nearestEntityOfGOODPLANT = nearestSearchedEntity(view, EntityType.GOODPLANT);
+                XY nearestEntityOfGOODBEAST = nearestSearchedEntity(view, EntityType.GOODBEAST);
+                XY nearestEntityOf = nearestEntityOfGOODBEAST.distanceFrom(view.locate()) <
+                        nearestEntityOfGOODPLANT.distanceFrom(view.locate())
+                        ? nearestEntityOfGOODBEAST : nearestEntityOfGOODPLANT;
+
+                toMove = XYsupport.oppositeVector(XYsupport.normalizedVector(view.locate().minus(nearestEntityOf)));
+                toMove = goodMove(view, toMove, freeFieldMode.master);
                 view.move(toMove);
                 return;
             }
@@ -39,18 +39,18 @@ public class GoodBeastChaserMaster implements BotController {
         }
     }
 
-    private XY goodMove(ControllerContext view, XY direction) {
+    private XY goodMove(ControllerContext view, XY direction, freeFieldMode ffm) {
 
         XYsupport.Rotation rotation = XYsupport.Rotation.clockwise;
         int nor = 1;
         boolean stuck = true;
 
-        if (freeField(view, view.locate().plus(direction))) {
+        if (freeField(view, view.locate().plus(direction), ffm)) {
             return direction;
         }
 
         while (stuck) {
-            if (freeField(view, view.locate().plus(XYsupport.rotate(rotation, direction, nor)))) {
+            if (freeField(view, view.locate().plus(XYsupport.rotate(rotation, direction, nor)), ffm)) {
                 return XYsupport.rotate(rotation, direction, nor);
             } else {
                 if (rotation == XYsupport.Rotation.clockwise) {
@@ -67,25 +67,40 @@ public class GoodBeastChaserMaster implements BotController {
         return null;
     }
 
-    private boolean freeField(ControllerContext view, XY location) {
+    private enum freeFieldMode {
+        master,
+        spawnmini
+    }
+
+    private boolean freeField(ControllerContext view, XY location, freeFieldMode ffm) {
 
         try {
             EntityType et = view.getEntityAt(location);
-            switch (et) {
-                case WALL:
-                case BADBEAST:
-                case BADPLANT:
-                case MASTERSQUIRREL:
-                case MINISQUIRREL:
-                    return false;
-                case NONE:
-                case GOODBEAST:
-                case GOODPLANT:
-
-                    return true;
-
+            switch (ffm) {
+                case master:
+                    switch (et) {
+                        case WALL:
+                        case BADBEAST:
+                        case BADPLANT:
+                        case MASTERSQUIRREL:
+                            return false;
+                        case NONE:
+                        case GOODBEAST:
+                        case GOODPLANT:
+                        case MINISQUIRREL:
+                            return true;
+                    }
+                    break;
+                case spawnmini:
+                    switch (et) {
+                        case NONE:
+                            System.out.println("free");
+                            return true;
+                        default:
+                            System.out.println("notfree");
+                            return false;
+                    }
             }
-
         } catch (OutOfViewException e) {
             e.printStackTrace();
         }

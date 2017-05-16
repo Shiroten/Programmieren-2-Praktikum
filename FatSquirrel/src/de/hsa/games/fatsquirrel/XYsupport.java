@@ -22,8 +22,8 @@ public class XYsupport {
 
     public static XY rotate(Rotation r, XY toRotate, int numberOfRotation) {
 
-        double rotationClockwise = (-PI / 4 * numberOfRotation);
-        double rotationAntiClockwise = (PI / 4 * numberOfRotation);
+        double rotationClockwise = (PI / 4 * numberOfRotation);
+        double rotationAntiClockwise = (-PI / 4 * numberOfRotation);
 
         switch (r) {
             case clockwise:
@@ -54,6 +54,8 @@ public class XYsupport {
     }
 
     public static XY normalizedVector(XY xy) {
+
+        //Todo: Gibt fehler beim JUnit Testen. Sollte Überprüft werden.
         int newX, newY, oldX = xy.getX(), oldY = xy.getY();
         if (oldX == 0) {
             if (oldY == 0)
