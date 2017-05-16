@@ -100,7 +100,7 @@ public class Launcher extends Application {
                     logger.log(Level.FINEST, "start game.processInput()");
                     game.processInput();
                 }
-            }, 500, game.getState().getBoard().getConfig().getTICKLENGTH());
+            }, 500, 75);
         } catch (Exception e) {
             System.out.println("Error");
             e.printStackTrace();
@@ -131,7 +131,7 @@ public class Launcher extends Application {
                         20, 20, GameType.SINGLE_PLAYER);
                 break;
             case testcase3:
-                config = new BoardConfig(new XY(30, 30), 60,
+                config = new BoardConfig(new XY(30, 30), 20,
                         50, 0, 0, 0, 100,
                         20, 20, GameType.WITH_BOT);
                 break;
