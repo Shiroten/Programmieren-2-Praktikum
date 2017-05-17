@@ -21,7 +21,7 @@ public class GoodBeastChaserMaster implements BotController {
                 XY toSpawnDirection = goodMove(view, toMove, freeFieldMode.spawnmini);
                 if (freeField(view, view.locate().plus(toSpawnDirection), freeFieldMode.spawnmini)) {
                     view.spawnMiniBot(toSpawnDirection, 1000);
-                    energyCutoff = energyCutoff * 2;
+                    energyCutoff = energyCutoff + 1800;
                 }
             } else {
                 XY nearestEntityOfGOODPLANT = nearestSearchedEntity(view, EntityType.GOODPLANT);
