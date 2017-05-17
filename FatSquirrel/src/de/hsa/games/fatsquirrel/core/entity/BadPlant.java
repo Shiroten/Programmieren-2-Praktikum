@@ -14,6 +14,6 @@ public class BadPlant extends Entity {
     }
 
     public String toString() {
-        return ("de.hsa.games.fatsquirrel.core.entity.BadPlant: " + super.toString());
+        return ("BadPlant: " + super.toString());
     }
 }

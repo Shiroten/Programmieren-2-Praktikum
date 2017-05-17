@@ -4,7 +4,6 @@ import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.core.FlattenedBoard;
 import de.hsa.games.fatsquirrel.core.entity.EntityType;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.*;
 
 /**

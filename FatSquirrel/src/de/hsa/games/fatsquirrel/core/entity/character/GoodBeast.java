@@ -44,6 +44,6 @@ public class GoodBeast extends Character {
     }
 
     public String toString() {
-        return ("de.hsa.games.fatsquirrel.core.entity.character.GoodBeast: " + super.toString());
+        return ("GoodBeast: " + super.toString());
     }
 }

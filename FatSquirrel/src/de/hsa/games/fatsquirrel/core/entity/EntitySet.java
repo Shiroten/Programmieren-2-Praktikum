@@ -9,7 +9,7 @@ public class EntitySet {
 
     private final int numberOfMaxEntities;
     private Entity[] entityList;
-    //private ArrayList<de.hsa.games.fatsquirrel.core.entity.Entity> entityList = new ArrayList<de.hsa.games.fatsquirrel.core.entity.Entity>();
+    //private ArrayList<Entity> entityList = new ArrayList<Entity>();
 
     public EntitySet (XY size){
         numberOfMaxEntities = size.getX()*size.getY();

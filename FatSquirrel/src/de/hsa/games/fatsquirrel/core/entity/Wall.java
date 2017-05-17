@@ -18,6 +18,6 @@ public class Wall extends Entity {
     }
 
     public String toString() {
-        return ("de.hsa.games.fatsquirrel.core.entity.Wall: " + super.toString());
+        return ("Wall: " + super.toString());
     }
 }

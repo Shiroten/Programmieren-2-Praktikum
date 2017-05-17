@@ -48,7 +48,7 @@ public class BadBeast extends Character {
 
 
     public String toString() {
-        return ("de.hsa.games.fatsquirrel.core.entity.character.BadBeast: " + super.toString());
+        return ("BadBeast: " + super.toString());
     }
 
     public void bites() {
