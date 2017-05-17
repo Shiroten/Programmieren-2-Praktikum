@@ -10,14 +10,18 @@ import de.hsa.games.fatsquirrel.core.entity.EntityType;
 
 
 public class GoodBeastChaserMaster implements BotController {
+    int energyCutoff = 2000;
+
     @Override
     public void nextStep(ControllerContext view) {
         try {
+
             XY toMove = XY.UP;
-            if (view.getEnergy() > 2000) {
+            if (view.getEnergy() > energyCutoff) {
                 XY toSpawnDirection = goodMove(view, toMove, freeFieldMode.spawnmini);
                 if (freeField(view, view.locate().plus(toSpawnDirection), freeFieldMode.spawnmini)) {
                     view.spawnMiniBot(toSpawnDirection, 1000);
+                    energyCutoff = energyCutoff + 1800;
                 }
             } else {
                 XY nearestEntityOfGOODPLANT = nearestSearchedEntity(view, EntityType.GOODPLANT);
@@ -80,13 +84,18 @@ public class GoodBeastChaserMaster implements BotController {
                         case WALL:
                         case BADBEAST:
                         case BADPLANT:
-                        case MASTERSQUIRREL:
                             return false;
                         case NONE:
                         case GOODBEAST:
                         case GOODPLANT:
-                        case MINISQUIRREL:
                             return true;
+                        case MINISQUIRREL:
+                        case MASTERSQUIRREL:
+                            if (view.isMine(location))
+                                return true;
+                            else
+                                return false;
+
                     }
                     break;
                 }

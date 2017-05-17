@@ -33,9 +33,9 @@ public class GoodBeast extends Character {
             XY distance = new XY(pe.getCoordinate(), this.getCoordinate());
 
             if (distance.length() < context.getGOODBEAST_VIEW_DISTANCE()) {
-                tryUnStuck(context, XYsupport.oppositeVector(XYsupport.normalizedVector(distance)));
+                tryUnStuck(context, XYsupport.oppositeVector(XYsupport.normalizedVector(distance)), freeFieldMode.goodBeast);
             } else
-                tryUnStuck(context, XYsupport.randomDirection());
+                tryUnStuck(context, XYsupport.randomDirection(), freeFieldMode.goodBeast);
             moveCounter++;
         } else if (moveCounter == context.getBEAST_MOVE_TIME_IN_TICKS())
             moveCounter = 0;

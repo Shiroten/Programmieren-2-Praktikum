@@ -42,19 +42,19 @@ public abstract class Character extends Entity {
 
     }
 
-    void tryUnStuck(EntityContext context, XY direction) {
+    void tryUnStuck(EntityContext context, XY direction, freeFieldMode ffm) {
         XY toMove = direction;
-        toMove = goodMove(context, toMove, freeFieldMode.master);
-        EntityType et = context.getEntityType(getCoordinate());
-        switch (et) {
+        toMove = goodMove(context, toMove, ffm);
+
+        switch (this.getEntityType()) {
             case MINISQUIRREL:
-                context.tryMove((MiniSquirrel)this,toMove);
+                context.tryMove((MiniSquirrel) this, toMove);
                 break;
             case GOODBEAST:
-                context.tryMove((GoodBeast) this,toMove);
+                context.tryMove((GoodBeast) this, toMove);
                 break;
             case BADBEAST:
-                context.tryMove((BadBeast) this,toMove);
+                context.tryMove((BadBeast) this, toMove);
                 break;
         }
     }
@@ -87,15 +87,17 @@ public abstract class Character extends Entity {
         return null;
     }
 
-    private enum freeFieldMode {
+    enum freeFieldMode {
         master,
-        spawnmini
+        spawnmini,
+        goodBeast,
+        badBeast,
     }
 
     private boolean freeField(EntityContext view, XY location, freeFieldMode ffm) {
         EntityType et = view.getEntityType(location);
         switch (ffm) {
-            case master: {
+            case master:
                 switch (et) {
                     case WALL:
                     case BADBEAST:
@@ -109,15 +111,30 @@ public abstract class Character extends Entity {
                         return true;
                 }
                 break;
-            }
-            case spawnmini: {
+            case spawnmini:
                 switch (et) {
                     case NONE:
                         return true;
                     default:
                         return false;
                 }
-            }
+            case goodBeast:
+                switch (et) {
+                    case NONE:
+                        return true;
+                    default:
+                        return false;
+                }
+
+            case badBeast:
+                switch (et) {
+                    case NONE:
+                    case MASTERSQUIRREL:
+                    case MINISQUIRREL:
+                        return true;
+                    default:
+                        return false;
+                }
         }
         return false;
     }
