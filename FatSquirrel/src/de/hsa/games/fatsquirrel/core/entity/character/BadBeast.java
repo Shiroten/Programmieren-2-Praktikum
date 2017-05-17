@@ -36,9 +36,9 @@ public class BadBeast extends Character {
             XY distance = new XY(pe.getCoordinate(), this.getCoordinate());
 
             if (distance.length() < context.getBADBEAST_VIEW_DISTANCE()) {
-                tryUnStuck(context, XYsupport.normalizedVector(distance));
+                tryUnStuck(context, XYsupport.normalizedVector(distance), freeFieldMode.badBeast);
             } else
-                context.tryMove(this, XYsupport.randomDirection());
+                tryUnStuck(context, XYsupport.randomDirection(), freeFieldMode.badBeast);
             moveCounter++;
         } else if (moveCounter == context.getBEAST_MOVE_TIME_IN_TICKS())
             moveCounter = 0;
