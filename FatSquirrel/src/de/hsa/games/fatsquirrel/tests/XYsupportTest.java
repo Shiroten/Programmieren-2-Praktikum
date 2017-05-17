@@ -7,19 +7,14 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class XYsupportTest {
-    private XY test1 = new XY(10, 10);
-    private XY test2 = new XY(20, 20);
-    private XY test3 = new XY(9, -12);
-    private XY test4 = new XY(-13, 17);
-    private XY testVectorNormalized1 = new XY(5, 3);
-    private XY testVectorNormalized2 = new XY(5, 2);
+    private XY test1 = new XY(9, -12);
+    private XY test2 = new XY(-13, 17);
 
 
     @Test
     public void oppositeVector() throws Exception {
-        boolean firstTest = XYsupport.oppositeVector(test3).equals(new XY(-9, 12));
-        boolean secondTest = XYsupport.oppositeVector(test4).equals(new XY(13, -17));
-        assertTrue(firstTest && secondTest);
+        assertEquals(new XY(-9, 12), XYsupport.oppositeVector(test1));
+        assertEquals(new XY(13, -17), XYsupport.oppositeVector(test2));
     }
 
     @Test
@@ -39,25 +34,22 @@ public class XYsupportTest {
 
     @Test
     public void isInRange() throws Exception {
+        XY lowerLeftCorner = new XY(0,10);
+        XY upperRightCorner = new XY(10, 0);
+        XY trueMiddle = new XY (2, 2);
+        XY falseMiddle = new XY(3, 11);
+        assertTrue("Punkt ist zwischen zwei Punkten", XYsupport.isInRange(trueMiddle, lowerLeftCorner, upperRightCorner));
+        assertFalse("Punkt ist nicht zwischen zwei Punkten", XYsupport.isInRange(falseMiddle, lowerLeftCorner, upperRightCorner));
     }
 
     @Test
     public void normalizedVector() throws Exception {
-        XY test1normalized = XYsupport.normalizedVector(test1);
-        XY test2normalized = XYsupport.normalizedVector(test2);
-        XY test3normalized = XYsupport.normalizedVector(testVectorNormalized1);
-        XY test4normalized = XYsupport.normalizedVector(testVectorNormalized2);
 
-        System.out.println(test1normalized);
-        System.out.println(test2normalized);
-        System.out.println(test3normalized);
-        System.out.println(test4normalized);
-
-        boolean firstTest = test1normalized.equals(new XY(1, 1));
-        boolean secondTest = test2normalized.equals(new XY(1, 1));
-        boolean thirdTest = test3normalized.equals(new XY(1, 1));
-        boolean fourthTest = test4normalized.equals(new XY(1, 0));
-        assertTrue(firstTest && secondTest && thirdTest && fourthTest);
+        assertEquals(XY.RIGHT_DOWN, XYsupport.normalizedVector(new XY(10, 10)));
+        assertEquals(XY.RIGHT_DOWN, XYsupport.normalizedVector(new XY(10, 11)));
+        assertEquals(XY.RIGHT, XYsupport.normalizedVector(new XY(5, 1)));
+        assertEquals(XY.ZERO_ZERO, XYsupport.normalizedVector(new XY(0,0)));
+        assertEquals(XY.LEFT_UP, XYsupport.normalizedVector(new XY(-10, -11)));
     }
 
 }

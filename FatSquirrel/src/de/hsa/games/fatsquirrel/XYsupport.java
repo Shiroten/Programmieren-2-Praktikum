@@ -55,7 +55,6 @@ public class XYsupport {
 
     public static XY normalizedVector(XY xy) {
 
-        //Todo: Gibt fehler beim JUnit Testen. Sollte Überprüft werden.
         int newX, newY, oldX = xy.getX(), oldY = xy.getY();
         if (oldX == 0) {
             if (oldY == 0)
@@ -73,14 +72,16 @@ public class XYsupport {
             }
         } else {
             if (oldX < 0)
-                newX = Math.round(-1 * (Math.abs(oldX) / Math.abs(oldY)));
-            else
-                newX = Math.round(Math.abs(oldX) / Math.abs(oldY));
+                newX = Math.round(-1 * (Math.abs((float) oldX / (float) oldY)));
+            else{
+                newX = Math.round(Math.abs((float) oldX / (float) oldY));
+            }
 
             if (oldY < 0)
-                newY = Math.round(-1 * (Math.abs(oldY) / Math.abs(oldX)));
-            else
-                newY = Math.round(Math.abs(oldY) / Math.abs(oldX));
+                newY = Math.round(-1 * (Math.abs((float) oldY / (float) oldX)));
+            else {
+                newY = Math.round(Math.abs((float) oldY / (float) oldX));
+            }
         }
         newX = normalizeNumber(newX);
         newY = normalizeNumber(newY);
