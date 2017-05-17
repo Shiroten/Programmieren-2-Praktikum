@@ -2,14 +2,24 @@ package de.hsa.games.fatsquirrel.core;
 
 import de.hsa.games.fatsquirrel.Game;
 import de.hsa.games.fatsquirrel.XY;
-import de.hsa.games.fatsquirrel.botapi.bots.Baster.BasterFactory;
 import de.hsa.games.fatsquirrel.botapi.BotControllerFactory;
+import de.hsa.games.fatsquirrel.botapi.bots.Baster.BasterFactory;
 import de.hsa.games.fatsquirrel.botapi.bots.GoodBeastChaser.GoodBeastChaserFactory;
 import de.hsa.games.fatsquirrel.botapi.bots.Shiroten.ShirotenFactory;
-import de.hsa.games.fatsquirrel.core.entity.character.*;
-import de.hsa.games.fatsquirrel.core.entity.*;
 import de.hsa.games.fatsquirrel.gui.ImplosionContext;
-
+import de.hsa.games.fatsquirrel.core.entity.Wall;
+import de.hsa.games.fatsquirrel.core.entity.GoodPlant;
+import de.hsa.games.fatsquirrel.core.entity.BadPlant;
+import de.hsa.games.fatsquirrel.core.entity.EntitySet;
+import de.hsa.games.fatsquirrel.core.entity.Entity;
+import de.hsa.games.fatsquirrel.core.entity.EntityType;
+import de.hsa.games.fatsquirrel.core.entity.character.HandOperatedMasterSquirrel;
+import de.hsa.games.fatsquirrel.core.entity.character.MasterSquirrel;
+import de.hsa.games.fatsquirrel.core.entity.character.MiniSquirrel;
+import de.hsa.games.fatsquirrel.core.entity.character.GoodBeast;
+import de.hsa.games.fatsquirrel.core.entity.character.BadBeast;
+import de.hsa.games.fatsquirrel.core.entity.character.MasterSquirrelBot;
+import de.hsa.games.fatsquirrel.core.entity.character.MiniSquirrelBot;
 import java.util.ArrayList;
 
 
@@ -86,7 +96,7 @@ public class Board {
         addEntity(EntityType.GOODPLANT, config.getNUMBER_OF_GP());
 
         if (config.getGameType() == Game.GameType.WITH_BOT) {
-            addEntity(EntityType.MASTERSQUIRREL, config.getNUMBER_OF_BOTS()+1);
+            addEntity(EntityType.MASTERSQUIRREL, config.getNUMBER_OF_BOTS() + 1);
         } else {
             addEntity(EntityType.MASTERSQUIRREL, 1);
         }
@@ -147,7 +157,7 @@ public class Board {
     }
 
     //TODO: Methode für Factory
-    private BotControllerFactory getFactory(int aiNumber){
+    private BotControllerFactory getFactory(int aiNumber) {
         return factoryList[aiNumber % factoryList.length];
     }
 

@@ -6,8 +6,6 @@ import de.hsa.games.fatsquirrel.botapi.BotController;
 import de.hsa.games.fatsquirrel.botapi.ControllerContext;
 import de.hsa.games.fatsquirrel.botapi.OutOfViewException;
 import de.hsa.games.fatsquirrel.core.entity.EntityType;
-import de.hsa.games.fatsquirrel.core.entity.character.GoodBeast;
-import de.hsa.games.fatsquirrel.core.entity.character.MiniSquirrel;
 
 public class GoodBeastChaserMini implements BotController {
     @Override

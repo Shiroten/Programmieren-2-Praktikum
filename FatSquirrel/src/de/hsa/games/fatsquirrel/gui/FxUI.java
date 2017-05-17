@@ -4,23 +4,20 @@ import de.hsa.games.fatsquirrel.Launcher;
 import de.hsa.games.fatsquirrel.UI;
 import de.hsa.games.fatsquirrel.XY;
 import de.hsa.games.fatsquirrel.console.GameCommandType;
-import de.hsa.games.fatsquirrel.core.*;
+import de.hsa.games.fatsquirrel.core.BoardView;
+import de.hsa.games.fatsquirrel.core.entity.Entity;
 import de.hsa.games.fatsquirrel.core.entity.EntityType;
 import de.hsa.games.fatsquirrel.core.entity.character.BadBeast;
 import de.hsa.games.fatsquirrel.core.entity.character.Character;
 import de.hsa.games.fatsquirrel.core.entity.character.PlayerEntity;
-import de.hsa.games.fatsquirrel.core.entity.Entity;
 import de.hsa.games.fatsquirrel.util.ui.Command;
-
 import javafx.application.Platform;
-
 import javafx.geometry.VPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
-
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -39,6 +36,7 @@ public class FxUI extends Scene implements UI {
     private static toogleInput inputMode = toogleInput.inputEnergy;
     private static boolean showName = false;
     private static int CELL_SIZE = 30;
+    private static int CELL_SIZE_AT_START = 30;
     private static int miniSquirrelEnergy = 200;
     private static int miniSquirrelRadius = 5;
 
@@ -334,9 +332,9 @@ public class FxUI extends Scene implements UI {
         if (printVector == showLastVector.tail || printVector == showLastVector.headAndTail) {
             gc.setFill(Color.color(0.4275, 0.1961, 0.0431));
             double offsetTail = CELL_SIZE / 2 - 7;
-            gc.fillRect(offsetTail, offsetTail, 4, 15);
-            gc.fillRect(offsetTail, offsetTail, 15, 4);
-            gc.fillRect(offsetTail, offsetTail, 10, 10);
+            gc.fillRect(offsetTail, offsetTail, 4 * CELL_SIZE / CELL_SIZE_AT_START, 15* CELL_SIZE / CELL_SIZE_AT_START);
+            gc.fillRect(offsetTail, offsetTail, 15* CELL_SIZE / CELL_SIZE_AT_START, 4* CELL_SIZE / CELL_SIZE_AT_START);
+            gc.fillRect(offsetTail, offsetTail, 10* CELL_SIZE / CELL_SIZE_AT_START, 10* CELL_SIZE / CELL_SIZE_AT_START);
         }
 
         gc.restore();

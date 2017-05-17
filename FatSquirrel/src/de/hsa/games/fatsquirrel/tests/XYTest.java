@@ -2,7 +2,7 @@ package de.hsa.games.fatsquirrel.tests;
 
 import de.hsa.games.fatsquirrel.XY;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 public class XYTest {
     private XY test1 = new XY(10,10);

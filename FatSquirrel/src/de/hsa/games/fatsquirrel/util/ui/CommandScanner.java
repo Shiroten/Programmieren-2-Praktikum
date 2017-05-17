@@ -2,11 +2,7 @@ package de.hsa.games.fatsquirrel.util.ui;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.PrintStream;
 
-/**
- * Created by tillm on 28.04.2017.
- */
 public class CommandScanner {
     private CommandTypeInfo[] commandTypeInfos;
     private BufferedReader inputReader;

@@ -1,12 +1,11 @@
 package de.hsa.games.fatsquirrel.util.ui.consoletest;
 
-import de.hsa.games.fatsquirrel.util.ui.CommandScanner;
 import de.hsa.games.fatsquirrel.util.ui.Command;
+import de.hsa.games.fatsquirrel.util.ui.CommandScanner;
 import de.hsa.games.fatsquirrel.util.ui.CommandTypeInfo;
 import de.hsa.games.fatsquirrel.util.ui.ScanException;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 

@@ -1,13 +1,14 @@
 package de.hsa.games.fatsquirrel;
 
+import de.hsa.games.fatsquirrel.console.GameImpl;
+import de.hsa.games.fatsquirrel.core.Board;
+import de.hsa.games.fatsquirrel.core.BoardConfig;
+import de.hsa.games.fatsquirrel.core.State;
 import de.hsa.games.fatsquirrel.gui.FxGameImpl;
 import de.hsa.games.fatsquirrel.gui.FxUI;
 import de.hsa.games.fatsquirrel.util.ui.consoletest.MyFavoriteCommandsProcessor;
-import de.hsa.games.fatsquirrel.console.GameImpl;
-import de.hsa.games.fatsquirrel.core.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
-
 
 import java.io.IOException;
 import java.util.Timer;
